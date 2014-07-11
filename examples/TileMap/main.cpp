@@ -13,13 +13,14 @@ int _tmain(int argc, _TCHAR* argv[])
 {
 	// init and create a renderer
 	Ness::init();
-	Ness::Renderer render("Hello World!", Ness::Sizei(512, 512));
+	Ness::Renderer render("Hello World!", Ness::Sizei(800, 600));
 
 	// create a new scene
 	Ness::ScenePtr scene = render.create_scene();
 
-	// add the hello-world sprite to it
-	Ness::SpritePtr sprite = scene->create_sprite("hello_world.png");
+	// create the tilemap
+	Ness::TileMapPtr map = scene->create_tilemap("tilemap.jpg", Ness::Sizei(75, 75), Ness::Size(32, 32));
+	map->set_all_tiles_type(Ness::Pointi(1, 0), Ness::Sizei(16,16));
 
 	// loop until exit button is pressed
 	bool running = true;
@@ -43,7 +44,7 @@ int _tmain(int argc, _TCHAR* argv[])
 	}
 
 	// cleanup
-	scene->remove(sprite);
+	//scene->remove(map);
 	Ness::finish();
 	return 0;
 }

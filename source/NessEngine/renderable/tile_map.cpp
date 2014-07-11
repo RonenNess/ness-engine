@@ -89,8 +89,11 @@ namespace Ness
 		SRenderTransformations trans = get_absolute_transformations(); 
 
 		Point pos = trans.position;
-		pos.x -= camera->position.x;
-		pos.y -= camera->position.y;
+		if (camera)
+		{
+			pos.x -= camera->position.x;
+			pos.y -= camera->position.y;
+		}
 
 		// get first and last tiles to render
 		int startI = pos.x < 0 ? (int)(-pos.x / m_tile_size.x) : 0;

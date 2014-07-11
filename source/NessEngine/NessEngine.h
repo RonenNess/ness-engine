@@ -17,6 +17,7 @@
 
 namespace Ness
 {
+	// current ness engine version
 	#define NESS_VERSION 1.0
 
 	// MUST BE CALLED BEFORE USING THE ENGINE.
