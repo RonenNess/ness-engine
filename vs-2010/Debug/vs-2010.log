@@ -1,37 +1,72 @@
-﻿Build started 7/11/2014 12:03:58 AM.
+﻿Build started 7/11/2014 12:09:53 AM.
      1>Project "C:\Projects\git\ness-engine\vs-2010\vs-2010.vcxproj" on node 2 (build target(s)).
      1>InitializeBuildStatus:
-         Creating "Debug\vs-2010.unsuccessfulbuild" because "AlwaysCreate" was specified.
+         Touching "Debug\vs-2010.unsuccessfulbuild".
        ClCompile:
-         c:\Program Files (x86)\Microsoft Visual Studio 10.0\VC\bin\CL.exe /c /ZI /nologo /W3 /WX- /Od /Oy- /D WIN32 /D _DEBUG /D _WINDOWS /D _USRDLL /D VS2010_EXPORTS /D _WINDLL /D _UNICODE /D UNICODE /Gm /EHsc /RTC1 /MDd /GS /fp:precise /Zc:wchar_t /Zc:forScope /Fo"Debug\\" /Fd"Debug\vc100.pdb" /Gd /TP /analyze- /errorReport:prompt ..\source\NessEngine\NessEngine.cpp ..\source\NessEngine\primitives\consts.cpp ..\source\NessEngine\renderable\canvas.cpp ..\source\NessEngine\renderable\node.cpp ..\source\NessEngine\renderable\renderable.cpp ..\source\NessEngine\renderable\sprite.cpp ..\source\NessEngine\renderable\tile_map.cpp ..\source\NessEngine\renderable\znode.cpp ..\source\NessEngine\renderer\renderer.cpp ..\source\NessEngine\resources\resources_manager.cpp ..\source\NessEngine\scene\camera.cpp ..\source\NessEngine\scene\scene.cpp ..\source\NessEngine\texture\TextureSheet.cpp
+         c:\Program Files (x86)\Microsoft Visual Studio 10.0\VC\bin\CL.exe /c /I"C:\Projects\git\ness-engine\vs-2010\\..\sdl\include\\" /ZI /nologo /W3 /WX- /Od /Oy- /D WIN32 /D _DEBUG /D _WINDOWS /D _USRDLL /D VS2010_EXPORTS /D _WINDLL /D _UNICODE /D UNICODE /Gm /EHsc /RTC1 /MDd /GS /fp:precise /Zc:wchar_t /Zc:forScope /Fo"Debug\\" /Fd"Debug\vc100.pdb" /Gd /TP /analyze- /errorReport:prompt ..\source\NessEngine\NessEngine.cpp ..\source\NessEngine\renderable\canvas.cpp ..\source\NessEngine\renderable\node.cpp ..\source\NessEngine\renderable\renderable.cpp ..\source\NessEngine\renderable\sprite.cpp ..\source\NessEngine\renderable\tile_map.cpp ..\source\NessEngine\renderable\znode.cpp ..\source\NessEngine\renderer\renderer.cpp ..\source\NessEngine\resources\resources_manager.cpp ..\source\NessEngine\scene\scene.cpp ..\source\NessEngine\texture\TextureSheet.cpp
          TextureSheet.cpp
-     1>c:\projects\git\ness-engine\source\nessengine\texture\texturesheet.h(9): fatal error C1083: Cannot open include file: 'SDL.h': No such file or directory
          scene.cpp
-     1>c:\projects\git\ness-engine\source\nessengine\texture\texturesheet.h(9): fatal error C1083: Cannot open include file: 'SDL.h': No such file or directory
-         camera.cpp
          resources_manager.cpp
-     1>c:\projects\git\ness-engine\source\nessengine\texture\texturesheet.h(9): fatal error C1083: Cannot open include file: 'SDL.h': No such file or directory
          renderer.cpp
-     1>c:\projects\git\ness-engine\source\nessengine\renderable\renderable.h(8): fatal error C1083: Cannot open include file: 'SDL.h': No such file or directory
          znode.cpp
-     1>c:\projects\git\ness-engine\source\nessengine\texture\texturesheet.h(9): fatal error C1083: Cannot open include file: 'SDL.h': No such file or directory
          tile_map.cpp
-     1>c:\projects\git\ness-engine\source\nessengine\renderable\renderable.h(8): fatal error C1083: Cannot open include file: 'SDL.h': No such file or directory
          sprite.cpp
-     1>c:\projects\git\ness-engine\source\nessengine\renderable\renderable.h(8): fatal error C1083: Cannot open include file: 'SDL.h': No such file or directory
          renderable.cpp
-     1>c:\projects\git\ness-engine\source\nessengine\renderable\renderable.h(8): fatal error C1083: Cannot open include file: 'SDL.h': No such file or directory
          node.cpp
-     1>c:\projects\git\ness-engine\source\nessengine\texture\texturesheet.h(9): fatal error C1083: Cannot open include file: 'SDL.h': No such file or directory
          canvas.cpp
-     1>c:\projects\git\ness-engine\source\nessengine\renderable\renderable.h(8): fatal error C1083: Cannot open include file: 'SDL.h': No such file or directory
-         consts.cpp
-     1>c:\projects\git\ness-engine\source\nessengine\primitives\rectangle.h(8): fatal error C1083: Cannot open include file: 'SDL.h': No such file or directory
          NessEngine.cpp
-     1>c:\projects\git\ness-engine\source\nessengine\renderable\renderable.h(8): fatal error C1083: Cannot open include file: 'SDL.h': No such file or directory
          Generating Code...
+       ManifestResourceCompile:
+         C:\Program Files (x86)\Microsoft SDKs\Windows\v7.0A\bin\rc.exe /nologo /fo"Debug\vs-2010.dll.embed.manifest.res" Debug\vs-2010_manifest.rc 
+       Link:
+         c:\Program Files (x86)\Microsoft Visual Studio 10.0\VC\bin\link.exe /ERRORREPORT:PROMPT /OUT:"C:\Projects\git\ness-engine\vs-2010\Debug\vs-2010.dll" /INCREMENTAL /NOLOGO kernel32.lib user32.lib gdi32.lib winspool.lib comdlg32.lib advapi32.lib shell32.lib ole32.lib oleaut32.lib uuid.lib odbc32.lib odbccp32.lib /MANIFEST /ManifestFile:"Debug\vs-2010.dll.intermediate.manifest" /MANIFESTUAC:"level='asInvoker' uiAccess='false'" /DEBUG /PDB:"C:\Projects\git\ness-engine\vs-2010\Debug\vs-2010.pdb" /SUBSYSTEM:WINDOWS /TLBID:1 /DYNAMICBASE /NXCOMPAT /IMPLIB:"C:\Projects\git\ness-engine\vs-2010\Debug\vs-2010.lib" /MACHINE:X86 /DLL "Debug\vs-2010.dll.embed.manifest.res"
+         Debug\NessEngine.obj
+         Debug\consts.obj
+         Debug\canvas.obj
+         Debug\node.obj
+         Debug\renderable.obj
+         Debug\sprite.obj
+         Debug\tile_map.obj
+         Debug\znode.obj
+         Debug\renderer.obj
+         Debug\resources_manager.obj
+         Debug\camera.obj
+         Debug\scene.obj
+         Debug\TextureSheet.obj
+         Debug\dllmain.obj
+     1>NessEngine.obj : error LNK2019: unresolved external symbol _IMG_Init referenced in function "void __cdecl Ness::init(int)" (?init@Ness@@YAXH@Z)
+     1>NessEngine.obj : error LNK2019: unresolved external symbol _SDL_GetError referenced in function "void __cdecl Ness::init(int)" (?init@Ness@@YAXH@Z)
+     1>renderer.obj : error LNK2001: unresolved external symbol _SDL_GetError
+     1>TextureSheet.obj : error LNK2001: unresolved external symbol _SDL_GetError
+     1>NessEngine.obj : error LNK2019: unresolved external symbol _SDL_Init referenced in function "void __cdecl Ness::init(int)" (?init@Ness@@YAXH@Z)
+     1>NessEngine.obj : error LNK2019: unresolved external symbol _SDL_Quit referenced in function "void __cdecl Ness::finish(void)" (?finish@Ness@@YAXXZ)
+     1>NessEngine.obj : error LNK2019: unresolved external symbol _IMG_Quit referenced in function "void __cdecl Ness::finish(void)" (?finish@Ness@@YAXXZ)
+     1>renderer.obj : error LNK2019: unresolved external symbol _SDL_CreateRenderer referenced in function "public: __thiscall Ness::Renderer::Renderer(char const *,class Ness::__Point<int> const &,bool,int)" (??0Renderer@Ness@@QAE@PBDABV?$__Point@H@1@_NH@Z)
+     1>renderer.obj : error LNK2019: unresolved external symbol _SDL_CreateWindow referenced in function "public: __thiscall Ness::Renderer::Renderer(char const *,class Ness::__Point<int> const &,bool,int)" (??0Renderer@Ness@@QAE@PBDABV?$__Point@H@1@_NH@Z)
+     1>renderer.obj : error LNK2019: unresolved external symbol _SDL_SetWindowTitle referenced in function "public: void __thiscall Ness::Renderer::set_window_title(char const *)" (?set_window_title@Renderer@Ness@@QAEXPBD@Z)
+     1>renderer.obj : error LNK2019: unresolved external symbol _SDL_DestroyWindow referenced in function "public: __thiscall Ness::Renderer::~Renderer(void)" (??1Renderer@Ness@@QAE@XZ)
+     1>renderer.obj : error LNK2019: unresolved external symbol _SDL_DestroyRenderer referenced in function "public: __thiscall Ness::Renderer::~Renderer(void)" (??1Renderer@Ness@@QAE@XZ)
+     1>renderer.obj : error LNK2019: unresolved external symbol _SDL_RenderClear referenced in function "public: void __thiscall Ness::Renderer::start_frame(bool)" (?start_frame@Renderer@Ness@@QAEX_N@Z)
+     1>renderer.obj : error LNK2019: unresolved external symbol _SDL_GetTicks referenced in function "public: void __thiscall Ness::Renderer::start_frame(bool)" (?start_frame@Renderer@Ness@@QAEX_N@Z)
+     1>renderer.obj : error LNK2019: unresolved external symbol _SDL_RenderPresent referenced in function "public: void __thiscall Ness::Renderer::end_frame(void)" (?end_frame@Renderer@Ness@@QAEXXZ)
+     1>renderer.obj : error LNK2019: unresolved external symbol _SDL_SetRenderDrawColor referenced in function "public: void __thiscall Ness::Renderer::set_background_color(class Ness::__Color<float> const &)" (?set_background_color@Renderer@Ness@@QAEXABV?$__Color@M@2@@Z)
+     1>renderer.obj : error LNK2019: unresolved external symbol _SDL_SetRenderTarget referenced in function "public: void __thiscall Ness::Renderer::reset_render_target(void)" (?reset_render_target@Renderer@Ness@@QAEXXZ)
+     1>renderer.obj : error LNK2019: unresolved external symbol _SDL_RenderCopy referenced in function "public: void __thiscall Ness::Renderer::blit(class std::tr1::shared_ptr<class Ness::ManagedResources::ManagedTexture>,struct SDL_Rect const &,struct SDL_Rect const &,enum Ness::EBlendModes,class Ness::__Color<float>,float,class Ness::__Point<float>)" (?blit@Renderer@Ness@@QAEXV?$shared_ptr@VManagedTexture@ManagedResources@Ness@@@tr1@std@@ABUSDL_Rect@@1W4EBlendModes@2@V?$__Color@M@2@MV?$__Point@M@2@@Z)
+     1>renderer.obj : error LNK2019: unresolved external symbol _SDL_RenderCopyEx referenced in function "public: void __thiscall Ness::Renderer::blit(class std::tr1::shared_ptr<class Ness::ManagedResources::ManagedTexture>,struct SDL_Rect const &,struct SDL_Rect const &,enum Ness::EBlendModes,class Ness::__Color<float>,float,class Ness::__Point<float>)" (?blit@Renderer@Ness@@QAEXV?$shared_ptr@VManagedTexture@ManagedResources@Ness@@@tr1@std@@ABUSDL_Rect@@1W4EBlendModes@2@V?$__Color@M@2@MV?$__Point@M@2@@Z)
+     1>renderer.obj : error LNK2019: unresolved external symbol _SDL_SetTextureBlendMode referenced in function "public: void __thiscall Ness::Renderer::blit(class std::tr1::shared_ptr<class Ness::ManagedResources::ManagedTexture>,struct SDL_Rect const &,struct SDL_Rect const &,enum Ness::EBlendModes,class Ness::__Color<float>,float,class Ness::__Point<float>)" (?blit@Renderer@Ness@@QAEXV?$shared_ptr@VManagedTexture@ManagedResources@Ness@@@tr1@std@@ABUSDL_Rect@@1W4EBlendModes@2@V?$__Color@M@2@MV?$__Point@M@2@@Z)
+     1>renderer.obj : error LNK2019: unresolved external symbol _SDL_SetTextureColorMod referenced in function "public: void __thiscall Ness::Renderer::blit(class std::tr1::shared_ptr<class Ness::ManagedResources::ManagedTexture>,struct SDL_Rect const &,struct SDL_Rect const &,enum Ness::EBlendModes,class Ness::__Color<float>,float,class Ness::__Point<float>)" (?blit@Renderer@Ness@@QAEXV?$shared_ptr@VManagedTexture@ManagedResources@Ness@@@tr1@std@@ABUSDL_Rect@@1W4EBlendModes@2@V?$__Color@M@2@MV?$__Point@M@2@@Z)
+     1>renderer.obj : error LNK2019: unresolved external symbol _SDL_SetTextureAlphaMod referenced in function "public: void __thiscall Ness::Renderer::blit(class std::tr1::shared_ptr<class Ness::ManagedResources::ManagedTexture>,struct SDL_Rect const &,struct SDL_Rect const &,enum Ness::EBlendModes,class Ness::__Color<float>,float,class Ness::__Point<float>)" (?blit@Renderer@Ness@@QAEXV?$shared_ptr@VManagedTexture@ManagedResources@Ness@@@tr1@std@@ABUSDL_Rect@@1W4EBlendModes@2@V?$__Color@M@2@MV?$__Point@M@2@@Z)
+     1>resources_manager.obj : error LNK2019: unresolved external symbol _SDL_GetRendererOutputSize referenced in function "public: class std::tr1::shared_ptr<class Ness::ManagedResources::ManagedTexture> __thiscall Ness::ManagedResources::ResourcesManager::create_blank_texture(class std::basic_string<char,struct std::char_traits<char>,class std::allocator<char> > const &,class Ness::__Point<int> const &)" (?create_blank_texture@ResourcesManager@ManagedResources@Ness@@QAE?AV?$shared_ptr@VManagedTexture@ManagedResources@Ness@@@tr1@std@@ABV?$basic_string@DU?$char_traits@D@std@@V?$allocator@D@2@@6@ABV?$__Point@H@3@@Z)
+     1>TextureSheet.obj : error LNK2019: unresolved external symbol _SDL_DestroyTexture referenced in function "public: __thiscall Ness::Resources::TextureSheet::~TextureSheet(void)" (??1TextureSheet@Resources@Ness@@QAE@XZ)
+     1>TextureSheet.obj : error LNK2019: unresolved external symbol _SDL_CreateTexture referenced in function "private: void __thiscall Ness::Resources::TextureSheet::create_blank(struct SDL_Renderer *,class Ness::__Point<int> const &)" (?create_blank@TextureSheet@Resources@Ness@@AAEXPAUSDL_Renderer@@ABV?$__Point@H@3@@Z)
+     1>TextureSheet.obj : error LNK2019: unresolved external symbol _SDL_FreeSurface referenced in function "private: void __thiscall Ness::Resources::TextureSheet::load_file(char const *,struct SDL_Renderer *,class Ness::__Color<unsigned char> const *)" (?load_file@TextureSheet@Resources@Ness@@AAEXPBDPAUSDL_Renderer@@PBV?$__Color@E@3@@Z)
+     1>TextureSheet.obj : error LNK2019: unresolved external symbol _SDL_CreateTextureFromSurface referenced in function "private: void __thiscall Ness::Resources::TextureSheet::load_file(char const *,struct SDL_Renderer *,class Ness::__Color<unsigned char> const *)" (?load_file@TextureSheet@Resources@Ness@@AAEXPBDPAUSDL_Renderer@@PBV?$__Color@E@3@@Z)
+     1>TextureSheet.obj : error LNK2019: unresolved external symbol _SDL_SetColorKey referenced in function "private: void __thiscall Ness::Resources::TextureSheet::load_file(char const *,struct SDL_Renderer *,class Ness::__Color<unsigned char> const *)" (?load_file@TextureSheet@Resources@Ness@@AAEXPBDPAUSDL_Renderer@@PBV?$__Color@E@3@@Z)
+     1>TextureSheet.obj : error LNK2019: unresolved external symbol _SDL_MapRGB referenced in function "private: void __thiscall Ness::Resources::TextureSheet::load_file(char const *,struct SDL_Renderer *,class Ness::__Color<unsigned char> const *)" (?load_file@TextureSheet@Resources@Ness@@AAEXPBDPAUSDL_Renderer@@PBV?$__Color@E@3@@Z)
+     1>TextureSheet.obj : error LNK2019: unresolved external symbol _IMG_Load referenced in function "private: void __thiscall Ness::Resources::TextureSheet::load_file(char const *,struct SDL_Renderer *,class Ness::__Color<unsigned char> const *)" (?load_file@TextureSheet@Resources@Ness@@AAEXPBDPAUSDL_Renderer@@PBV?$__Color@E@3@@Z)
+     1>C:\Projects\git\ness-engine\vs-2010\Debug\vs-2010.dll : fatal error LNK1120: 28 unresolved externals
      1>Done Building Project "C:\Projects\git\ness-engine\vs-2010\vs-2010.vcxproj" (build target(s)) -- FAILED.
 
 Build FAILED.
 
-Time Elapsed 00:00:01.71
+Time Elapsed 00:00:05.72

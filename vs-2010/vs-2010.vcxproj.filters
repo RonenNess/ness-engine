@@ -78,6 +78,9 @@
     <ClCompile Include="..\source\NessEngine\primitives\consts.cpp">
       <Filter>Source Files\primitives</Filter>
     </ClCompile>
+    <ClCompile Include="dllmain.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\source\NessEngine\NessEngine.h">
