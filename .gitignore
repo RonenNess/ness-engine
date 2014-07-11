@@ -31,6 +31,8 @@ ipch/
 [Rr]elease*/
 Ankh.NoLoad
 
+last_build/
+
 #MonoDevelop
 *.pidb
 *.userprefs
