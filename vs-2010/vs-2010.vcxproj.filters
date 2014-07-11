@@ -1,0 +1,156 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="Source Files">
+      <UniqueIdentifier>{4FC737F1-C7A5-4376-A066-2A32D752A2FF}</UniqueIdentifier>
+      <Extensions>cpp;c;cc;cxx;def;odl;idl;hpj;bat;asm;asmx</Extensions>
+    </Filter>
+    <Filter Include="Header Files">
+      <UniqueIdentifier>{93995380-89BD-4b04-88EB-625FBE52EBFB}</UniqueIdentifier>
+      <Extensions>h;hpp;hxx;hm;inl;inc;xsd</Extensions>
+    </Filter>
+    <Filter Include="Resource Files">
+      <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
+      <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
+    </Filter>
+    <Filter Include="Source Files\utils">
+      <UniqueIdentifier>{ab462bf9-5e19-45e5-9829-cd53d071ecbf}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\texture">
+      <UniqueIdentifier>{24614c1f-6047-4649-8240-066df4d590f3}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\scene">
+      <UniqueIdentifier>{c911c83a-e743-41b7-8010-875038827d94}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\resources">
+      <UniqueIdentifier>{6aec6e6b-fe24-4e59-805c-3b0ca8e87b42}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\renderer">
+      <UniqueIdentifier>{de58c8d2-e060-41a0-9572-6467e048ba18}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\renderables">
+      <UniqueIdentifier>{c898e2f2-b266-408e-909a-03fdd77d790d}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\primitives">
+      <UniqueIdentifier>{da3e0efa-281c-48ed-9a36-8478bc721581}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\exceptions">
+      <UniqueIdentifier>{e4c55db9-c6bd-4d01-ba15-72dc8bbf1e7d}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="..\source\NessEngine\NessEngine.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\source\NessEngine\texture\TextureSheet.cpp">
+      <Filter>Source Files\texture</Filter>
+    </ClCompile>
+    <ClCompile Include="..\source\NessEngine\scene\camera.cpp">
+      <Filter>Source Files\scene</Filter>
+    </ClCompile>
+    <ClCompile Include="..\source\NessEngine\scene\scene.cpp">
+      <Filter>Source Files\scene</Filter>
+    </ClCompile>
+    <ClCompile Include="..\source\NessEngine\resources\resources_manager.cpp">
+      <Filter>Source Files\resources</Filter>
+    </ClCompile>
+    <ClCompile Include="..\source\NessEngine\renderer\renderer.cpp">
+      <Filter>Source Files\renderer</Filter>
+    </ClCompile>
+    <ClCompile Include="..\source\NessEngine\renderable\canvas.cpp">
+      <Filter>Source Files\renderables</Filter>
+    </ClCompile>
+    <ClCompile Include="..\source\NessEngine\renderable\node.cpp">
+      <Filter>Source Files\renderables</Filter>
+    </ClCompile>
+    <ClCompile Include="..\source\NessEngine\renderable\renderable.cpp">
+      <Filter>Source Files\renderables</Filter>
+    </ClCompile>
+    <ClCompile Include="..\source\NessEngine\renderable\sprite.cpp">
+      <Filter>Source Files\renderables</Filter>
+    </ClCompile>
+    <ClCompile Include="..\source\NessEngine\renderable\tile_map.cpp">
+      <Filter>Source Files\renderables</Filter>
+    </ClCompile>
+    <ClCompile Include="..\source\NessEngine\renderable\znode.cpp">
+      <Filter>Source Files\renderables</Filter>
+    </ClCompile>
+    <ClCompile Include="..\source\NessEngine\primitives\consts.cpp">
+      <Filter>Source Files\primitives</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="..\source\NessEngine\NessEngine.h">
+      <Filter>Source Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\source\NessEngine\utils\keyboard.h">
+      <Filter>Source Files\utils</Filter>
+    </ClInclude>
+    <ClInclude Include="..\source\NessEngine\texture\export.h">
+      <Filter>Source Files\texture</Filter>
+    </ClInclude>
+    <ClInclude Include="..\source\NessEngine\texture\TextureSheet.h">
+      <Filter>Source Files\texture</Filter>
+    </ClInclude>
+    <ClInclude Include="..\source\NessEngine\scene\camera.h">
+      <Filter>Source Files\scene</Filter>
+    </ClInclude>
+    <ClInclude Include="..\source\NessEngine\scene\scene.h">
+      <Filter>Source Files\scene</Filter>
+    </ClInclude>
+    <ClInclude Include="..\source\NessEngine\resources\managed_resource.h">
+      <Filter>Source Files\resources</Filter>
+    </ClInclude>
+    <ClInclude Include="..\source\NessEngine\resources\managed_texture.h">
+      <Filter>Source Files\resources</Filter>
+    </ClInclude>
+    <ClInclude Include="..\source\NessEngine\resources\resources_manager.h">
+      <Filter>Source Files\resources</Filter>
+    </ClInclude>
+    <ClInclude Include="..\source\NessEngine\renderer\renderer.h">
+      <Filter>Source Files\renderer</Filter>
+    </ClInclude>
+    <ClInclude Include="..\source\NessEngine\renderable\canvas.h">
+      <Filter>Source Files\renderables</Filter>
+    </ClInclude>
+    <ClInclude Include="..\source\NessEngine\renderable\node.h">
+      <Filter>Source Files\renderables</Filter>
+    </ClInclude>
+    <ClInclude Include="..\source\NessEngine\renderable\renderable.h">
+      <Filter>Source Files\renderables</Filter>
+    </ClInclude>
+    <ClInclude Include="..\source\NessEngine\renderable\renderable_parent.h">
+      <Filter>Source Files\renderables</Filter>
+    </ClInclude>
+    <ClInclude Include="..\source\NessEngine\renderable\sprite.h">
+      <Filter>Source Files\renderables</Filter>
+    </ClInclude>
+    <ClInclude Include="..\source\NessEngine\renderable\tile_map.h">
+      <Filter>Source Files\renderables</Filter>
+    </ClInclude>
+    <ClInclude Include="..\source\NessEngine\renderable\znode.h">
+      <Filter>Source Files\renderables</Filter>
+    </ClInclude>
+    <ClInclude Include="..\source\NessEngine\primitives\color.h">
+      <Filter>Source Files\primitives</Filter>
+    </ClInclude>
+    <ClInclude Include="..\source\NessEngine\primitives\export.h">
+      <Filter>Source Files\primitives</Filter>
+    </ClInclude>
+    <ClInclude Include="..\source\NessEngine\primitives\point.h">
+      <Filter>Source Files\primitives</Filter>
+    </ClInclude>
+    <ClInclude Include="..\source\NessEngine\primitives\primitives.h">
+      <Filter>Source Files\primitives</Filter>
+    </ClInclude>
+    <ClInclude Include="..\source\NessEngine\primitives\rectangle.h">
+      <Filter>Source Files\primitives</Filter>
+    </ClInclude>
+    <ClInclude Include="..\source\NessEngine\primitives\size.h">
+      <Filter>Source Files\primitives</Filter>
+    </ClInclude>
+    <ClInclude Include="..\source\NessEngine\exceptions\exceptions.h">
+      <Filter>Source Files\exceptions</Filter>
+    </ClInclude>
+  </ItemGroup>
+</Project>

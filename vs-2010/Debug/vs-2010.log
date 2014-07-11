@@ -1,0 +1,37 @@
+﻿Build started 7/11/2014 12:03:58 AM.
+     1>Project "C:\Projects\git\ness-engine\vs-2010\vs-2010.vcxproj" on node 2 (build target(s)).
+     1>InitializeBuildStatus:
+         Creating "Debug\vs-2010.unsuccessfulbuild" because "AlwaysCreate" was specified.
+       ClCompile:
+         c:\Program Files (x86)\Microsoft Visual Studio 10.0\VC\bin\CL.exe /c /ZI /nologo /W3 /WX- /Od /Oy- /D WIN32 /D _DEBUG /D _WINDOWS /D _USRDLL /D VS2010_EXPORTS /D _WINDLL /D _UNICODE /D UNICODE /Gm /EHsc /RTC1 /MDd /GS /fp:precise /Zc:wchar_t /Zc:forScope /Fo"Debug\\" /Fd"Debug\vc100.pdb" /Gd /TP /analyze- /errorReport:prompt ..\source\NessEngine\NessEngine.cpp ..\source\NessEngine\primitives\consts.cpp ..\source\NessEngine\renderable\canvas.cpp ..\source\NessEngine\renderable\node.cpp ..\source\NessEngine\renderable\renderable.cpp ..\source\NessEngine\renderable\sprite.cpp ..\source\NessEngine\renderable\tile_map.cpp ..\source\NessEngine\renderable\znode.cpp ..\source\NessEngine\renderer\renderer.cpp ..\source\NessEngine\resources\resources_manager.cpp ..\source\NessEngine\scene\camera.cpp ..\source\NessEngine\scene\scene.cpp ..\source\NessEngine\texture\TextureSheet.cpp
+         TextureSheet.cpp
+     1>c:\projects\git\ness-engine\source\nessengine\texture\texturesheet.h(9): fatal error C1083: Cannot open include file: 'SDL.h': No such file or directory
+         scene.cpp
+     1>c:\projects\git\ness-engine\source\nessengine\texture\texturesheet.h(9): fatal error C1083: Cannot open include file: 'SDL.h': No such file or directory
+         camera.cpp
+         resources_manager.cpp
+     1>c:\projects\git\ness-engine\source\nessengine\texture\texturesheet.h(9): fatal error C1083: Cannot open include file: 'SDL.h': No such file or directory
+         renderer.cpp
+     1>c:\projects\git\ness-engine\source\nessengine\renderable\renderable.h(8): fatal error C1083: Cannot open include file: 'SDL.h': No such file or directory
+         znode.cpp
+     1>c:\projects\git\ness-engine\source\nessengine\texture\texturesheet.h(9): fatal error C1083: Cannot open include file: 'SDL.h': No such file or directory
+         tile_map.cpp
+     1>c:\projects\git\ness-engine\source\nessengine\renderable\renderable.h(8): fatal error C1083: Cannot open include file: 'SDL.h': No such file or directory
+         sprite.cpp
+     1>c:\projects\git\ness-engine\source\nessengine\renderable\renderable.h(8): fatal error C1083: Cannot open include file: 'SDL.h': No such file or directory
+         renderable.cpp
+     1>c:\projects\git\ness-engine\source\nessengine\renderable\renderable.h(8): fatal error C1083: Cannot open include file: 'SDL.h': No such file or directory
+         node.cpp
+     1>c:\projects\git\ness-engine\source\nessengine\texture\texturesheet.h(9): fatal error C1083: Cannot open include file: 'SDL.h': No such file or directory
+         canvas.cpp
+     1>c:\projects\git\ness-engine\source\nessengine\renderable\renderable.h(8): fatal error C1083: Cannot open include file: 'SDL.h': No such file or directory
+         consts.cpp
+     1>c:\projects\git\ness-engine\source\nessengine\primitives\rectangle.h(8): fatal error C1083: Cannot open include file: 'SDL.h': No such file or directory
+         NessEngine.cpp
+     1>c:\projects\git\ness-engine\source\nessengine\renderable\renderable.h(8): fatal error C1083: Cannot open include file: 'SDL.h': No such file or directory
+         Generating Code...
+     1>Done Building Project "C:\Projects\git\ness-engine\vs-2010\vs-2010.vcxproj" (build target(s)) -- FAILED.
+
+Build FAILED.
+
+Time Elapsed 00:00:01.71
