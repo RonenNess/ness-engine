@@ -22,3 +22,6 @@ all the finished builds, ready to be used. inside build you will find zip files 
 
 include:
 all the ness-engine include files. but don't take them from here, they will be included inside the download zip you'll find in builds.
+
+examples:
+set of example projects using ness-engine. check them out! :)
