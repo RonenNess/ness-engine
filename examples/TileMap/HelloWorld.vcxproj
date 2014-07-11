@@ -1,0 +1,178 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project DefaultTargets="Build" ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup Label="ProjectConfigurations">
+    <ProjectConfiguration Include="Debug|Win32">
+      <Configuration>Debug</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Release|Win32">
+      <Configuration>Release</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+  </ItemGroup>
+  <PropertyGroup Label="Globals">
+    <ProjectGuid>{5A475E34-766E-4737-9AE8-86FE9CF3AEE7}</ProjectGuid>
+    <Keyword>Win32Proj</Keyword>
+    <RootNamespace>HelloWorld</RootNamespace>
+    <ProjectName>TileMap</ProjectName>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
+    <ConfigurationType>Application</ConfigurationType>
+    <UseDebugLibraries>true</UseDebugLibraries>
+    <CharacterSet>Unicode</CharacterSet>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" Label="Configuration">
+    <ConfigurationType>Application</ConfigurationType>
+    <UseDebugLibraries>false</UseDebugLibraries>
+    <WholeProgramOptimization>true</WholeProgramOptimization>
+    <CharacterSet>Unicode</CharacterSet>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.props" />
+  <ImportGroup Label="ExtensionSettings">
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <PropertyGroup Label="UserMacros" />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <LinkIncremental>true</LinkIncremental>
+    <IncludePath>$(ProjectDir)\..\ness-engine\include;$(IncludePath)</IncludePath>
+    <LibraryPath>$(ProjectDir)\..\ness-engine\lib\;$(LibraryPath)</LibraryPath>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <LinkIncremental>false</LinkIncremental>
+    <IncludePath>$(ProjectDir)\..\ness-engine\include;$(IncludePath)</IncludePath>
+    <LibraryPath>$(ProjectDir)\..\ness-engine\lib\;$(LibraryPath)</LibraryPath>
+  </PropertyGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <ClCompile>
+      <PrecompiledHeader>
+      </PrecompiledHeader>
+      <WarningLevel>Level3</WarningLevel>
+      <Optimization>Disabled</Optimization>
+      <PreprocessorDefinitions>WIN32;_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+    </ClCompile>
+    <Link>
+      <SubSystem>Console</SubSystem>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+      <AdditionalDependencies>ness_engine_d.lib;%(AdditionalDependencies)</AdditionalDependencies>
+    </Link>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <ClCompile>
+      <WarningLevel>Level3</WarningLevel>
+      <PrecompiledHeader>
+      </PrecompiledHeader>
+      <Optimization>MaxSpeed</Optimization>
+      <FunctionLevelLinking>true</FunctionLevelLinking>
+      <IntrinsicFunctions>true</IntrinsicFunctions>
+      <PreprocessorDefinitions>WIN32;NDEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+    </ClCompile>
+    <Link>
+      <SubSystem>Console</SubSystem>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+      <EnableCOMDATFolding>true</EnableCOMDATFolding>
+      <OptimizeReferences>true</OptimizeReferences>
+      <AdditionalDependencies>ness_engine.lib;%(AdditionalDependencies)</AdditionalDependencies>
+    </Link>
+  </ItemDefinitionGroup>
+  <ItemGroup>
+    <ClCompile Include="main.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="ness-engine\include\begin_code.h" />
+    <ClInclude Include="ness-engine\include\close_code.h" />
+    <ClInclude Include="ness-engine\include\exceptions\exceptions.h" />
+    <ClInclude Include="ness-engine\include\exports.h" />
+    <ClInclude Include="ness-engine\include\NessEngine.h" />
+    <ClInclude Include="ness-engine\include\primitives\color.h" />
+    <ClInclude Include="ness-engine\include\primitives\point.h" />
+    <ClInclude Include="ness-engine\include\primitives\primitives.h" />
+    <ClInclude Include="ness-engine\include\primitives\rectangle.h" />
+    <ClInclude Include="ness-engine\include\primitives\size.h" />
+    <ClInclude Include="ness-engine\include\renderable\canvas.h" />
+    <ClInclude Include="ness-engine\include\renderable\node.h" />
+    <ClInclude Include="ness-engine\include\renderable\renderable.h" />
+    <ClInclude Include="ness-engine\include\renderable\renderable_parent.h" />
+    <ClInclude Include="ness-engine\include\renderable\sprite.h" />
+    <ClInclude Include="ness-engine\include\renderable\tile_map.h" />
+    <ClInclude Include="ness-engine\include\renderable\znode.h" />
+    <ClInclude Include="ness-engine\include\resources\managed_resource.h" />
+    <ClInclude Include="ness-engine\include\resources\managed_texture.h" />
+    <ClInclude Include="ness-engine\include\resources\resources_manager.h" />
+    <ClInclude Include="ness-engine\include\scene\camera.h" />
+    <ClInclude Include="ness-engine\include\scene\scene.h" />
+    <ClInclude Include="ness-engine\include\SDL.h" />
+    <ClInclude Include="ness-engine\include\SDL_assert.h" />
+    <ClInclude Include="ness-engine\include\SDL_atomic.h" />
+    <ClInclude Include="ness-engine\include\SDL_audio.h" />
+    <ClInclude Include="ness-engine\include\SDL_bits.h" />
+    <ClInclude Include="ness-engine\include\SDL_blendmode.h" />
+    <ClInclude Include="ness-engine\include\SDL_clipboard.h" />
+    <ClInclude Include="ness-engine\include\SDL_config.h" />
+    <ClInclude Include="ness-engine\include\SDL_cpuinfo.h" />
+    <ClInclude Include="ness-engine\include\SDL_endian.h" />
+    <ClInclude Include="ness-engine\include\SDL_error.h" />
+    <ClInclude Include="ness-engine\include\SDL_events.h" />
+    <ClInclude Include="ness-engine\include\SDL_filesystem.h" />
+    <ClInclude Include="ness-engine\include\SDL_gamecontroller.h" />
+    <ClInclude Include="ness-engine\include\SDL_gesture.h" />
+    <ClInclude Include="ness-engine\include\SDL_haptic.h" />
+    <ClInclude Include="ness-engine\include\SDL_hints.h" />
+    <ClInclude Include="ness-engine\include\SDL_image.h" />
+    <ClInclude Include="ness-engine\include\SDL_joystick.h" />
+    <ClInclude Include="ness-engine\include\SDL_keyboard.h" />
+    <ClInclude Include="ness-engine\include\SDL_keycode.h" />
+    <ClInclude Include="ness-engine\include\SDL_loadso.h" />
+    <ClInclude Include="ness-engine\include\SDL_log.h" />
+    <ClInclude Include="ness-engine\include\SDL_main.h" />
+    <ClInclude Include="ness-engine\include\SDL_messagebox.h" />
+    <ClInclude Include="ness-engine\include\SDL_mouse.h" />
+    <ClInclude Include="ness-engine\include\SDL_mutex.h" />
+    <ClInclude Include="ness-engine\include\SDL_name.h" />
+    <ClInclude Include="ness-engine\include\SDL_opengl.h" />
+    <ClInclude Include="ness-engine\include\SDL_opengles.h" />
+    <ClInclude Include="ness-engine\include\SDL_opengles2.h" />
+    <ClInclude Include="ness-engine\include\SDL_pixels.h" />
+    <ClInclude Include="ness-engine\include\SDL_platform.h" />
+    <ClInclude Include="ness-engine\include\SDL_power.h" />
+    <ClInclude Include="ness-engine\include\SDL_quit.h" />
+    <ClInclude Include="ness-engine\include\SDL_rect.h" />
+    <ClInclude Include="ness-engine\include\SDL_render.h" />
+    <ClInclude Include="ness-engine\include\SDL_revision.h" />
+    <ClInclude Include="ness-engine\include\SDL_rwops.h" />
+    <ClInclude Include="ness-engine\include\SDL_scancode.h" />
+    <ClInclude Include="ness-engine\include\SDL_shape.h" />
+    <ClInclude Include="ness-engine\include\SDL_stdinc.h" />
+    <ClInclude Include="ness-engine\include\SDL_surface.h" />
+    <ClInclude Include="ness-engine\include\SDL_system.h" />
+    <ClInclude Include="ness-engine\include\SDL_syswm.h" />
+    <ClInclude Include="ness-engine\include\SDL_test.h" />
+    <ClInclude Include="ness-engine\include\SDL_test_assert.h" />
+    <ClInclude Include="ness-engine\include\SDL_test_common.h" />
+    <ClInclude Include="ness-engine\include\SDL_test_compare.h" />
+    <ClInclude Include="ness-engine\include\SDL_test_crc32.h" />
+    <ClInclude Include="ness-engine\include\SDL_test_font.h" />
+    <ClInclude Include="ness-engine\include\SDL_test_fuzzer.h" />
+    <ClInclude Include="ness-engine\include\SDL_test_harness.h" />
+    <ClInclude Include="ness-engine\include\SDL_test_images.h" />
+    <ClInclude Include="ness-engine\include\SDL_test_log.h" />
+    <ClInclude Include="ness-engine\include\SDL_test_md5.h" />
+    <ClInclude Include="ness-engine\include\SDL_test_random.h" />
+    <ClInclude Include="ness-engine\include\SDL_thread.h" />
+    <ClInclude Include="ness-engine\include\SDL_timer.h" />
+    <ClInclude Include="ness-engine\include\SDL_touch.h" />
+    <ClInclude Include="ness-engine\include\SDL_types.h" />
+    <ClInclude Include="ness-engine\include\SDL_version.h" />
+    <ClInclude Include="ness-engine\include\SDL_video.h" />
+    <ClInclude Include="ness-engine\include\texture\TextureSheet.h" />
+    <ClInclude Include="ness-engine\include\utils\keyboard.h" />
+  </ItemGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
+  <ImportGroup Label="ExtensionTargets">
+  </ImportGroup>
+</Project>
