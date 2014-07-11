@@ -5,7 +5,6 @@
 */
 
 #pragma once
-#include "exports.h"
 #include <tchar.h>
 #include "exceptions\exceptions.h"
 #include "renderer\renderer.h"
@@ -18,8 +17,8 @@ namespace Ness
 {
 	// MUST BE CALLED BEFORE USING THE ENGINE.
 	// imgFlags - image formats to support in addition to BMP.
-	NESSENGINE_API void init(int imgFlags = IMG_INIT_PNG | IMG_INIT_JPG | IMG_INIT_TIF);
+	void init(int imgFlags = IMG_INIT_PNG | IMG_INIT_JPG | IMG_INIT_TIF);
 
 	// should be called at the end to cleanup stuff.
-	NESSENGINE_API void finish();
+	void finish();
 };
