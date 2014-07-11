@@ -18,16 +18,16 @@ namespace Ness
 		// create the canvas.
 		// TextureName is the name of the texture in the resource manager
 		// size is the size of the canvas texture, if ZERO will use entire screen size
-		Canvas(Renderer* renderer, RenderableParent* parent, const std::string& NewTextureName, const Sizei& size = Sizei::ZERO);
+		NESSENGINE_API Canvas(Renderer* renderer, RenderableParent* parent, const std::string& NewTextureName, const Sizei& size = Sizei::ZERO);
 
 		// if true, will clear this canvas after every frame rendered
-		inline void auto_clean(bool enabled) {m_auto_clear = enabled;}
+		NESSENGINE_API inline void auto_clean(bool enabled) {m_auto_clear = enabled;}
 
 		// clear the canvas
-		void clear();
+		NESSENGINE_API void clear();
 
 		// render the canvas
-		virtual void render(const CameraPtr& camera = NullCamera);
+		NESSENGINE_API virtual void render(const CameraPtr& camera = NullCamera);
 	};
 
 	typedef std::shared_ptr<Canvas> CanvasPtr;

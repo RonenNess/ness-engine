@@ -5,6 +5,7 @@
 */
 
 #pragma once
+#include "../exports.h"
 #include "../primitives/point.h"
 #include <memory>
 
@@ -15,11 +16,11 @@ namespace Ness
 	public:
 		Point position;
 
-		Camera() : position(0, 0) {}
+		NESSENGINE_API Camera() : position(0, 0) {}
 	};
 
 	// camera pointer
-	typedef std::shared_ptr<Camera> CameraPtr;
+	NESSENGINE_API typedef std::shared_ptr<Camera> CameraPtr;
 
 	// null camera
 	#define NullCamera CameraPtr()

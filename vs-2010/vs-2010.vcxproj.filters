@@ -89,9 +89,6 @@
     <ClInclude Include="..\source\NessEngine\utils\keyboard.h">
       <Filter>Source Files\utils</Filter>
     </ClInclude>
-    <ClInclude Include="..\source\NessEngine\texture\export.h">
-      <Filter>Source Files\texture</Filter>
-    </ClInclude>
     <ClInclude Include="..\source\NessEngine\texture\TextureSheet.h">
       <Filter>Source Files\texture</Filter>
     </ClInclude>

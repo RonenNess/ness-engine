@@ -6,6 +6,7 @@
 
 #pragma once
 #include <SDL.h>
+#include "../exports.h"
 #include "renderable_parent.h"
 #include "../primitives/primitives.h"
 #include "../scene/camera.h"
@@ -34,14 +35,14 @@ namespace Ness
 		EBlendModes			blend;
 		Color				color;
 
-		SRenderTransformations(Point Position = Size(0, 0), Size Scale = Size(1, 1), float Rotation = 0.0f,  
+		NESSENGINE_API SRenderTransformations(Point Position = Size(0, 0), Size Scale = Size(1, 1), float Rotation = 0.0f,  
 								EBlendModes Blend = BLEND_MODE_NONE, Color RenderColor = Color::WHITE) :
 				position(Position), scale(Scale), rotation(Rotation), blend(Blend), color(RenderColor)
 		{
 		}
 
 		// combine other transformations into this transformations
-		void add_transformations(const SRenderTransformations& other)
+		NESSENGINE_API void add_transformations(const SRenderTransformations& other)
 		{
 			position += other.position;
 			scale *= other.scale;
@@ -62,41 +63,41 @@ namespace Ness
 		int						m_zindex;						// z index of this renderable
 
 	public:
-		Renderable(Renderer* renderer, RenderableParent* parent = nullptr) : 
+		NESSENGINE_API Renderable(Renderer* renderer, RenderableParent* parent = nullptr) : 
 			m_renderer(renderer), m_parent(parent), m_visible(true), m_zindex(0) {}
 
 		// setters/getters
-		inline const SRenderTransformations& get_transformation() const {m_transformations;}
-		inline void set_position(Point NewPos) {m_transformations.position = NewPos; transformations_update();}
-		inline void set_scale(Size NewScale) {m_transformations.scale = NewScale; transformations_update();}
-		inline void set_rotation(float NewRotation) {m_transformations.rotation = NewRotation; transformations_update();}
-		inline void set_color(Color NewColor) {m_transformations.color = NewColor; transformations_update();}
-		inline void set_blend_mode(EBlendModes NewMode) {m_transformations.blend = NewMode; transformations_update();}
-		inline const Point& get_position() const {return m_transformations.position;}
-		inline const Size& get_scale() const {return m_transformations.scale;}
-		inline const float get_rotation() const {return m_transformations.rotation;}
-		inline const Color get_color() const {return m_transformations.color;}
-		inline const EBlendModes get_blend_mode() const {return m_transformations.blend;}
+		NESSENGINE_API inline const SRenderTransformations& get_transformation() const {return m_transformations;}
+		NESSENGINE_API inline void set_position(Point NewPos) {m_transformations.position = NewPos; transformations_update();}
+		NESSENGINE_API inline void set_scale(Size NewScale) {m_transformations.scale = NewScale; transformations_update();}
+		NESSENGINE_API inline void set_rotation(float NewRotation) {m_transformations.rotation = NewRotation; transformations_update();}
+		NESSENGINE_API inline void set_color(Color NewColor) {m_transformations.color = NewColor; transformations_update();}
+		NESSENGINE_API inline void set_blend_mode(EBlendModes NewMode) {m_transformations.blend = NewMode; transformations_update();}
+		NESSENGINE_API inline const Point& get_position() const {return m_transformations.position;}
+		NESSENGINE_API inline const Size& get_scale() const {return m_transformations.scale;}
+		NESSENGINE_API inline const float get_rotation() const {return m_transformations.rotation;}
+		NESSENGINE_API inline const Color get_color() const {return m_transformations.color;}
+		NESSENGINE_API inline const EBlendModes get_blend_mode() const {return m_transformations.blend;}
 
 		// set/get z index
-		inline void set_zindex(int newZ) {m_zindex = newZ;}
-		inline int get_zindex() const {return m_zindex;}
+		NESSENGINE_API inline void set_zindex(int newZ) {m_zindex = newZ;}
+		NESSENGINE_API inline int get_zindex() const {return m_zindex;}
 
 		// called whenever transformations are updated
-		virtual void transformations_update() {}
+		NESSENGINE_API virtual void transformations_update() {}
 
 		// enable/disable rendering of this object
-		inline void set_visible(bool Visible) {m_visible = Visible;}
-		inline bool is_visible() const {return m_visible;}
+		NESSENGINE_API inline void set_visible(bool Visible) {m_visible = Visible;}
+		NESSENGINE_API inline bool is_visible() const {return m_visible;}
 
 		// check if this renderable object is really visible. currently just return if visible, needs to be implemented
-		virtual bool is_really_visible(const CameraPtr& camera = NullCamera) = 0;
+		NESSENGINE_API virtual bool is_really_visible(const CameraPtr& camera = NullCamera) = 0;
 
 		// return the absolute transformations of this renderable
-		virtual const SRenderTransformations& get_absolute_transformations() = 0;
+		NESSENGINE_API virtual const SRenderTransformations& get_absolute_transformations() = 0;
 
 		// render this object - must be implemented
-		virtual void render(const CameraPtr& camera = NullCamera) = 0;
+		NESSENGINE_API virtual void render(const CameraPtr& camera = NullCamera) = 0;
 
 		// change parent
 		virtual void __change_parent(RenderableParent* parent) 
@@ -107,5 +108,5 @@ namespace Ness
 	};
 
 	// renderable pointer
-	typedef std::shared_ptr<Renderable> RenderablePtr;
+	NESSENGINE_API typedef std::shared_ptr<Renderable> RenderablePtr;
 };

@@ -12,7 +12,7 @@
 namespace Ness
 {
 	// callback function to run on all tiles
-	typedef void (*executeOnTiles)(const Pointi& index, const SpritePtr& tile);
+	NESSENGINE_API typedef void (*executeOnTiles)(const Pointi& index, const SpritePtr& tile);
 
 	class TileMap : public Renderable, public RenderableParent
 	{
@@ -25,39 +25,41 @@ namespace Ness
 	public:
 
 		// create the tilemap
-		TileMap(Renderer* renderer, RenderableParent* parent, const std::string& spriteFile, Sizei mapSize, Size singleTileSize = Size(36, 36));
+		NESSENGINE_API TileMap(Renderer* renderer, RenderableParent* parent, const std::string& spriteFile, Sizei mapSize, Size singleTileSize = Size(36, 36));
 
 		// return the absolute transformations of this tilemap
-		virtual const SRenderTransformations& get_absolute_transformations();
+		NESSENGINE_API virtual const SRenderTransformations& get_absolute_transformations();
 
 		// get a specific sprite
-		inline SpritePtr& get_sprite(const Pointi& index) {return m_sprites[index.x][index.y];}
+		NESSENGINE_API inline SpritePtr& get_sprite(const Pointi& index) {return m_sprites[index.x][index.y];}
 
 		// update that the tilemap needs update
-		virtual void transformations_update();
+		NESSENGINE_API virtual void transformations_update();
 
 		// check if this tilemap is really visible
-		virtual bool is_really_visible(const CameraPtr& camera = NullCamera);
+		NESSENGINE_API virtual bool is_really_visible(const CameraPtr& camera = NullCamera);
 
 		// get range of tiles that are within the map
 		// returns a rectangle. x is first tile i index, w is last tile i index. y is the same for j indexes
 		// for example:
 		// Rectangle range = map->get_tiles_in_screen();
 		// for (int i = range.x; i < range.w; i++) ....
-		Rectangle get_tiles_in_screen(const CameraPtr& camera);
+		NESSENGINE_API Rectangle get_tiles_in_screen(const CameraPtr& camera);
 
 		// set source rect from sprite sheet for all tiles
 		// for example, if your sprite sheet contains 4x8 animation steps, and you want to set sprite to step (3,2), use it like so:
 		//		set_source_from_sprite_sheet(Pointi(3,2), Sizei(4,8));
 		// step: the index of the animation step inside the sprite sheet (x, y)
 		// stepsCount: how many total animation steps the sheet has (x, y)
-		void set_all_tiles_type(const Pointi& step, const Sizei stepsCount);
+		NESSENGINE_API void set_all_tiles_type(const Pointi& step, const Sizei stepsCount);
 
 		// apply the given function to all tiles
 		// every call will contain a single tile and its index.
-		void apply_to_all(executeOnTiles func);
+		NESSENGINE_API void apply_to_all(executeOnTiles func);
 
 		// render this tilemap
-		virtual void render(const CameraPtr& camera = NullCamera);
+		NESSENGINE_API virtual void render(const CameraPtr& camera = NullCamera);
 	};
+
+	NESSENGINE_API typedef std::shared_ptr<TileMap> TileMapPtr;
 };

@@ -12,12 +12,12 @@ namespace Ness
 	class ZNode : public Node
 	{
 	public:
-		ZNode(Renderer* renderer, RenderableParent* parent = nullptr) : Node(renderer, parent) {}
+		NESSENGINE_API ZNode(Renderer* renderer, RenderableParent* parent = nullptr) : Node(renderer, parent) {}
 
 		// render everything, with z order!
-		virtual void render(const CameraPtr& camera = NullCamera);
+		NESSENGINE_API virtual void render(const CameraPtr& camera = NullCamera);
 	};
 
 	// scene pointer
-	typedef std::shared_ptr<ZNode> ZNodePtr;
+	NESSENGINE_API typedef std::shared_ptr<ZNode> ZNodePtr;
 };

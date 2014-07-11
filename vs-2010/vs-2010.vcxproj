@@ -48,7 +48,6 @@
     <ClInclude Include="..\source\NessEngine\resources\resources_manager.h" />
     <ClInclude Include="..\source\NessEngine\scene\camera.h" />
     <ClInclude Include="..\source\NessEngine\scene\scene.h" />
-    <ClInclude Include="..\source\NessEngine\texture\export.h" />
     <ClInclude Include="..\source\NessEngine\texture\TextureSheet.h" />
     <ClInclude Include="..\source\NessEngine\utils\keyboard.h" />
   </ItemGroup>
@@ -81,12 +80,12 @@
   <PropertyGroup Label="UserMacros" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <LinkIncremental>true</LinkIncremental>
-    <LibraryPath>$(ProjectDir)\..\libs\x86\;$(LibraryPath)</LibraryPath>
+    <LibraryPath>$(ProjectDir)\..\libs\windows\x86\;$(LibraryPath)</LibraryPath>
     <TargetName>ness_engine</TargetName>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
     <LinkIncremental>false</LinkIncremental>
-    <LibraryPath>$(ProjectDir)\..\libs\x86\;$(LibraryPath)</LibraryPath>
+    <LibraryPath>$(ProjectDir)\..\libs\windows\x86\;$(LibraryPath)</LibraryPath>
   </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <ClCompile>

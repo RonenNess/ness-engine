@@ -28,19 +28,19 @@ namespace Ness
 		public:
 			// create the texture sheet from file
 			// if ColorKey is provided, this color will turn invisible
-			TextureSheet(const std::string& fileName, SDL_Renderer* renderer, const Colorb* ColorKey = nullptr);
+			NESSENGINE_API TextureSheet(const std::string& fileName, SDL_Renderer* renderer, const Colorb* ColorKey = nullptr);
 
 			// create the texture sheet as blank texture you can render on
-			TextureSheet(SDL_Renderer* renderer, const Sizei& size);
+			NESSENGINE_API TextureSheet(SDL_Renderer* renderer, const Sizei& size);
 
 			// destroy the texture
-			~TextureSheet();
+			NESSENGINE_API ~TextureSheet();
 
 			// get texture size in pixels
-			inline const Sizei& get_size() const {return m_size;}
+			NESSENGINE_API inline const Sizei& get_size() const {return m_size;}
 
 			// get the surface of this texture
-			inline SDL_Texture* texture() const {return m_texture;}
+			NESSENGINE_API inline SDL_Texture* texture() const {return m_texture;}
 
 		private:
 			// load and init this texture from file. this should be called only once!

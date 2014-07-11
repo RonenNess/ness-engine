@@ -8,10 +8,10 @@ namespace Ness
 		// function to call when a resource shared ptr deletes
 		void TextureResourceDeleter(ManagedTexture* texture)
 		{
-			texture->rc_mng_manager->delete_texture(texture->rc_mng_name);
+			texture->rc_mng_manager->__delete_texture(texture->rc_mng_name);
 		}
 
-		void ResourcesManager::delete_texture(const std::string& textureName)
+		void ResourcesManager::__delete_texture(const std::string& textureName)
 		{	
 			// decrease ref count by 1, and if no more refs delete the resource
 			m_textures[textureName].ref_count--;
@@ -28,7 +28,7 @@ namespace Ness
 			// if not loaded, load it
 			if (m_textures.find(textureName) == m_textures.end())
 			{
-				TextureInManager& NewEntry = m_textures[textureName];
+				__STextureInManager& NewEntry = m_textures[textureName];
 				NewEntry.texture = new ManagedTexture(m_base_path + textureName, m_renderer, (m_use_color_key ? &m_color_key : nullptr));
 				NewEntry.texture->rc_mng_manager = this;
 				NewEntry.texture->rc_mng_name = textureName;
@@ -56,7 +56,7 @@ namespace Ness
 			}
 
 			// create the texture
-			TextureInManager& NewEntry = m_textures[textureName];
+			__STextureInManager& NewEntry = m_textures[textureName];
 			NewEntry.texture = new ManagedTexture(m_renderer, TexSize);
 			NewEntry.texture->rc_mng_manager = this;
 			NewEntry.texture->rc_mng_name = textureName;
