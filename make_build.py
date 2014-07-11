@@ -14,6 +14,7 @@ os.mkdir("last_build")
 shutil.copytree(os.path.join("libs", PLATFORM, BUILD_TYPE), "last_build/lib")
 shutil.copyfile(os.path.join("libs", "README-NESSENGINE.txt"), "last_build/lib/README-NESSENGINE.txt")
 shutil.copyfile(os.path.join("libs", "README-SDL.txt"), "last_build/lib/README-SDL.txt")
+shutil.copyfile(os.path.join("libs", PLATFORM, "README.txt"), "last_build/README.txt")
 
 # copy the include files
 shutil.copytree("sdl/include", "last_build/include")
