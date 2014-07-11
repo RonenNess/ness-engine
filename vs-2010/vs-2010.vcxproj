@@ -17,6 +17,7 @@
     <ClCompile Include="..\source\NessEngine\renderable\node.cpp" />
     <ClCompile Include="..\source\NessEngine\renderable\renderable.cpp" />
     <ClCompile Include="..\source\NessEngine\renderable\renderable_entity.cpp" />
+    <ClCompile Include="..\source\NessEngine\renderable\shapes.cpp" />
     <ClCompile Include="..\source\NessEngine\renderable\sprite.cpp" />
     <ClCompile Include="..\source\NessEngine\renderable\tile_map.cpp" />
     <ClCompile Include="..\source\NessEngine\renderable\znode.cpp" />

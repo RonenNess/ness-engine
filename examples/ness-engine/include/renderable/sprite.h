@@ -71,9 +71,7 @@ namespace Ness
 		// init the sprite from a given texture
 		void init_from_texture(ManagedResources::ManagedTexturePtr texture);
 
-		// the actual rendering function to override
-		// target: target rectangle to render to (final, with camera and everything calculated)
-		// transformations: absolute final transformations to render with (with parents included)
+		// the actual rendering function
 		NESSENGINE_API virtual void do_render(const Rectangle& target, const SRenderTransformations& transformations);
 	};
 

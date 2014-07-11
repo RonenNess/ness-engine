@@ -13,8 +13,19 @@ namespace Ness
 	// the renderable sprite class
 	class RectangleShape: public RenderableEntity
 	{
-	protected:
+	private:
+		bool m_is_filled;
 
+	public:
+		// create the rectangle shape
+		NESSENGINE_API RectangleShape(Renderer* renderer, RenderableParent* parent);
+
+		// set if this rectangle is filled or just outlines
+		inline void set_filled(bool filled) {m_is_filled = filled;}
+
+	protected:
+		// the actual rendering function
+		NESSENGINE_API virtual void do_render(const Rectangle& target, const SRenderTransformations& transformations);
 	};
 
 	// rectangle shape pointer

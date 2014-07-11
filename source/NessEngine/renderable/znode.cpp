@@ -38,10 +38,10 @@ namespace Ness
 		}
 
 		// add all the visible sprites
-		for (unsigned int i = 0; i < m_sprites.size(); i++)
+		for (unsigned int i = 0; i < m_entities.size(); i++)
 		{
 			// get current sprite
-			Renderable* current = m_sprites[i].get();
+			Renderable* current = m_entities[i].get();
 			if (!current->is_really_visible(camera))
 				continue;
 

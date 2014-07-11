@@ -3,6 +3,7 @@
 #include "sprite.h"
 #include "tile_map.h"
 #include "znode.h"
+#include "shapes.h"
 #include "../renderer/renderer.h"
 #include <algorithm>
 
@@ -15,15 +16,9 @@ namespace Ness
 		object->__change_parent(this);
 	}
 
-	void Node::add(const SpritePtr& object)
+	void Node::add(const RenderablePtr& object)
 	{
-		m_sprites.push_back(object);
-		object->__change_parent(this);
-	}
-	
-	void Node::add(const TileMapPtr& object)
-	{
-		m_sprites.insert(m_sprites.begin(), object);
+		m_entities.push_back(object);
 		object->__change_parent(this);
 	}
 
@@ -33,15 +28,9 @@ namespace Ness
 		object->__change_parent(nullptr);
 	}
 
-	void Node::remove(const SpritePtr& object)
+	void Node::remove(const RenderablePtr& object)
 	{
-		m_sprites.erase(std::remove(m_sprites.begin(), m_sprites.end(), object), m_sprites.end());
-		object->__change_parent(nullptr);
-	}
-
-	void Node::remove(const TileMapPtr& object)
-	{
-		m_sprites.erase(std::remove(m_sprites.begin(), m_sprites.end(), object), m_sprites.end());
+		m_entities.erase(std::remove(m_entities.begin(), m_entities.end(), object), m_entities.end());
 		object->__change_parent(nullptr);
 	}
 
@@ -52,9 +41,9 @@ namespace Ness
 			return false;
 
 		// check all sprites
-		for (unsigned int i = 0; i < m_sprites.size(); i++)
+		for (unsigned int i = 0; i < m_entities.size(); i++)
 		{
-			if (m_sprites[i]->is_really_visible(camera))
+			if (m_entities[i]->is_really_visible(camera))
 				return true;
 		}
 
@@ -86,6 +75,13 @@ namespace Ness
 	SpritePtr Node::create_sprite(const std::string& textureName)
 	{
 		SpritePtr NewSprite = std::make_shared<Sprite>(this->m_renderer, this, textureName);
+		add(NewSprite);
+		return NewSprite;
+	}
+
+	RectangleShapePtr Node::create_rectangle()
+	{
+		RectangleShapePtr NewSprite = std::make_shared<RectangleShape>(this->m_renderer, this);
 		add(NewSprite);
 		return NewSprite;
 	}
@@ -129,9 +125,9 @@ namespace Ness
 		{
 			m_nodes[i]->transformations_update();
 		}
-		for (unsigned int i = 0; i < m_sprites.size(); i++)
+		for (unsigned int i = 0; i < m_entities.size(); i++)
 		{
-			m_sprites[i]->transformations_update();
+			m_entities[i]->transformations_update();
 		}
 	}
 
@@ -154,9 +150,9 @@ namespace Ness
 		}
 
 		// render all sprites
-		for (unsigned int i = 0; i < m_sprites.size(); i++)
+		for (unsigned int i = 0; i < m_entities.size(); i++)
 		{
-			m_sprites[i]->render(camera);
+			m_entities[i]->render(camera);
 		}
 
 		// remove target texture

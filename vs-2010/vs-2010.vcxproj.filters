@@ -84,6 +84,9 @@
     <ClCompile Include="..\source\NessEngine\renderable\renderable_entity.cpp">
       <Filter>Source Files\renderables</Filter>
     </ClCompile>
+    <ClCompile Include="..\source\NessEngine\renderable\shapes.cpp">
+      <Filter>Source Files\renderables</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\source\NessEngine\NessEngine.h">
