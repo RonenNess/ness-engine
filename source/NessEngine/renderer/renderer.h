@@ -41,6 +41,7 @@ namespace Ness
 		ManagedResources::ManagedTexturePtr		m_render_target;			// current texture we render on
 		unsigned int							m_frameid;					// a unique frame id, increased by 1 after every frame
 		const Sizei*							m_target_size;				// size of the target we are currently rendering on (screen or target texture)
+		Colorb									m_background_color;			// background clear color
 
 	public:
 		// create the renderer instance!
@@ -104,7 +105,11 @@ namespace Ness
 
 		// render surface
 		NESSENGINE_API void blit(ManagedResources::ManagedTexturePtr texture, const Rectangle& SrcRect, 
-			const Rectangle& TargetRect, EBlendModes mode, Color color = Color::WHITE, float rotation = 0.0f, 
+			const Rectangle& TargetRect, EBlendModes mode = BLEND_MODE_NONE, const Color& color = Color::WHITE, float rotation = 0.0f, 
 			Point rotation_anchor = Point::HALF);
+
+		// draw rectagnle
+		NESSENGINE_API void draw_rect(const Rectangle& TargetRect, const Color& color, bool filled = true, EBlendModes mode = BLEND_MODE_NONE);
+
 	};
 };

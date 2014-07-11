@@ -9,18 +9,30 @@
 
 #include <NessEngine.h>
 
+
 int _tmain(int argc, _TCHAR* argv[])
 {
 	// init and create a renderer
 	Ness::init();
-	Ness::Renderer render("Hello World!", Ness::Sizei(800, 600));
+	Ness::Renderer render("Tilemap demo!", Ness::Sizei(800, 600));
 
 	// create a new scene
 	Ness::ScenePtr scene = render.create_scene();
 
 	// create the tilemap
 	Ness::TileMapPtr map = scene->create_tilemap("tilemap.jpg", Ness::Sizei(75, 75), Ness::Size(32, 32));
-	map->set_all_tiles_type(Ness::Pointi(1, 0), Ness::Sizei(16,16));
+	map->set_all_tiles_type(Ness::Pointi(1, 0), Ness::Sizei(6,16));
+
+	// create the tile selection
+	Ness::SpritePtr tileSelection = scene->create_sprite("tilemap.jpg");
+	tileSelection->set_static(true);
+
+	// create a camera
+	Ness::CameraPtr camera = render.create_camera();
+	float CameraSpeed = 500.0f;
+
+	// keyboard handler
+	Ness::Utils::Keyboard keyboard;
 
 	// loop until exit button is pressed
 	bool running = true;
@@ -35,16 +47,43 @@ int _tmain(int argc, _TCHAR* argv[])
 				running = false;
 				break;
 			}
+
+			keyboard.inject_event(event);
 		}
 
 		// render the scene
 		render.start_frame();
-		scene->render();
+
+		// do keyboard control
+		if (keyboard.ket_state(SDLK_DOWN))
+		{
+			camera->position.y += render.time_factor() * CameraSpeed;
+		}
+		if (keyboard.ket_state(SDLK_UP))
+		{
+			camera->position.y -= render.time_factor() * CameraSpeed;
+		}
+		if (keyboard.ket_state(SDLK_LEFT))
+		{
+			camera->position.x -= render.time_factor() * CameraSpeed;
+		}
+		if (keyboard.ket_state(SDLK_RIGHT))
+		{
+			camera->position.x += render.time_factor() * CameraSpeed;
+		}
+		if (keyboard.ket_state(SDLK_ESCAPE))
+		{
+			running = false;
+		}
+
+		// render and end the scene
+		scene->render(camera);
 		render.end_frame();
 	}
 
 	// cleanup
-	//scene->remove(map);
+	scene->remove(tileSelection);
+	scene->remove(map);
 	Ness::finish();
 	return 0;
 }

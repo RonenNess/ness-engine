@@ -5,7 +5,7 @@ namespace Ness
 {
 	// create the renderer
 	Renderer::Renderer(const char* windowName, const Sizei& screenSize, bool FullScreen, int rendererFlags) :
-		m_second_timer(0), m_curr_fps_count(0), m_fps(0), m_timefactor(0), m_screen_size(screenSize), m_frameid(0)
+		m_second_timer(0), m_curr_fps_count(0), m_fps(0), m_timefactor(0), m_screen_size(screenSize), m_frameid(0), m_background_color(75, 0, 255, 255)
 	{
 
 		// create window
@@ -66,7 +66,12 @@ namespace Ness
 	void Renderer::start_frame(bool clearScene)
 	{
 		m_start_frame_time = SDL_GetTicks();
-		if (clearScene) SDL_RenderClear(m_renderer);
+		if (clearScene) 
+		{
+			SDL_SetRenderDrawBlendMode(m_renderer, SDL_BLENDMODE_NONE);
+			SDL_SetRenderDrawColor(m_renderer, (m_background_color.r), (m_background_color.g), (m_background_color.b), m_background_color.a);
+			SDL_RenderClear(m_renderer);
+		}
 	}
 
 	// end a rendering frame
@@ -102,7 +107,10 @@ namespace Ness
 	// set background color
 	void Renderer::set_background_color(const Color& NewColor)
 	{
-		SDL_SetRenderDrawColor(m_renderer, (int)(NewColor.r * 255), (int)(NewColor.g * 255), (int)(NewColor.b * 255), 255);
+		m_background_color.r = (unsigned char)(NewColor.r * 255);
+		m_background_color.g = (unsigned char)(NewColor.g * 255);
+		m_background_color.b = (unsigned char)(NewColor.b * 255);
+		m_background_color.a = (unsigned char)(NewColor.a * 255);
 	}
 
 	void Renderer::reset_render_target()
@@ -139,8 +147,22 @@ namespace Ness
 		set_render_target(m_render_target);
 	}
 
+	void Renderer::draw_rect(const Rectangle& TargetRect, const Color& color, bool filled, EBlendModes mode)
+	{
+		SDL_SetRenderDrawBlendMode(m_renderer, (SDL_BlendMode)mode);
+		SDL_SetRenderDrawColor(m_renderer, (Uint8)(color.r * 255), (Uint8)(color.g * 255), (Uint8)(color.b * 255), (Uint8)(color.a * 255));
+		if (filled)
+		{
+			SDL_RenderFillRect(m_renderer, &TargetRect);
+		}
+		else
+		{
+			SDL_RenderDrawRect(m_renderer, &TargetRect);
+		}
+	}
+
 	// render surface
-	void Renderer::blit(ManagedResources::ManagedTexturePtr texture, const Rectangle& SrcRect, const Rectangle& TargetRect, EBlendModes mode, Color color, float rotation, Point rotation_anchor)
+	void Renderer::blit(ManagedResources::ManagedTexturePtr texture, const Rectangle& SrcRect, const Rectangle& TargetRect, EBlendModes mode, const Color& color, float rotation, Point rotation_anchor)
 	{
 		// check if in screen
 		if (TargetRect.x >= m_target_size->x || TargetRect.y >= m_target_size->y || TargetRect.x + TargetRect.w <= 0 || TargetRect.y + TargetRect.h <= 0 )
