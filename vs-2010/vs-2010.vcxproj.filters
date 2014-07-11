@@ -81,6 +81,9 @@
     <ClCompile Include="dllmain.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="..\source\NessEngine\renderable\renderable_entity.cpp">
+      <Filter>Source Files\renderables</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\source\NessEngine\NessEngine.h">
@@ -151,6 +154,12 @@
     </ClInclude>
     <ClInclude Include="..\source\NessEngine\exports.h">
       <Filter>Source Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\source\NessEngine\renderable\shapes.h">
+      <Filter>Source Files\renderables</Filter>
+    </ClInclude>
+    <ClInclude Include="..\source\NessEngine\renderable\renderable_entity.h">
+      <Filter>Source Files\renderables</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

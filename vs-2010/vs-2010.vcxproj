@@ -16,6 +16,7 @@
     <ClCompile Include="..\source\NessEngine\renderable\canvas.cpp" />
     <ClCompile Include="..\source\NessEngine\renderable\node.cpp" />
     <ClCompile Include="..\source\NessEngine\renderable\renderable.cpp" />
+    <ClCompile Include="..\source\NessEngine\renderable\renderable_entity.cpp" />
     <ClCompile Include="..\source\NessEngine\renderable\sprite.cpp" />
     <ClCompile Include="..\source\NessEngine\renderable\tile_map.cpp" />
     <ClCompile Include="..\source\NessEngine\renderable\znode.cpp" />
@@ -38,7 +39,9 @@
     <ClInclude Include="..\source\NessEngine\renderable\canvas.h" />
     <ClInclude Include="..\source\NessEngine\renderable\node.h" />
     <ClInclude Include="..\source\NessEngine\renderable\renderable.h" />
+    <ClInclude Include="..\source\NessEngine\renderable\renderable_entity.h" />
     <ClInclude Include="..\source\NessEngine\renderable\renderable_parent.h" />
+    <ClInclude Include="..\source\NessEngine\renderable\shapes.h" />
     <ClInclude Include="..\source\NessEngine\renderable\sprite.h" />
     <ClInclude Include="..\source\NessEngine\renderable\tile_map.h" />
     <ClInclude Include="..\source\NessEngine\renderable\znode.h" />

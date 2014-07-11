@@ -149,8 +149,17 @@ namespace Ness
 
 	void Renderer::draw_rect(const Rectangle& TargetRect, const Color& color, bool filled, EBlendModes mode)
 	{
+		// check if in screen
+		if (TargetRect.x >= m_target_size->x || TargetRect.y >= m_target_size->y || TargetRect.x + TargetRect.w <= 0 || TargetRect.y + TargetRect.h <= 0 )
+		{
+			return;
+		}
+
+		// set blend mode and color
 		SDL_SetRenderDrawBlendMode(m_renderer, (SDL_BlendMode)mode);
 		SDL_SetRenderDrawColor(m_renderer, (Uint8)(color.r * 255), (Uint8)(color.g * 255), (Uint8)(color.b * 255), (Uint8)(color.a * 255));
+
+		// render filled/hollow rectangle
 		if (filled)
 		{
 			SDL_RenderFillRect(m_renderer, &TargetRect);
