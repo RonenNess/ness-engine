@@ -18,6 +18,12 @@ namespace Ness
 		}
 	}
 
+	// get next event
+	bool get_poll_event(Event& event)
+	{
+		return (SDL_PollEvent( &event ) != 0 );
+	}
+
 	// should be called at the end to cleanup stuff.
 	void finish()
 	{
