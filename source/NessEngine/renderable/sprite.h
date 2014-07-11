@@ -21,7 +21,7 @@ namespace Ness
 		SSpriteDefaults()
 		{
 			is_static = false;
-			anchor = Point::HALF;
+			anchor = Point::ZERO;
 			alpha_channels = false;
 		}
 	};

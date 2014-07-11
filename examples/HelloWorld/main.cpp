@@ -16,17 +16,17 @@ int _tmain(int argc, _TCHAR* argv[])
 	Ness::ScenePtr scene = render.create_scene();
 
 	// add the hello-world sprite to it
-	scene->create_sprite("hello_world.png");
+	Ness::SpritePtr sprite = scene->create_sprite("hello_world.png");
 
 	// loop until exit button is pressed
 	bool running = true;
-	Ness::Event e;
+	Ness::Event event;
 	while( running )
 	{
 		// fetch events and end program when getting the quit event
-		while( Ness::get_poll_event( e ) != 0 )
+		while( Ness::get_poll_event( event ) != 0 )
 		{
-			if (e.type == SDL_QUIT)
+			if (event.type == SDL_QUIT)
 			{
 				running = false;
 				break;
@@ -39,5 +39,8 @@ int _tmain(int argc, _TCHAR* argv[])
 		render.end_frame();
 	}
 
+	// cleanup
+	scene->remove(sprite);
+	Ness::finish();
 	return 0;
 }
