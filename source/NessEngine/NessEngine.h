@@ -17,6 +17,8 @@
 
 namespace Ness
 {
+	#define NESS_VERSION 1.0
+
 	// MUST BE CALLED BEFORE USING THE ENGINE.
 	// imgFlags - image formats to support in addition to BMP.
 	NESSENGINE_API void init(int imgFlags = IMG_INIT_PNG | IMG_INIT_JPG | IMG_INIT_TIF);
