@@ -6,7 +6,7 @@
 */
 
 #pragma once
-#include "export.h"
+#include "../exports.h"
 #include <cstdlib>
 
 namespace Ness

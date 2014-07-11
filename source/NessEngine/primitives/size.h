@@ -6,7 +6,7 @@
 
 #pragma once
 #include "point.h"
-#include "export.h"
+#include "../exports.h"
 
 namespace Ness
 {

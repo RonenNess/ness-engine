@@ -137,9 +137,6 @@
     <ClInclude Include="..\source\NessEngine\primitives\color.h">
       <Filter>Source Files\primitives</Filter>
     </ClInclude>
-    <ClInclude Include="..\source\NessEngine\primitives\export.h">
-      <Filter>Source Files\primitives</Filter>
-    </ClInclude>
     <ClInclude Include="..\source\NessEngine\primitives\point.h">
       <Filter>Source Files\primitives</Filter>
     </ClInclude>
@@ -154,6 +151,9 @@
     </ClInclude>
     <ClInclude Include="..\source\NessEngine\exceptions\exceptions.h">
       <Filter>Source Files\exceptions</Filter>
+    </ClInclude>
+    <ClInclude Include="..\source\NessEngine\exports.h">
+      <Filter>Source Files</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

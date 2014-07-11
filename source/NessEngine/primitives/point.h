@@ -5,7 +5,7 @@
 */
 
 #pragma once
-#include "export.h"
+#include "../exports.h"
 
 namespace Ness
 {

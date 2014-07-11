@@ -7,7 +7,7 @@
 #pragma once
 #include <SDL.h>
 #include "point.h"
-#include "export.h"
+#include "../exports.h"
 
 namespace Ness
 {

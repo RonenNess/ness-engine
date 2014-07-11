@@ -5,7 +5,7 @@
 */
 
 #pragma once
-#include "export.h"
+#include "../exports.h"
 #include <SDL.h>
 #include <SDL_image.h>
 #include <stdio.h>
