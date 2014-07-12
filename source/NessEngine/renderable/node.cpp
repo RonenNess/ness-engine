@@ -165,16 +165,16 @@ namespace Ness
 			m_renderer->set_render_target(m_render_target);
 		}
 
-		// render all sub nodes
-		for (unsigned int i = 0; i < m_nodes.size(); i++)
-		{
-			m_nodes[i]->render(camera);
-		}
-
 		// render all sprites
 		for (unsigned int i = 0; i < m_entities.size(); i++)
 		{
 			m_entities[i]->render(camera);
+		}
+
+		// render all sub nodes
+		for (unsigned int i = 0; i < m_nodes.size(); i++)
+		{
+			m_nodes[i]->render(camera);
 		}
 
 		// remove target texture

@@ -1,5 +1,5 @@
 /*
-* NessEngine hello world application. does nothing but rendering "hello world" on the screen.
+* NessEngine TileMap demo. creates a tilemap and gives basic editing toolbar.
 * PLEASE NOTE: this project relays on the folder examples/ness-engine to be one step above the project dir. so make sure you include it as well.
 *				also, the vs project adds the libs dir to the PATH variable when running debug/release. so if you want to run the exectuables outside 
 *				visual studio (by clicking on the exectuable), you'll need to copy the dll files to the same dir as the exe.

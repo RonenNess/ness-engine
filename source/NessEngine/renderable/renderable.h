@@ -70,6 +70,7 @@ namespace Ness
 		NESSENGINE_API inline const SRenderTransformations& get_transformation() const {return m_transformations;}
 		NESSENGINE_API inline void set_position(Point NewPos) {m_transformations.position = NewPos; transformations_update();}
 		NESSENGINE_API inline void set_scale(Size NewScale) {m_transformations.scale = NewScale; transformations_update();}
+		NESSENGINE_API inline void set_scale(float NewScale) {set_scale(Point(NewScale, NewScale));}
 		NESSENGINE_API inline void set_rotation(float NewRotation) {m_transformations.rotation = NewRotation; transformations_update();}
 		NESSENGINE_API inline void set_color(Color NewColor) {m_transformations.color = NewColor; transformations_update();}
 		NESSENGINE_API inline void set_blend_mode(EBlendModes NewMode) {m_transformations.blend = NewMode; transformations_update();}
