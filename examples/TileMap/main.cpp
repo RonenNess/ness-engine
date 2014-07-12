@@ -42,23 +42,23 @@ int _tmain(int argc, _TCHAR* argv[])
 	selectedTile->set_filled(false);
 
 	// create the tile selection box
-	Ness::SpritePtr tileSelection = scene->create_sprite("tilemap.jpg");
-	tileSelection->set_static(true);
+	Ness::SpritePtr tilesToolbar = scene->create_sprite("tilemap.jpg");
+	tilesToolbar->set_static(true);
 
 	// create the tile selection red border
-	Ness::RectangleShapePtr border = scene->create_rectangle();
-	border->set_size(tileSelection->get_size());
-	border->set_color(Ness::Color::RED);
-	border->set_static(true);
-	border->set_filled(false);
+	Ness::RectangleShapePtr tilesToolbarBorder = scene->create_rectangle();
+	tilesToolbarBorder->set_size(tilesToolbar->get_size());
+	tilesToolbarBorder->set_color(Ness::Color::RED);
+	tilesToolbarBorder->set_static(true);
+	tilesToolbarBorder->set_filled(false);
 
 	// create the highlight of the selected tile from the toolbar on the left
-	Ness::RectangleShapePtr selectedType = scene->create_rectangle();
-	selectedType->set_size(Ness::Sizei(TileSize, TileSize));
-	selectedType->set_color(Ness::Color(1.0f, 0.0f, 0.0f, 0.45f));
-	selectedType->set_static(true);
-	selectedType->set_filled(true);
-	selectedType->set_blend_mode(Ness::BLEND_MODE_BLEND);
+	Ness::RectangleShapePtr tilesToolbarSelectedType = scene->create_rectangle();
+	tilesToolbarSelectedType->set_size(Ness::Sizei(TileSize, TileSize));
+	tilesToolbarSelectedType->set_color(Ness::Color(1.0f, 0.0f, 0.0f, 0.45f));
+	tilesToolbarSelectedType->set_static(true);
+	tilesToolbarSelectedType->set_filled(true);
+	tilesToolbarSelectedType->set_blend_mode(Ness::BLEND_MODE_BLEND);
 
 	// the currently selected tile type to set
 	Ness::Pointi SelectedTileType(0, 0);
@@ -124,11 +124,11 @@ int _tmain(int argc, _TCHAR* argv[])
 		if (mouse.is_down(Ness::Utils::MOUSE_LEFT))
 		{
 			// if mouse position is inside the tile selection, we pick a new tile type:
-			if (mouse.position().x <= tileSelection->get_size().x && mouse.position().y <= tileSelection->get_size().y)
+			if (mouse.position().x <= tilesToolbar->get_size().x && mouse.position().y <= tilesToolbar->get_size().y)
 			{
 				SelectedTileType.x = (int)(mouse.position().x / TileSize);
 				SelectedTileType.y = (int)(mouse.position().y / TileSize);
-				selectedType->set_position(SelectedTileType * TileSize);
+				tilesToolbarSelectedType->set_position(SelectedTileType * TileSize);
 			}
 
 			// else, if we got selected tile, change its type
@@ -145,8 +145,8 @@ int _tmain(int argc, _TCHAR* argv[])
 
 	// cleanup. 
 	// note: the 'remove' lines are not mandatory, they are just to illustrate how to remove an entity from the scene.
-	scene->remove(border);
-	scene->remove(tileSelection);
+	scene->remove(tilesToolbarBorder);
+	scene->remove(tilesToolbar);
 	scene->remove(map);
 	Ness::finish();
 	return 0;

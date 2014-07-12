@@ -14,7 +14,7 @@
     <ProjectGuid>{5A475E34-766E-4737-9AE8-86FE9CF3AEE7}</ProjectGuid>
     <Keyword>Win32Proj</Keyword>
     <RootNamespace>HelloWorld</RootNamespace>
-    <ProjectName>DepthOrdering</ProjectName>
+    <ProjectName>SpaceFighter</ProjectName>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">

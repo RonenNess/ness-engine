@@ -28,34 +28,18 @@ int _tmain(int argc, _TCHAR* argv[])
 	// create a new scene
 	Ness::ScenePtr scene = render.create_scene();
 
-	// create the tilemap
-	const int TileSize = 64;
-	const int TileMapSize = 100;
-	const int TotalMapSize = (TileSize * TileMapSize);
-	Ness::TileMapPtr map = scene->create_tilemap("tilemap.jpg", Ness::Sizei(TileMapSize, TileMapSize), Ness::Sizei(TileSize, TileSize));
+	// create the background
+	Ness::SpritePtr background = scene->create_sprite("background.jpg");
 
-	// create the znode - a depth-based ordering scene node
-	Ness::NodePtr znode = scene->create_znode();
-
-	// create a camera
-	Ness::CameraPtr camera = render.create_camera();
-	float PlayerSpeed = 250.0f;
-
-	// create random trees and rocks
-	for (int i = 0; i < 350; i++)
-	{
-		Ness::SpritePtr object;
-		object = znode->create_sprite( i < 200 ? "tree.png" : "rock.png");
-		object->set_anchor(Ness::Point(0.5f, 1.0f));
-		object->set_position(Ness::Pointi(rand() % TotalMapSize, rand() % TotalMapSize));
-		object->set_zindex(object->get_position().y);
-		object->set_blend_mode(Ness::BLEND_MODE_BLEND);
-	}
+	// create the entities node
+	Ness::NodePtr entitiesNode = scene->create_node();
 
 	// create the player character!
-	Ness::SpritePtr player = znode->create_sprite("fighter.png");
-	player->set_anchor(Ness::Point(0.5f, 1.0f));
-	player->set_position(Ness::Pointi(TotalMapSize / 2, TotalMapSize / 2));
+	const float PlayerSpeed = 350.0f;
+	const float PlayerTurningSpeed = 250.0f;
+	Ness::SpritePtr player = entitiesNode->create_sprite("player.png");
+	player->set_anchor(Ness::Point(0.5f, 0.5f));
+	player->set_position(render.get_screen_center());
 	player->set_blend_mode(Ness::BLEND_MODE_BLEND);
 
 	// create the event handlers
@@ -86,11 +70,11 @@ int _tmain(int argc, _TCHAR* argv[])
 		}
 		if (keyboard.ket_state(SDLK_LEFT))
 		{
-			playerPos.x -= render.time_factor() * PlayerSpeed;
+			player->set_rotation(player->get_rotation() - render.time_factor() * PlayerTurningSpeed);
 		}
 		if (keyboard.ket_state(SDLK_RIGHT))
 		{
-			playerPos.x += render.time_factor() * PlayerSpeed;
+			player->set_rotation(player->get_rotation() + render.time_factor() * PlayerTurningSpeed);
 		}
 		if (keyboard.ket_state(SDLK_ESCAPE))
 		{
@@ -98,21 +82,16 @@ int _tmain(int argc, _TCHAR* argv[])
 		}
 		player->set_position(playerPos);
 
-		// fix player zorder based on his y position
-		player->set_zindex(playerPos.y);
-
-		// set camera to focus on player
-		camera->position.x = player->get_position().x - (render.get_screen_size().x * 0.5f);
-		camera->position.y = player->get_position().y - (render.get_screen_size().y * 0.5f);
-
 		// render and end the scene
-		scene->render(camera);
+		scene->render();
 		render.end_frame();
 	}
 
 	// cleanup. 
 	// note: the 'remove' lines are not mandatory, they are just to illustrate how to remove an entity from the scene.
-	scene->remove(map);
+	scene->remove(entitiesNode);
+	scene->remove(background);
+	entitiesNode->remove(player);
 	Ness::finish();
 	return 0;
 }
