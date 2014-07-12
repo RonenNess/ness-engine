@@ -31,6 +31,7 @@ int _tmain(int argc, _TCHAR* argv[])
 	// create the tilemap
 	const int TileSize = 64;
 	const int TileMapSize = 100;
+	const int TotalMapSize = (TileSize * TileMapSize);
 	Ness::TileMapPtr map = scene->create_tilemap("tilemap.jpg", Ness::Sizei(TileMapSize, TileMapSize), Ness::Sizei(TileSize, TileSize));
 
 	// create the znode - a depth-based ordering scene node
@@ -40,21 +41,21 @@ int _tmain(int argc, _TCHAR* argv[])
 	Ness::CameraPtr camera = render.create_camera();
 	float PlayerSpeed = 250.0f;
 
-	// create random 1000 trees
-	for (int i = 0; i < 1000; i++)
+	// create random trees and rocks
+	for (int i = 0; i < 350; i++)
 	{
-		Ness::SpritePtr tree = znode->create_sprite("tree.png");
-		tree->set_anchor(Ness::Point(0.5f, 1.0f));
-		tree->set_position(Ness::Pointi(rand() % (TileSize * TileMapSize), rand() % (TileSize * TileMapSize)));
-		tree->set_zindex(tree->get_position().y);
-		tree->set_scale(1.0f + rand());
-		tree->set_blend_mode(Ness::BLEND_MODE_BLEND);
+		Ness::SpritePtr object;
+		object = znode->create_sprite( i < 200 ? "tree.png" : "rock.png");
+		object->set_anchor(Ness::Point(0.5f, 1.0f));
+		object->set_position(Ness::Pointi(rand() % TotalMapSize, rand() % TotalMapSize));
+		object->set_zindex(object->get_position().y);
+		object->set_blend_mode(Ness::BLEND_MODE_BLEND);
 	}
 
 	// create the player character!
 	Ness::SpritePtr player = znode->create_sprite("fighter.png");
 	player->set_anchor(Ness::Point(0.5f, 1.0f));
-	player->set_position(Ness::Pointi(800, 800));
+	player->set_position(Ness::Pointi(TotalMapSize / 2, TotalMapSize / 2));
 	player->set_blend_mode(Ness::BLEND_MODE_BLEND);
 
 	// create the event handlers
