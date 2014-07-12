@@ -39,7 +39,7 @@ namespace Ness
 				NewSprite->set_blend_mode(BLEND_MODE_NONE);
 
 				// set z-index
-				NewSprite->set_zindex((int)(j * m_tile_size.y));
+				NewSprite->set_zindex((j * m_tile_size.y));
 
 				// add to matrix of tiles
 				m_sprites[i][j] = NewSprite;
@@ -78,6 +78,19 @@ namespace Ness
 			for (index.y = 0; index.y < m_size.y; index.y++)
 			{
 				m_sprites[index.x][index.y]->transformations_update();
+			}
+		}
+	}
+
+	// get all visible son entities
+	void TileMap::__get_visible_entities(std::vector<Renderable*>& out_list, const CameraPtr& camera)
+	{
+		Rectangle range = get_tiles_in_screen(camera);
+		for (int i = range.x; i < range.w; i++)
+		{
+			for (int j = range.y; j < range.h; j++)
+			{
+				out_list.push_back(m_sprites[i][j].get());
 			}
 		}
 	}

@@ -37,6 +37,9 @@ namespace Ness
 		// return empty if out of range
 		NESSENGINE_API SpritePtr& get_sprite_by_position(const Point& position);
 
+		// get all visible son entities
+		NESSENGINE_API virtual void __get_visible_entities(std::vector<Renderable*>& out_list, const CameraPtr& camera = NullCamera);
+
 		// update that the tilemap needs update
 		NESSENGINE_API virtual void transformations_update();
 

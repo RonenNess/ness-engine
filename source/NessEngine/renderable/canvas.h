@@ -21,7 +21,7 @@ namespace Ness
 		NESSENGINE_API Canvas(Renderer* renderer, RenderableParent* parent, const std::string& NewTextureName, const Sizei& size = Sizei::ZERO);
 
 		// if true, will clear this canvas after every frame rendered
-		NESSENGINE_API inline void auto_clean(bool enabled) {m_auto_clear = enabled;}
+		NESSENGINE_API inline void set_auto_clean(bool enabled) {m_auto_clear = enabled;}
 
 		// clear the canvas
 		NESSENGINE_API void clear();

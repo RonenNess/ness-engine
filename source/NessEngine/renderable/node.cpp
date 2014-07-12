@@ -22,6 +22,28 @@ namespace Ness
 		object->__change_parent(this);
 	}
 
+	void Node::__get_visible_entities(std::vector<Renderable*>& out_list, const CameraPtr& camera)
+	{
+		// add all son nodes
+		for (unsigned int i = 0; i < m_nodes.size(); i++)
+		{
+			RenderableParent* current = m_nodes[i].get();
+			current->__get_visible_entities(out_list, camera);
+		}
+
+		// add all the visible sprites
+		for (unsigned int i = 0; i < m_entities.size(); i++)
+		{
+			// get current sprite
+			Renderable* current = m_entities[i].get();
+			if (!current->is_really_visible(camera))
+				continue;
+
+			// add to rendering list
+			out_list.push_back(current);
+		}
+	}
+
 	void Node::remove(const NodePtr& object)
 	{
 		m_nodes.erase(std::remove(m_nodes.begin(), m_nodes.end(), object), m_nodes.end());
