@@ -22,36 +22,27 @@ namespace Ness
 		static std::vector<Renderable*> render_list;
 		render_list.clear();
 
-		// add all the visible nodes
-		for (unsigned int i = 0; i < m_nodes.size(); i++)
-		{
-
-			// if break groups, insert all entities in son node into the rendering list
-			if (m_break_groups)
-			{
-				RenderableParent* current = m_nodes[i].get();
-				current->__get_visible_entities(render_list);
-			}
-			// if don't break groups, treat this node like a normal entity
-			else
-			{
-				Renderable* current = m_nodes[i].get();
-				if (!current->is_really_visible(camera))
-					continue;
-				render_list.push_back(current);
-			}
-		}
-
 		// add all the visible sprites
 		for (unsigned int i = 0; i < m_entities.size(); i++)
 		{
-			// get current sprite
+			// if need to break entities of son nodes:
+			if (m_break_groups)
+			{
+				// check if current entity is indeed a node, and if so, break it
+				RenderableParent* currentNode = dynamic_cast<RenderableParent*>(m_entities[i].get());
+				if (currentNode)
+				{
+					currentNode->__get_visible_entities(render_list, camera);
+					continue;
+				}
+			}
+
+			// if got here it's either a sprite entity or a node but we want to keep groups. add it to rendering list if visible
 			Renderable* current = m_entities[i].get();
 			if (!current->is_really_visible(camera))
 				continue;
-
-			// add to rendering list
 			render_list.push_back(current);
+			
 		}
 
 		// sort based on z!

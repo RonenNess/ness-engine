@@ -8,10 +8,6 @@
 #include "../exports.h"
 #include "../exceptions/exceptions.h"
 #include "../renderable/node.h"
-#include "../renderable/sprite.h"
-#include "../renderable/tile_map.h"
-#include "../renderable/canvas.h"
-#include "../renderable/shapes.h"
 #include "camera.h"
 #include <vector>
 

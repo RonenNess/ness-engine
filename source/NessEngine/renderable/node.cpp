@@ -4,17 +4,12 @@
 #include "tile_map.h"
 #include "znode.h"
 #include "shapes.h"
+#include "canvas.h"
 #include "../renderer/renderer.h"
 #include <algorithm>
 
 namespace Ness
 {
-
-	void Node::add(const NodePtr& object)
-	{
-		m_nodes.push_back(object);
-		object->__change_parent(this);
-	}
 
 	void Node::add(const RenderablePtr& object)
 	{
@@ -24,30 +19,27 @@ namespace Ness
 
 	void Node::__get_visible_entities(std::vector<Renderable*>& out_list, const CameraPtr& camera)
 	{
-		// add all son nodes
-		for (unsigned int i = 0; i < m_nodes.size(); i++)
-		{
-			RenderableParent* current = m_nodes[i].get();
-			current->__get_visible_entities(out_list, camera);
-		}
 
-		// add all the visible sprites
+		// add all the visible objects
 		for (unsigned int i = 0; i < m_entities.size(); i++)
 		{
-			// get current sprite
-			Renderable* current = m_entities[i].get();
-			if (!current->is_really_visible(camera))
-				continue;
+			// check if current entity is a node
+			RenderableParent* currentNode = dynamic_cast<RenderableParent*>(m_entities[i].get());
+			if (currentNode)
+			{
+				currentNode->__get_visible_entities(out_list, camera);
+			}
+			// if not a node, check if in screen and if so add it
+			else
+			{
+				Renderable* current = m_entities[i].get();
+				if (!current->is_really_visible(camera))
+					continue;
 
-			// add to rendering list
-			out_list.push_back(current);
+				// add to rendering list
+				out_list.push_back(current);
+			}
 		}
-	}
-
-	void Node::remove(const NodePtr& object)
-	{
-		m_nodes.erase(std::remove(m_nodes.begin(), m_nodes.end(), object), m_nodes.end());
-		object->__change_parent(nullptr);
 	}
 
 	void Node::remove(const RenderablePtr& object)
@@ -69,13 +61,6 @@ namespace Ness
 				return true;
 		}
 
-		// check all sub nodes
-		for (unsigned int i = 0; i < m_nodes.size(); i++)
-		{
-			if (m_nodes[i]->is_really_visible(camera))
-				return true;
-		}
-
 		// if got here it means the node is not visible
 		return false;
 	}
@@ -87,9 +72,9 @@ namespace Ness
 		return NewNode;
 	}
 
-	NodePtr Node::create_znode()
+	ZNodePtr Node::create_znode()
 	{
-		NodePtr NewNode = std::make_shared<ZNode>(this->m_renderer, this);
+		ZNodePtr NewNode = std::make_shared<ZNode>(this->m_renderer, this);
 		add(NewNode);
 		return NewNode;
 	}
@@ -143,10 +128,6 @@ namespace Ness
 	void Node::transformations_update()
 	{
 		m_need_trans_update = true;
-		for (unsigned int i = 0; i < m_nodes.size(); i++)
-		{
-			m_nodes[i]->transformations_update();
-		}
 		for (unsigned int i = 0; i < m_entities.size(); i++)
 		{
 			m_entities[i]->transformations_update();
@@ -169,12 +150,6 @@ namespace Ness
 		for (unsigned int i = 0; i < m_entities.size(); i++)
 		{
 			m_entities[i]->render(camera);
-		}
-
-		// render all sub nodes
-		for (unsigned int i = 0; i < m_nodes.size(); i++)
-		{
-			m_nodes[i]->render(camera);
 		}
 
 		// remove target texture

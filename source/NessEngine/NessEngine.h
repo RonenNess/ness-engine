@@ -8,14 +8,28 @@
 #include "exports.h"
 #include <SDL.h>
 #include <tchar.h>
-#include "exceptions\exceptions.h"
+
+// include renderer and basic stuff
 #include "renderer\renderer.h"
+#include "exceptions\exceptions.h"
 #include "primitives\primitives.h"
+
+// include scene and camera
 #include "scene\scene.h"
 #include "scene\camera.h"
+
+// include utils
 #include "utils\keyboard.h"
 #include "utils\mouse.h"
 #include "utils\events_poller.h"
+
+// include all renderables
+#include "renderable/node.h"
+#include "renderable/znode.h"
+#include "renderable/sprite.h"
+#include "renderable/tile_map.h"
+#include "renderable/canvas.h"
+#include "renderable/shapes.h"
 
 namespace Ness
 {

@@ -20,6 +20,9 @@ namespace Ness
 	{
 	public:
 
+		// is this object really in visible and in screen?
+		NESSENGINE_API virtual bool is_really_visible(const CameraPtr& camera = NullCamera) = 0;
+
 		// get absolute transformations of this parent node
 		virtual const SRenderTransformations& get_absolute_transformations() = 0;
 
@@ -27,4 +30,6 @@ namespace Ness
 		NESSENGINE_API virtual void __get_visible_entities(std::vector<Renderable*>& out_list, const CameraPtr& camera = NullCamera) = 0;
 	};
 
+	// renderable parent pointer
+	NESSENGINE_API typedef std::shared_ptr<RenderableParent> RenderableParentPtr;
 };
