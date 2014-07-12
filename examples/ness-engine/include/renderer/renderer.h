@@ -6,7 +6,6 @@
 
 #pragma once
 #include "../exports.h"
-#include "../renderable/renderable.h"
 #include "../resources/resources_manager.h"
 #include "../primitives/primitives.h"
 #include "../scene/scene.h"

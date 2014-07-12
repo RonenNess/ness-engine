@@ -7,7 +7,7 @@
 #pragma once
 #include "../exports.h"
 #include "../exceptions/exceptions.h"
-#include "../renderable/node.h"
+#include "../renderable/nodes/node.h"
 #include "camera.h"
 #include <vector>
 
@@ -25,7 +25,7 @@ namespace Ness
 		NESSENGINE_API virtual void transformations_update() {m_absolute_trans = m_transformations;}
 
 		// disable the possibility to add a scene as a son
-		NESSENGINE_API virtual void __change_parent(RenderableParent* parent) {throw IllegalAction("cannot assign scene under another scene or node!");}
+		NESSENGINE_API virtual void __change_parent(NodeAPI* parent) {throw IllegalAction("cannot assign scene under another scene or node!");}
 	};
 
 	// scene pointer

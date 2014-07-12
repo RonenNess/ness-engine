@@ -37,6 +37,12 @@
     <Filter Include="Source Files\exceptions">
       <UniqueIdentifier>{e4c55db9-c6bd-4d01-ba15-72dc8bbf1e7d}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Source Files\renderables\entities">
+      <UniqueIdentifier>{00697c1d-992e-441b-b646-a97390bf9ff7}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\renderables\nodes">
+      <UniqueIdentifier>{b51bf795-9f58-46e0-af26-ba11b07856e9}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\source\NessEngine\NessEngine.cpp">
@@ -57,35 +63,11 @@
     <ClCompile Include="..\source\NessEngine\renderer\renderer.cpp">
       <Filter>Source Files\renderer</Filter>
     </ClCompile>
-    <ClCompile Include="..\source\NessEngine\renderable\canvas.cpp">
-      <Filter>Source Files\renderables</Filter>
-    </ClCompile>
-    <ClCompile Include="..\source\NessEngine\renderable\node.cpp">
-      <Filter>Source Files\renderables</Filter>
-    </ClCompile>
-    <ClCompile Include="..\source\NessEngine\renderable\renderable.cpp">
-      <Filter>Source Files\renderables</Filter>
-    </ClCompile>
-    <ClCompile Include="..\source\NessEngine\renderable\sprite.cpp">
-      <Filter>Source Files\renderables</Filter>
-    </ClCompile>
-    <ClCompile Include="..\source\NessEngine\renderable\tile_map.cpp">
-      <Filter>Source Files\renderables</Filter>
-    </ClCompile>
-    <ClCompile Include="..\source\NessEngine\renderable\znode.cpp">
-      <Filter>Source Files\renderables</Filter>
-    </ClCompile>
     <ClCompile Include="..\source\NessEngine\primitives\consts.cpp">
       <Filter>Source Files\primitives</Filter>
     </ClCompile>
     <ClCompile Include="dllmain.cpp">
       <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="..\source\NessEngine\renderable\renderable_entity.cpp">
-      <Filter>Source Files\renderables</Filter>
-    </ClCompile>
-    <ClCompile Include="..\source\NessEngine\renderable\shapes.cpp">
-      <Filter>Source Files\renderables</Filter>
     </ClCompile>
     <ClCompile Include="..\source\NessEngine\utils\keyboard.cpp">
       <Filter>Source Files\utils</Filter>
@@ -95,6 +77,27 @@
     </ClCompile>
     <ClCompile Include="..\source\NessEngine\utils\events_poller.cpp">
       <Filter>Source Files\utils</Filter>
+    </ClCompile>
+    <ClCompile Include="..\source\NessEngine\renderable\nodes\node.cpp">
+      <Filter>Source Files\renderables\nodes</Filter>
+    </ClCompile>
+    <ClCompile Include="..\source\NessEngine\renderable\nodes\znode.cpp">
+      <Filter>Source Files\renderables\nodes</Filter>
+    </ClCompile>
+    <ClCompile Include="..\source\NessEngine\renderable\entities\canvas.cpp">
+      <Filter>Source Files\renderables\entities</Filter>
+    </ClCompile>
+    <ClCompile Include="..\source\NessEngine\renderable\entities\shapes.cpp">
+      <Filter>Source Files\renderables\entities</Filter>
+    </ClCompile>
+    <ClCompile Include="..\source\NessEngine\renderable\entities\sprite.cpp">
+      <Filter>Source Files\renderables\entities</Filter>
+    </ClCompile>
+    <ClCompile Include="..\source\NessEngine\renderable\entities\entity.cpp">
+      <Filter>Source Files\renderables\entities</Filter>
+    </ClCompile>
+    <ClCompile Include="..\source\NessEngine\renderable\nodes\tile_map.cpp">
+      <Filter>Source Files\renderables\nodes</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -125,27 +128,6 @@
     <ClInclude Include="..\source\NessEngine\renderer\renderer.h">
       <Filter>Source Files\renderer</Filter>
     </ClInclude>
-    <ClInclude Include="..\source\NessEngine\renderable\canvas.h">
-      <Filter>Source Files\renderables</Filter>
-    </ClInclude>
-    <ClInclude Include="..\source\NessEngine\renderable\node.h">
-      <Filter>Source Files\renderables</Filter>
-    </ClInclude>
-    <ClInclude Include="..\source\NessEngine\renderable\renderable.h">
-      <Filter>Source Files\renderables</Filter>
-    </ClInclude>
-    <ClInclude Include="..\source\NessEngine\renderable\renderable_parent.h">
-      <Filter>Source Files\renderables</Filter>
-    </ClInclude>
-    <ClInclude Include="..\source\NessEngine\renderable\sprite.h">
-      <Filter>Source Files\renderables</Filter>
-    </ClInclude>
-    <ClInclude Include="..\source\NessEngine\renderable\tile_map.h">
-      <Filter>Source Files\renderables</Filter>
-    </ClInclude>
-    <ClInclude Include="..\source\NessEngine\renderable\znode.h">
-      <Filter>Source Files\renderables</Filter>
-    </ClInclude>
     <ClInclude Include="..\source\NessEngine\primitives\color.h">
       <Filter>Source Files\primitives</Filter>
     </ClInclude>
@@ -167,12 +149,6 @@
     <ClInclude Include="..\source\NessEngine\exports.h">
       <Filter>Source Files</Filter>
     </ClInclude>
-    <ClInclude Include="..\source\NessEngine\renderable\shapes.h">
-      <Filter>Source Files\renderables</Filter>
-    </ClInclude>
-    <ClInclude Include="..\source\NessEngine\renderable\renderable_entity.h">
-      <Filter>Source Files\renderables</Filter>
-    </ClInclude>
     <ClInclude Include="..\source\NessEngine\utils\mouse.h">
       <Filter>Source Files\utils</Filter>
     </ClInclude>
@@ -184,6 +160,48 @@
     </ClInclude>
     <ClInclude Include="..\source\NessEngine\primitives\math.h">
       <Filter>Source Files\primitives</Filter>
+    </ClInclude>
+    <ClInclude Include="..\source\NessEngine\renderable\nodes\node.h">
+      <Filter>Source Files\renderables\nodes</Filter>
+    </ClInclude>
+    <ClInclude Include="..\source\NessEngine\renderable\nodes\znode.h">
+      <Filter>Source Files\renderables\nodes</Filter>
+    </ClInclude>
+    <ClInclude Include="..\source\NessEngine\renderable\entities\canvas.h">
+      <Filter>Source Files\renderables\entities</Filter>
+    </ClInclude>
+    <ClInclude Include="..\source\NessEngine\renderable\entities\shapes.h">
+      <Filter>Source Files\renderables\entities</Filter>
+    </ClInclude>
+    <ClInclude Include="..\source\NessEngine\renderable\entities\sprite.h">
+      <Filter>Source Files\renderables\entities</Filter>
+    </ClInclude>
+    <ClInclude Include="..\source\NessEngine\renderable\node_api.h">
+      <Filter>Source Files\renderables</Filter>
+    </ClInclude>
+    <ClInclude Include="..\source\NessEngine\renderable\entity_api.h">
+      <Filter>Source Files\renderables</Filter>
+    </ClInclude>
+    <ClInclude Include="..\source\NessEngine\renderable\transformations.h">
+      <Filter>Source Files\renderables</Filter>
+    </ClInclude>
+    <ClInclude Include="..\source\NessEngine\renderable\renderable_api.h">
+      <Filter>Source Files\renderables</Filter>
+    </ClInclude>
+    <ClInclude Include="..\source\NessEngine\renderable\entities\entity.h">
+      <Filter>Source Files\renderables\entities</Filter>
+    </ClInclude>
+    <ClInclude Include="..\source\NessEngine\renderable\entities\all_entities.h">
+      <Filter>Source Files\renderables\entities</Filter>
+    </ClInclude>
+    <ClInclude Include="..\source\NessEngine\renderable\nodes\tile_map.h">
+      <Filter>Source Files\renderables\nodes</Filter>
+    </ClInclude>
+    <ClInclude Include="..\source\NessEngine\renderable\nodes\all_nodes.h">
+      <Filter>Source Files\renderables\nodes</Filter>
+    </ClInclude>
+    <ClInclude Include="..\source\NessEngine\renderable\transformable_api.h">
+      <Filter>Source Files\renderables</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

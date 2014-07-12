@@ -24,12 +24,8 @@
 #include "utils\events_poller.h"
 
 // include all renderables
-#include "renderable/node.h"
-#include "renderable/znode.h"
-#include "renderable/sprite.h"
-#include "renderable/tile_map.h"
-#include "renderable/canvas.h"
-#include "renderable/shapes.h"
+#include "renderable/nodes/all_nodes.h"
+#include "renderable/entities/all_entities.h"
 
 namespace Ness
 {
