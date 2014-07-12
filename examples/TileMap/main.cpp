@@ -29,8 +29,10 @@ int _tmain(int argc, _TCHAR* argv[])
 	Ness::ScenePtr scene = render.create_scene();
 
 	// create the tilemap
-	Ness::TileMapPtr map = scene->create_tilemap("tilemap.jpg", Ness::Sizei(75, 75), Ness::Size(32, 32));
-	map->set_all_tiles_type(Ness::Pointi(1, 0), Ness::Sizei(6,16));
+	const int TileSize = 32;							// <-- 32 is the size of a single tile in the spritesheet
+	const Ness::Pointi TilesInSpritesheet(6, 16);		// <-- 6 is how many tile types we got in the spritesheet on X axis, 16 is how many we got on Y axis
+	Ness::TileMapPtr map = scene->create_tilemap("tilemap.jpg", Ness::Sizei(100, 100), Ness::Sizei(TileSize, TileSize));
+	map->set_all_tiles_type(Ness::Pointi(0, 0), TilesInSpritesheet);
 
 	// create the tile selection box
 	Ness::SpritePtr tileSelection = scene->create_sprite("tilemap.jpg");
@@ -39,9 +41,20 @@ int _tmain(int argc, _TCHAR* argv[])
 	// create the tile selection red border
 	Ness::RectangleShapePtr border = scene->create_rectangle();
 	border->set_size(tileSelection->get_size());
-	border->set_static(true);
 	border->set_color(Ness::Color::RED);
+	border->set_static(true);
 	border->set_filled(false);
+
+	// create the highlight of the selected tile from the toolbar on the left
+	Ness::RectangleShapePtr selectedType = scene->create_rectangle();
+	selectedType->set_size(Ness::Sizei(TileSize, TileSize));
+	selectedType->set_color(Ness::Color::RED);
+	selectedType->set_static(true);
+	selectedType->set_filled(true);
+	selectedType->set_blend_mode(Ness::BLEND_MODE_MOD);
+
+	// the currently selected tile type to set
+	Ness::Pointi SelectedTileType(0, 0);
 
 	// create a camera
 	Ness::CameraPtr camera = render.create_camera();
@@ -85,8 +98,30 @@ int _tmain(int argc, _TCHAR* argv[])
 			g_running = false;
 		}
 
-		// do mouse control (picking tiles / changing tile type)
+		// if left mouse click is down:
+		if (mouse.is_down(Ness::Utils::MOUSE_LEFT))
+		{
+			// if mouse position is inside the tile selection, we pick a new tile type:
+			if (mouse.position().x <= tileSelection->get_size().x && mouse.position().y <= tileSelection->get_size().y)
+			{
+				SelectedTileType.x = (int)(mouse.position().x / TileSize);
+				SelectedTileType.y = (int)(mouse.position().y / TileSize);
+				selectedType->set_position(SelectedTileType * TileSize);
+			}
 
+			// else, if mouse is outside the toolbar, we pick a tile from the map
+			else
+			{
+				// pick tile
+				Ness::SpritePtr tile = map->get_sprite_by_position((Ness::Pointi)camera->position + mouse.position());
+			
+				// if got a valid tile (and not pointing outside the map) set its type
+				if (tile)
+				{
+					tile->set_source_from_sprite_sheet(SelectedTileType, TilesInSpritesheet);
+				}
+			}
+		}
 
 		// render and end the scene
 		scene->render(camera);

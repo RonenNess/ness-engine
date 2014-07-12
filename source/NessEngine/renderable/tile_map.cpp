@@ -111,6 +111,17 @@ namespace Ness
 		return ret;
 	}
 
+	SpritePtr& TileMap::get_sprite_by_position(const Point& position)
+	{
+		static SpritePtr empty;
+		Pointi index;
+		index.x = (int)(position.x / m_tile_size.x);
+		index.y = (int)(position.y / m_tile_size.y);
+		if (index.x < 0 || index.y < 0 || index.x >= m_size.x || index.y >= m_size.y)
+			return empty;
+		return get_sprite(index);
+	}
+
 	bool TileMap::is_really_visible(const CameraPtr& camera)
 	{
 		if (!m_visible)

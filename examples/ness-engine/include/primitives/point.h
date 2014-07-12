@@ -28,6 +28,7 @@ namespace Ness
 		NESSENGINE_API inline void add_x(type val) {x += val;}
 		NESSENGINE_API inline void add_y(type val) {y += val;}
 
+		// actions with another point
 		NESSENGINE_API __Point<type>& operator+=(const __Point<type>& other) {x += other.x; y += other.y; return *this;}
 		NESSENGINE_API __Point<type>& operator-=(const __Point<type>& other) {x -= other.x; y -= other.y; return *this;}
 		NESSENGINE_API __Point<type>& operator*=(const __Point<type>& other) {x *= other.x; y *= other.y; return *this;}
@@ -37,6 +38,16 @@ namespace Ness
 		NESSENGINE_API __Point<type> operator/(const __Point<type> other) const {return __Point<type>(x / other.x, y / other.y);}
 		NESSENGINE_API __Point<type> operator+(const __Point<type> other) const {return __Point<type>(x + other.x, y + other.y);}
 		NESSENGINE_API __Point<type> operator-(const __Point<type> other) const {return __Point<type>(x - other.x, y - other.y);}
+
+		// actions with scalars
+		NESSENGINE_API __Point<type>& operator+=(const type& scalar) {x += scalar; y += scalar; return *this;}
+		NESSENGINE_API __Point<type>& operator-=(const type& scalar) {x -= scalar; y -= scalar; return *this;}
+		NESSENGINE_API __Point<type>& operator*=(const type& scalar) {x *= scalar; y *= scalar; return *this;}
+		NESSENGINE_API __Point<type>& operator/=(const type& scalar) {x /= scalar; y /= scalar; return *this;}
+		NESSENGINE_API __Point<type> operator*(const type& scalar) const {return __Point<type>(x * scalar, y * scalar);}
+		NESSENGINE_API __Point<type> operator/(const type& scalar) const {return __Point<type>(x / scalar, y / scalar);}
+		NESSENGINE_API __Point<type> operator+(const type& scalar) const {return __Point<type>(x + scalar, y + scalar);}
+		NESSENGINE_API __Point<type> operator-(const type& scalar) const {return __Point<type>(x - scalar, y - scalar);}
 
 		NESSENGINE_API operator __Point<float>()	 {return __Point<float>((float)x, (float)y);}
 		NESSENGINE_API operator __Point<int>()		 {return __Point<int>((int)x, (int)y);}
