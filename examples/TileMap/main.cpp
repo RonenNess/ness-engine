@@ -34,6 +34,13 @@ int _tmain(int argc, _TCHAR* argv[])
 	Ness::TileMapPtr map = scene->create_tilemap("tilemap.jpg", Ness::Sizei(100, 100), Ness::Sizei(TileSize, TileSize));
 	map->set_all_tiles_type(Ness::Pointi(0, 0), TilesInSpritesheet);
 
+	// create the highlight of the currently selected tile
+	Ness::RectangleShapePtr selectedTile = scene->create_rectangle();
+	selectedTile->set_size(Ness::Sizei(TileSize, TileSize));
+	selectedTile->set_color(Ness::Color::RED);
+	selectedTile->set_anchor(Ness::Point(0.5f, 1.0f));
+	selectedTile->set_filled(false);
+
 	// create the tile selection box
 	Ness::SpritePtr tileSelection = scene->create_sprite("tilemap.jpg");
 	tileSelection->set_static(true);
@@ -98,6 +105,21 @@ int _tmain(int argc, _TCHAR* argv[])
 			g_running = false;
 		}
 
+		// pick the tile we currently point on with the mouse
+		Ness::SpritePtr tile = map->get_sprite_by_position((Ness::Pointi)camera->position + mouse.position());
+
+		// if a tile is picked set the visual on it
+		if (tile)
+		{
+			selectedTile->set_position(tile->get_position());
+			selectedTile->set_visible(true);
+		}
+		else
+		{
+			selectedTile->set_visible(false);
+		}
+		
+
 		// if left mouse click is down:
 		if (mouse.is_down(Ness::Utils::MOUSE_LEFT))
 		{
@@ -109,17 +131,10 @@ int _tmain(int argc, _TCHAR* argv[])
 				selectedType->set_position(SelectedTileType * TileSize);
 			}
 
-			// else, if mouse is outside the toolbar, we pick a tile from the map
-			else
+			// else, if we got selected tile, change its type
+			else if (tile)
 			{
-				// pick tile
-				Ness::SpritePtr tile = map->get_sprite_by_position((Ness::Pointi)camera->position + mouse.position());
-			
-				// if got a valid tile (and not pointing outside the map) set its type
-				if (tile)
-				{
-					tile->set_source_from_sprite_sheet(SelectedTileType, TilesInSpritesheet);
-				}
+				tile->set_source_from_sprite_sheet(SelectedTileType, TilesInSpritesheet);
 			}
 		}
 
