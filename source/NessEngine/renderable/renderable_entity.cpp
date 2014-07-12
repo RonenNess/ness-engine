@@ -4,7 +4,7 @@
 namespace Ness
 {
 
-	RenderableEntity::RenderableEntity(Renderer* renderer, RenderableParent* parent) : Renderable(renderer, parent)
+	RenderableEntity::RenderableEntity(Renderer* renderer, RenderableParent* parent) : Renderable(renderer, parent), m_static(false)
 	{
 		set_position(Point(0, 0));
 		set_anchor(Point::ZERO);

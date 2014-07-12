@@ -37,7 +37,7 @@ int _tmain(int argc, _TCHAR* argv[])
 	// create the highlight of the currently selected tile
 	Ness::RectangleShapePtr selectedTile = scene->create_rectangle();
 	selectedTile->set_size(Ness::Sizei(TileSize, TileSize));
-	selectedTile->set_color(Ness::Color::RED);
+	selectedTile->set_color(Ness::Color::GREEN);
 	selectedTile->set_anchor(Ness::Point(0.5f, 1.0f));
 	selectedTile->set_filled(false);
 
