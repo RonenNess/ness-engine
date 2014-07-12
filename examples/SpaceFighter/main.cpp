@@ -35,11 +35,15 @@ int _tmain(int argc, _TCHAR* argv[])
 	Ness::NodePtr entitiesNode = scene->create_node();
 
 	// create the player character!
-	const float PlayerSpeed = 350.0f;
+	const float PlayerAccaleration = 0.045f;
 	const float PlayerTurningSpeed = 250.0f;
+	const float MaxPlayerSpeed = 0.1f;
+	Ness::Point PlayerSpeed(0.0f, 0.0f);
 	Ness::SpritePtr player = entitiesNode->create_sprite("player.png");
 	player->set_anchor(Ness::Point(0.5f, 0.5f));
 	player->set_position(render.get_screen_center());
+	player->set_scale(0.75f);
+	player->set_rotation(90);
 	player->set_blend_mode(Ness::BLEND_MODE_BLEND);
 
 	// create the event handlers
@@ -58,15 +62,24 @@ int _tmain(int argc, _TCHAR* argv[])
 		// render the scene
 		render.start_frame();
 
-		// do keyboard control - move player around
+		// move the player based on speed
 		Ness::Point playerPos = player->get_position();
+		PlayerSpeed.limit(-MaxPlayerSpeed, MaxPlayerSpeed);
+		playerPos += PlayerSpeed;
+		if (playerPos.x < 0.0f) playerPos.x = (float)render.get_screen_size().x;
+		if (playerPos.y < 0.0f)	playerPos.y = (float)render.get_screen_size().y;
+		if (playerPos.x > render.get_screen_size().x) playerPos.x = 0.0f;
+		if (playerPos.y > render.get_screen_size().y) playerPos.y = 0.0f;
+		player->set_position(playerPos);
+
+		// do keyboard control - move player around
 		if (keyboard.ket_state(SDLK_DOWN))
 		{
-			playerPos.y += render.time_factor() * PlayerSpeed;
+			PlayerSpeed += Ness::Point::from_angle((int)player->get_rotation(), render.time_factor() * PlayerAccaleration);
 		}
 		if (keyboard.ket_state(SDLK_UP))
 		{
-			playerPos.y -= render.time_factor() * PlayerSpeed;
+			PlayerSpeed -= Ness::Point::from_angle((int)player->get_rotation(), render.time_factor() * PlayerAccaleration);
 		}
 		if (keyboard.ket_state(SDLK_LEFT))
 		{
@@ -80,7 +93,6 @@ int _tmain(int argc, _TCHAR* argv[])
 		{
 			g_running = false;
 		}
-		player->set_position(playerPos);
 
 		// render and end the scene
 		scene->render();

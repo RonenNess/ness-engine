@@ -36,6 +36,7 @@
     <ClInclude Include="..\source\NessEngine\exports.h" />
     <ClInclude Include="..\source\NessEngine\NessEngine.h" />
     <ClInclude Include="..\source\NessEngine\primitives\color.h" />
+    <ClInclude Include="..\source\NessEngine\primitives\math.h" />
     <ClInclude Include="..\source\NessEngine\primitives\point.h" />
     <ClInclude Include="..\source\NessEngine\primitives\primitives.h" />
     <ClInclude Include="..\source\NessEngine\primitives\rectangle.h" />

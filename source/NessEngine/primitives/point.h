@@ -6,6 +6,7 @@
 
 #pragma once
 #include "../exports.h"
+#include "math.h"
 
 namespace Ness
 {
@@ -49,22 +50,43 @@ namespace Ness
 		NESSENGINE_API __Point<type> operator+(const type& scalar) const {return __Point<type>(x + scalar, y + scalar);}
 		NESSENGINE_API __Point<type> operator-(const type& scalar) const {return __Point<type>(x - scalar, y - scalar);}
 
+		// casting
 		NESSENGINE_API operator __Point<float>()	 {return __Point<float>((float)x, (float)y);}
 		NESSENGINE_API operator __Point<int>()		 {return __Point<int>((int)x, (int)y);}
 
+		// setter and equel operators
 		NESSENGINE_API void set(type X, type Y) { x = X; y = Y;}
 		NESSENGINE_API bool operator==(const __Point<type>& other) const {return (x == other.x && y == other.y);}
 		NESSENGINE_API bool operator!=(const __Point<type> &other) const {return !(*this == other);}
 
+		// put point within limit
+		NESSENGINE_API void limit(type min, type max)
+		{
+			if (x < min) x = min;
+			if (x > max) x = max;
+			if (y < min) y = min;
+			if (y > max) y = max;
+		}
+
+		// ctors
 		NESSENGINE_API __Point<type>(type X, type Y) : x(X), y(Y)
 		{}
-
 		NESSENGINE_API __Point<type>()
 		{}
 
+		// const useful points
 		NESSENGINE_API static __Point<type> ZERO;
 		NESSENGINE_API static __Point<type> ONE;
 		NESSENGINE_API static __Point<type> HALF;
+
+		// static function: create point from angle
+		NESSENGINE_API static __Point<type> from_angle(int angle, float velocity = 1.0f) 
+		{
+			__Point<type> ret;
+			ret.x = (type)(cos(DEGREE_TO_RADIAN(angle)) * velocity);
+			ret.y = (type)(sin(DEGREE_TO_RADIAN(angle)) * velocity);
+			return ret;
+		}
 	};
 
 	NESSENGINE_API typedef __Point<float> Pointf;
