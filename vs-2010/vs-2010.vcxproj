@@ -26,6 +26,9 @@
     <ClCompile Include="..\source\NessEngine\scene\camera.cpp" />
     <ClCompile Include="..\source\NessEngine\scene\scene.cpp" />
     <ClCompile Include="..\source\NessEngine\texture\TextureSheet.cpp" />
+    <ClCompile Include="..\source\NessEngine\utils\events_poller.cpp" />
+    <ClCompile Include="..\source\NessEngine\utils\keyboard.cpp" />
+    <ClCompile Include="..\source\NessEngine\utils\mouse.cpp" />
     <ClCompile Include="dllmain.cpp" />
   </ItemGroup>
   <ItemGroup>
@@ -53,7 +56,10 @@
     <ClInclude Include="..\source\NessEngine\scene\camera.h" />
     <ClInclude Include="..\source\NessEngine\scene\scene.h" />
     <ClInclude Include="..\source\NessEngine\texture\TextureSheet.h" />
+    <ClInclude Include="..\source\NessEngine\utils\events_poller.h" />
+    <ClInclude Include="..\source\NessEngine\utils\event_handler.h" />
     <ClInclude Include="..\source\NessEngine\utils\keyboard.h" />
+    <ClInclude Include="..\source\NessEngine\utils\mouse.h" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <ProjectGuid>{1ACB68CF-3390-4177-A6A8-3E6757BF9954}</ProjectGuid>

@@ -11,6 +11,7 @@
 #include "../renderable/sprite.h"
 #include "../renderable/tile_map.h"
 #include "../renderable/canvas.h"
+#include "../renderable/shapes.h"
 #include "camera.h"
 #include <vector>
 

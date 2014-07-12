@@ -9,6 +9,15 @@
 
 #include <NessEngine.h>
 
+// is the program still running
+bool g_running = true;
+
+// callback to handle exit events
+void HandleEvents(const SDL_Event& event)
+{
+	if (event.type == SDL_QUIT)
+		g_running = false;
+}
 
 int _tmain(int argc, _TCHAR* argv[])
 {
@@ -23,33 +32,33 @@ int _tmain(int argc, _TCHAR* argv[])
 	Ness::TileMapPtr map = scene->create_tilemap("tilemap.jpg", Ness::Sizei(75, 75), Ness::Size(32, 32));
 	map->set_all_tiles_type(Ness::Pointi(1, 0), Ness::Sizei(6,16));
 
-	// create the tile selection
+	// create the tile selection box
 	Ness::SpritePtr tileSelection = scene->create_sprite("tilemap.jpg");
 	tileSelection->set_static(true);
+
+	// create the tile selection red border
+	Ness::RectangleShapePtr border = scene->create_rectangle();
+	border->set_size(tileSelection->get_size());
+	border->set_static(true);
+	border->set_color(Ness::Color::RED);
+	border->set_filled(false);
 
 	// create a camera
 	Ness::CameraPtr camera = render.create_camera();
 	float CameraSpeed = 500.0f;
 
-	// keyboard handler
+	// create the event handlers
 	Ness::Utils::Keyboard keyboard;
+	Ness::Utils::Mouse mouse;
+	Ness::Utils::EventsPoller EventsPoller;
+	EventsPoller.add_handler(mouse);
+	EventsPoller.add_handler(keyboard);
 
 	// loop until exit button is pressed
-	bool running = true;
-	Ness::Event event;
-	while( running )
+	while( g_running )
 	{
-		// fetch events and end program when getting the quit event
-		while( Ness::get_poll_event( event ) != 0 )
-		{
-			if (event.type == SDL_QUIT)
-			{
-				running = false;
-				break;
-			}
-
-			keyboard.inject_event(event);
-		}
+		// handle events
+		EventsPoller.poll_events(HandleEvents, false);
 
 		// render the scene
 		render.start_frame();
@@ -73,15 +82,20 @@ int _tmain(int argc, _TCHAR* argv[])
 		}
 		if (keyboard.ket_state(SDLK_ESCAPE))
 		{
-			running = false;
+			g_running = false;
 		}
+
+		// do mouse control (picking tiles / changing tile type)
+
 
 		// render and end the scene
 		scene->render(camera);
 		render.end_frame();
 	}
 
-	// cleanup
+	// cleanup. 
+	// note: the 'remove' lines are not mandatory, they are just to illustrate how to remove an entity from the scene.
+	scene->remove(border);
 	scene->remove(tileSelection);
 	scene->remove(map);
 	Ness::finish();

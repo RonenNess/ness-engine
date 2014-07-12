@@ -9,6 +9,16 @@
 
 #include <NessEngine.h>
 
+// is the program still running
+bool g_running = true;
+
+// callback to handle exit events
+void HandleEvents(const SDL_Event& event)
+{
+	if (event.type == SDL_QUIT)
+		g_running = false;
+}
+
 int _tmain(int argc, _TCHAR* argv[])
 {
 	// init and create a renderer
@@ -21,20 +31,14 @@ int _tmain(int argc, _TCHAR* argv[])
 	// add the hello-world sprite to it
 	Ness::SpritePtr sprite = scene->create_sprite("hello_world.png");
 
+	// create the events handler
+	Ness::Utils::EventsPoller EventsPoller;
+
 	// loop until exit button is pressed
-	bool running = true;
-	Ness::Event event;
-	while( running )
+	while( g_running )
 	{
-		// fetch events and end program when getting the quit event
-		while( Ness::get_poll_event( event ) != 0 )
-		{
-			if (event.type == SDL_QUIT)
-			{
-				running = false;
-				break;
-			}
-		}
+		// handle events
+		EventsPoller.poll_events(HandleEvents, false);
 
 		// render the scene
 		render.start_frame();

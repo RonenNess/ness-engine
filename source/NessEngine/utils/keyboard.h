@@ -7,6 +7,8 @@
 #pragma once
 #include <SDL.h>
 #include <unordered_map>
+#include "../exports.h"
+#include "event_handler.h"
 
 namespace Ness
 {
@@ -14,7 +16,7 @@ namespace Ness
 	{
 
 		// wrap keyboard functionality for easy keyboard controls
-		class Keyboard
+		class Keyboard : public EventsHandler
 		{
 		private:
 			std::unordered_map<SDL_Keycode, bool> m_key_codes;
@@ -22,23 +24,10 @@ namespace Ness
 		public:
 
 			// update the keyboard with incoming event
-			// always call this, Keyboard will filter it out if it's not a keyboard event!
-			void inject_event(const SDL_Event& event)
-			{
-				switch (event.type)
-				{
-					case SDL_KEYDOWN:
-						m_key_codes[event.key.keysym.sym] = true;
-						break;
-
-					case SDL_KEYUP:
-						m_key_codes[event.key.keysym.sym] = false;
-						break;
-				}
-			}
+			NESSENGINE_API virtual bool inject_event(const SDL_Event& event);
 
 			// get key state
-			inline bool ket_state(SDL_Keycode key) {return m_key_codes[key];}
+			NESSENGINE_API inline bool ket_state(SDL_Keycode key) {return m_key_codes[key];}
 		};
 
 	};

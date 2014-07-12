@@ -14,6 +14,8 @@
 #include "scene\scene.h"
 #include "scene\camera.h"
 #include "utils\keyboard.h"
+#include "utils\mouse.h"
+#include "utils\events_poller.h"
 
 namespace Ness
 {
