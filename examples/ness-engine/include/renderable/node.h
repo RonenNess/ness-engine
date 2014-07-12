@@ -53,6 +53,9 @@ namespace Ness
 		// get absolute transformations for this renderable node
 		NESSENGINE_API virtual const SRenderTransformations& get_absolute_transformations();
 
+		// get all visible son entities
+		NESSENGINE_API virtual void __get_visible_entities(std::vector<Renderable*>& out_list, const CameraPtr& camera = NullCamera);
+
 		// create and return a son entities
 		NESSENGINE_API virtual NodePtr create_node();
 		NESSENGINE_API virtual NodePtr create_znode();

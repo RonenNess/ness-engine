@@ -34,10 +34,11 @@ namespace Ness
 		float				rotation;
 		EBlendModes			blend;
 		Color				color;
+		float				zorder;
 
 		NESSENGINE_API SRenderTransformations(Point Position = Size(0, 0), Size Scale = Size(1, 1), float Rotation = 0.0f,  
-								EBlendModes Blend = BLEND_MODE_NONE, Color RenderColor = Color::WHITE) :
-				position(Position), scale(Scale), rotation(Rotation), blend(Blend), color(RenderColor)
+								EBlendModes Blend = BLEND_MODE_NONE, Color RenderColor = Color::WHITE, float Zorder = 0.0f) :
+				position(Position), scale(Scale), rotation(Rotation), blend(Blend), color(RenderColor), zorder(Zorder)
 		{
 		}
 
@@ -60,11 +61,10 @@ namespace Ness
 		RenderableParent*		m_parent;						// parent node
 		SRenderTransformations	m_transformations;				// render transformations (opacity, size, position, ...)
 		bool					m_visible;						// should this renderable be displayed or not
-		int						m_zindex;						// z index of this renderable
 
 	public:
 		NESSENGINE_API Renderable(Renderer* renderer, RenderableParent* parent = nullptr) : 
-			m_renderer(renderer), m_parent(parent), m_visible(true), m_zindex(0) {}
+			m_renderer(renderer), m_parent(parent), m_visible(true) {}
 
 		// setters/getters
 		NESSENGINE_API inline const SRenderTransformations& get_transformation() const {return m_transformations;}
@@ -73,15 +73,13 @@ namespace Ness
 		NESSENGINE_API inline void set_rotation(float NewRotation) {m_transformations.rotation = NewRotation; transformations_update();}
 		NESSENGINE_API inline void set_color(Color NewColor) {m_transformations.color = NewColor; transformations_update();}
 		NESSENGINE_API inline void set_blend_mode(EBlendModes NewMode) {m_transformations.blend = NewMode; transformations_update();}
+		NESSENGINE_API inline void set_zindex(float newZ) {m_transformations.zorder = newZ;}
 		NESSENGINE_API inline const Point& get_position() const {return m_transformations.position;}
 		NESSENGINE_API inline const Size& get_scale() const {return m_transformations.scale;}
 		NESSENGINE_API inline const float get_rotation() const {return m_transformations.rotation;}
 		NESSENGINE_API inline const Color get_color() const {return m_transformations.color;}
 		NESSENGINE_API inline const EBlendModes get_blend_mode() const {return m_transformations.blend;}
-
-		// set/get z index
-		NESSENGINE_API inline void set_zindex(int newZ) {m_zindex = newZ;}
-		NESSENGINE_API inline int get_zindex() const {return m_zindex;}
+		NESSENGINE_API inline float get_zindex() const {return m_transformations.zorder;}
 
 		// called whenever transformations are updated
 		NESSENGINE_API virtual void transformations_update() {}

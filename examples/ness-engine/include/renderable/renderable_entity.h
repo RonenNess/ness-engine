@@ -51,6 +51,7 @@ namespace Ness
 		// anchor is a point with values from 0.0 to 1.0, that represent the rotation center of this sprite (multiplied by his size)
 		// for example, anchor of (0.5, 1), will rotate the sprite from his center bottom
 		NESSENGINE_API inline void set_anchor(const Point& NewAnchor) {m_anchor = NewAnchor;}
+		NESSENGINE_API inline const Point& get_anchor() const {return m_anchor;}
 
 		// return the target rectangle this sprite will be rendered on
 		NESSENGINE_API const Rectangle& get_target_rect() const {return m_target_rect;}

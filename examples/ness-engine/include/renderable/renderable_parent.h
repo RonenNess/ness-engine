@@ -5,6 +5,8 @@
 */
 
 #pragma once
+#include <vector>
+#include "../scene/camera.h"
 
 namespace Ness
 {
@@ -20,6 +22,9 @@ namespace Ness
 
 		// get absolute transformations of this parent node
 		virtual const SRenderTransformations& get_absolute_transformations() = 0;
+
+		// get a list with ALL the son entities that are currently visible in screen
+		NESSENGINE_API virtual void __get_visible_entities(std::vector<Renderable*>& out_list, const CameraPtr& camera = NullCamera) = 0;
 	};
 
 };
