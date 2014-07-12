@@ -48,10 +48,10 @@ int _tmain(int argc, _TCHAR* argv[])
 	// create the highlight of the selected tile from the toolbar on the left
 	Ness::RectangleShapePtr selectedType = scene->create_rectangle();
 	selectedType->set_size(Ness::Sizei(TileSize, TileSize));
-	selectedType->set_color(Ness::Color::RED);
+	selectedType->set_color(Ness::Color(1.0f, 0.0f, 0.0f, 0.45f));
 	selectedType->set_static(true);
 	selectedType->set_filled(true);
-	selectedType->set_blend_mode(Ness::BLEND_MODE_MOD);
+	selectedType->set_blend_mode(Ness::BLEND_MODE_BLEND);
 
 	// the currently selected tile type to set
 	Ness::Pointi SelectedTileType(0, 0);
