@@ -62,6 +62,10 @@ namespace Ness
 		// stepsCount: how many total animation steps the sheet has (x, y)
 		NESSENGINE_API void set_all_tiles_type(const Pointi& step, const Sizei stepsCount);
 
+		// add/remove entities from this node - illegal in tilesmap node!
+		NESSENGINE_API virtual void add(const RenderablePtr& object) {throw IllegalAction("Cannot add new entities to tilemap!");}
+		NESSENGINE_API virtual void remove(const RenderablePtr& object) {throw IllegalAction("Cannot remove entities from tilemap!");}
+
 		// apply the given function to all tiles
 		// every call will contain a single tile and its index.
 		NESSENGINE_API void apply_to_all(executeOnTiles func);

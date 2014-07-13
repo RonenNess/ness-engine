@@ -44,6 +44,13 @@ namespace Ness
 			if (m_parent && parent && m_parent != parent) throw IllegalAction("Cannot change object parent without removing from previous parent first!");
 			m_parent = parent;
 		}
+
+		// get parent of this object
+		NESSENGINE_API inline NodeAPI* parent() const {return m_parent;}
+
+		// get renderer of this object
+		NESSENGINE_API inline Renderer* renderer() const {return m_renderer;}
+
 	};
 
 	// renderable object pointer

@@ -26,6 +26,10 @@ namespace Ness
 		// get absolute transformations of this node
 		virtual const SRenderTransformations& get_absolute_transformations() = 0;
 
+		// add/remove entities from this node
+		NESSENGINE_API virtual void add(const RenderablePtr& object) = 0;
+		NESSENGINE_API virtual void remove(const RenderablePtr& object) = 0;
+
 		// render this scene node (all nodes must also be renderable)
 		NESSENGINE_API virtual void render(const CameraPtr& camera = NullCamera) = 0;
 

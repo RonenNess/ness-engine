@@ -48,6 +48,9 @@ namespace Ness
 		// get parent of this object
 		NESSENGINE_API inline NodeAPI* parent() const {return m_parent;}
 
+		// get renderer of this object
+		NESSENGINE_API inline Renderer* renderer() const {return m_renderer;}
+
 	};
 
 	// renderable object pointer

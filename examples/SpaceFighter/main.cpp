@@ -8,6 +8,7 @@
 */
 
 #include <NessEngine.h>
+#include "player.h"
 
 // is the program still running
 bool g_running = true;
@@ -19,11 +20,12 @@ void HandleEvents(const SDL_Event& event)
 		g_running = false;
 }
 
+
 int _tmain(int argc, _TCHAR* argv[])
 {
 	// init and create a renderer
 	Ness::init();
-	Ness::Renderer render("Depth ordering demo!", Ness::Sizei(800, 600));
+	Ness::Renderer render("SpaceFighter demo!", Ness::Sizei(800, 600));
 
 	// create a new scene
 	Ness::ScenePtr scene = render.create_scene();
@@ -34,17 +36,21 @@ int _tmain(int argc, _TCHAR* argv[])
 	// create the entities node
 	Ness::NodePtr entitiesNode = scene->create_node();
 
-	// create the player character!
-	const float PlayerAccaleration = 0.045f;
-	const float PlayerTurningSpeed = 250.0f;
-	const float MaxPlayerSpeed = 0.1f;
-	Ness::Point PlayerSpeed(0.0f, 0.0f);
-	Ness::SpritePtr player = entitiesNode->create_sprite("player.png");
-	player->set_anchor(Ness::Point(0.5f, 0.5f));
-	player->set_position(render.get_screen_center());
-	player->set_scale(0.75f);
-	player->set_rotation(90);
-	player->set_blend_mode(Ness::BLEND_MODE_BLEND);
+	// creating player 1 (defined in player.h)
+	Player player1(entitiesNode, "player1.png");
+	player1.set_position(render.get_screen_center() + Ness::Point(0, 100));
+	player1.set_rotation(90);
+
+	// creating player 2
+	Player player2(entitiesNode, "player2.png");
+	player2.set_position(render.get_screen_center() + Ness::Point(0, -100));
+	player2.set_rotation(-90);
+
+	// test meteor
+	Ness::SpritePtr Meteor = scene->create_sprite("meteor.png");
+	Meteor->set_anchor(Ness::Point(0.5f, 0.5f));
+	Meteor->set_blend_mode(Ness::BLEND_MODE_BLEND);
+	Meteor->set_position(Ness::Point(200, 200));
 
 	// create the event handlers
 	Ness::Utils::Keyboard keyboard;
@@ -62,33 +68,33 @@ int _tmain(int argc, _TCHAR* argv[])
 		// render the scene
 		render.start_frame();
 
-		// move the player based on speed
-		Ness::Point playerPos = player->get_position();
-		PlayerSpeed.limit(-MaxPlayerSpeed, MaxPlayerSpeed);
-		playerPos += PlayerSpeed;
-		if (playerPos.x < 0.0f) playerPos.x = (float)render.get_screen_size().x;
-		if (playerPos.y < 0.0f)	playerPos.y = (float)render.get_screen_size().y;
-		if (playerPos.x > render.get_screen_size().x) playerPos.x = 0.0f;
-		if (playerPos.y > render.get_screen_size().y) playerPos.y = 0.0f;
-		player->set_position(playerPos);
+		// do players events
+		player1.do_events();
+		player2.do_events();
 
-		// do keyboard control - move player around
-		if (keyboard.ket_state(SDLK_DOWN))
-		{
-			PlayerSpeed += Ness::Point::from_angle((int)player->get_rotation(), render.time_factor() * PlayerAccaleration);
-		}
+		// KEYBOARD CONTROL:
+
+		// player1 controls
 		if (keyboard.ket_state(SDLK_UP))
-		{
-			PlayerSpeed -= Ness::Point::from_angle((int)player->get_rotation(), render.time_factor() * PlayerAccaleration);
-		}
+			player1.fly_forward();
+		if (keyboard.ket_state(SDLK_DOWN))
+			player1.fly_backwards();
 		if (keyboard.ket_state(SDLK_LEFT))
-		{
-			player->set_rotation(player->get_rotation() - render.time_factor() * PlayerTurningSpeed);
-		}
+			player1.turn_left();
 		if (keyboard.ket_state(SDLK_RIGHT))
-		{
-			player->set_rotation(player->get_rotation() + render.time_factor() * PlayerTurningSpeed);
-		}
+			player1.turn_right();
+
+		// player2 controls
+		if (keyboard.ket_state(SDLK_w))
+			player2.fly_forward();
+		if (keyboard.ket_state(SDLK_s))
+			player2.fly_backwards();
+		if (keyboard.ket_state(SDLK_a))
+			player2.turn_left();
+		if (keyboard.ket_state(SDLK_d))
+			player2.turn_right();
+
+		// exit
 		if (keyboard.ket_state(SDLK_ESCAPE))
 		{
 			g_running = false;
@@ -103,7 +109,6 @@ int _tmain(int argc, _TCHAR* argv[])
 	// note: the 'remove' lines are not mandatory, they are just to illustrate how to remove an entity from the scene.
 	scene->remove(entitiesNode);
 	scene->remove(background);
-	entitiesNode->remove(player);
 	Ness::finish();
 	return 0;
 }

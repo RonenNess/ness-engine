@@ -206,7 +206,10 @@
     <ClInclude Include="..\source\NessEngine\renderable\transformable_api.h">
       <Filter>Source Files\renderables</Filter>
     </ClInclude>
-    <ClInclude Include="..\source\NessEngine\renderable\nodes\animator_api.h">
+    <ClInclude Include="..\source\NessEngine\animators\animator_api.h">
+      <Filter>Source Files\animators</Filter>
+    </ClInclude>
+    <ClInclude Include="..\source\NessEngine\animators\animations_manager.h">
       <Filter>Source Files\animators</Filter>
     </ClInclude>
   </ItemGroup>
