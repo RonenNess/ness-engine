@@ -18,50 +18,77 @@ namespace Ness
 	*
 	* NOTE: don't use this class directly, use the typedefs at the end of this file instead. for example, "Colorb".
 	*/
-	template <typename Type>
+	template <typename type>
 	class __Color
 	{
 	public:
 
 		// the components of the color
-		Type r;
-		Type g;
-		Type b;
-		Type a;
+		type r;
+		type g;
+		type b;
+		type a;
 
-		// += and -= operators
-		NESSENGINE_API __Color<Type>& operator+=(const __Color<Type>& other) {r += other.r; g += other.g; b += other.b; a += other.a; return *this;}
-		NESSENGINE_API __Color<Type>& operator-=(const __Color<Type>& other) {r -= other.r; g -= other.g; b -= other.b; a -= other.a; return *this;}
-		NESSENGINE_API __Color<Type>& operator*=(const __Color<Type>& other) {r *= other.r; g *= other.g; b *= other.b; a *= other.a; return *this;}
-		NESSENGINE_API __Color<Type>& operator/=(const __Color<Type>& other) {r /= other.r; g /= other.g; b /= other.b; a /= other.a; return *this;}
+		// operators with other colors
+		NESSENGINE_API __Color<type>& operator+=(const __Color<type>& other) {r += other.r; g += other.g; b += other.b; a += other.a; return *this;}
+		NESSENGINE_API __Color<type>& operator-=(const __Color<type>& other) {r -= other.r; g -= other.g; b -= other.b; a -= other.a; return *this;}
+		NESSENGINE_API __Color<type>& operator*=(const __Color<type>& other) {r *= other.r; g *= other.g; b *= other.b; a *= other.a; return *this;}
+		NESSENGINE_API __Color<type>& operator/=(const __Color<type>& other) {r /= other.r; g /= other.g; b /= other.b; a /= other.a; return *this;}
+		NESSENGINE_API __Color<type> operator*(const __Color<type>& other) const {return __Color<type>(r * other.r, g * other.g, b * other.b, a * other.a);}
+		NESSENGINE_API __Color<type> operator/(const __Color<type>& other) const {return __Color<type>(r / other.r, g / other.g, b / other.b, a / other.a);}
+		NESSENGINE_API __Color<type> operator+(const __Color<type>& other) const {return __Color<type>(r + other.r, g + other.g, b + other.b, a + other.a);}
+		NESSENGINE_API __Color<type> operator-(const __Color<type>& other) const {return __Color<type>(r - other.r, g - other.g, b - other.b, a - other.a);}
+
+		// operators with scalars
+		NESSENGINE_API __Color<type>& operator+=(const type& scalar) {r += scalar; g += scalar; b += scalar; a += scalar; return *this;}
+		NESSENGINE_API __Color<type>& operator-=(const type& scalar) {r -= scalar; g -= scalar; b -= scalar; a -= scalar; return *this;}
+		NESSENGINE_API __Color<type>& operator*=(const type& scalar) {r *= scalar; g *= scalar; b *= scalar; a *= scalar; return *this;}
+		NESSENGINE_API __Color<type>& operator/=(const type& scalar) {r /= scalar; g /= scalar; b /= scalar; a /= scalar; return *this;}
+		NESSENGINE_API __Color<type> operator*(const type& scalar) const {return __Color<type>(r * scalar, g * scalar, b * scalar, a * scalar);}
+		NESSENGINE_API __Color<type> operator/(const type& scalar) const {return __Color<type>(r / scalar, g / scalar, b / scalar, a / scalar);}
+		NESSENGINE_API __Color<type> operator+(const type& scalar) const {return __Color<type>(r + scalar, g + scalar, b + scalar, a + scalar);}
+		NESSENGINE_API __Color<type> operator-(const type& scalar) const {return __Color<type>(r - scalar, g - scalar, b - scalar, a - scalar);}
 
 		// create empty color (with garbage values)
-		NESSENGINE_API __Color<Type>()
+		NESSENGINE_API __Color<type>()
 		{
 		}
 
 		// create color with values
-		NESSENGINE_API __Color<Type>(Type R, Type G, Type B, Type A = 1.0) : r(R), g(G), b(B), a(A)
+		NESSENGINE_API __Color<type>(type R, type G, type B, type A = 1.0) : r(R), g(G), b(B), a(A)
 		{}
 
 		// get base type
-		NESSENGINE_API const type_info& get_component_type() const {return typeid(Type);}
+		NESSENGINE_API const type_info& get_component_type() const {return typeid(type);}
 
 		// set all color components
-		NESSENGINE_API inline void set(Type R, Type G, Type B, Type A = 1.0) {r = R; g = G; b = B; a = A;}
+		NESSENGINE_API inline void set(type R, type G, type B, type A = 1.0) {r = R; g = G; b = B; a = A;}
+
+		// put color within limit
+		NESSENGINE_API void limit(type min, type max)
+		{
+			if (r < min) r = min;
+			if (r > max) r = max;
+			if (g < min) g = min;
+			if (g > max) g = max;
+			if (b < min) b = min;
+			if (b > max) b = max;
+			if (a < min) a = min;
+			if (a > max) a = max;
+		}
 
 		// some useful defaults
-		NESSENGINE_API static __Color<Type> WHITE;
-		NESSENGINE_API static __Color<Type> GREY;
-		NESSENGINE_API static __Color<Type> BLACK;
-		NESSENGINE_API static __Color<Type> RED;
-		NESSENGINE_API static __Color<Type> GREEN;
-		NESSENGINE_API static __Color<Type> BLUE;
-		NESSENGINE_API static __Color<Type> INVISIBLE;
+		NESSENGINE_API static __Color<type> WHITE;
+		NESSENGINE_API static __Color<type> GREY;
+		NESSENGINE_API static __Color<type> BLACK;
+		NESSENGINE_API static __Color<type> RED;
+		NESSENGINE_API static __Color<type> GREEN;
+		NESSENGINE_API static __Color<type> BLUE;
+		NESSENGINE_API static __Color<type> INVISIBLE;
 
 		// get random color
-		static NESSENGINE_API __Color<Type> get_random_255() {return __Color<Type>((Type)(rand() % 255), (Type)(rand() % 255), (Type)(rand() % 255));}
-		static NESSENGINE_API __Color<Type> get_random() {return __Color<Type>((Type)(rand()), (Type)(rand()), (Type)(rand()));}
+		static NESSENGINE_API __Color<type> get_random_255() {return __Color<type>((type)(rand() % 255), (type)(rand() % 255), (type)(rand() % 255));}
+		static NESSENGINE_API __Color<type> get_random() {return __Color<type>((type)(rand()), (type)(rand()), (type)(rand()));}
 	};
 
 	// predefined color types we'll be using

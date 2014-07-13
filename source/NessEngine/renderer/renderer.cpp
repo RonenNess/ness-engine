@@ -1,5 +1,6 @@
 #include "renderer.h"
 #include "../exceptions/exceptions.h"
+#include <algorithm>
 
 namespace Ness
 {
@@ -92,6 +93,46 @@ namespace Ness
 		}
 
 		m_frameid++;
+	}
+
+	// register an animator
+	void Renderer::register_animator(const Animators::AnimatorPtr& animator)
+	{
+		m_animators.push_back(animator);
+	}
+
+	// remove an animator
+	void Renderer::remove_animator(const Animators::AnimatorPtr& animator)
+	{
+		m_animators.erase(std::remove(m_animators.begin(), m_animators.end(), animator), m_animators.end());
+	}
+
+	// remove all dead animators from list
+	bool remove_dead_animators(const Animators::AnimatorPtr& animator)
+	{
+		return animator->__should_be_removed();
+	}
+
+	// run all animators
+	void Renderer::do_animations()
+	{
+		// loop and animate all animators
+		for (unsigned int i = 0; i < m_animators.size(); ++i)
+		{
+			if (m_animators[i]->is_paused())
+				continue;
+
+			m_animators[i]->animate(this);
+		}
+
+		// remove all 'dead' animators
+		m_animators.erase(std::remove_if(m_animators.begin(), m_animators.end(), remove_dead_animators), m_animators.end());
+	}
+
+	// remove a scene
+	void Renderer::remove_scene(const ScenePtr& scene)
+	{
+		m_scenes.erase(std::remove(m_scenes.begin(), m_scenes.end(), scene), m_scenes.end());
 	}
 
 	// render everything!

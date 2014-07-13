@@ -22,3 +22,8 @@ void Meteor::do_events()
 	float NewAngle = m_meteor->get_rotation() + m_rotation_speed * m_meteor->renderer()->time_factor();
 	m_meteor->set_rotation(NewAngle);
 }
+
+void Meteor::apply_force(const Ness::Point& force)
+{
+	m_speed += force;
+}

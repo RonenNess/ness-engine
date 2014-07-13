@@ -9,6 +9,7 @@
 #include "../resources/resources_manager.h"
 #include "../primitives/primitives.h"
 #include "../scene/scene.h"
+#include "../animators/animator_api.h"
 
 namespace Ness
 {
@@ -29,7 +30,8 @@ namespace Ness
 		SDL_Window*								m_window;					// our window pointer
 		SDL_Renderer*							m_renderer;					// our main renderer
 		ManagedResources::ResourcesManager		m_resources;				// the resources manager class
-		std::list<ScenePtr>						m_scenes;					// all the scenes this renderer has
+		std::vector<ScenePtr>					m_scenes;					// all the scenes this renderer has
+		std::vector<Animators::AnimatorPtr>		m_animators;				// all the animators currently registered
 		unsigned int							m_start_frame_time;			// tick count at the begining of the frame
 		float									m_timefactor;				// time delta (time factor) from begining to end of frame
 		float									m_second_timer;				// count time elapse until getting to a second (0 to 1.0)
@@ -52,16 +54,21 @@ namespace Ness
 		// get time factor for animation calculations
 		NESSENGINE_API inline float time_factor() const {return m_timefactor;}
 
+		// register / remove an animator
+		NESSENGINE_API void register_animator(const Animators::AnimatorPtr& animator);
+		NESSENGINE_API void remove_animator(const Animators::AnimatorPtr& animator);
+
+		// run all the animators
+		NESSENGINE_API void do_animations();
+
 		// get fps count
 		NESSENGINE_API inline int fps() const {return m_fps;}
 
 		// set the title of the window
 		NESSENGINE_API void set_window_title(const char* NewTitle);
 
-		// get screen size
+		// get target/screen size (we are currently rendering to)
 		NESSENGINE_API const Sizei& get_screen_size() const {return m_screen_size;}
-
-		// get current target size (might be screen size or texture we render on
 		NESSENGINE_API const Sizei& get_target_size() const {return *m_target_size;}
 
 		// get the center of the target/screen you currently render to
@@ -76,6 +83,9 @@ namespace Ness
 
 		// create a new scene
 		NESSENGINE_API ScenePtr create_scene();
+
+		// remove a scene
+		NESSENGINE_API void remove_scene(const ScenePtr& scene);
 
 		// change the background color
 		NESSENGINE_API void set_background_color(const Color& NewColor);

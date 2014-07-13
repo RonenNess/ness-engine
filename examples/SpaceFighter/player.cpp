@@ -1,5 +1,4 @@
 #include "player.h"
-#include "shot.h"
 
 // function to remove all shots that ran out of time to live
 bool remove_dead_shots(const std::auto_ptr<LaserShot>& shot)
@@ -13,23 +12,21 @@ m_acceleration(1.25f), m_turning_speed(250.0f), m_max_speed(2.0f), m_parent(pare
 {
 	// create the node that will contain all player spaceship parts
 	m_node = parentNode->create_node();
+	m_node->set_scale(0.75f);
 
 	m_spaceship = m_node->create_sprite(spacehipTexture);
 	m_spaceship->set_anchor(Ness::Point(0.5f, 0.5f));
-	m_spaceship->set_scale(0.75f);
 	m_spaceship->set_blend_mode(Ness::BLEND_MODE_BLEND);
 
 	// create the player spaceship backfire effect when flying forward
 	m_backFire = m_node->create_sprite("player_backfire.png");
 	m_backFire->set_anchor(Ness::Point(0.5f, 0.5f));
-	m_backFire->set_scale(0.75f);
 	m_backFire->set_blend_mode(Ness::BLEND_MODE_BLEND);
 	m_backFire->set_color(m_fire_color);
 
 	// create the player spaceship frontfire effect when flying backwards
 	m_frontFire = m_node->create_sprite("player_frontfire.png");
 	m_frontFire->set_anchor(Ness::Point(0.5f, 0.5f));
-	m_frontFire->set_scale(0.75f);
 	m_frontFire->set_blend_mode(Ness::BLEND_MODE_BLEND);
 	m_frontFire->set_color(m_fire_color);
 }
@@ -78,6 +75,31 @@ void Player::do_events()
 
 }
 
+void Player::do_collisions(const std::list<std::auto_ptr<Meteor> >& meteors, Player& other)
+{
+	// first check if any of this shots hit the other
+	for (auto shot = m_shots.begin(); shot != m_shots.end(); ++shot)
+	{
+		// check collision with other player
+		if ((*shot)->get_position().distance(other.get_position()) < other.get_radius())
+		{
+			other.apply_force((*shot)->get_direction_vector().get_normalized() * 0.1f);
+			(*shot)->destroy(true);
+			continue;
+		}
+
+		// check collision with meteors
+		for (auto meteor = meteors.begin(); meteor != meteors.end(); ++meteor)
+		{
+			if ((*shot)->get_position().distance((*meteor)->get_position()) < (*meteor)->get_radius())
+			{
+				(*meteor)->apply_force((*shot)->get_direction_vector().get_normalized() * 0.25f);
+				(*shot)->destroy(true);
+			}
+		}
+	}
+}
+
 void Player::turn_left()
 {
 	m_node->set_rotation(m_node->get_rotation() - m_node->renderer()->time_factor() * m_turning_speed);
@@ -88,14 +110,18 @@ void Player::turn_right()
 	m_node->set_rotation(m_node->get_rotation() + m_node->renderer()->time_factor() * m_turning_speed);
 }
 
+void Player::apply_force(const Ness::Point& force)
+{
+	// apply the force and make sure speed is within the limit
+	m_speed += force;
+	m_speed.limit(-m_max_speed, m_max_speed);
+}
+
 void Player::fly_forward()
 {
 	// get movement vector and add to speed
 	Ness::Point moveVector = Ness::Point::from_angle((int)m_node->get_rotation(), (m_node->renderer()->time_factor() * m_acceleration));
-	m_speed += moveVector;
-
-	// make sure speed is within limit
-	m_speed.limit(-m_max_speed, m_max_speed);
+	apply_force(moveVector);
 
 	// do backfire effect
 	m_backFire->set_visible((rand() % 5) > 1);
@@ -105,10 +131,7 @@ void Player::fly_backwards()
 {
 	// get movement vector and add to speed
 	Ness::Point moveVector = Ness::Point::from_angle((int)m_node->get_rotation(), (m_node->renderer()->time_factor() * m_acceleration));
-	m_speed -= moveVector;
-
-	// make sure speed is within limit
-	m_speed.limit(-m_max_speed, m_max_speed);
+	apply_force(-moveVector);
 
 	// do frontfire effect
 	m_frontFire->set_visible((rand() % 5) > 1);

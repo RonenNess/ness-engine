@@ -27,6 +27,9 @@
 #include "renderable/nodes/all_nodes.h"
 #include "renderable/entities/all_entities.h"
 
+// include all animators
+#include "animators/all_animators.h"
+
 namespace Ness
 {
 	// current ness engine version

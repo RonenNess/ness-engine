@@ -1,6 +1,7 @@
 #pragma once
 #include <NessEngine.h>
 #include "shot.h"
+#include "meteor.h"
 #include <memory>
 
 // define the player object
@@ -36,10 +37,17 @@ public:
 
 	// set position
 	inline void set_position(const Ness::Point& pos) {m_node->set_position(pos);}
+	inline const Ness::Point& get_position() const {return m_node->get_position();}
+
+	// apply force that move this player spaceship
+	void apply_force(const Ness::Point& force);
 
 	// move the player based on speed, handle effects, ect..
 	// NOTE: be sure to call do_events BEFORE doing movement (fly_forward/backwards) and other stuff
 	void do_events();
+
+	// get estimated radius for collision detection
+	inline float get_radius() const {return m_spaceship->get_size().x * m_node->get_scale().x * 0.45f;}
 
 	// give acceleration forward
 	void fly_forward();
@@ -52,4 +60,8 @@ public:
 
 	// give acceleration backwards
 	void fly_backwards();
+
+	// check collision with meteors and other players.
+	// check both the player itself and his shots
+	void do_collisions(const std::list<std::auto_ptr<Meteor> >& meteors, Player& other);
 };

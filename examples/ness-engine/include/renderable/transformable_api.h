@@ -26,12 +26,14 @@ namespace Ness
 		NESSENGINE_API inline void set_scale(float NewScale) {set_scale(Point(NewScale, NewScale));}
 		NESSENGINE_API inline void set_rotation(float NewRotation) {m_transformations.rotation = NewRotation; transformations_update();}
 		NESSENGINE_API inline void set_color(Color NewColor) {m_transformations.color = NewColor; transformations_update();}
+		NESSENGINE_API inline void set_opacity(float opacity) {m_transformations.color.a = opacity; transformations_update();}
 		NESSENGINE_API inline void set_blend_mode(EBlendModes NewMode) {m_transformations.blend = NewMode; transformations_update();}
 		NESSENGINE_API inline void set_zindex(float newZ) {m_transformations.zorder = newZ;}
 		NESSENGINE_API inline const Point& get_position() const {return m_transformations.position;}
 		NESSENGINE_API inline const Size& get_scale() const {return m_transformations.scale;}
 		NESSENGINE_API inline const float get_rotation() const {return m_transformations.rotation;}
-		NESSENGINE_API inline const Color get_color() const {return m_transformations.color;}
+		NESSENGINE_API inline const Color& get_color() const {return m_transformations.color;}
+		NESSENGINE_API inline const float get_opacity() const {return m_transformations.color.a;}
 		NESSENGINE_API inline const EBlendModes get_blend_mode() const {return m_transformations.blend;}
 		NESSENGINE_API inline float get_zindex() const {return m_transformations.zorder;}
 

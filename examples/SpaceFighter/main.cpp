@@ -11,6 +11,7 @@
 #include "player.h"
 #include "meteor.h"
 #include <memory>
+#include <time.h>
 
 // is the program still running
 bool g_running = true;
@@ -38,6 +39,8 @@ bool remove_meteors_off_screen(const std::auto_ptr<Meteor>& meteor)
 
 int _tmain(int argc, _TCHAR* argv[])
 {
+	srand ((unsigned int)time(NULL));
+
 	// init and create a renderer
 	Ness::init();
 	Ness::Renderer renderer("SpaceFighter demo!", Ness::Sizei(SCREEN_WIDTH, SCREEN_HEIGHT));
@@ -71,6 +74,11 @@ int _tmain(int argc, _TCHAR* argv[])
 	Ness::Utils::EventsPoller EventsPoller;
 	EventsPoller.add_handler(mouse);
 	EventsPoller.add_handler(keyboard);
+
+	Ness::Animators::AnimatorPtr anim(new Ness::Animators::AnimatorFader(false));
+	anim->set_target(entitiesNode);
+	renderer.register_animator(anim);
+
 
 	// loop until exit button is pressed
 	while( g_running )
@@ -113,9 +121,16 @@ int _tmain(int argc, _TCHAR* argv[])
 		// render the scene
 		renderer.start_frame();
 
+		// do animatins
+		renderer.do_animations();
+
 		// do players events
 		player1.do_events();
 		player2.do_events();
+
+		// do collisions
+		player1.do_collisions(meteors, player2);
+		player2.do_collisions(meteors, player1);
 
 		// do all meteors events
 		for (auto meteor = meteors.begin(); meteor != meteors.end(); ++meteor)

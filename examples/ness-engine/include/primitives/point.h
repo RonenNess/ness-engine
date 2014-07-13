@@ -29,18 +29,18 @@ namespace Ness
 		NESSENGINE_API inline void add_x(type val) {x += val;}
 		NESSENGINE_API inline void add_y(type val) {y += val;}
 
-		// actions with another point
+		// operators with another point
 		NESSENGINE_API __Point<type>& operator+=(const __Point<type>& other) {x += other.x; y += other.y; return *this;}
 		NESSENGINE_API __Point<type>& operator-=(const __Point<type>& other) {x -= other.x; y -= other.y; return *this;}
 		NESSENGINE_API __Point<type>& operator*=(const __Point<type>& other) {x *= other.x; y *= other.y; return *this;}
 		NESSENGINE_API __Point<type>& operator/=(const __Point<type>& other) {x /= other.x; y /= other.y; return *this;}
-		NESSENGINE_API __Point<type> operator-() const {return __Point<type>(-x, -y);}
-		NESSENGINE_API __Point<type> operator*(const __Point<type> other) const {return __Point<type>(x * other.x, y * other.y);}
-		NESSENGINE_API __Point<type> operator/(const __Point<type> other) const {return __Point<type>(x / other.x, y / other.y);}
-		NESSENGINE_API __Point<type> operator+(const __Point<type> other) const {return __Point<type>(x + other.x, y + other.y);}
-		NESSENGINE_API __Point<type> operator-(const __Point<type> other) const {return __Point<type>(x - other.x, y - other.y);}
+		NESSENGINE_API __Point<type> operator*(const __Point<type>& other) const {return __Point<type>(x * other.x, y * other.y);}
+		NESSENGINE_API __Point<type> operator/(const __Point<type>& other) const {return __Point<type>(x / other.x, y / other.y);}
+		NESSENGINE_API __Point<type> operator+(const __Point<type>& other) const {return __Point<type>(x + other.x, y + other.y);}
+		NESSENGINE_API __Point<type> operator-(const __Point<type>& other) const {return __Point<type>(x - other.x, y - other.y);}
 
-		// actions with scalars
+		// operators with scalars
+		NESSENGINE_API __Point<type> operator-() const {return __Point<type>(-x, -y);}
 		NESSENGINE_API __Point<type>& operator+=(const type& scalar) {x += scalar; y += scalar; return *this;}
 		NESSENGINE_API __Point<type>& operator-=(const type& scalar) {x -= scalar; y -= scalar; return *this;}
 		NESSENGINE_API __Point<type>& operator*=(const type& scalar) {x *= scalar; y *= scalar; return *this;}
@@ -66,6 +66,28 @@ namespace Ness
 			if (x > max) x = max;
 			if (y < min) y = min;
 			if (y > max) y = max;
+		}
+
+		// return distance from other point
+		NESSENGINE_API float distance(const __Point<type>& other) const 
+		{
+			return sqrt((float)(POW2(x - other.x) + POW2(y - other.y)));
+		}
+
+		// return normalized point
+		NESSENGINE_API __Point<type> get_normalized() const 
+		{
+			type div = abs(x) > abs(y) ? abs(x) : abs(y);
+			if (div == 0) return __Point<type>::ZERO;
+			return __Point<type>(x / div, y / div);
+		}
+
+		// normalize this point
+		NESSENGINE_API void normalize()
+		{
+			type div = abs(x) > abs(y) ? abs(x) : abs(y);
+			if (div == 0) return;
+			x /= div; y /= div;
 		}
 
 		// ctors

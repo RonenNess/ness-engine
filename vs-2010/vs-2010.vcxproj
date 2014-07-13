@@ -31,8 +31,9 @@
     <ClCompile Include="dllmain.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="..\source\NessEngine\animators\animations_manager.h" />
+    <ClInclude Include="..\source\NessEngine\animators\all_animators.h" />
     <ClInclude Include="..\source\NessEngine\animators\animator_api.h" />
+    <ClInclude Include="..\source\NessEngine\animators\animator_fader.h" />
     <ClInclude Include="..\source\NessEngine\exceptions\exceptions.h" />
     <ClInclude Include="..\source\NessEngine\exports.h" />
     <ClInclude Include="..\source\NessEngine\NessEngine.h" />

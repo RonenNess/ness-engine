@@ -209,7 +209,10 @@
     <ClInclude Include="..\source\NessEngine\animators\animator_api.h">
       <Filter>Source Files\animators</Filter>
     </ClInclude>
-    <ClInclude Include="..\source\NessEngine\animators\animations_manager.h">
+    <ClInclude Include="..\source\NessEngine\animators\animator_fader.h">
+      <Filter>Source Files\animators</Filter>
+    </ClInclude>
+    <ClInclude Include="..\source\NessEngine\animators\all_animators.h">
       <Filter>Source Files\animators</Filter>
     </ClInclude>
   </ItemGroup>

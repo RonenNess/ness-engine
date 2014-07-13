@@ -14,10 +14,11 @@ namespace Ness
 	// the API of a renderable entity
 	class EntityAPI : public RenderableAPI
 	{
-
 	public:
+		// create the entity
 		NESSENGINE_API EntityAPI(Renderer* renderer, NodeAPI* parent = nullptr) : 
 			RenderableAPI(renderer, parent) {}
+
 	};
 
 	// entity pointer

@@ -23,10 +23,16 @@ namespace Ness
 		Renderer*				m_renderer;						// pointer to the renderer
 		NodeAPI*				m_parent;						// parent node
 		bool					m_visible;						// should this renderable be displayed or not
+		void*					m_user_data;					// optional user data you can attach to this object
 
 	public:
 		NESSENGINE_API RenderableAPI(Renderer* renderer, NodeAPI* parent = nullptr) : 
 		  m_renderer(renderer), m_parent(parent), m_visible(true) {}
+
+		// attached customized user data to this object
+		inline void set_user_data(void* user_data) {m_user_data = user_data;}
+		const void* get_user_data() const {return m_user_data;}
+		void* get_user_data() {return m_user_data;}
 
 		// enable/disable rendering of this object
 		NESSENGINE_API inline void set_visible(bool Visible) {m_visible = Visible;}
