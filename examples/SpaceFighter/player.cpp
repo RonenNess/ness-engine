@@ -1,4 +1,11 @@
 #include "player.h"
+#include "shot.h"
+
+// function to remove all shots that ran out of time to live
+bool remove_dead_shots(const std::auto_ptr<LaserShot>& shot)
+{
+	return shot->get_time_to_live() <= 0.0f;
+}
 
 Player::Player(Ness::NodePtr& parentNode, const std::string& spacehipTexture, const Ness::Color& fireColor) : 
 m_acceleration(1.25f), m_turning_speed(250.0f), m_max_speed(2.0f), m_parent(parentNode), m_speed(0.0f, 0.0f), 
@@ -61,6 +68,13 @@ void Player::do_events()
 	if (playerPos.x > m_node->renderer()->get_screen_size().x) playerPos.x = 0.0f;
 	if (playerPos.y > m_node->renderer()->get_screen_size().y) playerPos.y = 0.0f;
 	m_node->set_position(playerPos);
+
+	// move shots
+	for (auto shot = m_shots.begin(); shot != m_shots.end(); ++shot)
+	{
+		(*shot)->do_events();
+	}
+	m_shots.remove_if(remove_dead_shots);
 
 }
 
