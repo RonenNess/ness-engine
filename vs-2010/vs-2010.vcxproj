@@ -47,6 +47,7 @@
     <ClInclude Include="..\source\NessEngine\renderable\entities\sprite.h" />
     <ClInclude Include="..\source\NessEngine\renderable\entity_api.h" />
     <ClInclude Include="..\source\NessEngine\renderable\nodes\all_nodes.h" />
+    <ClInclude Include="..\source\NessEngine\renderable\nodes\animator_api.h" />
     <ClInclude Include="..\source\NessEngine\renderable\nodes\node.h" />
     <ClInclude Include="..\source\NessEngine\renderable\nodes\tile_map.h" />
     <ClInclude Include="..\source\NessEngine\renderable\nodes\znode.h" />
