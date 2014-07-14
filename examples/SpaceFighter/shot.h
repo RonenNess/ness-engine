@@ -5,6 +5,7 @@
 class LaserShot
 {
 private:
+	Ness::NodePtr m_parent;
 	Ness::SpritePtr m_shot;
 	Ness::Point m_direction_vector;
 	float m_time_to_live;

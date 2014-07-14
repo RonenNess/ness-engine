@@ -14,7 +14,7 @@ namespace Ness
 				bool wasHandled = false;
 				for (unsigned int i = 0; i < m_handlers.size(); i++)
 				{
-					wasHandled &= m_handlers[i]->inject_event(event);
+					wasHandled |= m_handlers[i]->inject_event(event);
 				}
 
 				// call the callback

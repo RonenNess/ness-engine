@@ -75,11 +75,6 @@ int _tmain(int argc, _TCHAR* argv[])
 	EventsPoller.add_handler(mouse);
 	EventsPoller.add_handler(keyboard);
 
-	Ness::Animators::AnimatorPtr anim(new Ness::Animators::AnimatorFader(false));
-	anim->set_target(entitiesNode);
-	renderer.register_animator(anim);
-
-
 	// loop until exit button is pressed
 	while( g_running )
 	{

@@ -25,9 +25,14 @@ namespace Ness
 			// if false, will reduce opacity until 0.0f
 			AnimatorFader(bool fadeIn, float fadeSpeed = 1.0f) : m_fade_in(fadeIn), m_speed(fadeSpeed) {}
 
-			NESSENGINE_API virtual void set_target(RenderablePtr object)
+			NESSENGINE_API virtual void set_target(RenderablePtr& object)
 			{
 				m_target = object;
+			}
+
+			NESSENGINE_API virtual RenderablePtr get_target()
+			{
+				return m_target;
 			}
 
 			NESSENGINE_API virtual void animate(Renderer* renderer)
