@@ -141,6 +141,7 @@ int _tmain(int argc, _TCHAR* argv[])
 	renderer.remove_scene(layer1);
 	renderer.remove_scene(layer2);
 	renderer.remove_scene(layer3);
+	renderer.remove_scene(front);
 	Ness::finish();
 	return 0;
 }
