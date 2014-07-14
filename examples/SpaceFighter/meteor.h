@@ -25,6 +25,9 @@ public:
 	// apply force that move this meteor
 	void apply_force(const Ness::Point& force);
 
+	// get speed
+	inline const Ness::Point& get_speed() const {return m_speed;}
+
 	// set meteor position
 	inline void set_position(const Ness::Point& pos) {m_meteor->set_position(pos);}
 	inline const Ness::Point& get_position() const {return m_meteor->get_position();}

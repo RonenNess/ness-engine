@@ -1,6 +1,6 @@
 #include "meteor.h"
 
-Meteor::Meteor(Ness::NodePtr& parentNode, const Ness::Point& speed, float size) : m_speed(speed)
+Meteor::Meteor(Ness::NodePtr& parentNode, const Ness::Point& speed, float size) : m_speed(speed * 100.0f)
 {
 	m_meteor = parentNode->create_sprite("meteor.png");
 	m_meteor->set_size(Ness::Size(size, size));
@@ -17,7 +17,7 @@ Meteor::~Meteor()
 void Meteor::do_events()
 {
 	Ness::Point MeteorPos = m_meteor->get_position();
-	MeteorPos += m_speed * m_meteor->renderer()->time_factor() * 100.0f;;
+	MeteorPos += m_speed * m_meteor->renderer()->time_factor();
 	m_meteor->set_position(MeteorPos);
 	float NewAngle = m_meteor->get_rotation() + m_rotation_speed * m_meteor->renderer()->time_factor();
 	m_meteor->set_rotation(NewAngle);

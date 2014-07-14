@@ -77,10 +77,10 @@ void Player::do_events()
 
 void Player::do_collisions(const std::list<std::auto_ptr<Meteor> >& meteors, Player& other)
 {
-	// first check if any of this shots hit the other
+	// check collision for our shots
 	for (auto shot = m_shots.begin(); shot != m_shots.end(); ++shot)
 	{
-		// check collision with other player
+		// shot with other player
 		if ((*shot)->get_position().distance(other.get_position()) < other.get_radius())
 		{
 			other.apply_force((*shot)->get_direction_vector().get_normalized() * 0.1f);
@@ -88,14 +88,24 @@ void Player::do_collisions(const std::list<std::auto_ptr<Meteor> >& meteors, Pla
 			continue;
 		}
 
-		// check collision with meteors
+		// shot with meteors
 		for (auto meteor = meteors.begin(); meteor != meteors.end(); ++meteor)
 		{
 			if ((*shot)->get_position().distance((*meteor)->get_position()) < (*meteor)->get_radius())
 			{
-				(*meteor)->apply_force((*shot)->get_direction_vector().get_normalized() * 0.25f);
+				(*meteor)->apply_force((*shot)->get_direction_vector().get_normalized() * 10.0f);
 				(*shot)->destroy(true);
 			}
+		}
+	}
+
+	// check collision between our spaceship and meteors
+	for (auto meteor = meteors.begin(); meteor != meteors.end(); ++meteor)
+	{
+		float distance_from_meteor = get_position().distance((*meteor)->get_position());
+		if (distance_from_meteor < (*meteor)->get_radius() + get_radius() * 0.65f)
+		{
+			apply_force((get_position() - (*meteor)->get_position()) * m_node->renderer()->time_factor() * 0.05f);
 		}
 	}
 }

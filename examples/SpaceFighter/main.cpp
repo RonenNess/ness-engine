@@ -51,16 +51,18 @@ int _tmain(int argc, _TCHAR* argv[])
 	// create the background
 	Ness::SpritePtr background = scene->create_sprite("background.jpg");
 
-	// create the entities node
-	Ness::NodePtr entitiesNode = scene->create_node();
+	// create the node for players and meteors.
+	// note: meteors node is created first, so players and their effects will always be above meteors
+	Ness::NodePtr meteorsNode = scene->create_node();
+	Ness::NodePtr playersNode = scene->create_node();
 
 	// creating player 1 (defined in player.h)
-	Player player1(entitiesNode, "player1.png", Ness::Color(1.0f, 0.2f, 0.0f, 1.0f));
+	Player player1(playersNode, "player1.png", Ness::Color(1.0f, 0.2f, 0.0f, 1.0f));
 	player1.set_position(renderer.get_screen_center() + Ness::Point(0, 100));
 	player1.set_rotation(90);
 
 	// creating player 2
-	Player player2(entitiesNode, "player2.png", Ness::Color(0.0f, 1.0f, 0.4f, 1.0f));
+	Player player2(playersNode, "player2.png", Ness::Color(0.0f, 1.0f, 0.4f, 1.0f));
 	player2.set_position(renderer.get_screen_center() + Ness::Point(0, -100));
 	player2.set_rotation(-90);
 
@@ -89,7 +91,7 @@ int _tmain(int argc, _TCHAR* argv[])
 			float MeteorSize = 50.0f + (rand() % 100);
 			float MeteorSpeed = 0.5f + (float)(rand() % 10) / 15.0f;
 			Ness::Point MeteorSpeedVector = Ness::Point::from_angle(MeteorDirection, MeteorSpeed);
-			Meteor* meteor = new Meteor(entitiesNode, MeteorSpeedVector, MeteorSize);
+			Meteor* meteor = new Meteor(meteorsNode, MeteorSpeedVector, MeteorSize);
 			Ness::Point position;
 			if (rand() % 10 < 5)
 			{
@@ -175,7 +177,8 @@ int _tmain(int argc, _TCHAR* argv[])
 
 	// cleanup. 
 	// note: the 'remove' lines are not mandatory, they are just to illustrate how to remove an entity from the scene.
-	scene->remove(entitiesNode);
+	scene->remove(playersNode);
+	scene->remove(meteorsNode);
 	scene->remove(background);
 	Ness::finish();
 	return 0;
