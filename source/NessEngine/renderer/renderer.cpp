@@ -31,9 +31,9 @@ namespace Ness
 	}
 
 	// set the window title
-	void Renderer::set_window_title(const char* NewTitle)
+	void Renderer::set_window_title(const std::string& NewTitle)
 	{
-		SDL_SetWindowTitle(m_window, NewTitle);
+		SDL_SetWindowTitle(m_window, NewTitle.c_str());
 	}
 
 	// create a new scene
@@ -214,11 +214,6 @@ namespace Ness
 	// render surface
 	void Renderer::blit(ManagedResources::ManagedTexturePtr texture, const Rectangle& SrcRect, const Rectangle& TargetRect, EBlendModes mode, const Color& color, float rotation, Point rotation_anchor)
 	{
-		// check if in screen
-		if (TargetRect.x >= m_target_size->x || TargetRect.y >= m_target_size->y || TargetRect.x + TargetRect.w <= 0 || TargetRect.y + TargetRect.h <= 0 )
-		{
-			return;
-		}
 
 		// set flipping for negative scale and fix target size
 		Rectangle target = TargetRect;
@@ -232,6 +227,12 @@ namespace Ness
 		{
 			target.h *= -1;
 			flip |= SDL_FLIP_VERTICAL;
+		}
+
+		// check if in screen
+		if (target.x >= m_target_size->x || target.y >= m_target_size->y || target.x + target.w <= 0 || target.y + target.h <= 0 )
+		{
+			return;
 		}
 
 		// set alpha

@@ -67,6 +67,9 @@ namespace Ness
 
 	protected:
 
+		// check if target rectangle is inside screen
+		NESSENGINE_API bool is_in_screen(const Rectangle& target);
+
 		// the actual rendering function to override
 		// target: target rectangle to render to (final, with camera and everything calculated)
 		// transformations: absolute final transformations to render with (with parents included)

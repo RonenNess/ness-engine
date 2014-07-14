@@ -92,6 +92,19 @@ namespace Ness
 			return __Point<type>(x / div, y / div);
 		}
 
+		// return absolute values
+		NESSENGINE_API inline __Point<type> get_abs() const 
+		{
+			return __Point<type>(abs(x), abs(y));
+		}
+
+		// turn to absolute value
+		NESSENGINE_API inline void make_abs() 
+		{
+			x = abs(x);
+			y = abs(y);
+		}
+
 		// normalize this point
 		NESSENGINE_API inline void normalize()
 		{

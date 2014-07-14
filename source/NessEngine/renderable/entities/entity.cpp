@@ -51,8 +51,8 @@ namespace Ness
 	{
 		m_target_rect.w = (int)(m_size.x * m_absolute_transformations.scale.x);
 		m_target_rect.h = (int)(m_size.y * m_absolute_transformations.scale.y);
-		m_target_rect.x = (int)((m_absolute_transformations.position.x) - (m_target_rect.w * m_anchor.x));
-		m_target_rect.y = (int)((m_absolute_transformations.position.y) - (m_target_rect.h * m_anchor.y));
+		m_target_rect.x = (int)((m_absolute_transformations.position.x) - (abs(m_target_rect.w) * m_anchor.x));
+		m_target_rect.y = (int)((m_absolute_transformations.position.y) - (abs(m_target_rect.h) * m_anchor.y));
 	}
 
 
@@ -72,13 +72,17 @@ namespace Ness
 		{
 			target.x -= (int)camera->position.x;
 			target.y -= (int)camera->position.y;
-		}
+		} 
 
-		if (target.x >= m_renderer->get_target_size().x || target.y >= m_renderer->get_target_size().y || target.x + target.w <= 0 || target.y + target.h <= 0 )
+		return is_in_screen(target);
+	}
+
+	bool Entity::is_in_screen(const Rectangle& target)
+	{
+		if (target.x >= m_renderer->get_target_size().x || target.y >= m_renderer->get_target_size().y || target.x + abs(target.w) <= 0 || target.y + abs(target.h) <= 0 )
 		{
 			return false;
 		}
-
 		return true;
 	}
 
@@ -104,10 +108,8 @@ namespace Ness
 		}
 
 		// check if in screen. NOTE: this checked inside the renderer as well, but having this check here boost up speed with tons of entities (> 10,000...)
-		if (target.x >= m_renderer->get_target_size().x || target.y >= m_renderer->get_target_size().y || target.x + target.w <= 0 || target.y + target.h <= 0 )
-		{
+		if (!is_in_screen(target))
 			return;
-		}
 
 		// render!
 		do_render(target, trans);
