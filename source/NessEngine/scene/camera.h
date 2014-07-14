@@ -20,18 +20,18 @@ namespace Ness
 		NESSENGINE_API Camera() : position(0, 0) {}
 
 		// some useful operators
-		NESSENGINE_API Camera operator*(float scalar) const {return Camera(position * scalar);}
-		NESSENGINE_API Camera operator/(float scalar) const {return Camera(position / scalar);}
-		NESSENGINE_API Camera operator-(float scalar) const {return Camera(position - scalar);}
-		NESSENGINE_API Camera operator+(float scalar) const {return Camera(position + scalar);}
-		NESSENGINE_API Camera operator*(const Point& pos) const {return Camera(position * pos);}
-		NESSENGINE_API Camera operator/(const Point& pos) const {return Camera(position / pos);}
-		NESSENGINE_API Camera operator-(const Point& pos) const {return Camera(position - pos);}
-		NESSENGINE_API Camera operator+(const Point& pos) const {return Camera(position + pos);}
-		NESSENGINE_API Camera operator*(const Camera& other) const {return Camera(position * other.position);}
-		NESSENGINE_API Camera operator/(const Camera& other) const {return Camera(position / other.position);}
-		NESSENGINE_API Camera operator-(const Camera& other) const {return Camera(position - other.position);}
-		NESSENGINE_API Camera operator+(const Camera& other) const {return Camera(position + other.position);}
+		NESSENGINE_API void operator*=(float scalar) {position *= scalar;}
+		NESSENGINE_API void operator/=(float scalar) {position /= scalar;}
+		NESSENGINE_API void operator-=(float scalar) {position -= scalar;}
+		NESSENGINE_API void operator+=(float scalar) {position += scalar;}
+		NESSENGINE_API void operator*=(const Point& pos) {position *= pos;}
+		NESSENGINE_API void operator/=(const Point& pos) {position /= pos;}
+		NESSENGINE_API void operator-=(const Point& pos) {position -= pos;}
+		NESSENGINE_API void operator+=(const Point& pos) {position += pos;}
+		NESSENGINE_API void operator*=(const Camera& other) {position *= other.position;}
+		NESSENGINE_API void operator/=(const Camera& other) {position /= other.position;}
+		NESSENGINE_API void operator-=(const Camera& other) {position -= other.position;}
+		NESSENGINE_API void operator+=(const Camera& other) {position += other.position;}
 	};
 
 	// camera pointer

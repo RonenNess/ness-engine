@@ -16,7 +16,22 @@ namespace Ness
 	public:
 		Point position;
 
+		NESSENGINE_API Camera(const Point& Position) : position(Position) {}
 		NESSENGINE_API Camera() : position(0, 0) {}
+
+		// some useful operators
+		NESSENGINE_API void operator*=(float scalar) {position *= scalar;}
+		NESSENGINE_API void operator/=(float scalar) {position /= scalar;}
+		NESSENGINE_API void operator-=(float scalar) {position -= scalar;}
+		NESSENGINE_API void operator+=(float scalar) {position += scalar;}
+		NESSENGINE_API void operator*=(const Point& pos) {position *= pos;}
+		NESSENGINE_API void operator/=(const Point& pos) {position /= pos;}
+		NESSENGINE_API void operator-=(const Point& pos) {position -= pos;}
+		NESSENGINE_API void operator+=(const Point& pos) {position += pos;}
+		NESSENGINE_API void operator*=(const Camera& other) {position *= other.position;}
+		NESSENGINE_API void operator/=(const Camera& other) {position /= other.position;}
+		NESSENGINE_API void operator-=(const Camera& other) {position -= other.position;}
+		NESSENGINE_API void operator+=(const Camera& other) {position += other.position;}
 	};
 
 	// camera pointer
