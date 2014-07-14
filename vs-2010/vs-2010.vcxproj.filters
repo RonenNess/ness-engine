@@ -215,5 +215,8 @@
     <ClInclude Include="..\source\NessEngine\animators\all_animators.h">
       <Filter>Source Files\animators</Filter>
     </ClInclude>
+    <ClInclude Include="..\source\NessEngine\animators\animator_sprite.h">
+      <Filter>Source Files\animators</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>
