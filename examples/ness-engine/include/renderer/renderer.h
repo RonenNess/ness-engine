@@ -6,9 +6,9 @@
 
 #pragma once
 #include "../exports.h"
+#include "../scene/scene.h"
 #include "../resources/resources_manager.h"
 #include "../primitives/primitives.h"
-#include "../scene/scene.h"
 #include "../animators/animator_api.h"
 
 namespace Ness

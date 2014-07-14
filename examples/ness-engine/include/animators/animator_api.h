@@ -16,7 +16,7 @@ namespace Ness
 		class AnimatorAPI;
 
 		// callback to call when animation is finished
-		NESSENGINE_API typedef void (*FinishAnimationCallback)(AnimatorAPI& animator);
+		NESSENGINE_API typedef void (*FinishAnimationCallback)(AnimatorAPI* animator);
 
 		// the animator class API
 		class AnimatorAPI
@@ -37,12 +37,11 @@ namespace Ness
 			NESSENGINE_API inline void pause(bool doPause) {m_paused = doPause;}
 
 			// destroy this animator
-			NESSENGINE_API void destroy() {m_should_be_removed = true; if (m_callback) m_callback(*this);}
+			NESSENGINE_API void destroy() {m_should_be_removed = true; if (m_callback) m_callback(this);}
 			inline bool __should_be_removed() const {return m_should_be_removed;}
 		
 			// set the animated object or add it to a list if this animator support multiply objects
-			NESSENGINE_API virtual void set_target(RenderablePtr& object) = 0;
-			NESSENGINE_API virtual RenderablePtr get_target() = 0;
+			NESSENGINE_API virtual void set_target(RenderablePtr object) = 0;
 
 			// animate this object. note: to destroy the animator call 'destroy()', even from within the animator itself.
 			NESSENGINE_API virtual void animate(Renderer* renderer) = 0;
@@ -50,5 +49,17 @@ namespace Ness
 
 		// define the animator pointer
 		NESSENGINE_API typedef std::shared_ptr<AnimatorAPI> AnimatorPtr;
+
+
+		// template function to create an animator pointer (requires C++11 features)
+		#if __cplusplus <= 199711L
+		#else
+				template <class T, typename... _Args>
+				NESSENGINE_API AnimatorPtr make_animator(_Args && ... args)
+				{
+					return AnimatorPtr(new T(args));
+				}
+		#endif
+		
 	};
 };

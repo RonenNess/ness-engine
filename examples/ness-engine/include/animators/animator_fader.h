@@ -12,20 +12,18 @@ namespace Ness
 {
 	namespace Animators
 	{
-		// fade in/out animator
-		class AnimatorFader : public AnimatorAPI
+		// fade in animator
+		class AnimatorFaderIn : public AnimatorAPI
 		{
 		private:
-			bool			m_fade_in;	// if true, fade in. else, fade out.
 			RenderablePtr	m_target;	// fader target
 			float			m_speed;	// fading speed
 
 		public:
-			// if fadeIn = true, will increase opacity of object and remove animator once reach 1.0
-			// if false, will reduce opacity until 0.0f
-			AnimatorFader(bool fadeIn, float fadeSpeed = 1.0f) : m_fade_in(fadeIn), m_speed(fadeSpeed) {}
+			
+			AnimatorFaderIn(float fadeSpeed = 1.0f) : m_speed(fadeSpeed) {}
 
-			NESSENGINE_API virtual void set_target(RenderablePtr& object)
+			NESSENGINE_API virtual void set_target(RenderablePtr object)
 			{
 				m_target = object;
 			}
@@ -37,22 +35,48 @@ namespace Ness
 
 			NESSENGINE_API virtual void animate(Renderer* renderer)
 			{
-				if (m_fade_in)
+				m_target->set_opacity(m_target->get_opacity() + renderer->time_factor() * m_speed);
+				if (m_target->get_opacity() >= 1.0f)
 				{
-					m_target->set_opacity(m_target->get_opacity() + renderer->time_factor() * m_speed);
-					if (m_target->get_opacity() >= 1.0f)
-					{
-						m_target->set_opacity(1.0f);
-						this->destroy();
-					}
+					m_target->set_opacity(1.0f);
+					this->destroy();
 				}
-				if (!m_fade_in)
+			}
+		};
+
+		// fade-out animator
+		class AnimatorFaderOut : public AnimatorAPI
+		{
+		private:
+			RenderablePtr	m_target;			// fader target
+			float			m_speed;			// fading speed
+			bool			m_remove_when_done;	// remove target when done?
+
+		public:
+			// if removeTargetWhenDone = true, will remove the target from its parent when opacity reach 0
+			AnimatorFaderOut(bool removeTargetWhenDone, float fadeSpeed = 1.0f) : m_remove_when_done(removeTargetWhenDone), m_speed(fadeSpeed) {}
+
+			NESSENGINE_API virtual void set_target(RenderablePtr object)
+			{
+				m_target = object;
+			}
+
+			NESSENGINE_API virtual RenderablePtr get_target()
+			{
+				return m_target;
+			}
+
+			NESSENGINE_API virtual void animate(Renderer* renderer)
+			{
+
+				m_target->set_opacity(m_target->get_opacity() - renderer->time_factor() * m_speed);
+				if (m_target->get_opacity() <= 0.0f)
 				{
-					m_target->set_opacity(m_target->get_opacity() - renderer->time_factor() * m_speed);
-					if (m_target->get_opacity() <= 0.0f)
+					m_target->set_opacity(0.0f);
+					this->destroy();
+					if (m_remove_when_done)
 					{
-						m_target->set_opacity(0.0f);
-						this->destroy();
+						m_target->parent()->remove(m_target);
 					}
 				}
 			}

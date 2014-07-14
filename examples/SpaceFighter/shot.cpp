@@ -1,11 +1,5 @@
 #include "shot.h"
 
-// callback to call remove explosion effect when animation ends
-void RemoveDoneExplosion(Ness::Animators::AnimatorAPI& animator)
-{
-	//animator.get_target()
-}
-
 LaserShot::LaserShot(Ness::NodePtr& parentNode, const Ness::Point& position, float Direction, const Ness::Color& fireColor)
 {
 	m_parent = parentNode;
@@ -30,7 +24,7 @@ void LaserShot::destroy(bool withExplosion)
 		explosion->set_anchor(Ness::Point::HALF);
 		explosion->set_position(get_position());
 		explosion->set_size(Ness::Size(25.0f, 25.0f));
-		Ness::Animators::AnimatorPtr anim(new Ness::Animators::AnimatorSprite(Ness::Sizei(5, 5), 0, 25, 75.0f));
+		Ness::Animators::AnimatorPtr anim(new Ness::Animators::AnimatorSprite(Ness::Sizei(5, 5), 0, 25, 75.0f, Ness::Animators::SPRITE_ANIM_END_REMOVE_SPRITE));
 		anim->set_target(explosion);
 		m_shot->renderer()->register_animator(anim);
 	}

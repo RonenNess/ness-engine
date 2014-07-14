@@ -5,6 +5,7 @@
 */
 
 #pragma once
+#include <memory>
 #include "../texture/TextureSheet.h"
 #include <unordered_map>
 #include "managed_resource.h"
