@@ -31,16 +31,23 @@ for root, dirs, files in os.walk("source"):
         shutil.copyfile(src, dest)
 
 
-# copy ness-engine binaries
-shutil.copy("vs-2010/Debug/ness_engine_d.dll", OUTDIR + "/lib/windows/x86/")
-shutil.copy("vs-2010/Debug/ness_engine_d.lib", OUTDIR + "/lib/windows/x86/")
-shutil.copy("vs-2010/Release/ness_engine.dll", OUTDIR + "/lib/windows/x86/")
-shutil.copy("vs-2010/Release/ness_engine.lib", OUTDIR + "/lib/windows/x86/")
+# copy ness-engine windows binaries
+for version in ["vs2010", "vs2013"]:
+    LibDir = OUTDIR + "/lib/win_x86/" + version + "/"
+    os.mkdir(LibDir)
+    shutil.copy(version + "/Debug/ness_engine_d.dll", LibDir)
+    shutil.copy(version + "/Debug/ness_engine_d.lib", LibDir)
+    shutil.copy(version + "/Release/ness_engine.dll", LibDir)
+    shutil.copy(version + "/Release/ness_engine.lib", LibDir)
 
 
 # copy new runtime to examples dir
 if os.path.isdir("examples/ness-engine"):
     shutil.rmtree("examples/ness-engine")
 shutil.copytree(OUTDIR, "examples/ness-engine")
+shutil.copy("examples/ness-engine/lib/win_x86/vs2010/ness_engine.dll", "examples/ness-engine/lib/win_x86/")
+shutil.copy("examples/ness-engine/lib/win_x86/vs2010/ness_engine.lib", "examples/ness-engine/lib/win_x86/")
+shutil.copy("examples/ness-engine/lib/win_x86/vs2010/ness_engine_d.dll", "examples/ness-engine/lib/win_x86/")
+shutil.copy("examples/ness-engine/lib/win_x86/vs2010/ness_engine_d.lib", "examples/ness-engine/lib/win_x86/")
 
 raw_input("Done!")
