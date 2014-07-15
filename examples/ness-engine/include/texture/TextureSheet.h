@@ -1,5 +1,5 @@
 /**
-* Define the Point class.
+* Define the Texture Sheet
 * Author: Ronen Ness
 * Since: 07/1014
 */

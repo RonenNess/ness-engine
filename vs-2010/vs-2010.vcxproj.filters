@@ -46,6 +46,9 @@
     <Filter Include="Source Files\animators">
       <UniqueIdentifier>{0f20aae3-f176-482e-a0ec-9b1f9bfc2e7d}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Source Files\font">
+      <UniqueIdentifier>{704257e9-dd7e-41de-ae58-07966e2c45d3}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\source\NessEngine\NessEngine.cpp">
@@ -101,6 +104,9 @@
     </ClCompile>
     <ClCompile Include="..\source\NessEngine\renderable\nodes\tile_map.cpp">
       <Filter>Source Files\renderables\nodes</Filter>
+    </ClCompile>
+    <ClCompile Include="..\source\NessEngine\font\font.cpp">
+      <Filter>Source Files\font</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -217,6 +223,9 @@
     </ClInclude>
     <ClInclude Include="..\source\NessEngine\animators\animator_sprite.h">
       <Filter>Source Files\animators</Filter>
+    </ClInclude>
+    <ClInclude Include="..\source\NessEngine\font\font.h">
+      <Filter>Source Files\font</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

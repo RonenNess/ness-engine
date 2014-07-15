@@ -11,6 +11,7 @@
     </ProjectConfiguration>
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="..\source\NessEngine\font\font.cpp" />
     <ClCompile Include="..\source\NessEngine\NessEngine.cpp" />
     <ClCompile Include="..\source\NessEngine\primitives\consts.cpp" />
     <ClCompile Include="..\source\NessEngine\renderable\entities\entity.cpp" />
@@ -37,6 +38,7 @@
     <ClInclude Include="..\source\NessEngine\animators\animator_sprite.h" />
     <ClInclude Include="..\source\NessEngine\exceptions\exceptions.h" />
     <ClInclude Include="..\source\NessEngine\exports.h" />
+    <ClInclude Include="..\source\NessEngine\font\font.h" />
     <ClInclude Include="..\source\NessEngine\NessEngine.h" />
     <ClInclude Include="..\source\NessEngine\primitives\color.h" />
     <ClInclude Include="..\source\NessEngine\primitives\math.h" />
@@ -99,12 +101,12 @@
   <PropertyGroup Label="UserMacros" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <LinkIncremental>true</LinkIncremental>
-    <LibraryPath>$(ProjectDir)\..\libs\windows\x86\;$(LibraryPath)</LibraryPath>
+    <LibraryPath>$(ProjectDir)\..\libs\lib\windows\x86\;$(LibraryPath)</LibraryPath>
     <TargetName>ness_engine_d</TargetName>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
     <LinkIncremental>false</LinkIncremental>
-    <LibraryPath>$(ProjectDir)\..\libs\windows\x86\;$(LibraryPath)</LibraryPath>
+    <LibraryPath>$(ProjectDir)\..\libs\lib\windows\x86\;$(LibraryPath)</LibraryPath>
     <TargetName>ness_engine</TargetName>
   </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
@@ -119,7 +121,7 @@
     <Link>
       <SubSystem>Windows</SubSystem>
       <GenerateDebugInformation>true</GenerateDebugInformation>
-      <AdditionalDependencies>SDL2.lib;SDL2main.lib;SDL2_image.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>SDL2.lib;SDL2_ttf.lib;SDL2main.lib;SDL2_image.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
@@ -138,7 +140,7 @@
       <GenerateDebugInformation>true</GenerateDebugInformation>
       <EnableCOMDATFolding>true</EnableCOMDATFolding>
       <OptimizeReferences>true</OptimizeReferences>
-      <AdditionalDependencies>SDL2.lib;SDL2main.lib;SDL2_image.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>SDL2.lib;SDL2_ttf.lib;SDL2main.lib;SDL2_image.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

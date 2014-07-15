@@ -10,6 +10,7 @@
 #include "../resources/resources_manager.h"
 #include "../primitives/primitives.h"
 #include "../animators/animator_api.h"
+#include <SDL_TTF.h>
 
 namespace Ness
 {
