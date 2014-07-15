@@ -72,6 +72,8 @@ int _tmain(int argc, _TCHAR* argv[])
 
 	// create the fps show
 	Ness::TextPtr fpsShow = scene->create_text("../ness-engine/resources/fonts/courier.ttf", "fps", 20);
+	fpsShow->set_size(Ness::Size(100, 100));
+	fpsShow->set_static(true);
 
 	// create the event handlers
 	Ness::Utils::Keyboard keyboard;

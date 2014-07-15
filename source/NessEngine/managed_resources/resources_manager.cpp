@@ -56,10 +56,6 @@ namespace Ness
 				NewEntry.texture->rc_mng_name = textureName;
 				NewEntry.ref_count = 0;
 			}
-			else
-			{
-				NESS_LOG(("rc_manager: fetch existing texture: " + textureName).c_str());
-			}
 
 			// return the texture
 			m_textures[textureName].ref_count++;
@@ -80,10 +76,6 @@ namespace Ness
 				NewEntry.font->rc_mng_manager = this;
 				NewEntry.font->rc_mng_name = fullName;
 				NewEntry.ref_count = 0;
-			}
-			else
-			{
-				NESS_LOG(("rc_manager: fetch existing font: " + fullName).c_str());
 			}
 
 			// return the texture

@@ -33,7 +33,7 @@ namespace Ness
 			m_texture = nullptr;
 		}
 
-		// create the texture for this text
+		// render text on surface
 		static SDL_Color text_color = {255, 255, 255};
 		SDL_Surface* surface = TTF_RenderText_Solid(m_font->font(), m_text.c_str(), text_color);
 		if (surface == nullptr)
@@ -41,8 +41,11 @@ namespace Ness
 			NESS_ERROR((std::string("failed to create text surface: ") + TTF_GetError()).c_str());
 			return;
 		}
+		
+		// convert to texture
 		m_texture = SDL_CreateTextureFromSurface(m_renderer->__sdl_renderer(), surface);
 		SDL_FreeSurface(surface);
+
 		if (m_texture == nullptr)
 		{
 			NESS_ERROR((std::string("failed to create text texture: ") + TTF_GetError()).c_str());
@@ -62,11 +65,6 @@ namespace Ness
 
 	void Text::do_render(const Rectangle& target, const SRenderTransformations& transformations)
 	{
-		// in case failed, to prevent access violation
-		if (!m_texture)
-		{
-			return;
-		}
 
 		// if need to update the surface call update
 		if (m_need_text_update)
