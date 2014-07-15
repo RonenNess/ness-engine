@@ -14,6 +14,7 @@ namespace Ness
 	private:
 		bool				m_auto_clear;
 		unsigned int		m_last_clear_time;
+		Color				m_clean_color;
 	public:
 		// create the canvas.
 		// TextureName is the name of the texture in the resource manager
@@ -25,6 +26,10 @@ namespace Ness
 
 		// clear the canvas
 		NESSENGINE_API void clear();
+
+		// set clean color
+		NESSENGINE_API inline void set_clean_color(const Color& color) {m_clean_color = color;}
+		NESSENGINE_API inline const Color& get_clean_color() {return m_clean_color;}
 
 		// render the canvas
 		NESSENGINE_API virtual void render(const CameraPtr& camera = NullCamera);

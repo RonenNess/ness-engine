@@ -190,6 +190,19 @@ namespace Ness
 		set_render_target(m_render_target);
 	}
 
+	// fill texture to given color
+	void Renderer::fill_texture(ManagedResources::ManagedTexturePtr texture, const Color& fillColor)
+	{
+		Rectangle screen;
+		screen.x = 0;
+		screen.y = 0;
+		screen.w = texture->get_size().x;
+		screen.h = texture->get_size().y;
+		SDL_SetRenderTarget(m_renderer, texture->texture());
+		draw_rect(screen, fillColor, true);
+		set_render_target(m_render_target);
+	}
+
 	void Renderer::draw_rect(const Rectangle& TargetRect, const Color& color, bool filled, EBlendModes mode)
 	{
 		// check if in screen

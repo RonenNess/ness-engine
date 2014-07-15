@@ -23,13 +23,20 @@ int _tmain(int argc, _TCHAR* argv[])
 {
 	// init and create a renderer
 	Ness::init();
-	Ness::Renderer renderer("Hello World!", Ness::Sizei(512, 512));
+	Ness::Renderer renderer("Hello World!", Ness::Sizei(800, 600), false, Ness::RENDERER_FLAG_ACCELERATED | Ness::RENDERER_FLAG_LIGHTING_NODE);
 
 	// create a new scene
 	Ness::ScenePtr scene = renderer.create_scene();
+	Ness::NodePtr node = scene->create_node();
 
 	// add the hello-world sprite to it
-	Ness::SpritePtr sprite = scene->create_sprite("hello_world.png");
+	Ness::SpritePtr sprite = node->create_sprite("hello_world.png");
+
+	// create the light node
+	Ness::LightNodePtr light = scene->create_light_node();
+	light->set_ambient_color(Ness::Color::BLACK);
+	light->create_light("../ness-engine/resources/gfx/light_beam_detailed.jpg", Ness::Color::WHITE);
+	light->set_position(Ness::Point( 256, 256));
 
 	// create the events handler
 	Ness::Utils::EventsPoller EventsPoller;
@@ -47,7 +54,7 @@ int _tmain(int argc, _TCHAR* argv[])
 	}
 
 	// cleanup
-	scene->remove(sprite);
+	//scene->remove(sprite);
 	renderer.remove_scene(scene);
 	return 0;
 }

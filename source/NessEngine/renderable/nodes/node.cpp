@@ -75,6 +75,13 @@ namespace Ness
 		return NewNode;
 	}
 
+	LightNodePtr Node::create_light_node()
+	{
+		LightNodePtr NewNode = NESS_MAKE_PTR<LightNode>(this->m_renderer, this);
+		add(NewNode);
+		return NewNode;
+	}
+
 	SpritePtr Node::create_sprite(const std::string& textureName)
 	{
 		SpritePtr NewSprite = NESS_MAKE_PTR<Sprite>(this->m_renderer, this, textureName);

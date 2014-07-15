@@ -21,6 +21,7 @@ namespace Ness
 		RENDERER_FLAG_SOFTWARE = SDL_RENDERER_SOFTWARE,
 		RENDERER_FLAG_VSYNC = SDL_RENDERER_PRESENTVSYNC,
 		RENDERER_FLAG_TARGET_TEXTURE = SDL_RENDERER_TARGETTEXTURE,
+		RENDERER_FLAG_LIGHTING_NODE = SDL_RENDERER_TARGETTEXTURE,
 	};
 
 	// our main renderer class! manage everything
@@ -110,6 +111,9 @@ namespace Ness
 
 		// clear texture (remove everything)
 		NESSENGINE_API void clear_texture(ManagedResources::ManagedTexturePtr texture);
+
+		// fill texture to given color
+		NESSENGINE_API void fill_texture(ManagedResources::ManagedTexturePtr texture, const Color& fillColor);
 
 		// return a unique frame id number (increased by 1 every end of frame)
 		NESSENGINE_API unsigned int get_frameid() const {return m_frameid;}

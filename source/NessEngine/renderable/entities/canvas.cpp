@@ -4,7 +4,7 @@
 namespace Ness
 {
 	Canvas::Canvas(Renderer* renderer, NodeAPI* parent, const std::string& NewTextureName, const Sizei& size) : Sprite(renderer, parent),
-		m_auto_clear(false)
+		m_auto_clear(false), m_clean_color(0, 0, 0, 0)
 	{
 		// create the canvas empty texture and use it
 		ManagedResources::ManagedTexturePtr texture = m_renderer->resources().create_blank_texture(NewTextureName, size);
@@ -14,7 +14,14 @@ namespace Ness
 
 	void Canvas::clear()
 	{
-		m_renderer->clear_texture(get_texture());
+		if (m_clean_color.a == 0)
+		{
+			m_renderer->clear_texture(get_texture());
+		}
+		else
+		{
+			m_renderer->fill_texture(get_texture(), m_clean_color);
+		}
 	}
 
 	void Canvas::render(const CameraPtr& camera)

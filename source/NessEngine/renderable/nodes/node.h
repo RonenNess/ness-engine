@@ -21,10 +21,12 @@ namespace Ness
 	class TileMap;
 	class RectangleShape;
 	class NodeAPI;
+	class LightNode;
 
 	// node and sprite pointers
 	NESSENGINE_API typedef NessSharedPtr<Node>				NodePtr;
 	NESSENGINE_API typedef NessSharedPtr<ZNode>				ZNodePtr;
+	NESSENGINE_API typedef NessSharedPtr<LightNode>			LightNodePtr;
 	NESSENGINE_API typedef NessSharedPtr<Sprite>			SpritePtr;
 	NESSENGINE_API typedef NessSharedPtr<Canvas>			CanvasPtr;
 	NESSENGINE_API typedef NessSharedPtr<Text>				TextPtr;
@@ -36,7 +38,7 @@ namespace Ness
 	class Node : public NodeAPI
 	{
 	protected:
-		Vector<RenderablePtr>				m_entities;						// son entities (nodes, sprites, etc..)
+		Vector<RenderablePtr>					m_entities;						// son entities (nodes, sprites, etc..)
 		SRenderTransformations					m_absolute_trans;				// cache of last absolute transformations
 		bool									m_need_trans_update;			// do we need to update the cached transformations (called if parent changed)
 		ManagedResources::ManagedTexturePtr		m_render_target;				// if not null, will render to this target instead of to the screen
@@ -61,6 +63,7 @@ namespace Ness
 		// create and return a son entities
 		NESSENGINE_API virtual NodePtr create_node();
 		NESSENGINE_API virtual ZNodePtr create_znode();
+		NESSENGINE_API virtual LightNodePtr create_light_node();
 		NESSENGINE_API virtual RectangleShapePtr create_rectangle();
 		NESSENGINE_API virtual SpritePtr create_sprite(const std::string& textureName);
 		NESSENGINE_API virtual CanvasPtr create_canvas(const std::string& textureName, const Sizei& size = Sizei::ZERO);

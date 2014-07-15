@@ -19,6 +19,7 @@
     <ClCompile Include="..\source\NessEngine\renderable\entities\shapes.cpp" />
     <ClCompile Include="..\source\NessEngine\renderable\entities\sprite.cpp" />
     <ClCompile Include="..\source\NessEngine\renderable\entities\text.cpp" />
+    <ClCompile Include="..\source\NessEngine\renderable\nodes\light_node.cpp" />
     <ClCompile Include="..\source\NessEngine\renderable\nodes\node.cpp" />
     <ClCompile Include="..\source\NessEngine\renderable\nodes\tile_map.cpp" />
     <ClCompile Include="..\source\NessEngine\renderable\nodes\znode.cpp" />
@@ -60,6 +61,7 @@
     <ClInclude Include="..\source\NessEngine\renderable\entities\text.h" />
     <ClInclude Include="..\source\NessEngine\renderable\entity_api.h" />
     <ClInclude Include="..\source\NessEngine\renderable\nodes\all_nodes.h" />
+    <ClInclude Include="..\source\NessEngine\renderable\nodes\light_node.h" />
     <ClInclude Include="..\source\NessEngine\renderable\nodes\node.h" />
     <ClInclude Include="..\source\NessEngine\renderable\nodes\tile_map.h" />
     <ClInclude Include="..\source\NessEngine\renderable\nodes\znode.h" />
