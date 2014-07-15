@@ -10,3 +10,9 @@ https://github.com/ronenness/ness-engine
 This library is distributed under the terms of the zlib license:
 http://www.zlib.net/zlib_license.html
 
+
+
+Included libraries:
+SDL2
+SDL_image
+SDL_ttf2
