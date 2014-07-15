@@ -8,6 +8,7 @@
 */
 
 #include <NessEngine.h>
+#include "player.h"
 
 // is the program still running
 bool g_running = true;
@@ -30,22 +31,71 @@ int _tmain(int argc, _TCHAR* argv[])
 	Ness::NodePtr node = scene->create_node();
 
 	// add the hello-world sprite to it
-	Ness::SpritePtr sprite = node->create_sprite("hello_world.png");
+	Ness::SpritePtr background = node->create_sprite("background.jpg");
+	background->set_static(true);
+	background->set_size(Ness::Sizei(renderer.get_screen_size()));
+
+	Ness::SpritePtr floor = node->create_sprite("floor.png");
+	floor->set_static(true);
+	floor->set_size(Ness::Sizei(renderer.get_screen_size().x, 250));
+	floor->set_anchor(Ness::Point(0.0f, 1.0f));
+	floor->set_position(Ness::Pointi(0, renderer.get_screen_size().y));
+	floor->set_blend_mode(Ness::BLEND_MODE_BLEND);
+	
+	// create the alien
+	Ness::SpritePtr alien = node->create_sprite("alien.png");
+	alien->set_anchor(Ness::Point::HALF);
+	alien->set_position(Ness::Point(300.0f, 300.0f));
+	alien->set_blend_mode(Ness::BLEND_MODE_BLEND);
+	alien->set_size(Ness::Size(85, 128));
+	Ness::Animators::AnimatorPtr alienAnim(new Ness::Animators::AnimatorSprite(Ness::Sizei(3, 1), 0, 2, 10.0f, Ness::Animators::SPRITE_ANIM_END_REPEAT));
+	alienAnim->set_target(alien);
+	renderer.register_animator(alienAnim);
 
 	// create the light node
 	Ness::LightNodePtr light = scene->create_light_node();
 	light->set_ambient_color(Ness::Color::BLACK);
-	light->create_light("../ness-engine/resources/gfx/light_beam_detailed.jpg", Ness::Color::WHITE);
-	light->set_position(Ness::Point( 256, 256));
 
-	// create the events handler
+	// create light over the alien
+	Ness::LightPtr alienLight = light->create_light("../ness-engine/resources/gfx/light_round.jpg", Ness::Color::GREEN);
+	alienLight->set_position(alien->get_position());
+	Ness::LightPtr alienLight2 = light->create_light("../ness-engine/resources/gfx/light_round.jpg", Ness::Color::WHITE);
+	alienLight2->set_position(alien->get_position());
+	alienLight2->set_scale(0.5f);
+	
+	// create the player
+	Player player(node, light);
+
+	// create the event handlers
+	Ness::Utils::Keyboard keyboard;
+	Ness::Utils::Mouse mouse;
 	Ness::Utils::EventsPoller EventsPoller;
+	EventsPoller.add_handler(mouse);
+	EventsPoller.add_handler(keyboard);
 
 	// loop until exit button is pressed
 	while( g_running )
 	{
 		// handle events
 		EventsPoller.poll_events(HandleEvents, false);
+
+		// do player stuff
+		player.do_events();
+
+		// keyboard controls
+		if (keyboard.ket_state(SDLK_UP))
+			player.aim_light_up();
+		if (keyboard.ket_state(SDLK_DOWN))
+			player.aim_light_down();
+		if (keyboard.ket_state(SDLK_LEFT))
+			player.walk_left();
+		else if (keyboard.ket_state(SDLK_RIGHT))
+			player.walk_right();
+		else
+			player.stand();
+		
+		// do animations
+		renderer.do_animations();
 
 		// render the scene
 		renderer.start_frame();

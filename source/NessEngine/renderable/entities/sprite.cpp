@@ -55,7 +55,7 @@ namespace Ness
 		m_source_rect = srcRect;
 	}
 
-	void Sprite::set_source_from_sprite_sheet(const Pointi& step, const Sizei stepsCount)
+	void Sprite::set_source_from_sprite_sheet(const Pointi& step, const Sizei stepsCount, bool setSize)
 	{
 		int x_step = (int)((1.0f / stepsCount.x) * m_texture->get_size().x);
 		int y_step = (int)((1.0f / stepsCount.y) * m_texture->get_size().y);
@@ -63,6 +63,10 @@ namespace Ness
 		m_source_rect.y = y_step * step.y;
 		m_source_rect.w = x_step;
 		m_source_rect.h = y_step;
+		if (setSize)
+		{
+			set_size(m_texture->get_size() / stepsCount);
+		}
 	}
 
 	void Sprite::do_render(const Rectangle& target, const SRenderTransformations& transformations)
