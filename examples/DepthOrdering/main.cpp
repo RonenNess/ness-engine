@@ -12,6 +12,13 @@
 // is the program still running
 bool g_running = true;
 
+// number of random objects
+const int NumOfObjects = 500;
+
+// resolution
+#define SCREEN_WIDTH 800
+#define SCREEN_HEIGHT 600
+
 // callback to handle exit events
 void HandleEvents(const SDL_Event& event)
 {
@@ -23,7 +30,7 @@ int _tmain(int argc, _TCHAR* argv[])
 {
 	// init and create a renderer
 	Ness::init();
-	Ness::Renderer render("Depth ordering demo!", Ness::Sizei(800, 600));
+	Ness::Renderer render("Depth ordering demo!", Ness::Sizei(SCREEN_WIDTH, SCREEN_HEIGHT));
 
 	// create a new scene
 	Ness::ScenePtr scene = render.create_scene();
@@ -42,7 +49,7 @@ int _tmain(int argc, _TCHAR* argv[])
 	float PlayerSpeed = 250.0f;
 
 	// create random trees and rocks
-	for (int i = 0; i < 350; i++)
+	for (int i = 0; i < NumOfObjects; i++)
 	{
 		Ness::SpritePtr object;
 		object = znode->create_sprite( i < 200 ? "tree.png" : "rock.png");
@@ -64,6 +71,9 @@ int _tmain(int argc, _TCHAR* argv[])
 	Ness::Utils::EventsPoller EventsPoller;
 	EventsPoller.add_handler(mouse);
 	EventsPoller.add_handler(keyboard);
+
+	// create the fps show
+	Ness::TextPtr fpsShow = scene->create_text("../ness-engine/resources/fonts/courier.ttf", "fps", 20);
 
 	// loop until exit button is pressed
 	while( g_running )
@@ -108,11 +118,14 @@ int _tmain(int argc, _TCHAR* argv[])
 		// render and end the scene
 		scene->render(camera);
 		render.end_frame();
+
+		// update fps show
+		std::string FpsShow = std::string("fps ") + (render.get_flags() & Ness::RENDERER_FLAG_VSYNC ? "(vsync): " : ": ");
+		fpsShow->change_text(FpsShow + std::to_string((long long)render.fps()));
 	}
 
 	// cleanup. 
 	// note: the 'remove' lines are not mandatory, they are just to illustrate how to remove an entity from the scene.
 	scene->remove(map);
-	Ness::finish();
 	return 0;
 }

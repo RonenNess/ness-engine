@@ -5,10 +5,16 @@ namespace Ness
 {
 	namespace ManagedResources
 	{
-		// function to call when a resource shared ptr deletes
+		// function to call when a texture shared ptr deletes
 		void TextureResourceDeleter(ManagedTexture* texture)
 		{
 			texture->rc_mng_manager->__delete_texture(texture->rc_mng_name);
+		}
+
+		// function to call when a font shared ptr deletes
+		void FontResourceDeleter(ManagedFont* font)
+		{
+			font->rc_mng_manager->__delete_font(font->rc_mng_name);
 		}
 
 		void ResourcesManager::__delete_texture(const std::string& textureName)
@@ -20,6 +26,18 @@ namespace Ness
 				ManagedTexture* text = m_textures[textureName].texture;
 				m_textures.erase(textureName);
 				delete text;
+			}
+		}
+
+		void ResourcesManager::__delete_font(const std::string& fontName)
+		{	
+			// decrease ref count by 1, and if no more refs delete the resource
+			m_fonts[fontName].ref_count--;
+			if (m_fonts[fontName].ref_count == 0)
+			{
+				ManagedFont* font = m_fonts[fontName].font;
+				m_fonts.erase(fontName);
+				delete font;
 			}
 		}
 
@@ -38,6 +56,26 @@ namespace Ness
 			// return the texture
 			m_textures[textureName].ref_count++;
 			return ManagedTexturePtr(m_textures[textureName].texture, TextureResourceDeleter);
+		}
+
+		NESSENGINE_API ManagedFontPtr ResourcesManager::get_font(const std::string& fontName, int fontSize)
+		{
+			// get name in hash
+			std::string fullName = fontName + std::to_string((long long)fontSize);
+
+			// if not loaded, load it
+			if (m_fonts.find(fullName) == m_fonts.end())
+			{
+				__SFontInManager& NewEntry = m_fonts[fullName];
+				NewEntry.font = new ManagedFont(m_base_path + fontName, fontSize);
+				NewEntry.font->rc_mng_manager = this;
+				NewEntry.font->rc_mng_name = fullName;
+				NewEntry.ref_count = 0;
+			}
+
+			// return the texture
+			m_fonts[fullName].ref_count++;
+			return ManagedFontPtr(m_fonts[fullName].font, FontResourceDeleter);
 		}
 
 		ManagedTexturePtr ResourcesManager::create_blank_texture(const std::string& textureName, const Sizei& size)
@@ -74,6 +112,7 @@ namespace Ness
 		ResourcesManager::~ResourcesManager()
 		{
 			m_textures.clear();
+			m_fonts.clear();
 		}
 	};
 };

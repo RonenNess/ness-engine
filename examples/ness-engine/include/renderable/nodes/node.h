@@ -5,7 +5,7 @@
 */
 
 #pragma once
-#include "../../resources/managed_texture.h"
+#include "../../managed_resources/managed_texture.h"
 #include "../node_api.h"
 #include "../transformable_api.h"
 #include <vector>
@@ -15,6 +15,7 @@ namespace Ness
 	// some needed predeclares
 	class Sprite;
 	class Canvas;
+	class Text;
 	class Node;
 	class ZNode;
 	class TileMap;
@@ -26,6 +27,7 @@ namespace Ness
 	NESSENGINE_API typedef std::shared_ptr<ZNode>				ZNodePtr;
 	NESSENGINE_API typedef std::shared_ptr<Sprite>				SpritePtr;
 	NESSENGINE_API typedef std::shared_ptr<Canvas>				CanvasPtr;
+	NESSENGINE_API typedef std::shared_ptr<Text>				TextPtr;
 	NESSENGINE_API typedef std::shared_ptr<RectangleShape>		RectangleShapePtr;
 	NESSENGINE_API typedef std::shared_ptr<TileMap>				TileMapPtr;
 	NESSENGINE_API typedef std::shared_ptr<NodeAPI>				NodeAPIPtr;
@@ -63,6 +65,7 @@ namespace Ness
 		NESSENGINE_API virtual SpritePtr create_sprite(const std::string& textureName);
 		NESSENGINE_API virtual CanvasPtr create_canvas(const std::string& textureName, const Sizei& size = Sizei::ZERO);
 		NESSENGINE_API virtual TileMapPtr create_tilemap(const std::string& spriteFile, Sizei mapSize, Size singleTileSize = Size(36, 36));
+		NESSENGINE_API virtual TextPtr create_text(const std::string& fontFile, const std::string& text, int fontSize = 12);
 
 		// check if this node is really visible by checking all its sub nodes and sprites (until hitting yes)
 		NESSENGINE_API virtual bool is_really_visible(const CameraPtr& camera = NullCamera);

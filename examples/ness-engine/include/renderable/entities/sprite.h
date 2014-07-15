@@ -6,7 +6,7 @@
 
 #pragma once
 #include "entity.h"
-#include "../../resources/managed_texture.h"
+#include "../../managed_resources/managed_texture.h"
 #include "../../primitives/rectangle.h"
 
 namespace Ness

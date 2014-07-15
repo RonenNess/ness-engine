@@ -82,6 +82,13 @@ namespace Ness
 		return NewSprite;
 	}
 
+	TextPtr Node::create_text(const std::string& fontFile, const std::string& text, int fontSize)
+	{
+		TextPtr NewSprite = std::make_shared<Text>(this->m_renderer, this, fontFile, text, fontSize);
+		add(NewSprite);
+		return NewSprite;
+	}
+
 	RectangleShapePtr Node::create_rectangle()
 	{
 		RectangleShapePtr NewSprite = std::make_shared<RectangleShape>(this->m_renderer, this);

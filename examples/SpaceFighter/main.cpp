@@ -70,6 +70,9 @@ int _tmain(int argc, _TCHAR* argv[])
 	std::list<std::auto_ptr<Meteor> > meteors;
 	float timeUntilNextMeteor = (float)(rand() % 20) / 10.0f;
 
+	// create the fps show
+	Ness::TextPtr fpsShow = scene->create_text("../ness-engine/resources/fonts/courier.ttf", "fps", 20);
+
 	// create the event handlers
 	Ness::Utils::Keyboard keyboard;
 	Ness::Utils::Mouse mouse;
@@ -173,6 +176,10 @@ int _tmain(int argc, _TCHAR* argv[])
 		// render and end the scene
 		scene->render();
 		renderer.end_frame();
+
+		// update fps show
+		std::string FpsShow = std::string("fps ") + (renderer.get_flags() & Ness::RENDERER_FLAG_VSYNC ? "(vsync): " : ": ");
+		fpsShow->change_text(FpsShow + std::to_string((long long)renderer.fps()));
 	}
 
 	// cleanup. 
@@ -180,6 +187,5 @@ int _tmain(int argc, _TCHAR* argv[])
 	scene->remove(playersNode);
 	scene->remove(meteorsNode);
 	scene->remove(background);
-	Ness::finish();
 	return 0;
 }

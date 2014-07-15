@@ -6,7 +6,8 @@ namespace Ness
 {
 	// create the renderer
 	Renderer::Renderer(const char* windowName, const Sizei& screenSize, bool FullScreen, int rendererFlags) :
-		m_second_timer(0), m_curr_fps_count(0), m_fps(0), m_timefactor(0), m_screen_size(screenSize), m_frameid(0), m_background_color(75, 0, 255, 255)
+		m_second_timer(0), m_curr_fps_count(0), m_fps(0), m_timefactor(0), m_screen_size(screenSize), 
+		m_frameid(0), m_background_color(75, 0, 255, 255), m_flags(rendererFlags)
 	{
 
 		// create window
@@ -212,7 +213,7 @@ namespace Ness
 	}
 
 	// render surface
-	void Renderer::blit(ManagedResources::ManagedTexturePtr texture, const Rectangle& SrcRect, const Rectangle& TargetRect, EBlendModes mode, const Color& color, float rotation, Point rotation_anchor)
+	void Renderer::blit(SDL_Texture* texture, const Rectangle* SrcRect, const Rectangle& TargetRect, EBlendModes mode, const Color& color, float rotation, Point rotation_anchor)
 	{
 
 		// set flipping for negative scale and fix target size
@@ -237,13 +238,13 @@ namespace Ness
 
 		// set alpha
 		float alpha = color.a;
-		SDL_SetTextureAlphaMod(texture->texture(), (int)(alpha * 255));
+		SDL_SetTextureAlphaMod(texture, (int)(alpha * 255));
 
 		// set color
-		SDL_SetTextureColorMod(texture->texture(), (Uint8)(color.r * 255), (Uint8)(color.g * 255), (Uint8)(color.b * 255));
+		SDL_SetTextureColorMod(texture, (Uint8)(color.r * 255), (Uint8)(color.g * 255), (Uint8)(color.b * 255));
 
 		// set blend mode
-		SDL_SetTextureBlendMode(texture->texture(), (SDL_BlendMode)mode);
+		SDL_SetTextureBlendMode(texture, (SDL_BlendMode)mode);
 
 		// requires advance rendering?
 		if (flip || (rotation != 0.0f) || (alpha < 1.0f))
@@ -255,12 +256,12 @@ namespace Ness
 			center.y = (int)(rotation_anchor.y * target.h);
 
 			// render with full settings!
-			SDL_RenderCopyEx(m_renderer, texture->texture(), &SrcRect, &target, rotation, &center, (SDL_RendererFlip)flip);
+			SDL_RenderCopyEx(m_renderer, texture, SrcRect, &target, rotation, &center, (SDL_RendererFlip)flip);
 		}
 		// simple rendering - no flip, no rotation
 		else
 		{
-			SDL_RenderCopy(m_renderer, texture->texture(), &SrcRect, &target);
+			SDL_RenderCopy(m_renderer, texture, SrcRect, &target);
 		}
 	}
 };

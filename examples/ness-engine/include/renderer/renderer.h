@@ -7,7 +7,7 @@
 #pragma once
 #include "../exports.h"
 #include "../scene/scene.h"
-#include "../resources/resources_manager.h"
+#include "../managed_resources/resources_manager.h"
 #include "../primitives/primitives.h"
 #include "../animators/animator_api.h"
 #include <SDL_TTF.h>
@@ -44,6 +44,7 @@ namespace Ness
 		unsigned int							m_frameid;					// a unique frame id, increased by 1 after every frame
 		const Sizei*							m_target_size;				// size of the target we are currently rendering on (screen or target texture)
 		Colorb									m_background_color;			// background clear color
+		const int								m_flags;					// init flags (passed in constructor)
 
 	public:
 		// create the renderer instance!
@@ -51,6 +52,9 @@ namespace Ness
 
 		// delete the renderer
 		NESSENGINE_API ~Renderer();
+
+		// return the init flags
+		NESSENGINE_API inline int get_flags() const {return m_flags;}
 
 		// get time factor for animation calculations
 		NESSENGINE_API inline float time_factor() const {return m_timefactor;}
@@ -113,13 +117,24 @@ namespace Ness
 		// return a unique frame id number (increased by 1 every end of frame)
 		NESSENGINE_API unsigned int get_frameid() const {return m_frameid;}
 
-		// render surface
-		NESSENGINE_API void blit(ManagedResources::ManagedTexturePtr texture, const Rectangle& SrcRect, 
+		// render managed texture
+		NESSENGINE_API inline void blit(ManagedResources::ManagedTexturePtr texture, const Rectangle* SrcRect, 
+			const Rectangle& TargetRect, EBlendModes mode = BLEND_MODE_NONE, const Color& color = Color::WHITE, float rotation = 0.0f, 
+			Point rotation_anchor = Point::HALF) 
+		{
+			blit(texture->texture(), SrcRect, TargetRect, mode, color, rotation, rotation_anchor);
+		}
+
+		// render raw SDL texture
+		NESSENGINE_API void blit(SDL_Texture* texture, const Rectangle* SrcRect, 
 			const Rectangle& TargetRect, EBlendModes mode = BLEND_MODE_NONE, const Color& color = Color::WHITE, float rotation = 0.0f, 
 			Point rotation_anchor = Point::HALF);
 
 		// draw rectagnle
 		NESSENGINE_API void draw_rect(const Rectangle& TargetRect, const Color& color, bool filled = true, EBlendModes mode = BLEND_MODE_NONE);
+
+		// return the sdl renderer
+		inline SDL_Renderer* __sdl_renderer() {return m_renderer;}
 
 	};
 };

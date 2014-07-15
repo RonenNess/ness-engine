@@ -4,7 +4,7 @@
 namespace Ness
 {
 
-	Entity::Entity(Renderer* renderer, NodeAPI* parent) : EntityAPI(renderer, parent), m_static(false)
+	Entity::Entity(Renderer* renderer, NodeAPI* parent) : EntityAPI(renderer, parent), m_static(false), m_need_transformations_update(true)
 	{
 		set_position(Point(0, 0));
 		set_anchor(Point::ZERO);
@@ -12,7 +12,7 @@ namespace Ness
 
 	void Entity::transformations_update() 
 	{
-		m_need_update = true;
+		m_need_transformations_update = true;
 	}
 
 	const SRenderTransformations& Entity::get_absolute_transformations()
@@ -21,23 +21,23 @@ namespace Ness
 		// if don't have a parent, return self transformations
 		if (!m_parent || m_static)
 		{
-			if (m_need_update)
+			if (m_need_transformations_update)
 			{
 				m_absolute_transformations = m_transformations;
 				calc_target_rect();
-				m_need_update = false;
+				m_need_transformations_update = false;
 			}
 			return m_transformations;
 		}
 
 		// don't need update?
-		if (!m_need_update)
+		if (!m_need_transformations_update)
 			return m_absolute_transformations;
 
 		// calculate this transformations with parent transformations
 		m_absolute_transformations = m_transformations;
 		m_absolute_transformations.add_transformations(m_parent->get_absolute_transformations());
-		m_need_update = false;
+		m_need_transformations_update = false;
 
 		// update target rect
 		calc_target_rect();

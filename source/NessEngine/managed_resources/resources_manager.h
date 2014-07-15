@@ -9,6 +9,7 @@
 #include <string>
 #include <unordered_map>
 #include "managed_texture.h"
+#include "managed_font.h"
 
 namespace Ness
 {
@@ -22,6 +23,13 @@ namespace Ness
 			ManagedTexture* texture;
 		};
 
+		// Font as it stored in the resources manager
+		struct __SFontInManager
+		{
+			unsigned int	ref_count;
+			ManagedFont*	font;
+		};
+
 		/**
 		* the resources manager
 		*/
@@ -29,6 +37,7 @@ namespace Ness
 		{
 		private:
 			std::unordered_map<std::string, __STextureInManager>	m_textures;			// map that holds all loaded textures
+			std::unordered_map<std::string, __SFontInManager>		m_fonts;			// map that holds all loaded fonts
 			std::string												m_base_path;		// basic path to search resources under
 			Colorb													m_color_key;		// transparency color key
 			bool													m_use_color_key;	// enable/disable color key
@@ -44,6 +53,9 @@ namespace Ness
 
 			// get/load a texture
 			NESSENGINE_API ManagedTexturePtr get_texture(const std::string& textureName);
+
+			// get/load a font
+			NESSENGINE_API ManagedFontPtr get_font(const std::string& fontName, int fontSize = 12);
 
 			// create an empty texture you can render on (use as rendering target). 
 			// this texture will be added to the resource manager and you can later get it with get_texture()
@@ -64,6 +76,10 @@ namespace Ness
 			// when a texture is removed (no longer referenced and deleted), it calls this function to be removed from the textures map as well
 			// DONT USE THIS ON YOUR OWN, it supposed to happen automatically when texture has no more references.
 			void __delete_texture(const std::string& textureName);
+
+			// when a font is removed (no longer referenced and deleted), it calls this function to be removed from the fonts map as well
+			// DONT USE THIS ON YOUR OWN, it supposed to happen automatically when a font has no more references.
+			void __delete_font(const std::string& fontName);
 
 		};
 	};

@@ -148,6 +148,5 @@ int _tmain(int argc, _TCHAR* argv[])
 	scene->remove(tilesToolbarBorder);
 	scene->remove(tilesToolbar);
 	scene->remove(map);
-	Ness::finish();
 	return 0;
 }

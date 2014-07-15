@@ -67,6 +67,6 @@ namespace Ness
 
 	void Sprite::do_render(const Rectangle& target, const SRenderTransformations& transformations)
 	{
-		m_renderer->blit(m_texture, m_source_rect, target, transformations.blend, transformations.color, transformations.rotation, m_anchor);
+		m_renderer->blit(m_texture, &m_source_rect, target, transformations.blend, transformations.color, transformations.rotation, m_anchor);
 	}
 };

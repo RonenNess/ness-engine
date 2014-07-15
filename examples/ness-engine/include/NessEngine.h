@@ -45,6 +45,6 @@ namespace Ness
 	NESSENGINE_API typedef SDL_Event Event;
 	NESSENGINE_API bool get_poll_event(Event& event);
 
-	// should be called at the end to cleanup stuff.
-	NESSENGINE_API void finish();
+	// don't call this yourself, its called automatically when application ends
+	void __finish();
 };

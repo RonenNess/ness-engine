@@ -49,6 +49,5 @@ int _tmain(int argc, _TCHAR* argv[])
 	// cleanup
 	scene->remove(sprite);
 	renderer.remove_scene(scene);
-	Ness::finish();
 	return 0;
 }

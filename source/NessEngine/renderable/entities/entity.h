@@ -20,7 +20,7 @@ namespace Ness
 		Point									m_anchor;
 		bool									m_static;
 		Rectangle								m_target_rect;
-		bool									m_need_update;
+		bool									m_need_transformations_update;
 		SRenderTransformations					m_absolute_transformations;
 
 	public:
@@ -37,7 +37,7 @@ namespace Ness
 		// set entity base size
 		// note: this is the basic size that is multiplied by scale. size should be the basic sprite size and remain pretty much const,
 		// scale is something you want to play with more often to enlare or shrink the sprite
-		NESSENGINE_API void set_size(const Size& NewSize) {m_size = NewSize;}
+		NESSENGINE_API void set_size(const Size& NewSize) {m_size = NewSize; transformations_update();}
 		NESSENGINE_API inline const Size& get_size() const {return m_size;}
 
 		// check if this sprite really is visible: if it's currently visible, opacity > 0, and inside screen bounderies

@@ -27,7 +27,7 @@ namespace Ness
 
 		// register the finish function on exit (in case user forgets to call it)
 		g_is_ness_init = true;
-		atexit(finish);
+		atexit(__finish);
 	}
 
 	// get next event
@@ -37,7 +37,7 @@ namespace Ness
 	}
 
 	// should be called at the end to cleanup stuff.
-	void finish()
+	void __finish()
 	{
 		if (!g_is_ness_init) return;
 		IMG_Quit();
