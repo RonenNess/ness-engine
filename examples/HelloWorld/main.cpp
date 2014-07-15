@@ -23,10 +23,10 @@ int _tmain(int argc, _TCHAR* argv[])
 {
 	// init and create a renderer
 	Ness::init();
-	Ness::Renderer render("Hello World!", Ness::Sizei(512, 512));
+	Ness::Renderer renderer("Hello World!", Ness::Sizei(512, 512));
 
 	// create a new scene
-	Ness::ScenePtr scene = render.create_scene();
+	Ness::ScenePtr scene = renderer.create_scene();
 
 	// add the hello-world sprite to it
 	Ness::SpritePtr sprite = scene->create_sprite("hello_world.png");
@@ -41,13 +41,14 @@ int _tmain(int argc, _TCHAR* argv[])
 		EventsPoller.poll_events(HandleEvents, false);
 
 		// render the scene
-		render.start_frame();
+		renderer.start_frame();
 		scene->render();
-		render.end_frame();
+		renderer.end_frame();
 	}
 
 	// cleanup
 	scene->remove(sprite);
+	renderer.remove_scene(scene);
 	Ness::finish();
 	return 0;
 }

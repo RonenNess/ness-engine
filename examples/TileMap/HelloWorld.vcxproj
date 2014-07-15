@@ -41,12 +41,12 @@
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <LinkIncremental>true</LinkIncremental>
     <IncludePath>$(ProjectDir)\..\ness-engine\include;$(IncludePath)</IncludePath>
-    <LibraryPath>$(ProjectDir)\..\ness-engine\lib\;$(LibraryPath)</LibraryPath>
+    <LibraryPath>$(ProjectDir)\..\ness-engine\lib\windows\x86\;$(LibraryPath)</LibraryPath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
     <LinkIncremental>false</LinkIncremental>
     <IncludePath>$(ProjectDir)\..\ness-engine\include;$(IncludePath)</IncludePath>
-    <LibraryPath>$(ProjectDir)\..\ness-engine\lib\;$(LibraryPath)</LibraryPath>
+    <LibraryPath>$(ProjectDir)\..\ness-engine\lib\windows\x86\;$(LibraryPath)</LibraryPath>
   </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <ClCompile>

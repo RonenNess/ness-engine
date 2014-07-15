@@ -65,7 +65,7 @@ namespace Ness
 		NESSENGINE_API inline int fps() const {return m_fps;}
 
 		// set the title of the window
-		NESSENGINE_API void set_window_title(const char* NewTitle);
+		NESSENGINE_API void set_window_title(const std::string& NewTitle);
 
 		// get target/screen size (we are currently rendering to)
 		NESSENGINE_API const Sizei& get_screen_size() const {return m_screen_size;}
