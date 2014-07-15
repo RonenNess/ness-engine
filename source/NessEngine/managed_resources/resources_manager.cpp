@@ -1,5 +1,6 @@
 #include "resources_manager.h"
 #include "../exceptions/exceptions.h"
+#include "../exceptions/log.h"
 
 namespace Ness
 {
@@ -23,6 +24,7 @@ namespace Ness
 			m_textures[textureName].ref_count--;
 			if (m_textures[textureName].ref_count == 0)
 			{
+				NESS_LOG(("rc_manager: delete no longer used texture: " + textureName).c_str());
 				ManagedTexture* text = m_textures[textureName].texture;
 				m_textures.erase(textureName);
 				delete text;
@@ -35,6 +37,7 @@ namespace Ness
 			m_fonts[fontName].ref_count--;
 			if (m_fonts[fontName].ref_count == 0)
 			{
+				NESS_LOG(("rc_manager: delete no longer used font: " + fontName).c_str());
 				ManagedFont* font = m_fonts[fontName].font;
 				m_fonts.erase(fontName);
 				delete font;
@@ -46,11 +49,16 @@ namespace Ness
 			// if not loaded, load it
 			if (m_textures.find(textureName) == m_textures.end())
 			{
+				NESS_LOG(("rc_manager: load texture: " + textureName).c_str());
 				__STextureInManager& NewEntry = m_textures[textureName];
 				NewEntry.texture = new ManagedTexture(m_base_path + textureName, m_renderer, (m_use_color_key ? &m_color_key : nullptr));
 				NewEntry.texture->rc_mng_manager = this;
 				NewEntry.texture->rc_mng_name = textureName;
 				NewEntry.ref_count = 0;
+			}
+			else
+			{
+				NESS_LOG(("rc_manager: fetch existing texture: " + textureName).c_str());
 			}
 
 			// return the texture
@@ -66,11 +74,16 @@ namespace Ness
 			// if not loaded, load it
 			if (m_fonts.find(fullName) == m_fonts.end())
 			{
+				NESS_LOG(("rc_manager: load font: " + fullName).c_str());
 				__SFontInManager& NewEntry = m_fonts[fullName];
 				NewEntry.font = new ManagedFont(m_base_path + fontName, fontSize);
 				NewEntry.font->rc_mng_manager = this;
 				NewEntry.font->rc_mng_name = fullName;
 				NewEntry.ref_count = 0;
+			}
+			else
+			{
+				NESS_LOG(("rc_manager: fetch existing font: " + fullName).c_str());
 			}
 
 			// return the texture
@@ -80,6 +93,8 @@ namespace Ness
 
 		ManagedTexturePtr ResourcesManager::create_blank_texture(const std::string& textureName, const Sizei& size)
 		{
+			NESS_LOG(("rc_manager: create new empty texture: " + textureName).c_str());
+
 			// if texture with that name exist, assert
 			if (m_textures.find(textureName) != m_textures.end())
 			{

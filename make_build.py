@@ -54,11 +54,11 @@ if os.path.isdir("examples/ness-engine"):
     shutil.rmtree("examples/ness-engine")
 shutil.copytree(OUTDIR, "examples/ness-engine")
 
-# put for x86 by default the vs2013 libs
-shutil.copy("examples/ness-engine/lib/win_x86/vs2013/ness_engine.dll", "examples/ness-engine/lib/win_x86/")
-shutil.copy("examples/ness-engine/lib/win_x86/vs2013/ness_engine.lib", "examples/ness-engine/lib/win_x86/")
-shutil.copy("examples/ness-engine/lib/win_x86/vs2013/ness_engine_d.dll", "examples/ness-engine/lib/win_x86/")
-shutil.copy("examples/ness-engine/lib/win_x86/vs2013/ness_engine_d.lib", "examples/ness-engine/lib/win_x86/")
+# put for x86 by default the vs2010 libs
+shutil.copy("examples/ness-engine/lib/win_x86/vs2010/ness_engine.dll", "examples/ness-engine/lib/win_x86/")
+shutil.copy("examples/ness-engine/lib/win_x86/vs2010/ness_engine.lib", "examples/ness-engine/lib/win_x86/")
+shutil.copy("examples/ness-engine/lib/win_x86/vs2010/ness_engine_d.dll", "examples/ness-engine/lib/win_x86/")
+shutil.copy("examples/ness-engine/lib/win_x86/vs2010/ness_engine_d.lib", "examples/ness-engine/lib/win_x86/")
 
 # put for x64 by default the vs2013 libs
 shutil.copy("examples/ness-engine/lib/win_x64/vs2013/ness_engine.dll", "examples/ness-engine/lib/win_x64/")
