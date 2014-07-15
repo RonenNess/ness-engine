@@ -9,7 +9,7 @@
 #include "../entities/sprite.h"
 #include "../transformable_api.h"
 #include "../node_api.h"
-#include <vector>
+#include "../../basic_types/containers.h"
 
 namespace Ness
 {
@@ -21,7 +21,7 @@ namespace Ness
 	private:
 		Sizei										m_size;						// size of the tilemap
 		Size										m_tile_size;				// size of a single tile
-		std::vector< std::vector<SpritePtr> >		m_sprites;					// the sprites matrix
+		Vector< Vector<SpritePtr> >					m_sprites;					// the sprites matrix
 		SRenderTransformations						m_absolute_transformations;	// absolute transformations of this tilemap
 
 	public:
@@ -40,7 +40,7 @@ namespace Ness
 		NESSENGINE_API SpritePtr& get_sprite_by_position(const Point& position);
 
 		// get all visible son entities
-		NESSENGINE_API virtual void __get_visible_entities(std::vector<RenderableAPI*>& out_list, const CameraPtr& camera = NullCamera);
+		NESSENGINE_API virtual void __get_visible_entities(Vector<RenderableAPI*>& out_list, const CameraPtr& camera = NullCamera);
 
 		// update that the tilemap needs update
 		NESSENGINE_API virtual void transformations_update();
@@ -74,5 +74,5 @@ namespace Ness
 		NESSENGINE_API virtual void render(const CameraPtr& camera = NullCamera);
 	};
 
-	NESSENGINE_API typedef std::shared_ptr<TileMap> TileMapPtr;
+	NESSENGINE_API typedef NessSharedPtr<TileMap> TileMapPtr;
 };

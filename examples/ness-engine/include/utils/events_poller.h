@@ -6,7 +6,7 @@
 
 #pragma once
 #include <SDL.h>
-#include <vector>
+#include "../basic_types/containers.h"
 #include "../exports.h"
 #include "event_handler.h"
 
@@ -21,7 +21,7 @@ namespace Ness
 		class EventsPoller
 		{
 		private:
-			std::vector<EventsHandler*> m_handlers;
+			Vector<EventsHandler*> m_handlers;
 
 		public:
 

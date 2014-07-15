@@ -13,7 +13,7 @@ namespace Ness
 		object->__change_parent(this);
 	}
 
-	void Node::__get_visible_entities(std::vector<RenderableAPI*>& out_list, const CameraPtr& camera)
+	void Node::__get_visible_entities(Vector<RenderableAPI*>& out_list, const CameraPtr& camera)
 	{
 
 		// add all the visible objects
@@ -63,42 +63,42 @@ namespace Ness
 
 	NodePtr Node::create_node()
 	{
-		NodePtr NewNode = std::make_shared<Node>(this->m_renderer, this);
+		NodePtr NewNode = NESS_MAKE_PTR<Node>(this->m_renderer, this);
 		add(NewNode);
 		return NewNode;
 	}
 
 	ZNodePtr Node::create_znode()
 	{
-		ZNodePtr NewNode = std::make_shared<ZNode>(this->m_renderer, this);
+		ZNodePtr NewNode = NESS_MAKE_PTR<ZNode>(this->m_renderer, this);
 		add(NewNode);
 		return NewNode;
 	}
 
 	SpritePtr Node::create_sprite(const std::string& textureName)
 	{
-		SpritePtr NewSprite = std::make_shared<Sprite>(this->m_renderer, this, textureName);
+		SpritePtr NewSprite = NESS_MAKE_PTR<Sprite>(this->m_renderer, this, textureName);
 		add(NewSprite);
 		return NewSprite;
 	}
 
 	TextPtr Node::create_text(const std::string& fontFile, const std::string& text, int fontSize)
 	{
-		TextPtr NewSprite = std::make_shared<Text>(this->m_renderer, this, fontFile, text, fontSize);
+		TextPtr NewSprite = NESS_MAKE_PTR<Text>(this->m_renderer, this, fontFile, text, fontSize);
 		add(NewSprite);
 		return NewSprite;
 	}
 
 	RectangleShapePtr Node::create_rectangle()
 	{
-		RectangleShapePtr NewSprite = std::make_shared<RectangleShape>(this->m_renderer, this);
+		RectangleShapePtr NewSprite = NESS_MAKE_PTR<RectangleShape>(this->m_renderer, this);
 		add(NewSprite);
 		return NewSprite;
 	}
 
 	CanvasPtr Node::create_canvas(const std::string& textureName, const Sizei& size)
 	{
-		CanvasPtr NewSprite = std::make_shared<Canvas>(this->m_renderer, this, textureName, size);
+		CanvasPtr NewSprite = NESS_MAKE_PTR<Canvas>(this->m_renderer, this, textureName, size);
 		add(NewSprite);
 		return NewSprite;
 	}

@@ -6,11 +6,10 @@
 
 #pragma once
 #include "../exports.h"
-#include "../scene/scene.h"
 #include "../managed_resources/resources_manager.h"
-#include "../primitives/primitives.h"
+#include "../basic_types/all_basic_types.h"
 #include "../animators/animator_api.h"
-#include <SDL_TTF.h>
+#include "../scene/scene.h"
 
 namespace Ness
 {
@@ -31,8 +30,8 @@ namespace Ness
 		SDL_Window*								m_window;					// our window pointer
 		SDL_Renderer*							m_renderer;					// our main renderer
 		ManagedResources::ResourcesManager		m_resources;				// the resources manager class
-		std::vector<ScenePtr>					m_scenes;					// all the scenes this renderer has
-		std::vector<Animators::AnimatorPtr>		m_animators;				// all the animators currently registered
+		Vector<ScenePtr>						m_scenes;					// all the scenes this renderer has
+		Vector<Animators::AnimatorPtr>			m_animators;				// all the animators currently registered
 		unsigned int							m_start_frame_time;			// tick count at the begining of the frame
 		float									m_timefactor;				// time delta (time factor) from begining to end of frame
 		float									m_second_timer;				// count time elapse until getting to a second (0 to 1.0)
@@ -81,22 +80,20 @@ namespace Ness
 		NESSENGINE_API Sizei get_screen_center() const;
 
 		// create a camera
-		NESSENGINE_API CameraPtr create_camera() const {return std::make_shared<Camera>();}
+		NESSENGINE_API CameraPtr create_camera() const {return NESS_MAKE_PTR<Camera>();}
 
 		// return the resources manager
 		NESSENGINE_API ManagedResources::ResourcesManager& resources() {return m_resources;}
 
-		// create a new scene
+		// create/remove a scene
 		NESSENGINE_API ScenePtr create_scene();
-
-		// remove a scene
 		NESSENGINE_API void remove_scene(const ScenePtr& scene);
 
 		// change the background color
 		NESSENGINE_API void set_background_color(const Color& NewColor);
 
 		// render everything!
-		NESSENGINE_API void render_scenes();
+		NESSENGINE_API void render_scenes(const CameraPtr& camera = NullCamera);
 
 		// begin a rendering frame
 		NESSENGINE_API void start_frame(bool clearScene = true);

@@ -8,7 +8,7 @@
 #include "../../managed_resources/managed_texture.h"
 #include "../node_api.h"
 #include "../transformable_api.h"
-#include <vector>
+#include "../../basic_types/containers.h"
 
 namespace Ness
 {
@@ -23,20 +23,20 @@ namespace Ness
 	class NodeAPI;
 
 	// node and sprite pointers
-	NESSENGINE_API typedef std::shared_ptr<Node>				NodePtr;
-	NESSENGINE_API typedef std::shared_ptr<ZNode>				ZNodePtr;
-	NESSENGINE_API typedef std::shared_ptr<Sprite>				SpritePtr;
-	NESSENGINE_API typedef std::shared_ptr<Canvas>				CanvasPtr;
-	NESSENGINE_API typedef std::shared_ptr<Text>				TextPtr;
-	NESSENGINE_API typedef std::shared_ptr<RectangleShape>		RectangleShapePtr;
-	NESSENGINE_API typedef std::shared_ptr<TileMap>				TileMapPtr;
-	NESSENGINE_API typedef std::shared_ptr<NodeAPI>				NodeAPIPtr;
+	NESSENGINE_API typedef NessSharedPtr<Node>				NodePtr;
+	NESSENGINE_API typedef NessSharedPtr<ZNode>				ZNodePtr;
+	NESSENGINE_API typedef NessSharedPtr<Sprite>			SpritePtr;
+	NESSENGINE_API typedef NessSharedPtr<Canvas>			CanvasPtr;
+	NESSENGINE_API typedef NessSharedPtr<Text>				TextPtr;
+	NESSENGINE_API typedef NessSharedPtr<RectangleShape>	RectangleShapePtr;
+	NESSENGINE_API typedef NessSharedPtr<TileMap>			TileMapPtr;
+	NESSENGINE_API typedef NessSharedPtr<NodeAPI>			NodeAPIPtr;
 
 	// a node can contain other nodes or renderable objects
 	class Node : public NodeAPI
 	{
 	protected:
-		std::vector<RenderablePtr>				m_entities;						// son entities (nodes, sprites, etc..)
+		Vector<RenderablePtr>				m_entities;						// son entities (nodes, sprites, etc..)
 		SRenderTransformations					m_absolute_trans;				// cache of last absolute transformations
 		bool									m_need_trans_update;			// do we need to update the cached transformations (called if parent changed)
 		ManagedResources::ManagedTexturePtr		m_render_target;				// if not null, will render to this target instead of to the screen
@@ -56,7 +56,7 @@ namespace Ness
 		NESSENGINE_API virtual const SRenderTransformations& get_absolute_transformations();
 
 		// get all visible son entities
-		NESSENGINE_API virtual void __get_visible_entities(std::vector<RenderableAPI*>& out_list, const CameraPtr& camera = NullCamera);
+		NESSENGINE_API virtual void __get_visible_entities(Vector<RenderableAPI*>& out_list, const CameraPtr& camera = NullCamera);
 
 		// create and return a son entities
 		NESSENGINE_API virtual NodePtr create_node();

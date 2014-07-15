@@ -10,7 +10,7 @@
 #include <SDL_image.h>
 #include <stdio.h>
 #include <string>
-#include "../primitives/primitives.h"
+#include "../basic_types/all_basic_types.h"
 
 namespace Ness
 {

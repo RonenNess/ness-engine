@@ -30,6 +30,6 @@ namespace Ness
 		NESSENGINE_API virtual void render(const CameraPtr& camera = NullCamera);
 	};
 
-	typedef std::shared_ptr<Canvas> CanvasPtr;
+	typedef NessSharedPtr<Canvas> CanvasPtr;
 
 };

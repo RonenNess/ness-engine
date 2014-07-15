@@ -1,5 +1,6 @@
 #include "renderer.h"
 #include "../exceptions/exceptions.h"
+#include "../scene/scene.h"
 #include <algorithm>
 
 namespace Ness
@@ -35,14 +36,6 @@ namespace Ness
 	void Renderer::set_window_title(const std::string& NewTitle)
 	{
 		SDL_SetWindowTitle(m_window, NewTitle.c_str());
-	}
-
-	// create a new scene
-	ScenePtr Renderer::create_scene()
-	{
-		ScenePtr ret = ScenePtr(new Scene(this));
-		m_scenes.push_back(ret);
-		return ret;
 	}
 
 	// get center of current render target
@@ -131,18 +124,26 @@ namespace Ness
 	}
 
 	// remove a scene
-	void Renderer::remove_scene(const ScenePtr& scene)
+	NESSENGINE_API void Renderer::remove_scene(const ScenePtr& scene)
 	{
 		m_scenes.erase(std::remove(m_scenes.begin(), m_scenes.end(), scene), m_scenes.end());
 	}
 
+	// create a new scene
+	NESSENGINE_API ScenePtr Renderer::create_scene()
+	{
+		ScenePtr ret = ScenePtr(new Scene(this));
+		m_scenes.push_back(ret);
+		return ret;
+	}
+
 	// render everything!
-	void Renderer::render_scenes()
+	void Renderer::render_scenes(const CameraPtr& camera)
 	{
 		// render everything
 		for (auto scene = m_scenes.begin(); scene != m_scenes.end(); ++scene)
 		{
-			(*scene)->render();
+			(*scene)->render(camera);
 		}	
 	}
 

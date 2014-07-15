@@ -6,8 +6,8 @@
 
 #pragma once
 #include "../exports.h"
-#include "../primitives/point.h"
-#include <memory>
+#include "../basic_types/point.h"
+#include "../basic_types/containers.h"
 
 namespace Ness
 {
@@ -35,7 +35,7 @@ namespace Ness
 	};
 
 	// camera pointer
-	NESSENGINE_API typedef std::shared_ptr<Camera> CameraPtr;
+	NESSENGINE_API typedef NessSharedPtr<Camera> CameraPtr;
 
 	// null camera
 	#define NullCamera CameraPtr()

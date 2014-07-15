@@ -19,7 +19,7 @@ namespace Ness
 	void ZNode::render(const CameraPtr& camera)
 	{
 		// create the ordered render list
-		static std::vector<RenderableAPI*> render_list;
+		static Vector<RenderableAPI*> render_list;
 		render_list.clear();
 
 		// add all the visible sprites

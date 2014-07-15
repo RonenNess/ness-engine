@@ -8,7 +8,7 @@
 #include "../exports.h"
 #include <SDL_ttf.h>
 #include <string>
-#include "../primitives/primitives.h"
+#include "../basic_types/all_basic_types.h"
 
 namespace Ness
 {

@@ -8,8 +8,8 @@
 #include "../exports.h"
 #include "../exceptions/exceptions.h"
 #include "../renderable/nodes/node.h"
+#include "../basic_types/containers.h"
 #include "camera.h"
-#include <vector>
 
 namespace Ness
 {
@@ -29,5 +29,5 @@ namespace Ness
 	};
 
 	// scene pointer
-	NESSENGINE_API typedef std::shared_ptr<Scene> ScenePtr;
+	NESSENGINE_API typedef NessSharedPtr<Scene> ScenePtr;
 };

@@ -29,5 +29,5 @@ namespace Ness
 	};
 
 	// rectangle shape pointer
-	NESSENGINE_API typedef std::shared_ptr<RectangleShape> RectangleShapePtr;
+	NESSENGINE_API typedef NessSharedPtr<RectangleShape> RectangleShapePtr;
 };

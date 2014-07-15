@@ -29,6 +29,6 @@ namespace Ness
 		};
 
 		// a manager texture pointer
-		NESSENGINE_API typedef std::shared_ptr<ManagedTexture> ManagedTexturePtr;
+		NESSENGINE_API typedef NessSharedPtr<ManagedTexture> ManagedTexturePtr;
 	};
 };

@@ -25,6 +25,6 @@ namespace Ness
 		};
 
 		// a manager texture pointer
-		NESSENGINE_API typedef std::shared_ptr<ManagedFont> ManagedFontPtr;
+		NESSENGINE_API typedef NessSharedPtr<ManagedFont> ManagedFontPtr;
 	};
 };

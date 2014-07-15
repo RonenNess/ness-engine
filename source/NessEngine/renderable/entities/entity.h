@@ -7,7 +7,7 @@
 #pragma once
 #include "../entity_api.h"
 #include "../transformable_api.h"
-#include "../../primitives/rectangle.h"
+#include "../../basic_types/rectangle.h"
 
 namespace Ness
 {

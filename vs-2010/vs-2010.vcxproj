@@ -11,9 +11,9 @@
     </ProjectConfiguration>
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="..\source\NessEngine\basic_types\consts.cpp" />
     <ClCompile Include="..\source\NessEngine\managed_resources\resources_manager.cpp" />
     <ClCompile Include="..\source\NessEngine\NessEngine.cpp" />
-    <ClCompile Include="..\source\NessEngine\primitives\consts.cpp" />
     <ClCompile Include="..\source\NessEngine\renderable\entities\entity.cpp" />
     <ClCompile Include="..\source\NessEngine\renderable\entities\canvas.cpp" />
     <ClCompile Include="..\source\NessEngine\renderable\entities\shapes.cpp" />
@@ -37,6 +37,13 @@
     <ClInclude Include="..\source\NessEngine\animators\animator_api.h" />
     <ClInclude Include="..\source\NessEngine\animators\animator_fader.h" />
     <ClInclude Include="..\source\NessEngine\animators\animator_sprite.h" />
+    <ClInclude Include="..\source\NessEngine\basic_types\color.h" />
+    <ClInclude Include="..\source\NessEngine\basic_types\containers.h" />
+    <ClInclude Include="..\source\NessEngine\basic_types\math.h" />
+    <ClInclude Include="..\source\NessEngine\basic_types\point.h" />
+    <ClInclude Include="..\source\NessEngine\basic_types\all_basic_types.h" />
+    <ClInclude Include="..\source\NessEngine\basic_types\rectangle.h" />
+    <ClInclude Include="..\source\NessEngine\basic_types\size.h" />
     <ClInclude Include="..\source\NessEngine\exceptions\exceptions.h" />
     <ClInclude Include="..\source\NessEngine\exports.h" />
     <ClInclude Include="..\source\NessEngine\managed_resources\managed_font.h" />
@@ -44,12 +51,6 @@
     <ClInclude Include="..\source\NessEngine\managed_resources\managed_texture.h" />
     <ClInclude Include="..\source\NessEngine\managed_resources\resources_manager.h" />
     <ClInclude Include="..\source\NessEngine\NessEngine.h" />
-    <ClInclude Include="..\source\NessEngine\primitives\color.h" />
-    <ClInclude Include="..\source\NessEngine\primitives\math.h" />
-    <ClInclude Include="..\source\NessEngine\primitives\point.h" />
-    <ClInclude Include="..\source\NessEngine\primitives\primitives.h" />
-    <ClInclude Include="..\source\NessEngine\primitives\rectangle.h" />
-    <ClInclude Include="..\source\NessEngine\primitives\size.h" />
     <ClInclude Include="..\source\NessEngine\renderable\entities\all_entities.h" />
     <ClInclude Include="..\source\NessEngine\renderable\entities\entity.h" />
     <ClInclude Include="..\source\NessEngine\renderable\entities\canvas.h" />

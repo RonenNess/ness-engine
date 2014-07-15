@@ -5,7 +5,7 @@
 */
 
 #pragma once
-#include <vector>
+#include "../basic_types/containers.h"
 #include "renderable_api.h"
 #include "transformations.h"
 
@@ -34,9 +34,9 @@ namespace Ness
 		NESSENGINE_API virtual void render(const CameraPtr& camera = NullCamera) = 0;
 
 		// get a list with ALL the son entities that are currently visible in screen
-		NESSENGINE_API virtual void __get_visible_entities(std::vector<RenderableAPI*>& out_list, const CameraPtr& camera = NullCamera) = 0;
+		NESSENGINE_API virtual void __get_visible_entities(Vector<RenderableAPI*>& out_list, const CameraPtr& camera = NullCamera) = 0;
 	};
 
 	// renderable parent pointer
-	NESSENGINE_API typedef std::shared_ptr<NodeAPI> NodeAPIPtr;
+	NESSENGINE_API typedef NessSharedPtr<NodeAPI> NodeAPIPtr;
 };

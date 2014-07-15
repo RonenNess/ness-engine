@@ -82,7 +82,7 @@ namespace Ness
 	}
 
 	// get all visible son entities
-	void TileMap::__get_visible_entities(std::vector<RenderableAPI*>& out_list, const CameraPtr& camera)
+	void TileMap::__get_visible_entities(Vector<RenderableAPI*>& out_list, const CameraPtr& camera)
 	{
 		Rectangle range = get_tiles_in_screen(camera);
 		for (int i = range.x; i < range.w; i++)

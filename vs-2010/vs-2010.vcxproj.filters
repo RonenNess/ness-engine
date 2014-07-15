@@ -28,9 +28,6 @@
     <Filter Include="Source Files\renderables">
       <UniqueIdentifier>{c898e2f2-b266-408e-909a-03fdd77d790d}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Source Files\primitives">
-      <UniqueIdentifier>{da3e0efa-281c-48ed-9a36-8478bc721581}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Source Files\exceptions">
       <UniqueIdentifier>{e4c55db9-c6bd-4d01-ba15-72dc8bbf1e7d}</UniqueIdentifier>
     </Filter>
@@ -46,6 +43,9 @@
     <Filter Include="Source Files\managed_resources">
       <UniqueIdentifier>{4cd969d3-cba4-4db7-9ace-5084083d4d33}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Source Files\basic_types">
+      <UniqueIdentifier>{da3e0efa-281c-48ed-9a36-8478bc721581}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\source\NessEngine\NessEngine.cpp">
@@ -59,9 +59,6 @@
     </ClCompile>
     <ClCompile Include="..\source\NessEngine\renderer\renderer.cpp">
       <Filter>Source Files\renderer</Filter>
-    </ClCompile>
-    <ClCompile Include="..\source\NessEngine\primitives\consts.cpp">
-      <Filter>Source Files\primitives</Filter>
     </ClCompile>
     <ClCompile Include="dllmain.cpp">
       <Filter>Source Files</Filter>
@@ -108,6 +105,9 @@
     <ClCompile Include="..\source\NessEngine\resources\TextureSheet.cpp">
       <Filter>Source Files\resources</Filter>
     </ClCompile>
+    <ClCompile Include="..\source\NessEngine\basic_types\consts.cpp">
+      <Filter>Source Files\basic_types</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\source\NessEngine\NessEngine.h">
@@ -125,21 +125,6 @@
     <ClInclude Include="..\source\NessEngine\renderer\renderer.h">
       <Filter>Source Files\renderer</Filter>
     </ClInclude>
-    <ClInclude Include="..\source\NessEngine\primitives\color.h">
-      <Filter>Source Files\primitives</Filter>
-    </ClInclude>
-    <ClInclude Include="..\source\NessEngine\primitives\point.h">
-      <Filter>Source Files\primitives</Filter>
-    </ClInclude>
-    <ClInclude Include="..\source\NessEngine\primitives\primitives.h">
-      <Filter>Source Files\primitives</Filter>
-    </ClInclude>
-    <ClInclude Include="..\source\NessEngine\primitives\rectangle.h">
-      <Filter>Source Files\primitives</Filter>
-    </ClInclude>
-    <ClInclude Include="..\source\NessEngine\primitives\size.h">
-      <Filter>Source Files\primitives</Filter>
-    </ClInclude>
     <ClInclude Include="..\source\NessEngine\exceptions\exceptions.h">
       <Filter>Source Files\exceptions</Filter>
     </ClInclude>
@@ -154,9 +139,6 @@
     </ClInclude>
     <ClInclude Include="..\source\NessEngine\utils\event_handler.h">
       <Filter>Source Files\utils</Filter>
-    </ClInclude>
-    <ClInclude Include="..\source\NessEngine\primitives\math.h">
-      <Filter>Source Files\primitives</Filter>
     </ClInclude>
     <ClInclude Include="..\source\NessEngine\renderable\nodes\node.h">
       <Filter>Source Files\renderables\nodes</Filter>
@@ -232,6 +214,27 @@
     </ClInclude>
     <ClInclude Include="..\source\NessEngine\resources\TextureSheet.h">
       <Filter>Source Files\resources</Filter>
+    </ClInclude>
+    <ClInclude Include="..\source\NessEngine\basic_types\color.h">
+      <Filter>Source Files\basic_types</Filter>
+    </ClInclude>
+    <ClInclude Include="..\source\NessEngine\basic_types\containers.h">
+      <Filter>Source Files\basic_types</Filter>
+    </ClInclude>
+    <ClInclude Include="..\source\NessEngine\basic_types\math.h">
+      <Filter>Source Files\basic_types</Filter>
+    </ClInclude>
+    <ClInclude Include="..\source\NessEngine\basic_types\point.h">
+      <Filter>Source Files\basic_types</Filter>
+    </ClInclude>
+    <ClInclude Include="..\source\NessEngine\basic_types\rectangle.h">
+      <Filter>Source Files\basic_types</Filter>
+    </ClInclude>
+    <ClInclude Include="..\source\NessEngine\basic_types\size.h">
+      <Filter>Source Files\basic_types</Filter>
+    </ClInclude>
+    <ClInclude Include="..\source\NessEngine\basic_types\all_basic_types.h">
+      <Filter>Source Files\basic_types</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

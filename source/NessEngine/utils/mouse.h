@@ -5,7 +5,7 @@
 */
 
 #pragma once
-#include "../primitives/point.h"
+#include "../basic_types/point.h"
 #include <SDL.h>
 #include <unordered_map>
 #include "event_handler.h"

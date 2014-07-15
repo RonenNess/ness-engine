@@ -28,5 +28,5 @@ namespace Ness
 	};
 
 	// scene pointer
-	NESSENGINE_API typedef std::shared_ptr<ZNode> ZNodePtr;
+	NESSENGINE_API typedef NessSharedPtr<ZNode> ZNodePtr;
 };

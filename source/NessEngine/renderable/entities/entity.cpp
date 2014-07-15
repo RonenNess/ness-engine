@@ -1,5 +1,6 @@
 #include "entity.h"
 #include "../../renderer/renderer.h"
+#include "../node_api.h"
 
 namespace Ness
 {

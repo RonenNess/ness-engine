@@ -60,5 +60,5 @@ namespace Ness
 	};
 
 	// renderable object pointer
-	NESSENGINE_API typedef std::shared_ptr<RenderableAPI> RenderablePtr;
+	NESSENGINE_API typedef NessSharedPtr<RenderableAPI> RenderablePtr;
 };

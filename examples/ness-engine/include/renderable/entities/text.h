@@ -7,7 +7,7 @@
 #pragma once
 #include "entity.h"
 #include "../../managed_resources/managed_font.h"
-#include "../../primitives/rectangle.h"
+#include "../../basic_types/rectangle.h"
 
 namespace Ness
 {
@@ -48,5 +48,5 @@ namespace Ness
 	};
 
 	// sprite pointer type
-	NESSENGINE_API typedef std::shared_ptr<Text> TextPtr;
+	NESSENGINE_API typedef NessSharedPtr<Text> TextPtr;
 };

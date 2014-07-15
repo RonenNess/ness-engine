@@ -10,14 +10,14 @@
 #include <SDL_ttf.h>
 #include <tchar.h>
 
-// include renderer and basic stuff
-#include "renderer\renderer.h"
-#include "exceptions\exceptions.h"
-#include "primitives\primitives.h"
-
 // include scene and camera
 #include "scene\scene.h"
 #include "scene\camera.h"
+
+// include renderer and basic stuff
+#include "renderer\renderer.h"
+#include "exceptions\exceptions.h"
+#include "basic_types\all_basic_types.h"
 
 // include utils
 #include "utils\keyboard.h"

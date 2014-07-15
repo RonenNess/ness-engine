@@ -7,7 +7,7 @@
 #pragma once
 #include <SDL.h>
 #include "../exports.h"
-#include "../primitives/primitives.h"
+#include "../basic_types/all_basic_types.h"
 namespace Ness
 {
 	// possible blend modes
