@@ -5,7 +5,7 @@
 */
 
 #pragma once
-#include "../../resources/managed_texture.h"
+#include "../../managed_resources/managed_texture.h"
 #include "../node_api.h"
 #include "../transformable_api.h"
 #include <vector>

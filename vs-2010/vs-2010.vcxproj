@@ -11,21 +11,22 @@
     </ProjectConfiguration>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="..\source\NessEngine\font\font.cpp" />
+    <ClCompile Include="..\source\NessEngine\managed_resources\resources_manager.cpp" />
     <ClCompile Include="..\source\NessEngine\NessEngine.cpp" />
     <ClCompile Include="..\source\NessEngine\primitives\consts.cpp" />
     <ClCompile Include="..\source\NessEngine\renderable\entities\entity.cpp" />
     <ClCompile Include="..\source\NessEngine\renderable\entities\canvas.cpp" />
     <ClCompile Include="..\source\NessEngine\renderable\entities\shapes.cpp" />
     <ClCompile Include="..\source\NessEngine\renderable\entities\sprite.cpp" />
+    <ClCompile Include="..\source\NessEngine\renderable\entities\text.cpp" />
     <ClCompile Include="..\source\NessEngine\renderable\nodes\node.cpp" />
     <ClCompile Include="..\source\NessEngine\renderable\nodes\tile_map.cpp" />
     <ClCompile Include="..\source\NessEngine\renderable\nodes\znode.cpp" />
     <ClCompile Include="..\source\NessEngine\renderer\renderer.cpp" />
-    <ClCompile Include="..\source\NessEngine\resources\resources_manager.cpp" />
+    <ClCompile Include="..\source\NessEngine\resources\font.cpp" />
+    <ClCompile Include="..\source\NessEngine\resources\TextureSheet.cpp" />
     <ClCompile Include="..\source\NessEngine\scene\camera.cpp" />
     <ClCompile Include="..\source\NessEngine\scene\scene.cpp" />
-    <ClCompile Include="..\source\NessEngine\texture\TextureSheet.cpp" />
     <ClCompile Include="..\source\NessEngine\utils\events_poller.cpp" />
     <ClCompile Include="..\source\NessEngine\utils\keyboard.cpp" />
     <ClCompile Include="..\source\NessEngine\utils\mouse.cpp" />
@@ -38,7 +39,10 @@
     <ClInclude Include="..\source\NessEngine\animators\animator_sprite.h" />
     <ClInclude Include="..\source\NessEngine\exceptions\exceptions.h" />
     <ClInclude Include="..\source\NessEngine\exports.h" />
-    <ClInclude Include="..\source\NessEngine\font\font.h" />
+    <ClInclude Include="..\source\NessEngine\managed_resources\managed_font.h" />
+    <ClInclude Include="..\source\NessEngine\managed_resources\managed_resource.h" />
+    <ClInclude Include="..\source\NessEngine\managed_resources\managed_texture.h" />
+    <ClInclude Include="..\source\NessEngine\managed_resources\resources_manager.h" />
     <ClInclude Include="..\source\NessEngine\NessEngine.h" />
     <ClInclude Include="..\source\NessEngine\primitives\color.h" />
     <ClInclude Include="..\source\NessEngine\primitives\math.h" />
@@ -51,6 +55,7 @@
     <ClInclude Include="..\source\NessEngine\renderable\entities\canvas.h" />
     <ClInclude Include="..\source\NessEngine\renderable\entities\shapes.h" />
     <ClInclude Include="..\source\NessEngine\renderable\entities\sprite.h" />
+    <ClInclude Include="..\source\NessEngine\renderable\entities\text.h" />
     <ClInclude Include="..\source\NessEngine\renderable\entity_api.h" />
     <ClInclude Include="..\source\NessEngine\renderable\nodes\all_nodes.h" />
     <ClInclude Include="..\source\NessEngine\renderable\nodes\node.h" />
@@ -61,12 +66,10 @@
     <ClInclude Include="..\source\NessEngine\renderable\transformable_api.h" />
     <ClInclude Include="..\source\NessEngine\renderable\transformations.h" />
     <ClInclude Include="..\source\NessEngine\renderer\renderer.h" />
-    <ClInclude Include="..\source\NessEngine\resources\managed_resource.h" />
-    <ClInclude Include="..\source\NessEngine\resources\managed_texture.h" />
-    <ClInclude Include="..\source\NessEngine\resources\resources_manager.h" />
+    <ClInclude Include="..\source\NessEngine\resources\font.h" />
+    <ClInclude Include="..\source\NessEngine\resources\TextureSheet.h" />
     <ClInclude Include="..\source\NessEngine\scene\camera.h" />
     <ClInclude Include="..\source\NessEngine\scene\scene.h" />
-    <ClInclude Include="..\source\NessEngine\texture\TextureSheet.h" />
     <ClInclude Include="..\source\NessEngine\utils\events_poller.h" />
     <ClInclude Include="..\source\NessEngine\utils\event_handler.h" />
     <ClInclude Include="..\source\NessEngine\utils\keyboard.h" />
@@ -101,12 +104,12 @@
   <PropertyGroup Label="UserMacros" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <LinkIncremental>true</LinkIncremental>
-    <LibraryPath>$(ProjectDir)\..\libs\lib\windows\x86\;$(LibraryPath)</LibraryPath>
+    <LibraryPath>$(ProjectDir)\..\distribution\lib\windows\x86\;$(LibraryPath)</LibraryPath>
     <TargetName>ness_engine_d</TargetName>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
     <LinkIncremental>false</LinkIncremental>
-    <LibraryPath>$(ProjectDir)\..\libs\lib\windows\x86\;$(LibraryPath)</LibraryPath>
+    <LibraryPath>$(ProjectDir)\..\distribution\lib\windows\x86\;$(LibraryPath)</LibraryPath>
     <TargetName>ness_engine</TargetName>
   </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">

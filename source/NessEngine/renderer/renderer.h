@@ -7,7 +7,7 @@
 #pragma once
 #include "../exports.h"
 #include "../scene/scene.h"
-#include "../resources/resources_manager.h"
+#include "../managed_resources/resources_manager.h"
 #include "../primitives/primitives.h"
 #include "../animators/animator_api.h"
 #include <SDL_TTF.h>

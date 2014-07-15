@@ -16,9 +16,6 @@
     <Filter Include="Source Files\utils">
       <UniqueIdentifier>{ab462bf9-5e19-45e5-9829-cd53d071ecbf}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Source Files\texture">
-      <UniqueIdentifier>{24614c1f-6047-4649-8240-066df4d590f3}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Source Files\scene">
       <UniqueIdentifier>{c911c83a-e743-41b7-8010-875038827d94}</UniqueIdentifier>
     </Filter>
@@ -46,25 +43,19 @@
     <Filter Include="Source Files\animators">
       <UniqueIdentifier>{0f20aae3-f176-482e-a0ec-9b1f9bfc2e7d}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Source Files\font">
-      <UniqueIdentifier>{704257e9-dd7e-41de-ae58-07966e2c45d3}</UniqueIdentifier>
+    <Filter Include="Source Files\managed_resources">
+      <UniqueIdentifier>{4cd969d3-cba4-4db7-9ace-5084083d4d33}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\source\NessEngine\NessEngine.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="..\source\NessEngine\texture\TextureSheet.cpp">
-      <Filter>Source Files\texture</Filter>
-    </ClCompile>
     <ClCompile Include="..\source\NessEngine\scene\camera.cpp">
       <Filter>Source Files\scene</Filter>
     </ClCompile>
     <ClCompile Include="..\source\NessEngine\scene\scene.cpp">
       <Filter>Source Files\scene</Filter>
-    </ClCompile>
-    <ClCompile Include="..\source\NessEngine\resources\resources_manager.cpp">
-      <Filter>Source Files\resources</Filter>
     </ClCompile>
     <ClCompile Include="..\source\NessEngine\renderer\renderer.cpp">
       <Filter>Source Files\renderer</Filter>
@@ -105,8 +96,17 @@
     <ClCompile Include="..\source\NessEngine\renderable\nodes\tile_map.cpp">
       <Filter>Source Files\renderables\nodes</Filter>
     </ClCompile>
-    <ClCompile Include="..\source\NessEngine\font\font.cpp">
-      <Filter>Source Files\font</Filter>
+    <ClCompile Include="..\source\NessEngine\renderable\entities\text.cpp">
+      <Filter>Source Files\renderables\entities</Filter>
+    </ClCompile>
+    <ClCompile Include="..\source\NessEngine\managed_resources\resources_manager.cpp">
+      <Filter>Source Files\managed_resources</Filter>
+    </ClCompile>
+    <ClCompile Include="..\source\NessEngine\resources\font.cpp">
+      <Filter>Source Files\resources</Filter>
+    </ClCompile>
+    <ClCompile Include="..\source\NessEngine\resources\TextureSheet.cpp">
+      <Filter>Source Files\resources</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -116,23 +116,11 @@
     <ClInclude Include="..\source\NessEngine\utils\keyboard.h">
       <Filter>Source Files\utils</Filter>
     </ClInclude>
-    <ClInclude Include="..\source\NessEngine\texture\TextureSheet.h">
-      <Filter>Source Files\texture</Filter>
-    </ClInclude>
     <ClInclude Include="..\source\NessEngine\scene\camera.h">
       <Filter>Source Files\scene</Filter>
     </ClInclude>
     <ClInclude Include="..\source\NessEngine\scene\scene.h">
       <Filter>Source Files\scene</Filter>
-    </ClInclude>
-    <ClInclude Include="..\source\NessEngine\resources\managed_resource.h">
-      <Filter>Source Files\resources</Filter>
-    </ClInclude>
-    <ClInclude Include="..\source\NessEngine\resources\managed_texture.h">
-      <Filter>Source Files\resources</Filter>
-    </ClInclude>
-    <ClInclude Include="..\source\NessEngine\resources\resources_manager.h">
-      <Filter>Source Files\resources</Filter>
     </ClInclude>
     <ClInclude Include="..\source\NessEngine\renderer\renderer.h">
       <Filter>Source Files\renderer</Filter>
@@ -224,8 +212,26 @@
     <ClInclude Include="..\source\NessEngine\animators\animator_sprite.h">
       <Filter>Source Files\animators</Filter>
     </ClInclude>
-    <ClInclude Include="..\source\NessEngine\font\font.h">
-      <Filter>Source Files\font</Filter>
+    <ClInclude Include="..\source\NessEngine\renderable\entities\text.h">
+      <Filter>Source Files\renderables\entities</Filter>
+    </ClInclude>
+    <ClInclude Include="..\source\NessEngine\managed_resources\managed_font.h">
+      <Filter>Source Files\managed_resources</Filter>
+    </ClInclude>
+    <ClInclude Include="..\source\NessEngine\managed_resources\managed_resource.h">
+      <Filter>Source Files\managed_resources</Filter>
+    </ClInclude>
+    <ClInclude Include="..\source\NessEngine\managed_resources\managed_texture.h">
+      <Filter>Source Files\managed_resources</Filter>
+    </ClInclude>
+    <ClInclude Include="..\source\NessEngine\managed_resources\resources_manager.h">
+      <Filter>Source Files\managed_resources</Filter>
+    </ClInclude>
+    <ClInclude Include="..\source\NessEngine\resources\font.h">
+      <Filter>Source Files\resources</Filter>
+    </ClInclude>
+    <ClInclude Include="..\source\NessEngine\resources\TextureSheet.h">
+      <Filter>Source Files\resources</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

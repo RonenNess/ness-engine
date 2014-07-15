@@ -6,7 +6,7 @@
 
 #pragma once
 #include <memory>
-#include "../texture/TextureSheet.h"
+#include "../resources/TextureSheet.h"
 #include <unordered_map>
 #include "managed_resource.h"
 
@@ -21,7 +21,10 @@ namespace Ness
 		class ManagedTexture : public Resources::TextureSheet, public ManagedResource
 		{
 		public:
+			// ctor for loading texture from file
 			ManagedTexture(const std::string& fileName, SDL_Renderer* renderer, const Colorb* ColorKey = nullptr) : TextureSheet(fileName, renderer, ColorKey) {}
+
+			// ctor for creating empty texture from size
 			ManagedTexture(SDL_Renderer* renderer, const Sizei& size) : TextureSheet(renderer, size) {}
 		};
 
