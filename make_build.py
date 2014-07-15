@@ -31,7 +31,7 @@ for root, dirs, files in os.walk("source"):
         shutil.copyfile(src, dest)
 
 
-# copy ness-engine windows binaries
+# copy ness-engine winx86 binaries
 for version in ["vs2010", "vs2013"]:
     LibDir = OUTDIR + "/lib/win_x86/" + version + "/"
     os.mkdir(LibDir)
@@ -40,14 +40,30 @@ for version in ["vs2010", "vs2013"]:
     shutil.copy(version + "/Release/ness_engine.dll", LibDir)
     shutil.copy(version + "/Release/ness_engine.lib", LibDir)
 
+# copy ness-engine winx64 binaries
+for version in ["vs2013"]:
+    LibDir = OUTDIR + "/lib/win_x64/" + version + "/"
+    os.mkdir(LibDir)
+    shutil.copy(version + "/x64/Debug/ness_engine_d.dll", LibDir)
+    shutil.copy(version + "/x64/Debug/ness_engine_d.lib", LibDir)
+    shutil.copy(version + "/x64/Release/ness_engine.dll", LibDir)
+    shutil.copy(version + "/x64/Release/ness_engine.lib", LibDir)
 
 # copy new runtime to examples dir
 if os.path.isdir("examples/ness-engine"):
     shutil.rmtree("examples/ness-engine")
 shutil.copytree(OUTDIR, "examples/ness-engine")
-shutil.copy("examples/ness-engine/lib/win_x86/vs2010/ness_engine.dll", "examples/ness-engine/lib/win_x86/")
-shutil.copy("examples/ness-engine/lib/win_x86/vs2010/ness_engine.lib", "examples/ness-engine/lib/win_x86/")
-shutil.copy("examples/ness-engine/lib/win_x86/vs2010/ness_engine_d.dll", "examples/ness-engine/lib/win_x86/")
-shutil.copy("examples/ness-engine/lib/win_x86/vs2010/ness_engine_d.lib", "examples/ness-engine/lib/win_x86/")
+
+# put for x86 by default the vs2013 libs
+shutil.copy("examples/ness-engine/lib/win_x86/vs2013/ness_engine.dll", "examples/ness-engine/lib/win_x86/")
+shutil.copy("examples/ness-engine/lib/win_x86/vs2013/ness_engine.lib", "examples/ness-engine/lib/win_x86/")
+shutil.copy("examples/ness-engine/lib/win_x86/vs2013/ness_engine_d.dll", "examples/ness-engine/lib/win_x86/")
+shutil.copy("examples/ness-engine/lib/win_x86/vs2013/ness_engine_d.lib", "examples/ness-engine/lib/win_x86/")
+
+# put for x64 by default the vs2013 libs
+shutil.copy("examples/ness-engine/lib/win_x64/vs2013/ness_engine.dll", "examples/ness-engine/lib/win_x64/")
+shutil.copy("examples/ness-engine/lib/win_x64/vs2013/ness_engine.lib", "examples/ness-engine/lib/win_x64/")
+shutil.copy("examples/ness-engine/lib/win_x64/vs2013/ness_engine_d.dll", "examples/ness-engine/lib/win_x64/")
+shutil.copy("examples/ness-engine/lib/win_x64/vs2013/ness_engine_d.lib", "examples/ness-engine/lib/win_x64/")
 
 raw_input("Done!")

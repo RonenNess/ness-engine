@@ -105,12 +105,12 @@
   <PropertyGroup Label="UserMacros" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <LinkIncremental>true</LinkIncremental>
-    <LibraryPath>$(ProjectDir)\..\distribution\lib\windows\x86\;$(LibraryPath)</LibraryPath>
+    <LibraryPath>$(ProjectDir)\..\distribution\lib\win_x86\;$(LibraryPath)</LibraryPath>
     <TargetName>ness_engine_d</TargetName>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
     <LinkIncremental>false</LinkIncremental>
-    <LibraryPath>$(ProjectDir)\..\distribution\lib\windows\x86\;$(LibraryPath)</LibraryPath>
+    <LibraryPath>$(ProjectDir)\..\distribution\lib\win_x86\;$(LibraryPath)</LibraryPath>
     <TargetName>ness_engine</TargetName>
   </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
