@@ -1,7 +1,7 @@
 /*
 * This example shows the lighting node, a special type of node that take advantage of the canvas entity to create lighting mask.
 * You can use the lighting node for all your basic lighting needs, or you can easily create your own lighting system using canvas and other entities.
-* See example "3d lighting" for more advanced lighting techniques.
+* See example "3dLighting" for more advanced lighting techniques.
 * PLEASE NOTE: this project relays on the folder examples/ness-engine to be one step above the project dir. so make sure you include it as well.
 *				also, the vs project adds the libs dir to the PATH variable when running debug/release. so if you want to run the exectuables outside 
 *				visual studio (by clicking on the exectuable), you'll need to copy the dll files to the same dir as the exe.
