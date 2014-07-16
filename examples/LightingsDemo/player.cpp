@@ -6,7 +6,7 @@ Player::Player(Ness::NodePtr parent, Ness::LightNodePtr lightNode)
 	m_sprite = parent->create_sprite("spaceman.png");
 	m_sprite->set_anchor(Ness::Point(0.5f, 0.5f));
 	m_sprite->set_size(Ness::Sizei(64, 64));
-	m_sprite->set_position(Ness::Point(400.0f, 500.0f));
+	m_sprite->set_position(Ness::Point(400.0f, 510.0f));
 	m_sprite->set_blend_mode(Ness::BLEND_MODE_BLEND);
 
 	// create the player light
