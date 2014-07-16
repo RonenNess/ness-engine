@@ -111,6 +111,9 @@
     <ClCompile Include="..\source\NessEngine\renderable\nodes\light_node.cpp">
       <Filter>Source Files\renderables\nodes</Filter>
     </ClCompile>
+    <ClCompile Include="..\source\NessEngine\renderable\nodes\basic_node.cpp">
+      <Filter>Source Files\renderables\nodes</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\source\NessEngine\NessEngine.h">
@@ -243,6 +246,9 @@
       <Filter>Source Files\exceptions</Filter>
     </ClInclude>
     <ClInclude Include="..\source\NessEngine\renderable\nodes\light_node.h">
+      <Filter>Source Files\renderables\nodes</Filter>
+    </ClInclude>
+    <ClInclude Include="..\source\NessEngine\renderable\nodes\basic_node.h">
       <Filter>Source Files\renderables\nodes</Filter>
     </ClInclude>
   </ItemGroup>

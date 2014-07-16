@@ -16,10 +16,15 @@ namespace Ness
 	// callback function to run on all tiles
 	NESSENGINE_API typedef void (*executeOnTiles)(const Pointi& index, const SpritePtr& tile);
 
+	// callback function to create custom sprite types for the tilemap
+	NESSENGINE_API typedef SpritePtr (*createTileSprites)(const Pointi& index);
+
+	// TileMap is a special node that creates a grid of sprites
 	class TileMap : public NodeAPI
 	{
 	private:
 		Sizei										m_size;						// size of the tilemap
+		Sizei										m_sprites_distance;			// distance between sprites
 		Size										m_tile_size;				// size of a single tile
 		Vector< Vector<SpritePtr> >					m_sprites;					// the sprites matrix
 		SRenderTransformations						m_absolute_transformations;	// absolute transformations of this tilemap
@@ -27,7 +32,16 @@ namespace Ness
 	public:
 
 		// create the tilemap
-		NESSENGINE_API TileMap(Renderer* renderer, NodeAPI* parent, const std::string& spriteFile, Sizei mapSize, Size singleTileSize = Size(36, 36));
+		// spriteFile - default texture file to use for all tiles. you can change texture for specific tiles using get_sprite()
+		// mapSize - how many tiles there are on rows and columns
+		// singleTileSize - the size in pixels of a single tile
+		// tilesDistance - the distance between tiles. if zero, will use the single tile size
+		// createSpriteFunction - if provided, a function that creates the sprite objects for this tilemap. 
+		//		note: use it only if you want to use different objects for this tilemap (must inherit from Sprite). 
+		//		don't use this for custom properties per-sprite, since they will be overrided anyway when arranged into the tilemap grid.
+		NESSENGINE_API TileMap(Renderer* renderer, NodeAPI* parent, 
+			const std::string& spriteFile, const Sizei& mapSize, const Size& singleTileSize = Size(36, 36), const Size& tilesDistance = Size::ZERO,
+			);
 
 		// return the absolute transformations of this tilemap
 		NESSENGINE_API virtual const SRenderTransformations& get_absolute_transformations();

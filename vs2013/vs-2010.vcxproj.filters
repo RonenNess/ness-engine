@@ -108,6 +108,12 @@
     <ClCompile Include="..\source\NessEngine\basic_types\consts.cpp">
       <Filter>Source Files\basic_types</Filter>
     </ClCompile>
+    <ClCompile Include="..\source\NessEngine\renderable\nodes\basic_node.cpp">
+      <Filter>Source Files\renderables\nodes</Filter>
+    </ClCompile>
+    <ClCompile Include="..\source\NessEngine\renderable\nodes\light_node.cpp">
+      <Filter>Source Files\renderables\nodes</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\source\NessEngine\NessEngine.h">
@@ -235,6 +241,12 @@
     </ClInclude>
     <ClInclude Include="..\source\NessEngine\basic_types\all_basic_types.h">
       <Filter>Source Files\basic_types</Filter>
+    </ClInclude>
+    <ClInclude Include="..\source\NessEngine\renderable\nodes\basic_node.h">
+      <Filter>Source Files\renderables\nodes</Filter>
+    </ClInclude>
+    <ClInclude Include="..\source\NessEngine\renderable\nodes\light_node.h">
+      <Filter>Source Files\renderables\nodes</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

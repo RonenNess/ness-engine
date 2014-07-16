@@ -6,7 +6,7 @@
 */
 
 #pragma once
-#include "node.h"
+#include "basic_node.h"
 #include "../entities/canvas.h"
 
 namespace Ness
@@ -26,7 +26,7 @@ namespace Ness
 
 	NESSENGINE_API typedef NessSharedPtr<Light> LightPtr;
 
-	class LightNode : public Node
+	class LightNode : public BaseNode
 	{
 	private:
 		CanvasPtr m_canvas;

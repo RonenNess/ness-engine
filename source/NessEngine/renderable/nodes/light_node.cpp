@@ -4,14 +4,13 @@
 
 namespace Ness
 {
-	LightNode::LightNode(Renderer* renderer, NodeAPI* parent) : Node(renderer, parent) 
+	LightNode::LightNode(Renderer* renderer, NodeAPI* parent) : BaseNode(renderer, parent) 
 	{
 		// create the canvas.
 		// we will render everything on the canvas as additive, and then render the canvas itself with mod blend
 		// note: canvas clear color will represent the ambient color, i.e. the color of light when there's no lighting.
 		static unsigned int uniqueId = 0;
-		m_canvas = create_canvas(std::string("light_node_") + std::to_string((long long)uniqueId));
-		remove(m_canvas); // <-- we render it seperatly we don't want it inside the entities list
+		m_canvas = NESS_MAKE_PTR<Canvas>(this->m_renderer, this, std::string("light_node_") + std::to_string((long long)uniqueId));
 		uniqueId++;
 		set_blend_mode(BLEND_MODE_ADD);
 		m_render_target = m_canvas->get_texture();
@@ -23,7 +22,7 @@ namespace Ness
 
 	void LightNode::add(const RenderablePtr& object)
 	{
-		Node::add(object);
+		BaseNode::add(object);
 		object->set_blend_mode(BLEND_MODE_ADD);
 	}
 
