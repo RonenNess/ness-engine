@@ -34,6 +34,9 @@ namespace Ness
 		// set source as rect
 		NESSENGINE_API void set_source_rect(const Rectangle& srcRect);
 
+		// return if need transformations udpate
+		NESSENGINE_API virtual bool need_transformations_update() {return m_need_transformations_update;}
+
 		// set entity base size
 		// note: this is the basic size that is multiplied by scale. size should be the basic sprite size and remain pretty much const,
 		// scale is something you want to play with more often to enlare or shrink the sprite

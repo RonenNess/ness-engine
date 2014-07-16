@@ -46,6 +46,9 @@ namespace Ness
 		NESSENGINE_API void set_render_target(ManagedResources::ManagedTexturePtr NewTarget) {m_render_target = NewTarget;}
 		NESSENGINE_API void remove_render_target() {m_render_target.reset();}
 
+		// return if need transformations udpate
+		NESSENGINE_API virtual bool need_transformations_update() {return m_need_trans_update;}
+
 		// render this node with camera
 		NESSENGINE_API virtual void render(const CameraPtr& camera = NullCamera);
 

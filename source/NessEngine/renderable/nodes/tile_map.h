@@ -45,6 +45,9 @@ namespace Ness
 		// return the absolute transformations of this tilemap
 		NESSENGINE_API virtual const SRenderTransformations& get_absolute_transformations();
 
+		// return if need transformations udpate (always false for tilemap)
+		NESSENGINE_API virtual bool need_transformations_update() {return false;}
+
 		// get a specific sprite by index
 		NESSENGINE_API inline SpritePtr& get_sprite(const Pointi& index) {return m_sprites[index.x][index.y];}
 

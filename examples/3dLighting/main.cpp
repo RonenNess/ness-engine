@@ -12,6 +12,12 @@
 // is the program still running
 bool g_running = true;
 
+// our customized sprite with 3d lightings effect
+class Sprite3d : public Ness::Sprite
+{
+
+};
+
 // callback to handle exit events
 void HandleEvents(const SDL_Event& event)
 {
