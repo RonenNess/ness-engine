@@ -5,7 +5,7 @@
 namespace Ness
 {
 
-	Entity::Entity(Renderer* renderer, NodeAPI* parent) : EntityAPI(renderer, parent), m_static(false), m_need_transformations_update(true)
+	Entity::Entity(Renderer* renderer) : EntityAPI(renderer), m_static(false), m_need_transformations_update(true)
 	{
 		set_position(Point(0, 0));
 		set_anchor(Point::ZERO);

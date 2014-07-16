@@ -26,8 +26,8 @@ namespace Ness
 		void*					m_user_data;					// optional user data you can attach to this object
 
 	public:
-		NESSENGINE_API RenderableAPI(Renderer* renderer, NodeAPI* parent = nullptr) : 
-		  m_renderer(renderer), m_parent(parent), m_visible(true) {}
+		NESSENGINE_API RenderableAPI(Renderer* renderer) : 
+		  m_renderer(renderer), m_parent(nullptr), m_visible(true), m_user_data(nullptr) {}
 
 		// attached customized user data to this object
 		inline void set_user_data(void* user_data) {m_user_data = user_data;}

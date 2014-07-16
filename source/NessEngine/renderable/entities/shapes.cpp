@@ -3,7 +3,7 @@
 
 namespace Ness
 {
-	RectangleShape::RectangleShape(Renderer* renderer, NodeAPI* parent) : Entity(renderer, parent), m_is_filled(true)
+	RectangleShape::RectangleShape(Renderer* renderer) : Entity(renderer), m_is_filled(true)
 	{
 	}
 

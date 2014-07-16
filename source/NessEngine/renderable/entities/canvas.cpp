@@ -3,7 +3,7 @@
 
 namespace Ness
 {
-	Canvas::Canvas(Renderer* renderer, NodeAPI* parent, const std::string& NewTextureName, const Sizei& size) : Sprite(renderer, parent),
+	Canvas::Canvas(Renderer* renderer, const std::string& NewTextureName, const Sizei& size) : Sprite(renderer),
 		m_auto_clear(false), m_clean_color(0, 0, 0, 0)
 	{
 		// create the canvas empty texture and use it

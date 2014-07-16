@@ -18,7 +18,7 @@ namespace Ness
 
 	public:
 		// create the rectangle shape
-		NESSENGINE_API RectangleShape(Renderer* renderer, NodeAPI* parent);
+		NESSENGINE_API RectangleShape(Renderer* renderer);
 
 		// set if this rectangle is filled or just outlines
 		inline void set_filled(bool filled) {m_is_filled = filled;}

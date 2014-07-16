@@ -25,8 +25,8 @@ namespace Ness
 	public:
 
 		// create the sprite with texture
-		NESSENGINE_API Text(Renderer* renderer, NodeAPI* parent, ManagedResources::ManagedFontPtr font, const std::string& text);
-		NESSENGINE_API Text(Renderer* renderer, NodeAPI* parent, const std::string& FontFile, const std::string& text, int fontSize = 12);
+		NESSENGINE_API Text(Renderer* renderer, ManagedResources::ManagedFontPtr font, const std::string& text);
+		NESSENGINE_API Text(Renderer* renderer, const std::string& FontFile, const std::string& text, int fontSize = 12);
 
 		// change font
 		NESSENGINE_API inline void change_font(ManagedResources::ManagedFontPtr NewFont) {m_font = NewFont; m_need_text_update = true;}

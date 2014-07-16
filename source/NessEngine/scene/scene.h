@@ -16,7 +16,7 @@ namespace Ness
 	class Scene : public Node
 	{
 	public:
-		NESSENGINE_API Scene(Renderer* renderer) : Node(renderer, nullptr) {}
+		NESSENGINE_API Scene(Renderer* renderer) : Node(renderer) {}
 
 		// scene should never have parent, so it's easy - absolute transformation is self transformation
 		NESSENGINE_API virtual const SRenderTransformations& get_absolute_transformations() {return m_absolute_trans;}

@@ -4,13 +4,13 @@
 
 namespace Ness
 {
-	LightNode::LightNode(Renderer* renderer, NodeAPI* parent) : BaseNode(renderer, parent) 
+	LightNode::LightNode(Renderer* renderer) : BaseNode(renderer) 
 	{
 		// create the canvas.
 		// we will render everything on the canvas as additive, and then render the canvas itself with mod blend
 		// note: canvas clear color will represent the ambient color, i.e. the color of light when there's no lighting.
 		static unsigned int uniqueId = 0;
-		m_canvas = NESS_MAKE_PTR<Canvas>(this->m_renderer, this, std::string("light_node_") + std::to_string((long long)uniqueId));
+		m_canvas = NESS_MAKE_PTR<Canvas>(this->m_renderer, std::string("light_node_") + std::to_string((long long)uniqueId));
 		uniqueId++;
 		set_blend_mode(BLEND_MODE_ADD);
 		m_render_target = m_canvas->get_texture();
@@ -28,7 +28,7 @@ namespace Ness
 
 	LightPtr LightNode::create_light(const std::string& lightTexture, const Color& color)
 	{
-		LightPtr NewSprite = NESS_MAKE_PTR<Light>(this->m_renderer, this, lightTexture, color);
+		LightPtr NewSprite = NESS_MAKE_PTR<Light>(this->m_renderer, lightTexture, color);
 		add(NewSprite);
 		return NewSprite;
 	}

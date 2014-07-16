@@ -35,8 +35,8 @@ namespace Ness
 	class Node : public BaseNode
 	{
 	public:
-		NESSENGINE_API Node(Renderer* renderer, NodeAPI* parent = nullptr) : 
-			BaseNode(renderer, parent) {}
+		NESSENGINE_API Node(Renderer* renderer) : 
+			BaseNode(renderer) {}
 
 		// create and return a son entities
 		NESSENGINE_API virtual NodePtr create_node();

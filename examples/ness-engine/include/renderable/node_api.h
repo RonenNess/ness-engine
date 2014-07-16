@@ -17,8 +17,8 @@ namespace Ness
 	{
 	public:
 
-		NESSENGINE_API NodeAPI(Renderer* renderer, NodeAPI* parent = nullptr) : 
-		  RenderableAPI(renderer, parent) {}
+		NESSENGINE_API NodeAPI(Renderer* renderer) : 
+		  RenderableAPI(renderer) {}
 
 		// is this node actually visible and inside screen?
 		NESSENGINE_API virtual bool is_really_visible(const CameraPtr& camera = NullCamera) = 0;

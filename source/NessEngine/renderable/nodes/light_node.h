@@ -16,8 +16,8 @@ namespace Ness
 	class Light : public Sprite
 	{
 	public:
-		NESSENGINE_API Light(Renderer* renderer, NodeAPI* parent, const std::string& TextureFile, const Color& color) 
-			: Sprite(renderer, parent, TextureFile) 
+		NESSENGINE_API Light(Renderer* renderer, const std::string& TextureFile, const Color& color) 
+			: Sprite(renderer, TextureFile) 
 		{
 			set_color(color);
 			set_anchor(Point::HALF);
@@ -33,7 +33,7 @@ namespace Ness
 
 	public:
 		// create the znode
-		NESSENGINE_API LightNode(Renderer* renderer, NodeAPI* parent = nullptr);
+		NESSENGINE_API LightNode(Renderer* renderer);
 
 		// set / get ambient color (ambient == the lighting where there is no light (default is black)
 		NESSENGINE_API inline void set_ambient_color(const Color& color) {m_canvas->set_clean_color(color);}

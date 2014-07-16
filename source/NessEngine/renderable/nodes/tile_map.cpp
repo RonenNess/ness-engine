@@ -15,9 +15,14 @@ namespace Ness
 		return m_absolute_transformations;
 	}
 
-	TileMap::TileMap(Renderer* renderer, NodeAPI* parent, const std::string& spriteFile, Sizei mapSize, Size singleTileSize) : NodeAPI(renderer, parent),
-		m_size(mapSize), m_tile_size(singleTileSize)
+	TileMap::TileMap(Renderer* renderer, const std::string& spriteFile, const Sizei& mapSize, 
+		const Size& singleTileSize, const Size& tilesDistance, createTileSprites createSpriteFunction) 
+		: NodeAPI(renderer), m_size(mapSize), m_tile_size(singleTileSize)
 	{
+		// set distance between sprites (either sprite size or provided distance)
+		m_sprites_distance = (tilesDistance == Ness::Size::ZERO ? singleTileSize : tilesDistance);
+
+		// create the sprites grid
 		m_sprites.resize(m_size.x);
 		for (int i = 0; i < m_size.x; i++)
 		{
@@ -25,7 +30,16 @@ namespace Ness
 			for (int j = 0; j < m_size.y; j++)
 			{
 				// create the sprite
-				SpritePtr NewSprite(new Sprite(this->m_renderer, this, spriteFile));
+				SpritePtr NewSprite;
+				if (createSpriteFunction == nullptr)
+				{
+					NewSprite.reset(new Sprite(this->m_renderer, spriteFile));
+				}
+				else
+				{
+					NewSprite = createSpriteFunction(Ness::Pointi(i, j));
+				}
+				NewSprite->__change_parent(this);
 				
 				// set position
 				NewSprite->set_position(Point(

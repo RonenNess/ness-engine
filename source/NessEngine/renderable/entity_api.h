@@ -16,8 +16,8 @@ namespace Ness
 	{
 	public:
 		// create the entity
-		NESSENGINE_API EntityAPI(Renderer* renderer, NodeAPI* parent = nullptr) : 
-			RenderableAPI(renderer, parent) {}
+		NESSENGINE_API EntityAPI(Renderer* renderer) : 
+			RenderableAPI(renderer) {}
 
 	};
 

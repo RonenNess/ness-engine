@@ -26,7 +26,7 @@ namespace Ness
 	public:
 
 		// create the sprite with texture
-		NESSENGINE_API Entity(Renderer* renderer, NodeAPI* parent);
+		NESSENGINE_API Entity(Renderer* renderer);
 
 		// called whenever transformations are updated
 		NESSENGINE_API virtual void transformations_update();

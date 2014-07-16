@@ -23,8 +23,8 @@ namespace Ness
 		ManagedResources::ManagedTexturePtr		m_render_target;				// if not null, will render to this target instead of to the screen
 
 	public:
-		NESSENGINE_API BaseNode(Renderer* renderer, NodeAPI* parent = nullptr) : 
-			NodeAPI(renderer, parent), m_need_trans_update(true) {}
+		NESSENGINE_API BaseNode(Renderer* renderer) : 
+			NodeAPI(renderer), m_need_trans_update(true) {}
 
 		// add/remove sub 
 		NESSENGINE_API virtual void add(const RenderablePtr& object);

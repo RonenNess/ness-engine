@@ -6,18 +6,18 @@ namespace Ness
 	// defaults
 	SSpriteDefaults Sprite::Defaults;
 
-	Sprite::Sprite(Renderer* renderer, NodeAPI* parent) : Entity(renderer, parent)
+	Sprite::Sprite(Renderer* renderer) : Entity(renderer)
 	{
 		set_defaults();
 	}
 
-	Sprite::Sprite(Renderer* renderer, NodeAPI* parent, ManagedResources::ManagedTexturePtr texture) : Entity(renderer, parent)
+	Sprite::Sprite(Renderer* renderer, ManagedResources::ManagedTexturePtr texture) : Entity(renderer)
 	{
 		set_defaults();
 		init_from_texture(texture);
 	}
 
-	Sprite::Sprite(Renderer* renderer, NodeAPI* parent, const std::string& TextureFile) : Entity(renderer, parent)
+	Sprite::Sprite(Renderer* renderer, const std::string& TextureFile) : Entity(renderer)
 	{
 		set_defaults();
 		ManagedResources::ManagedTexturePtr texture = m_renderer->resources().get_texture(TextureFile);

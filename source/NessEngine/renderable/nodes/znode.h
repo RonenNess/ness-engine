@@ -16,7 +16,7 @@ namespace Ness
 
 	public:
 		// create the znode
-		NESSENGINE_API ZNode(Renderer* renderer, NodeAPI* parent = nullptr) : Node(renderer, parent), m_break_groups(false) {}
+		NESSENGINE_API ZNode(Renderer* renderer) : Node(renderer), m_break_groups(false) {}
 
 		// set if this znode should break groups or not
 		// if break groups is true, this znode will take ALL entities from all son nodes and arrange them based on zorder.

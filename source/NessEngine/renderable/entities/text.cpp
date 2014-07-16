@@ -4,8 +4,8 @@
 namespace Ness
 {
 	
-	Text::Text(Renderer* renderer, NodeAPI* parent, ManagedResources::ManagedFontPtr font, const std::string& text) : 
-		Entity(renderer, parent), m_need_text_update(true), m_texture(nullptr), m_line_width(0)
+	Text::Text(Renderer* renderer, ManagedResources::ManagedFontPtr font, const std::string& text) : 
+		Entity(renderer), m_need_text_update(true), m_texture(nullptr), m_line_width(0)
 	{
 		change_font(font);
 		change_text(text);
@@ -14,8 +14,8 @@ namespace Ness
 		set_blend_mode(BLEND_MODE_BLEND);
 	}
 
-	Text::Text(Renderer* renderer, NodeAPI* parent, const std::string& FontFile, const std::string& text, int fontSize) : 
-		Entity(renderer, parent), m_need_text_update(true), m_texture(nullptr), m_line_width(0)
+	Text::Text(Renderer* renderer, const std::string& FontFile, const std::string& text, int fontSize) : 
+		Entity(renderer), m_need_text_update(true), m_texture(nullptr), m_line_width(0)
 	{
 		change_font(m_renderer->resources().get_font(FontFile, fontSize));
 		change_text(text);
