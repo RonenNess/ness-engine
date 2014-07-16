@@ -61,7 +61,8 @@ namespace Ness
 		//		set_source_from_sprite_sheet(Pointi(3,2), Sizei(4,8));
 		// step: the index of the animation step inside the sprite sheet (x, y)
 		// stepsCount: how many total animation steps the sheet has (x, y)
-		NESSENGINE_API void set_source_from_sprite_sheet(const Pointi& step, const Sizei stepsCount);
+		// if setSize == true, it will also set the size of the sprite to fit a single step of the sprite sheet
+		NESSENGINE_API void set_source_from_sprite_sheet(const Pointi& step, const Sizei stepsCount, bool setSize = false);
 
 		// reset source rect to be full image size
 		NESSENGINE_API void reset_source_rect();

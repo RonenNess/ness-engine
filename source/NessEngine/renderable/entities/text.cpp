@@ -5,7 +5,7 @@ namespace Ness
 {
 	
 	Text::Text(Renderer* renderer, NodeAPI* parent, ManagedResources::ManagedFontPtr font, const std::string& text) : 
-		Entity(renderer, parent), m_need_text_update(true), m_texture(nullptr)
+		Entity(renderer, parent), m_need_text_update(true), m_texture(nullptr), m_line_width(0)
 	{
 		change_font(font);
 		change_text(text);
@@ -15,7 +15,7 @@ namespace Ness
 	}
 
 	Text::Text(Renderer* renderer, NodeAPI* parent, const std::string& FontFile, const std::string& text, int fontSize) : 
-		Entity(renderer, parent), m_need_text_update(true), m_texture(nullptr)
+		Entity(renderer, parent), m_need_text_update(true), m_texture(nullptr), m_line_width(0)
 	{
 		change_font(m_renderer->resources().get_font(FontFile, fontSize));
 		change_text(text);
@@ -35,7 +35,15 @@ namespace Ness
 
 		// render text on surface
 		static SDL_Color text_color = {255, 255, 255};
-		SDL_Surface* surface = TTF_RenderText_Solid(m_font->font(), m_text.c_str(), text_color);
+		SDL_Surface* surface = nullptr;
+		if (m_line_width)
+		{
+			surface = TTF_RenderText_Blended_Wrapped(m_font->font(), m_text.c_str(), text_color, m_line_width);
+		}
+		else
+		{
+			surface = TTF_RenderText_Solid(m_font->font(), m_text.c_str(), text_color);
+		}
 		if (surface == nullptr)
 		{
 			NESS_ERROR((std::string("failed to create text surface: ") + TTF_GetError()).c_str());

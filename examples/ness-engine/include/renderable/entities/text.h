@@ -20,6 +20,7 @@ namespace Ness
 		std::string								m_text;
 		bool									m_need_text_update;
 		SDL_Texture*							m_texture;
+		unsigned int							m_line_width;
 
 	public:
 
@@ -29,6 +30,10 @@ namespace Ness
 
 		// change font
 		NESSENGINE_API inline void change_font(ManagedResources::ManagedFontPtr NewFont) {m_font = NewFont; m_need_text_update = true;}
+
+		// set line width (in pixel). if text pass this limit, it will break line. give 0 to cancel line width limit
+		NESSENGINE_API inline void set_line_width(unsigned int width) {m_line_width = width;}
+		NESSENGINE_API inline unsigned int get_line_width() const {return m_line_width;}
 
 		// change text
 		NESSENGINE_API void change_text(const std::string& text) {m_text = text; m_need_text_update = true;}
