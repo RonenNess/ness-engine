@@ -27,6 +27,12 @@ namespace Ness
 		m_need_update = true;
 	}
 
+	void LightNode::transformations_update()
+	{
+		BaseNode::transformations_update();
+		m_need_update = true;
+	}
+
 	void LightNode::remove(const RenderablePtr& object)
 	{
 		BaseNode::remove(object);
@@ -46,16 +52,18 @@ namespace Ness
 		if (!m_visible)
 			return;
 
-		// if always-update is set to true
+		// if always-update is set to true:
 		if (m_always_update)
 			m_need_update = true;
 
 		// check if need update
-		for (unsigned int i = 0; ((i < m_entities.size()) && m_need_update == false); i++)
+		// basically check if there's a light that need transformations update + is really visible and within screen.
+		// stop the loop when looping all objects or once need update is true.
+		for (unsigned int i = 0; ((i < m_entities.size()) && !m_need_update); i++)
 		{
 			if (m_entities[i]->need_transformations_update())
 			{
-				m_need_update = true;
+				m_need_update = m_entities[i]->is_really_visible();
 			}
 		}
 		

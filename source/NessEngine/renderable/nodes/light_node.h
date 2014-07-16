@@ -55,6 +55,9 @@ namespace Ness
 		NESSENGINE_API inline void set_ambient_color(const Color& color) {m_canvas->set_clean_color(color); m_need_update = true;}
 		NESSENGINE_API inline const Color& get_ambient_color() const {return m_canvas->get_clean_color();}
 
+		// when the lightnode updates, we need to re-render
+		NESSENGINE_API virtual void transformations_update();
+
 		// create a light
 		NESSENGINE_API LightPtr create_light(const std::string& lightTexture, const Color& color = Color::WHITE);
 
