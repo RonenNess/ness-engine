@@ -75,6 +75,10 @@ int _tmain(int argc, _TCHAR* argv[])
 	// create the fps show
 	Ness::TextPtr fpsShow = scene->create_text("../ness-engine/resources/fonts/courier.ttf", "fps", 20);
 
+	// create instructions text
+	Ness::TextPtr instructions = scene->create_text("../ness-engine/resources/fonts/courier.ttf", "use arrows to move around and see z-ordering in action.", 20);
+	instructions->set_position(Ness::Point(0, 24));
+
 	// loop until exit button is pressed
 	while( g_running )
 	{

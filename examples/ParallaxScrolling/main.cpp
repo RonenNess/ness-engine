@@ -76,6 +76,11 @@ int _tmain(int argc, _TCHAR* argv[])
 		}
 	}
 
+	// create instructions text
+	Ness::TextPtr instructions = layer1->create_text("../ness-engine/resources/fonts/courier.ttf", "use arrows to move around and see the parallax scrolling in action.", 20);
+	instructions->set_color(Ness::Color::BLACK);
+	instructions->set_static(false);
+
 	// create camera
 	Ness::CameraPtr camera = renderer.create_camera();
 

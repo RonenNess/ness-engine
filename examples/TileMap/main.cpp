@@ -63,6 +63,12 @@ int _tmain(int argc, _TCHAR* argv[])
 	// the currently selected tile type to set
 	Ness::Pointi SelectedTileType(0, 0);
 
+	// create instructions text
+	Ness::TextPtr instructions = scene->create_text("../ness-engine/resources/fonts/courier.ttf", 
+		"use arrows to move. pick tile type from the left bar and click anywhere to set.", 16);
+	instructions->set_position(Ness::Point(0.0f, (float)render.get_screen_size().y));
+	instructions->set_anchor(Ness::Point(0.0f, 1.0f));
+
 	// create a camera
 	Ness::CameraPtr camera = render.create_camera();
 	float CameraSpeed = 500.0f;

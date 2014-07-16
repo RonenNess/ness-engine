@@ -70,10 +70,13 @@ int _tmain(int argc, _TCHAR* argv[])
 	std::list<std::auto_ptr<Meteor> > meteors;
 	float timeUntilNextMeteor = (float)(rand() % 20) / 10.0f;
 
+	// create instructions text
+	Ness::TextPtr instructions = scene->create_text("../ness-engine/resources/fonts/courier.ttf", "player1 controls: arrows & enter | player2 controls: wasd & space", 18);
+
 	// create the fps show
 	Ness::TextPtr fpsShow = scene->create_text("../ness-engine/resources/fonts/courier.ttf", "fps", 20);
 	fpsShow->set_size(Ness::Size(100, 100));
-	fpsShow->set_static(true);
+	fpsShow->set_position(Ness::Point(0, 22));
 
 	// create the event handlers
 	Ness::Utils::Keyboard keyboard;

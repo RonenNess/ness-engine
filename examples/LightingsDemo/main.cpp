@@ -1,5 +1,7 @@
 /*
-* NessEngine hello world application. does nothing but rendering "hello world" on the screen.
+* This example shows the lighting node, a special type of node that take advantage of the canvas entity to create lighting mask.
+* You can use the lighting node for all your basic lighting needs, or you can easily create your own lighting system using canvas and other entities.
+* See example "3d lighting" for more advanced lighting techniques.
 * PLEASE NOTE: this project relays on the folder examples/ness-engine to be one step above the project dir. so make sure you include it as well.
 *				also, the vs project adds the libs dir to the PATH variable when running debug/release. so if you want to run the exectuables outside 
 *				visual studio (by clicking on the exectuable), you'll need to copy the dll files to the same dir as the exe.
@@ -48,7 +50,7 @@ int _tmain(int argc, _TCHAR* argv[])
 	alien->set_position(Ness::Point(300.0f, 300.0f));
 	alien->set_blend_mode(Ness::BLEND_MODE_BLEND);
 	alien->set_size(Ness::Size(85, 128));
-	Ness::Animators::AnimatorPtr alienAnim(new Ness::Animators::AnimatorSprite(Ness::Sizei(3, 1), 0, 2, 10.0f, Ness::Animators::SPRITE_ANIM_END_REPEAT));
+	Ness::Animators::AnimatorPtr alienAnim(new Ness::Animators::AnimatorSprite(Ness::Sizei(3, 1), 0, 2, 5.0f, Ness::Animators::SPRITE_ANIM_END_REPEAT));
 	alienAnim->set_target(alien);
 	renderer.register_animator(alienAnim);
 
@@ -62,6 +64,10 @@ int _tmain(int argc, _TCHAR* argv[])
 	Ness::LightPtr alienLight2 = light->create_light("../ness-engine/resources/gfx/light_round.jpg", Ness::Color::WHITE);
 	alienLight2->set_position(alien->get_position());
 	alienLight2->set_scale(0.5f);
+
+	// create instructions text
+	Ness::TextPtr instructions = scene->create_text("../ness-engine/resources/fonts/courier.ttf", "use arrows to move and aim flashlight", 22);
+	instructions->set_color(Ness::Color(1.0f, 1.0f, 1.0f, 0.5f));
 
 	// create the player
 	Player player(node, light);
