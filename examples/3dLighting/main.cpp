@@ -42,20 +42,41 @@ int _tmain(int argc, _TCHAR* argv[])
 
 	// create some lights
 	Ness::LightPtr light1 = lightNode->create_light("../ness-engine/resources/gfx/light_round.jpg", Ness::Color::WHITE);
-	light1->set_position(Ness::Point(400, 300));
 	light1->set_scale(1.5f);
+	light1->set_position(renderer.get_screen_size() / 2);
+	Ness::LightPtr light2 = lightNode->create_light("../ness-engine/resources/gfx/light_round.jpg", Ness::Color(1.0f, 0.4f, 0.4f));
+	light2->set_scale(2.0f);
+	light2->set_visible(false);
+	light2->set_position(Ness::Point(0.0f, 300.0f));
+	Ness::LightPtr light3 = lightNode->create_light("../ness-engine/resources/gfx/light_round.jpg", Ness::Color(0.4f, 0.4f, 1.0f));
+	light3->set_scale(2.0f);
+	light3->set_visible(false);
+	light3->set_position(Ness::Point(800.0f, 300.0f));
 
-	// create the sprite with 3d lighting effects
+	// sprite 1: monster with diffuse
 	NessSharedPtr<Sprite3d> sprite1 = ness_make_ptr<Sprite3d>(lightNode, "deamon.png");
-	sprite1->set_position(Ness::Point(400, 400));
 	sprite1->set_scale(1.5f);
 	node->add(sprite1);
+
+	// sprite 2: monster without diffuse
 	NessSharedPtr<Sprite3d> sprite2 = ness_make_ptr<Sprite3d>(lightNode, "deamon.png");
-	sprite2->set_position(Ness::Point(400, 400));
 	sprite2->set_scale(1.5f);
 	sprite2->render_diffuse(false);
 	sprite2->set_visible(false);
 	node->add(sprite2);
+
+	// sprite 3: rock
+	NessSharedPtr<Sprite3d> sprite3 = ness_make_ptr<Sprite3d>(lightNode, "rock.png", false);
+	sprite3->set_scale(1.5f);
+	sprite3->set_visible(false);
+	node->add(sprite3);
+
+	// sprite 4: rock without diffuse
+	NessSharedPtr<Sprite3d> sprite4 = ness_make_ptr<Sprite3d>(lightNode, "rock.png", false);
+	sprite4->set_scale(1.5f);
+	sprite4->render_diffuse(false);
+	sprite4->set_visible(false);
+	node->add(sprite4);
 
 	// add instructions
 	Ness::TextPtr instructions = scene->create_text("../ness-engine/resources/fonts/courier.ttf", "mouse: move the object, 1-4: change objects, 5-6: change lights", 20);
@@ -77,19 +98,49 @@ int _tmain(int argc, _TCHAR* argv[])
 		// update 3d sprite position
 		sprite1->set_position(mouse.position());
 		sprite2->set_position(mouse.position());
-		//sprite3->set_position(mouse.position());
-		//sprite4->set_position(mouse.position());
+		sprite3->set_position(mouse.position());
+		sprite4->set_position(mouse.position());
 
 		// keyboard control - toggle objects
 		if (keyboard.ket_state(SDLK_1))
 		{
 			sprite1->set_visible(true);
 			sprite2->set_visible(false);
+			sprite3->set_visible(false);
+			sprite4->set_visible(false);
 		}
 		if (keyboard.ket_state(SDLK_2))
 		{
 			sprite1->set_visible(false);
 			sprite2->set_visible(true);
+			sprite3->set_visible(false);
+			sprite4->set_visible(false);
+		}
+		if (keyboard.ket_state(SDLK_3))
+		{
+			sprite1->set_visible(false);
+			sprite2->set_visible(false);
+			sprite3->set_visible(true);
+			sprite4->set_visible(false);
+		}
+		if (keyboard.ket_state(SDLK_4))
+		{
+			sprite1->set_visible(false);
+			sprite2->set_visible(false);
+			sprite3->set_visible(false);
+			sprite4->set_visible(true);
+		}
+		if (keyboard.ket_state(SDLK_5))
+		{
+			light1->set_visible(true);
+			light2->set_visible(false);
+			light3->set_visible(false);
+		}
+		if (keyboard.ket_state(SDLK_6))
+		{
+			light1->set_visible(false);
+			light2->set_visible(true);
+			light3->set_visible(true);
 		}
 
 		// render the scene

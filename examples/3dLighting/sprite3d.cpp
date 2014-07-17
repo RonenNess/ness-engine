@@ -1,11 +1,13 @@
 #include "sprite3d.h"
 
-Sprite3d::Sprite3d(Ness::LightNodePtr lightNode, const std::string& TextureFile) : Sprite(lightNode->renderer(), TextureFile), m_light_node(lightNode)
+Sprite3d::Sprite3d(Ness::LightNodePtr lightNode, const std::string& TextureFile, bool IncludeBottom) 
+	: Sprite(lightNode->renderer(), TextureFile), m_light_node(lightNode)
 {
 	m_light_top = m_renderer->resources().get_texture(TextureFile + ".top.png");
 	m_light_left = m_renderer->resources().get_texture(TextureFile + ".left.png");
 	m_light_right = m_renderer->resources().get_texture(TextureFile + ".right.png");
-	m_light_bottom = m_renderer->resources().get_texture(TextureFile + ".bottom.png");
+	if (IncludeBottom)
+		m_light_bottom = m_renderer->resources().get_texture(TextureFile + ".bottom.png");
 	set_blend_mode(Ness::BLEND_MODE_BLEND);
 	set_anchor(Ness::Point(0.5f, 0.5f));
 	m_render_diffuse = true;
@@ -77,7 +79,7 @@ void Sprite3d::do_render(const Ness::Rectangle& target, const Ness::SRenderTrans
 			}
 		}
 		// if this light is below this object top, check lighting from bottom:
-		if (curr->get_position().y > get_position().y)
+		if (m_light_bottom && curr->get_position().y > get_position().y)
 		{
 			float factor = LightHalfSize.y;
 			CurrColor.a = ((factor) - distance) / factor;

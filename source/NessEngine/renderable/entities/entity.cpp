@@ -66,6 +66,10 @@ namespace Ness
 
 	bool Entity::is_really_visible(const CameraPtr& camera)
 	{
+		// first check if even enabled
+		if (!m_visible)
+			return false;
+
 		// get absolute transformations
 		const SRenderTransformations& trans = get_absolute_transformations();
 
@@ -86,6 +90,10 @@ namespace Ness
 
 	bool Entity::is_really_visible_const(const CameraPtr& camera) const
 	{
+		// first check if even enabled
+		if (!m_visible)
+			return false;
+
 		// get absolute transformations
 		const SRenderTransformations& trans = get_absolute_transformations_const();
 

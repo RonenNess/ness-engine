@@ -14,7 +14,7 @@ private:
 
 public:
 
-	Sprite3d(Ness::LightNodePtr lightNode, const std::string& TextureFile);
+	Sprite3d(Ness::LightNodePtr lightNode, const std::string& TextureFile, bool IncludeBottom = true);
 
 	// enable/disable diffuse layer
 	inline void render_diffuse(bool enabled) {m_render_diffuse = enabled;}
