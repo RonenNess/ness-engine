@@ -33,7 +33,7 @@ namespace Ness
 	}
 
 	// set the window title
-	void Renderer::set_window_title(const std::string& NewTitle)
+	void Renderer::set_window_title(const String& NewTitle)
 	{
 		SDL_SetWindowTitle(m_window, NewTitle.c_str());
 	}

@@ -40,7 +40,7 @@ namespace Ness
 
 		// create the sprite with texture
 		NESSENGINE_API Sprite(Renderer* renderer, ManagedResources::ManagedTexturePtr texture);
-		NESSENGINE_API Sprite(Renderer* renderer, const std::string& TextureFile);
+		NESSENGINE_API Sprite(Renderer* renderer, const String& TextureFile);
 		NESSENGINE_API Sprite(Renderer* renderer);
 
 		// set defaults (based on Sprite::Defaults)

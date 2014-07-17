@@ -16,6 +16,7 @@
     <ClCompile Include="..\source\NessEngine\NessEngine.cpp" />
     <ClCompile Include="..\source\NessEngine\renderable\entities\entity.cpp" />
     <ClCompile Include="..\source\NessEngine\renderable\entities\canvas.cpp" />
+    <ClCompile Include="..\source\NessEngine\renderable\entities\multiline_text.cpp" />
     <ClCompile Include="..\source\NessEngine\renderable\entities\shapes.cpp" />
     <ClCompile Include="..\source\NessEngine\renderable\entities\sprite.cpp" />
     <ClCompile Include="..\source\NessEngine\renderable\entities\text.cpp" />
@@ -57,6 +58,7 @@
     <ClInclude Include="..\source\NessEngine\renderable\entities\all_entities.h" />
     <ClInclude Include="..\source\NessEngine\renderable\entities\entity.h" />
     <ClInclude Include="..\source\NessEngine\renderable\entities\canvas.h" />
+    <ClInclude Include="..\source\NessEngine\renderable\entities\multiline_text.h" />
     <ClInclude Include="..\source\NessEngine\renderable\entities\shapes.h" />
     <ClInclude Include="..\source\NessEngine\renderable\entities\sprite.h" />
     <ClInclude Include="..\source\NessEngine\renderable\entities\text.h" />

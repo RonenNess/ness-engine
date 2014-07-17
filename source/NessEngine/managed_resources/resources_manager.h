@@ -6,7 +6,7 @@
 
 #pragma once
 #include "../exports.h"
-#include <string>
+#include "../basic_types/containers.h"
 #include <unordered_map>
 #include "managed_texture.h"
 #include "managed_font.h"
@@ -36,9 +36,9 @@ namespace Ness
 		class ResourcesManager
 		{
 		private:
-			std::unordered_map<std::string, __STextureInManager>	m_textures;			// map that holds all loaded textures
-			std::unordered_map<std::string, __SFontInManager>		m_fonts;			// map that holds all loaded fonts
-			std::string												m_base_path;		// basic path to search resources under
+			std::unordered_map<String, __STextureInManager>	m_textures;			// map that holds all loaded textures
+			std::unordered_map<String, __SFontInManager>		m_fonts;			// map that holds all loaded fonts
+			String												m_base_path;		// basic path to search resources under
 			Colorb													m_color_key;		// transparency color key
 			bool													m_use_color_key;	// enable/disable color key
 			SDL_Renderer*											m_renderer;			// our sdl renderer
@@ -52,15 +52,15 @@ namespace Ness
 			NESSENGINE_API inline void set_renderer(SDL_Renderer* renderer) {m_renderer = renderer;}
 
 			// get/load a texture
-			NESSENGINE_API ManagedTexturePtr get_texture(const std::string& textureName);
+			NESSENGINE_API ManagedTexturePtr get_texture(const String& textureName);
 
 			// get/load a font
-			NESSENGINE_API ManagedFontPtr get_font(const std::string& fontName, int fontSize = 12);
+			NESSENGINE_API ManagedFontPtr get_font(const String& fontName, int fontSize = 12);
 
 			// create an empty texture you can render on (use as rendering target). 
 			// this texture will be added to the resource manager and you can later get it with get_texture()
 			// if size is ZERO, will use entire screen size
-			NESSENGINE_API ManagedTexturePtr create_blank_texture(const std::string& textureName, const Sizei& size = Sizei::ZERO);
+			NESSENGINE_API ManagedTexturePtr create_blank_texture(const String& textureName, const Sizei& size = Sizei::ZERO);
 
 			// set the colorkey for this renderer
 			// every texture loaded after this set will turn all pixels in the color key to transparent
@@ -71,15 +71,15 @@ namespace Ness
 			NESSENGINE_API ~ResourcesManager();
 
 			// set basic path to search for resources under
-			NESSENGINE_API inline void set_resources_path(const std::string& path) {m_base_path = path;}
+			NESSENGINE_API inline void set_resources_path(const String& path) {m_base_path = path;}
 
 			// when a texture is removed (no longer referenced and deleted), it calls this function to be removed from the textures map as well
 			// DONT USE THIS ON YOUR OWN, it supposed to happen automatically when texture has no more references.
-			void __delete_texture(const std::string& textureName);
+			void __delete_texture(const String& textureName);
 
 			// when a font is removed (no longer referenced and deleted), it calls this function to be removed from the fonts map as well
 			// DONT USE THIS ON YOUR OWN, it supposed to happen automatically when a font has no more references.
-			void __delete_font(const std::string& fontName);
+			void __delete_font(const String& fontName);
 
 		};
 	};

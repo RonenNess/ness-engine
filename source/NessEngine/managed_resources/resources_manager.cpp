@@ -18,7 +18,7 @@ namespace Ness
 			font->rc_mng_manager->__delete_font(font->rc_mng_name);
 		}
 
-		void ResourcesManager::__delete_texture(const std::string& textureName)
+		void ResourcesManager::__delete_texture(const String& textureName)
 		{	
 			// decrease ref count by 1, and if no more refs delete the resource
 			m_textures[textureName].ref_count--;
@@ -31,7 +31,7 @@ namespace Ness
 			}
 		}
 
-		void ResourcesManager::__delete_font(const std::string& fontName)
+		void ResourcesManager::__delete_font(const String& fontName)
 		{	
 			// decrease ref count by 1, and if no more refs delete the resource
 			m_fonts[fontName].ref_count--;
@@ -44,7 +44,7 @@ namespace Ness
 			}
 		}
 
-		ManagedTexturePtr ResourcesManager::get_texture(const std::string& textureName)
+		ManagedTexturePtr ResourcesManager::get_texture(const String& textureName)
 		{
 			// if not loaded, load it
 			if (m_textures.find(textureName) == m_textures.end())
@@ -62,10 +62,10 @@ namespace Ness
 			return ManagedTexturePtr(m_textures[textureName].texture, TextureResourceDeleter);
 		}
 
-		NESSENGINE_API ManagedFontPtr ResourcesManager::get_font(const std::string& fontName, int fontSize)
+		NESSENGINE_API ManagedFontPtr ResourcesManager::get_font(const String& fontName, int fontSize)
 		{
 			// get name in hash
-			std::string fullName = fontName + std::to_string((long long)fontSize);
+			String fullName = fontName + std::to_string((long long)fontSize);
 
 			// if not loaded, load it
 			if (m_fonts.find(fullName) == m_fonts.end())
@@ -83,7 +83,7 @@ namespace Ness
 			return ManagedFontPtr(m_fonts[fullName].font, FontResourceDeleter);
 		}
 
-		ManagedTexturePtr ResourcesManager::create_blank_texture(const std::string& textureName, const Sizei& size)
+		ManagedTexturePtr ResourcesManager::create_blank_texture(const String& textureName, const Sizei& size)
 		{
 			NESS_LOG(("rc_manager: create new empty texture: " + textureName).c_str());
 

@@ -6,7 +6,7 @@ namespace Ness
 	namespace Resources
 	{
 
-		LoadedFont::LoadedFont(const std::string& fileName, int fontSize) : m_font(nullptr)
+		LoadedFont::LoadedFont(const String& fileName, int fontSize) : m_font(nullptr)
 		{
 			m_font = TTF_OpenFont( fileName.c_str(), fontSize );
 			if (!m_font)

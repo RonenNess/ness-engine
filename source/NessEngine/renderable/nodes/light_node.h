@@ -15,7 +15,7 @@ namespace Ness
 	{
 	public:
 		// create the light object
-		NESSENGINE_API Light(Renderer* renderer, const std::string& TextureFile, const Color& color) 
+		NESSENGINE_API Light(Renderer* renderer, const String& TextureFile, const Color& color) 
 			: Sprite(renderer, TextureFile) 
 		{
 			set_color(color);
@@ -59,7 +59,7 @@ namespace Ness
 		NESSENGINE_API virtual void transformations_update();
 
 		// create a light
-		NESSENGINE_API LightPtr create_light(const std::string& lightTexture, const Color& color = Color::WHITE);
+		NESSENGINE_API LightPtr create_light(const String& lightTexture, const Color& color = Color::WHITE);
 
 		// return all lights currently in screen
 		NESSENGINE_API void get_lights_in_screen(Ness::Vector<LightPtr>& out_list, const CameraPtr& camera = NullCamera) const;

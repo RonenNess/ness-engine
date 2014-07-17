@@ -8,7 +8,7 @@ namespace Ness
 {
 	namespace Resources
 	{
-		TextureSheet::TextureSheet(const std::string& fileName, SDL_Renderer* renderer, const Colorb* ColorKey) : m_texture(nullptr)
+		TextureSheet::TextureSheet(const String& fileName, SDL_Renderer* renderer, const Colorb* ColorKey) : m_texture(nullptr)
 		{
 			load_file(fileName.c_str(), renderer, ColorKey);
 		}

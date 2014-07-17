@@ -5,7 +5,7 @@
 */
 
 #pragma once
-#include <string>
+#include "../basic_types/containers.h"
 
 namespace Ness
 {
@@ -20,7 +20,7 @@ namespace Ness
 		{
 		public:
 			ResourcesManager*	rc_mng_manager;
-			std::string			rc_mng_name;
+			String			rc_mng_name;
 		};
 	};
 };

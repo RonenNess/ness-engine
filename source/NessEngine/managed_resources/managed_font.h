@@ -21,7 +21,7 @@ namespace Ness
 		class ManagedFont : public Resources::LoadedFont, public ManagedResource
 		{
 		public:
-			ManagedFont(const std::string& fileName, int fontSize = 12) : LoadedFont(fileName, fontSize) {}
+			ManagedFont(const String& fileName, int fontSize = 12) : LoadedFont(fileName, fontSize) {}
 		};
 
 		// a manager texture pointer

@@ -19,7 +19,7 @@ namespace Ness
 		// create the canvas.
 		// TextureName is the name of the texture in the resource manager
 		// size is the size of the canvas texture, if ZERO will use entire screen size
-		NESSENGINE_API Canvas(Renderer* renderer, const std::string& NewTextureName, const Sizei& size = Sizei::ZERO);
+		NESSENGINE_API Canvas(Renderer* renderer, const String& NewTextureName, const Sizei& size = Sizei::ZERO);
 
 		// if true, will clear this canvas after every frame rendered
 		NESSENGINE_API inline void set_auto_clean(bool enabled) {m_auto_clear = enabled;}

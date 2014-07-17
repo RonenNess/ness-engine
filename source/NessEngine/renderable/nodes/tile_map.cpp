@@ -15,7 +15,7 @@ namespace Ness
 		return m_absolute_transformations;
 	}
 
-	TileMap::TileMap(Renderer* renderer, const std::string& spriteFile, const Sizei& mapSize, 
+	TileMap::TileMap(Renderer* renderer, const String& spriteFile, const Sizei& mapSize, 
 		const Size& singleTileSize, const Size& tilesDistance, createTileSprites createSpriteFunction) 
 		: NodeAPI(renderer), m_size(mapSize), m_tile_size(singleTileSize)
 	{

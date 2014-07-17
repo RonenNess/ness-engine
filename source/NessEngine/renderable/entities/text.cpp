@@ -4,7 +4,7 @@
 namespace Ness
 {
 	
-	Text::Text(Renderer* renderer, ManagedResources::ManagedFontPtr font, const std::string& text) : 
+	Text::Text(Renderer* renderer, ManagedResources::ManagedFontPtr font, const String& text) : 
 		Entity(renderer), m_need_text_update(true), m_texture(nullptr), m_line_width(0)
 	{
 		change_font(font);
@@ -14,7 +14,7 @@ namespace Ness
 		set_blend_mode(BLEND_MODE_BLEND);
 	}
 
-	Text::Text(Renderer* renderer, const std::string& FontFile, const std::string& text, int fontSize) : 
+	Text::Text(Renderer* renderer, const String& FontFile, const String& text, int fontSize) : 
 		Entity(renderer), m_need_text_update(true), m_texture(nullptr), m_line_width(0)
 	{
 		change_font(m_renderer->resources().get_font(FontFile, fontSize));
@@ -46,7 +46,7 @@ namespace Ness
 		}
 		if (surface == nullptr)
 		{
-			NESS_ERROR((std::string("failed to create text surface: ") + TTF_GetError()).c_str());
+			NESS_ERROR((String("failed to create text surface: ") + TTF_GetError()).c_str());
 			return;
 		}
 		
@@ -56,7 +56,7 @@ namespace Ness
 
 		if (m_texture == nullptr)
 		{
-			NESS_ERROR((std::string("failed to create text texture: ") + TTF_GetError()).c_str());
+			NESS_ERROR((String("failed to create text texture: ") + TTF_GetError()).c_str());
 			return;
 		}
 

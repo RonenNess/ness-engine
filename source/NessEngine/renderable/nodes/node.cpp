@@ -28,14 +28,14 @@ namespace Ness
 		return NewNode;
 	}
 
-	SpritePtr Node::create_sprite(const std::string& textureName)
+	SpritePtr Node::create_sprite(const String& textureName)
 	{
 		SpritePtr NewSprite = ness_make_ptr<Sprite>(this->m_renderer, textureName);
 		add(NewSprite);
 		return NewSprite;
 	}
 
-	TextPtr Node::create_text(const std::string& fontFile, const std::string& text, int fontSize)
+	TextPtr Node::create_text(const String& fontFile, const String& text, int fontSize)
 	{
 		TextPtr NewSprite = ness_make_ptr<Text>(this->m_renderer, fontFile, text, fontSize);
 		add(NewSprite);
@@ -49,14 +49,14 @@ namespace Ness
 		return NewSprite;
 	}
 
-	CanvasPtr Node::create_canvas(const std::string& textureName, const Sizei& size)
+	CanvasPtr Node::create_canvas(const String& textureName, const Sizei& size)
 	{
 		CanvasPtr NewSprite = ness_make_ptr<Canvas>(this->m_renderer, textureName, size);
 		add(NewSprite);
 		return NewSprite;
 	}
 
-	TileMapPtr Node::create_tilemap(const std::string& spriteFile, Sizei mapSize, Size singleTileSize)
+	TileMapPtr Node::create_tilemap(const String& spriteFile, Sizei mapSize, Size singleTileSize)
 	{
 		TileMapPtr NewMap(new TileMap(this->m_renderer, spriteFile, mapSize, singleTileSize));
 		add(NewMap);

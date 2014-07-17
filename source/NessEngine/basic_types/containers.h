@@ -9,6 +9,7 @@
 #include <vector>
 #include <list>
 #include <memory>
+#include <string>
 
 namespace Ness
 {
@@ -23,4 +24,6 @@ namespace Ness
 	#define ness_make_ptr std::make_shared
 
 	#define ness_ptr_cast std::dynamic_pointer_cast
+
+	typedef std::string String;
 };

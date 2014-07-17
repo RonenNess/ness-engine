@@ -17,7 +17,7 @@ namespace Ness
 		init_from_texture(texture);
 	}
 
-	Sprite::Sprite(Renderer* renderer, const std::string& TextureFile) : Entity(renderer)
+	Sprite::Sprite(Renderer* renderer, const String& TextureFile) : Entity(renderer)
 	{
 		set_defaults();
 		ManagedResources::ManagedTexturePtr texture = m_renderer->resources().get_texture(TextureFile);
