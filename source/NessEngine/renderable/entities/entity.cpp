@@ -27,7 +27,7 @@ namespace Ness
 	{
 
 		// if don't have a parent, return self transformations
-		if (!m_parent || m_static)
+		if (!m_parent)
 		{
 			// recalculate the target rectangle (uses m_absolute_transformations)
 			if (m_need_transformations_update)

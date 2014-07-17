@@ -57,7 +57,7 @@ namespace Ness
 		// check if this sprite really is visible, but without changing its internal state
 		NESSENGINE_API virtual bool is_really_visible_const(const CameraPtr& camera) const;
 
-		// set/get if this sprite is static (static sprites are more efficient but don't take parent transformation or camera into consideration.
+		// set/get if this entity is static (static entities ignore camera when rendered)
 		NESSENGINE_API inline void set_static(bool IsStatic) {m_static = IsStatic;}
 		NESSENGINE_API inline bool is_static() const {return m_static;}
 

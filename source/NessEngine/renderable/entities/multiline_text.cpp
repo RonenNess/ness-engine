@@ -12,6 +12,7 @@ namespace Ness
 		m_line_width = 0;
 		m_font = FontFile;
 		m_font_size = fontSize;
+		m_alignement = TEXT_ALIGN_LEFT;
 		set_text(text);
 	}
 
@@ -26,6 +27,7 @@ namespace Ness
 			TextPtr text = TextPtr(new Text(Entity::m_renderer, m_font, current, m_font_size));
 			m_lines.push_back(text);
 			text->__change_parent(m_node.get());
+			text->set_static(m_static);
 		}
 
 		// required text positioning
@@ -35,19 +37,25 @@ namespace Ness
 	// update all the text lines position based on scale etc..
 	void MultiText::update_lines_positions()
 	{
-		float LineHeight = m_font_size * get_absolute_size().y;
+		float LineHeight = m_font_size * get_absolute_transformations().scale.y;
 		for (unsigned int i = 0; i < m_lines.size(); ++i)
 		{
-			m_lines[i]->set_position(Point(0.0f, LineHeight));
-			m_lines[i]->set_alignment(m_alignement);
+			Ness::TextPtr& curr = m_lines[i];
+			curr->set_position(Point(0.0f, LineHeight * i));
+			curr->set_alignment(m_alignement);
+			curr->set_static(m_static);
 		}
 	}
 
 	void MultiText::transformations_update()
 	{
+		m_node->set_transformations(m_transformations);
 		Entity::transformations_update();
 		m_need_text_positioning = true;
-		m_node->set_transformations(m_transformations);
+		for (unsigned int i = 0; i < m_lines.size(); ++i)
+		{
+			m_lines[i]->transformations_update();
+		}
 	}
 
 	void MultiText::render(const CameraPtr& camera)

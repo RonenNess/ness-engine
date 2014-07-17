@@ -31,6 +31,32 @@ int _tmain(int argc, _TCHAR* argv[])
 	// create some texts
 	Ness::MultiTextPtr text1 = scene->create_multitext("../ness-engine/resources/fonts/courier.ttf", 
 		"this is first line.\nthis is second line.\nlast line!!!", 20);
+	text1->set_position(Ness::Point(20, 20));
+
+	Ness::MultiTextPtr text2 = scene->create_multitext("../ness-engine/resources/fonts/courier.ttf", 
+		"see this text? over here? right here?\nthis text...\naligned to center!", 24);
+	text2->set_position(Ness::Point(400, 160));
+	text2->set_alignment(Ness::TEXT_ALIGN_CENTER);
+	text2->set_color(Ness::Color::GREEN);
+
+	Ness::MultiTextPtr text3 = scene->create_multitext("../ness-engine/resources/fonts/courier.ttf", 
+		"and this...\naligned to the right!", 24);
+	text3->set_position(Ness::Point(750, 300));
+	text3->set_alignment(Ness::TEXT_ALIGN_RIGHT);
+	text3->set_color(Ness::Color::RED);
+
+	Ness::MultiTextPtr text4 = scene->create_multitext("../ness-engine/resources/fonts/courier.ttf", 
+		"mirror text?", 24);
+	text4->set_position(Ness::Point(50, 350));
+	text4->flip_x();
+	text4->set_color(Ness::Color(0.0f, 1.0f, 1.0f, 1.0f));
+
+	Ness::MultiTextPtr text5 = scene->create_multitext("../ness-engine/resources/fonts/courier.ttf", 
+		"rotated text? cool!", 24);
+	text5->set_position(Ness::Point(500, 500));
+	text5->set_alignment(Ness::TEXT_ALIGN_CENTER);
+	text5->set_rotation(25);
+	text5->set_color(Ness::Color(1.0f, 0.0f, 1.0f, 1.0f));
 
 	// create the events handler
 	Ness::Utils::EventsPoller EventsPoller;
