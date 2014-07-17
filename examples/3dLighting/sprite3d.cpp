@@ -24,23 +24,25 @@ void Sprite3d::do_render(const Ness::Rectangle& target, const Ness::SRenderTrans
 	// first render black figure of this texture
 	m_renderer->blit(m_texture, &m_source_rect, target, Ness::BLEND_MODE_BLEND, m_light_node->get_ambient_color(), transformations.rotation, m_anchor);
 
-	// now for every light in the lighting node, render additive layer based on light direction and distance
+	// get some params we need: list of lights in screen, factor, and absolute position
 	Ness::Vector<Ness::LightPtr> lights;
 	m_light_node->get_lights_in_screen(lights, m_last_camera);
 	const float VectorFactor = 1.75f;
-	
+	Ness::Point Position = get_absolute_position();
+
+	// now for every light in the lighting node, render additive layer based on light direction and distance
 	for (unsigned int i = 0; i < lights.size(); i++)
 	{
 		Ness::LightPtr& curr = lights[i];
 		Ness::Point LightHalfSize = curr->get_absolute_size_const() * 0.5f;
 		Ness::Color CurrColor = curr->get_color();
-		float distance = get_position().distance(curr->get_position());
-		Ness::Point vector = (get_position() - curr->get_position());
+		float distance = Position.distance(curr->get_position());
+		Ness::Point vector = (Position - curr->get_position());
 		vector.normalize();
 		vector.make_abs();
 
 		// if this light is above this object bottom, check lighting from above
-		if (curr->get_position().y < get_position().y)
+		if (curr->get_position().y < Position.y)
 		{
 			float factor = LightHalfSize.y;
 			CurrColor.a = ((factor) - distance) / factor;
@@ -53,7 +55,7 @@ void Sprite3d::do_render(const Ness::Rectangle& target, const Ness::SRenderTrans
 			}
 		}
 		// if this light is left to this object most right side, check lighting from left side:
-		if (curr->get_position().x < get_position().x)
+		if (curr->get_position().x < Position.x)
 		{
 			float factor = LightHalfSize.x;
 			CurrColor.a = ((factor) - distance) / factor;
@@ -66,7 +68,7 @@ void Sprite3d::do_render(const Ness::Rectangle& target, const Ness::SRenderTrans
 			}
 		}
 		// if this light is right to this object most left side, check lighting from right side:
-		if (curr->get_position().x > get_position().x)
+		if (curr->get_position().x > Position.x)
 		{
 			float factor = LightHalfSize.x;
 			CurrColor.a = ((factor) - distance) / factor;
@@ -79,7 +81,7 @@ void Sprite3d::do_render(const Ness::Rectangle& target, const Ness::SRenderTrans
 			}
 		}
 		// if this light is below this object top, check lighting from bottom:
-		if (m_light_bottom && curr->get_position().y > get_position().y)
+		if (curr->get_position().y > Position.y && m_light_bottom)
 		{
 			float factor = LightHalfSize.y;
 			CurrColor.a = ((factor) - distance) / factor;

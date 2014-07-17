@@ -33,6 +33,7 @@ int _tmain(int argc, _TCHAR* argv[])
 
 	// create the node that will contain all the objects
 	Ness::NodePtr node = scene->create_node();
+	node->set_position(renderer.get_screen_center());
 
 	// create the light node
 	// note: it's created after 'node' to make sure the lighting will be above all objects and affect them
@@ -96,10 +97,9 @@ int _tmain(int argc, _TCHAR* argv[])
 		EventsPoller.poll_events(HandleEvents, false);
 
 		// update 3d sprite position
-		sprite1->set_position(mouse.position());
-		sprite2->set_position(mouse.position());
-		sprite3->set_position(mouse.position());
-		sprite4->set_position(mouse.position());
+		light1->set_position(mouse.position());
+		light2->set_position(mouse.position() + Ness::Point(200.0f, 0.0f));
+		light3->set_position(mouse.position() - Ness::Point(200.0f, 0.0f));
 
 		// keyboard control - toggle objects
 		if (keyboard.ket_state(SDLK_1))

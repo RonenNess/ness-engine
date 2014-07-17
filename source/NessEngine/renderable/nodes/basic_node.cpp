@@ -7,12 +7,6 @@
 namespace Ness
 {
 
-	void BaseNode::add(const RenderablePtr& object)
-	{
-		m_entities.push_back(object);
-		object->__change_parent(this);
-	}
-
 	void BaseNode::__get_visible_entities(Vector<RenderableAPI*>& out_list, const CameraPtr& camera)
 	{
 
@@ -38,8 +32,16 @@ namespace Ness
 		}
 	}
 
+	void BaseNode::add(const RenderablePtr& object)
+	{
+		object->transformations_update();
+		m_entities.push_back(object);
+		object->__change_parent(this);
+	}
+
 	void BaseNode::remove(const RenderablePtr& object)
 	{
+		object->transformations_update();
 		m_entities.erase(std::remove(m_entities.begin(), m_entities.end(), object), m_entities.end());
 		object->__change_parent(nullptr);
 	}

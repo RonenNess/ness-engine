@@ -36,6 +36,10 @@ namespace Ness
 		// get absolute transformations for this renderable node
 		NESSENGINE_API virtual const SRenderTransformations& get_absolute_transformations();
 
+		// return absolute position
+		NESSENGINE_API inline Point get_absolute_position() {return get_absolute_transformations().position + m_transformations.position;}
+		NESSENGINE_API inline Point get_absolute_position_const() const {return m_absolute_trans.position + m_transformations.position;}
+
 		// get all visible son entities
 		NESSENGINE_API virtual void __get_visible_entities(Vector<RenderableAPI*>& out_list, const CameraPtr& camera = NullCamera);
 
