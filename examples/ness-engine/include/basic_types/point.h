@@ -51,8 +51,8 @@ namespace Ness
 		NESSENGINE_API inline __Point<type> operator-(const type& scalar) const {return __Point<type>(x - scalar, y - scalar);}
 
 		// casting
-		NESSENGINE_API inline operator __Point<float>()	 {return __Point<float>((float)x, (float)y);}
-		NESSENGINE_API inline operator __Point<int>()		 {return __Point<int>((int)x, (int)y);}
+		NESSENGINE_API inline operator __Point<float>() const	 {return __Point<float>((float)x, (float)y);}
+		NESSENGINE_API inline operator __Point<int>()	const	 {return __Point<int>((int)x, (int)y);}
 
 		// setter and equel operators
 		NESSENGINE_API inline void set(type X, type Y) { x = X; y = Y;}

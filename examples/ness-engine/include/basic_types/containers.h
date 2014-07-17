@@ -20,5 +20,7 @@ namespace Ness
 
 	#define NessSharedPtr std::shared_ptr
 	
-	#define NESS_MAKE_PTR std::make_shared
+	#define ness_make_ptr std::make_shared
+
+	#define ness_ptr_cast std::dynamic_pointer_cast
 };

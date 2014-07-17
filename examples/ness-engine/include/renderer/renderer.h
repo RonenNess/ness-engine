@@ -81,7 +81,7 @@ namespace Ness
 		NESSENGINE_API Sizei get_screen_center() const;
 
 		// create a camera
-		NESSENGINE_API CameraPtr create_camera() const {return NESS_MAKE_PTR<Camera>();}
+		NESSENGINE_API CameraPtr create_camera() const {return ness_make_ptr<Camera>();}
 
 		// return the resources manager
 		NESSENGINE_API ManagedResources::ResourcesManager& resources() {return m_resources;}

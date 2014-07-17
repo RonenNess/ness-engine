@@ -46,7 +46,7 @@ namespace Ness
 
 			NESSENGINE_API virtual void set_target(RenderablePtr object)
 			{
-				m_sprite = std::dynamic_pointer_cast<Sprite>(object);
+				m_sprite = ness_ptr_cast<Sprite>(object);
 				if (!m_sprite)
 				{
 					throw IllegalAction("Must provide a sprite to a sprite animator!");

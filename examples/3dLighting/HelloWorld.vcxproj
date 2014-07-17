@@ -82,6 +82,10 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp" />
+    <ClCompile Include="sprite3d.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="sprite3d.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
