@@ -7,7 +7,7 @@
 #pragma once
 #include <exception>
 #include "log.h"
-#include <string>
+#include "../basic_types/containers.h"
 
 namespace Ness
 {
@@ -15,13 +15,13 @@ namespace Ness
 	// raised when a file is not found
 	class FileNotFound : public std::exception {
 	  private:
-		std::string m_filename;
-		std::string m_full_string;
+		String m_filename;
+		String m_full_string;
 
 	  public:
 		FileNotFound(const char* fileName) : m_filename(fileName) 
 		{
-			m_full_string = (std::string("File not found: ") + m_filename);
+			m_full_string = (String("File not found: ") + m_filename);
 			NESS_ERROR(what());
 		}
 		~FileNotFound() throw() {};
@@ -31,14 +31,14 @@ namespace Ness
 	// raised when failed to load a texture file
 	class FailedToLoadTextureFile : public std::exception {
 	  private:
-		std::string m_filename;
-		std::string m_reason;
-		std::string m_full_string;
+		String m_filename;
+		String m_reason;
+		String m_full_string;
 
 	  public:
 		FailedToLoadTextureFile(const char* fileName, const char* reason = "unknown") : m_filename(fileName), m_reason(reason) 
 		{
-			m_full_string = (std::string("Failed to load texture file: '") + m_filename + "' reason: " + m_reason);
+			m_full_string = (String("Failed to load texture file: '") + m_filename + "' reason: " + m_reason);
 			NESS_ERROR(what());
 		}
 		~FailedToLoadTextureFile() throw() {};
@@ -48,14 +48,14 @@ namespace Ness
 	// raised when failed to load a font file
 	class FailedToLoadFont : public std::exception {
 	  private:
-		std::string m_filename;
-		std::string m_reason;
-		std::string m_full_string;
+		String m_filename;
+		String m_reason;
+		String m_full_string;
 
 	  public:
 		FailedToLoadFont(const char* fileName, const char* reason = "unknown") : m_filename(fileName), m_reason(reason) 
 		{
-			m_full_string = (std::string("Failed to load font file: '") + m_filename + "' reason: " + m_reason);
+			m_full_string = (String("Failed to load font file: '") + m_filename + "' reason: " + m_reason);
 			NESS_ERROR(what());
 		}
 		~FailedToLoadFont() throw() {};
@@ -65,13 +65,13 @@ namespace Ness
 	// raised when failed to init renderer
 	class FailedToInitRenderer : public std::exception {
 	  private:
-		std::string m_reason;
-		std::string m_full_string;
+		String m_reason;
+		String m_full_string;
 
 	  public:
 		FailedToInitRenderer(const char* reason = "unknown") : m_reason(reason) 
 		{
-			m_full_string =  (std::string("Failed to init renderer: '") + m_reason);
+			m_full_string =  (String("Failed to init renderer: '") + m_reason);
 			NESS_ERROR(what());
 		}
 		~FailedToInitRenderer() throw() {};
@@ -81,14 +81,14 @@ namespace Ness
 	// raised when failed to init library
 	class FailedToInitLib : public std::exception {
 	  private:
-		std::string m_lib;
-		std::string m_reason;
-		std::string m_full_string;
+		String m_lib;
+		String m_reason;
+		String m_full_string;
 
 	  public:
 		FailedToInitLib(const char* lib, const char* reason = "unknown") : m_lib(lib), m_reason(reason) 
 		{
-			m_full_string = (std::string("Failed to init lib " + m_lib + ": '") + m_reason);
+			m_full_string = (String("Failed to init lib " + m_lib + ": '") + m_reason);
 			NESS_ERROR(what());
 		}
 		~FailedToInitLib() throw() {};
@@ -98,13 +98,13 @@ namespace Ness
 	// raised when user do something illegal
 	class IllegalAction : public std::exception {
 	  private:
-		std::string m_reason;
-		std::string m_full_string;
+		String m_reason;
+		String m_full_string;
 
 	  public:
 		IllegalAction(const char* reason = "unknown") : m_reason(reason) 
 		{
-			m_full_string = (std::string("Illegal action: '") + m_reason);
+			m_full_string = (String("Illegal action: '") + m_reason);
 			NESS_ERROR(what());
 		}
 		~IllegalAction() throw() {};

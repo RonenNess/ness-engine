@@ -20,6 +20,7 @@ namespace Ness
 	public:
 
 		// setters/getters
+		NESSENGINE_API inline void set_transformations(const SRenderTransformations& newTrans) {m_transformations = newTrans;}
 		NESSENGINE_API inline const SRenderTransformations& get_transformation() const {return m_transformations;}
 		NESSENGINE_API inline void set_position(Point NewPos) {if (NewPos == m_transformations.position) return; m_transformations.position = NewPos; transformations_update();}
 		NESSENGINE_API inline void set_scale(Size NewScale) {if (NewScale == m_transformations.scale) return; m_transformations.scale = NewScale; transformations_update();}

@@ -7,7 +7,7 @@
 #pragma once
 #include "../exports.h"
 #include <SDL_ttf.h>
-#include <string>
+#include "../basic_types/containers.h"
 #include "../basic_types/all_basic_types.h"
 
 namespace Ness
@@ -24,7 +24,7 @@ namespace Ness
 
 		public:
 			// create the font from file
-			NESSENGINE_API LoadedFont(const std::string& fileName, int fontSize = 12);
+			NESSENGINE_API LoadedFont(const String& fileName, int fontSize = 12);
 
 			// destroy the font
 			NESSENGINE_API ~LoadedFont();

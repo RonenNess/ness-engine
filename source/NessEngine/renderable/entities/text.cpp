@@ -24,6 +24,25 @@ namespace Ness
 		set_blend_mode(BLEND_MODE_BLEND);
 	}
 
+	void Text::set_alignment(ETextAlignment align)
+	{
+		switch (align)
+		{
+		case TEXT_ALIGN_LEFT:
+			m_anchor.x = 0.0f;
+			break;
+
+		case TEXT_ALIGN_RIGHT:
+			m_anchor.x = 1.0f;
+			break;
+
+		case TEXT_ALIGN_CENTER:
+			m_anchor.x = 0.5f;
+			break;
+		};
+		transformations_update();
+	}
+
 	void Text::update()
 	{
 		// free previous texture if exist

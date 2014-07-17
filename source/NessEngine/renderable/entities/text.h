@@ -11,6 +11,14 @@
 
 namespace Ness
 {
+	// possible text alignment
+	// basically affect anchor
+	enum ETextAlignment
+	{
+		TEXT_ALIGN_LEFT,
+		TEXT_ALIGN_RIGHT,
+		TEXT_ALIGN_CENTER,
+	};
 
 	// the renderable text object
 	// NOTE: does not support multiline. for multiline text used MultiText object.
@@ -18,7 +26,7 @@ namespace Ness
 	{
 	protected:
 		ManagedResources::ManagedFontPtr		m_font;
-		String								m_text;
+		String									m_text;
 		bool									m_need_text_update;
 		SDL_Texture*							m_texture;
 		unsigned int							m_line_width;
@@ -39,6 +47,9 @@ namespace Ness
 		// change text
 		NESSENGINE_API void change_text(const String& text) {m_text = text; m_need_text_update = true;}
 		NESSENGINE_API const String& get_text() {return m_text;}
+
+		// set text alignment
+		NESSENGINE_API void set_alignment(ETextAlignment align);
 
 		// return the texture this sprite uses
 		NESSENGINE_API inline const ManagedResources::ManagedFontPtr& get_font() const {return m_font;}

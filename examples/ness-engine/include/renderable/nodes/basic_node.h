@@ -26,7 +26,7 @@ namespace Ness
 		NESSENGINE_API BaseNode(Renderer* renderer) : 
 			NodeAPI(renderer), m_need_trans_update(true) {}
 
-		// add/remove sub 
+		// add/remove sub entity or node
 		NESSENGINE_API virtual void add(const RenderablePtr& object);
 		NESSENGINE_API virtual void remove(const RenderablePtr& object);
 
@@ -57,4 +57,6 @@ namespace Ness
 		NESSENGINE_API virtual void render(const CameraPtr& camera = NullCamera);
 
 	};
+
+	NESSENGINE_API typedef NessSharedPtr<BaseNode> BaseNodePtr;
 };

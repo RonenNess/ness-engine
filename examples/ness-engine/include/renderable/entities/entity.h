@@ -79,7 +79,7 @@ namespace Ness
 		// reset source rect to be full image size
 		NESSENGINE_API void reset_source_rect();
 
-		// render this sprite
+		// render this entity
 		NESSENGINE_API virtual void render(const CameraPtr& camera = NullCamera);
 
 	protected:

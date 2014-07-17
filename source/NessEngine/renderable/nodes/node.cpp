@@ -42,6 +42,13 @@ namespace Ness
 		return NewSprite;
 	}
 
+	MultiTextPtr Node::create_multitext(const String& fontFile, const String& text, int fontSize)
+	{
+		MultiTextPtr NewSprite = ness_make_ptr<MultiText>(this->m_renderer, fontFile, text, fontSize);
+		add(NewSprite);
+		return NewSprite;
+	}
+
 	RectangleShapePtr Node::create_rectangle()
 	{
 		RectangleShapePtr NewSprite = ness_make_ptr<RectangleShape>(this->m_renderer);

@@ -11,22 +11,31 @@
 
 namespace Ness
 {
+	// possible text alignment
+	// basically affect anchor
+	enum ETextAlignment
+	{
+		TEXT_ALIGN_LEFT,
+		TEXT_ALIGN_RIGHT,
+		TEXT_ALIGN_CENTER,
+	};
 
-	// the renderable text class
+	// the renderable text object
+	// NOTE: does not support multiline. for multiline text used MultiText object.
 	class Text : public Entity
 	{
 	protected:
 		ManagedResources::ManagedFontPtr		m_font;
-		std::string								m_text;
+		String									m_text;
 		bool									m_need_text_update;
 		SDL_Texture*							m_texture;
 		unsigned int							m_line_width;
 
 	public:
 
-		// create the sprite with texture
-		NESSENGINE_API Text(Renderer* renderer, ManagedResources::ManagedFontPtr font, const std::string& text);
-		NESSENGINE_API Text(Renderer* renderer, const std::string& FontFile, const std::string& text, int fontSize = 12);
+		// create the text object
+		NESSENGINE_API Text(Renderer* renderer, ManagedResources::ManagedFontPtr font, const String& text);
+		NESSENGINE_API Text(Renderer* renderer, const String& FontFile, const String& text, int fontSize = 12);
 
 		// change font
 		NESSENGINE_API inline void change_font(ManagedResources::ManagedFontPtr NewFont) {m_font = NewFont; m_need_text_update = true;}
@@ -36,8 +45,11 @@ namespace Ness
 		NESSENGINE_API inline unsigned int get_line_width() const {return m_line_width;}
 
 		// change text
-		NESSENGINE_API void change_text(const std::string& text) {m_text = text; m_need_text_update = true;}
-		NESSENGINE_API const std::string& get_text() {return m_text;}
+		NESSENGINE_API void change_text(const String& text) {m_text = text; m_need_text_update = true;}
+		NESSENGINE_API const String& get_text() {return m_text;}
+
+		// set text alignment
+		NESSENGINE_API void set_alignment(ETextAlignment align);
 
 		// return the texture this sprite uses
 		NESSENGINE_API inline const ManagedResources::ManagedFontPtr& get_font() const {return m_font;}

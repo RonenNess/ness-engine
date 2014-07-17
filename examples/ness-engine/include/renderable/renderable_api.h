@@ -45,7 +45,7 @@ namespace Ness
 		NESSENGINE_API virtual void render(const CameraPtr& camera = NullCamera) = 0;
 
 		// change the parent of this object
-		virtual void __change_parent(NodeAPI* parent) 
+		NESSENGINE_API virtual void __change_parent(NodeAPI* parent) 
 		{
 			if (m_parent && parent && m_parent != parent) throw IllegalAction("Cannot change object parent without removing from previous parent first!");
 			m_parent = parent;

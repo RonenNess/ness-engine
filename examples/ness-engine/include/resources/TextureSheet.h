@@ -9,7 +9,7 @@
 #include <SDL.h>
 #include <SDL_image.h>
 #include <stdio.h>
-#include <string>
+#include "../basic_types/containers.h"
 #include "../basic_types/all_basic_types.h"
 
 namespace Ness
@@ -28,7 +28,7 @@ namespace Ness
 		public:
 			// create the texture sheet from file
 			// if ColorKey is provided, this color will turn invisible
-			NESSENGINE_API TextureSheet(const std::string& fileName, SDL_Renderer* renderer, const Colorb* ColorKey = nullptr);
+			NESSENGINE_API TextureSheet(const String& fileName, SDL_Renderer* renderer, const Colorb* ColorKey = nullptr);
 
 			// create the texture sheet as blank texture you can render on
 			NESSENGINE_API TextureSheet(SDL_Renderer* renderer, const Sizei& size);

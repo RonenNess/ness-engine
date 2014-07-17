@@ -13,6 +13,7 @@ namespace Ness
 	class Sprite;
 	class Canvas;
 	class Text;
+	class MultiText;
 	class Node;
 	class ZNode;
 	class TileMap;
@@ -27,6 +28,7 @@ namespace Ness
 	NESSENGINE_API typedef NessSharedPtr<Sprite>			SpritePtr;
 	NESSENGINE_API typedef NessSharedPtr<Canvas>			CanvasPtr;
 	NESSENGINE_API typedef NessSharedPtr<Text>				TextPtr;
+	NESSENGINE_API typedef NessSharedPtr<MultiText>			MultiTextPtr;
 	NESSENGINE_API typedef NessSharedPtr<RectangleShape>	RectangleShapePtr;
 	NESSENGINE_API typedef NessSharedPtr<TileMap>			TileMapPtr;
 	NESSENGINE_API typedef NessSharedPtr<NodeAPI>			NodeAPIPtr;
@@ -43,10 +45,11 @@ namespace Ness
 		NESSENGINE_API virtual ZNodePtr create_znode();
 		NESSENGINE_API virtual LightNodePtr create_light_node();
 		NESSENGINE_API virtual RectangleShapePtr create_rectangle();
-		NESSENGINE_API virtual SpritePtr create_sprite(const std::string& textureName);
-		NESSENGINE_API virtual CanvasPtr create_canvas(const std::string& textureName, const Sizei& size = Sizei::ZERO);
-		NESSENGINE_API virtual TileMapPtr create_tilemap(const std::string& spriteFile, Sizei mapSize, Size singleTileSize = Size(36, 36));
-		NESSENGINE_API virtual TextPtr create_text(const std::string& fontFile, const std::string& text, int fontSize = 12);
+		NESSENGINE_API virtual SpritePtr create_sprite(const String& textureName);
+		NESSENGINE_API virtual CanvasPtr create_canvas(const String& textureName, const Sizei& size = Sizei::ZERO);
+		NESSENGINE_API virtual TileMapPtr create_tilemap(const String& spriteFile, Sizei mapSize, Size singleTileSize = Size(36, 36));
+		NESSENGINE_API virtual TextPtr create_text(const String& fontFile, const String& text, int fontSize = 12);
+		NESSENGINE_API virtual MultiTextPtr create_multitext(const String& fontFile, const String& text, int fontSize = 12);
 
 	};
 };

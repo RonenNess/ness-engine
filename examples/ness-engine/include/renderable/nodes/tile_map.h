@@ -39,7 +39,7 @@ namespace Ness
 		// createSpriteFunction - if provided, a function that creates the sprite objects for this tilemap. 
 		//		note: use it only if you want to use different objects for this tilemap (must inherit from Sprite). 
 		//		don't use this for custom properties per-sprite, since they will be overrided anyway when arranged into the tilemap grid.
-		NESSENGINE_API TileMap(Renderer* renderer, const std::string& spriteFile, const Sizei& mapSize, const Size& singleTileSize = Size(36, 36), 
+		NESSENGINE_API TileMap(Renderer* renderer, const String& spriteFile, const Sizei& mapSize, const Size& singleTileSize = Size(36, 36), 
 			const Size& tilesDistance = Size::ZERO, createTileSprites createSpriteFunction = nullptr);
 
 		// return the absolute transformations of this tilemap
