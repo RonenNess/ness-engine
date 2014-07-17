@@ -87,7 +87,7 @@ namespace Ness
 		// return normalized point
 		NESSENGINE_API inline __Point<type> get_normalized() const 
 		{
-			type div = abs(x) > abs(y) ? abs(x) : abs(y);
+			type div = abs(x) + abs(y);
 			if (div == 0) return __Point<type>::ZERO;
 			return __Point<type>(x / div, y / div);
 		}
@@ -108,9 +108,10 @@ namespace Ness
 		// normalize this point
 		NESSENGINE_API inline void normalize()
 		{
-			type div = abs(x) > abs(y) ? abs(x) : abs(y);
+			type div = abs(x) + abs(y);
 			if (div == 0) return;
-			x /= div; y /= div;
+			x /= div; 
+			y /= div;
 		}
 
 		// ctors

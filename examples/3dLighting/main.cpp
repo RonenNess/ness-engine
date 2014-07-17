@@ -25,10 +25,8 @@ int _tmain(int argc, _TCHAR* argv[])
 {
 	// init and create a renderer
 	Ness::init();
-	Ness::Renderer renderer("3d lighting!", Ness::Sizei(1200, 1100), false, Ness::RENDERER_FLAG_ACCELERATED | Ness::RENDERER_FLAG_LIGHTING_NODE);
-
-	// set the color key we'll be using for our textures
-	renderer.resources().set_color_key(Ness::Colorb(255,0,255,255));
+	Ness::Renderer renderer("3d lighting!", Ness::Sizei(800, 600), false, Ness::RENDERER_FLAG_ACCELERATED | Ness::RENDERER_FLAG_LIGHTING_NODE);
+	renderer.set_background_color(Ness::Color::WHITE);
 
 	// create a new scene
 	Ness::ScenePtr scene = renderer.create_scene();
@@ -39,26 +37,36 @@ int _tmain(int argc, _TCHAR* argv[])
 	// create the light node
 	// note: it's created after 'node' to make sure the lighting will be above all objects and affect them
 	Ness::LightNodePtr lightNode = scene->create_light_node();
-	lightNode->set_ambient_color(Ness::Color(0.1f, 0.15f, 0.25f));
+	lightNode->set_ambient_color(Ness::Color(0.1f, 0.1f, 0.15f));
 	lightNode->set_visible(true);
 
 	// create some lights
 	Ness::LightPtr light1 = lightNode->create_light("../ness-engine/resources/gfx/light_round.jpg", Ness::Color::WHITE);
-	light1->set_position(Ness::Point(200, 200));
-
-	//Ness::LightPtr light2 = lightNode->create_light("../ness-engine/resources/gfx/light_round.jpg", Ness::Color::RED);
-	//light2->set_position(Ness::Point(600, 400));
-	//light2->set_visible(false);
+	light1->set_position(Ness::Point(400, 300));
+	light1->set_scale(1.5f);
 
 	// create the sprite with 3d lighting effects
-	Ness::SpritePtr sprite = ness_make_ptr<Sprite3d>(lightNode, "deamon.png");
-	sprite->set_position(Ness::Point(400, 400));
-	scene->add(sprite);
+	NessSharedPtr<Sprite3d> sprite1 = ness_make_ptr<Sprite3d>(lightNode, "deamon.png");
+	sprite1->set_position(Ness::Point(400, 400));
+	sprite1->set_scale(1.5f);
+	node->add(sprite1);
+	NessSharedPtr<Sprite3d> sprite2 = ness_make_ptr<Sprite3d>(lightNode, "deamon.png");
+	sprite2->set_position(Ness::Point(400, 400));
+	sprite2->set_scale(1.5f);
+	sprite2->render_diffuse(false);
+	sprite2->set_visible(false);
+	node->add(sprite2);
+
+	// add instructions
+	Ness::TextPtr instructions = scene->create_text("../ness-engine/resources/fonts/courier.ttf", "mouse: move the object, 1-4: change objects, 5-6: change lights", 20);
+	instructions->set_color(Ness::Color(1.0f, 1.0f, 1.0f, 0.5f));
 
 	// create the events handler
 	Ness::Utils::EventsPoller EventsPoller;
-	Ness::Utils::Mouse Mouse;
-	EventsPoller.add_handler(Mouse);
+	Ness::Utils::Mouse mouse;
+	Ness::Utils::Keyboard keyboard;
+	EventsPoller.add_handler(mouse);
+	EventsPoller.add_handler(keyboard);
 
 	// loop until exit button is pressed
 	while( g_running )
@@ -67,7 +75,22 @@ int _tmain(int argc, _TCHAR* argv[])
 		EventsPoller.poll_events(HandleEvents, false);
 
 		// update 3d sprite position
-		sprite->set_position(Mouse.position());
+		sprite1->set_position(mouse.position());
+		sprite2->set_position(mouse.position());
+		//sprite3->set_position(mouse.position());
+		//sprite4->set_position(mouse.position());
+
+		// keyboard control - toggle objects
+		if (keyboard.ket_state(SDLK_1))
+		{
+			sprite1->set_visible(true);
+			sprite2->set_visible(false);
+		}
+		if (keyboard.ket_state(SDLK_2))
+		{
+			sprite1->set_visible(false);
+			sprite2->set_visible(true);
+		}
 
 		// render the scene
 		renderer.start_frame();
@@ -76,7 +99,6 @@ int _tmain(int argc, _TCHAR* argv[])
 	}
 
 	// cleanup
-	scene->remove(sprite);
 	renderer.remove_scene(scene);
 	return 0;
 }

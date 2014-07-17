@@ -51,8 +51,8 @@ namespace Ness
 		NESSENGINE_API inline __Point<type> operator-(const type& scalar) const {return __Point<type>(x - scalar, y - scalar);}
 
 		// casting
-		NESSENGINE_API inline operator __Point<float>()	 {return __Point<float>((float)x, (float)y);}
-		NESSENGINE_API inline operator __Point<int>()		 {return __Point<int>((int)x, (int)y);}
+		NESSENGINE_API inline operator __Point<float>() const	 {return __Point<float>((float)x, (float)y);}
+		NESSENGINE_API inline operator __Point<int>()	const	 {return __Point<int>((int)x, (int)y);}
 
 		// setter and equel operators
 		NESSENGINE_API inline void set(type X, type Y) { x = X; y = Y;}
@@ -87,7 +87,7 @@ namespace Ness
 		// return normalized point
 		NESSENGINE_API inline __Point<type> get_normalized() const 
 		{
-			type div = abs(x) > abs(y) ? abs(x) : abs(y);
+			type div = abs(x) + abs(y);
 			if (div == 0) return __Point<type>::ZERO;
 			return __Point<type>(x / div, y / div);
 		}
@@ -108,9 +108,10 @@ namespace Ness
 		// normalize this point
 		NESSENGINE_API inline void normalize()
 		{
-			type div = abs(x) > abs(y) ? abs(x) : abs(y);
+			type div = abs(x) + abs(y);
 			if (div == 0) return;
-			x /= div; y /= div;
+			x /= div; 
+			y /= div;
 		}
 
 		// ctors

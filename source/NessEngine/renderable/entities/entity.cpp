@@ -16,12 +16,20 @@ namespace Ness
 		m_need_transformations_update = true;
 	}
 
+	const SRenderTransformations& Entity::get_absolute_transformations_const() const
+	{
+		if (!m_parent || m_static)
+			return m_transformations;
+		return m_absolute_transformations;
+	}
+
 	const SRenderTransformations& Entity::get_absolute_transformations()
 	{
 
 		// if don't have a parent, return self transformations
 		if (!m_parent || m_static)
 		{
+			// recalculate the target rectangle (uses m_absolute_transformations)
 			if (m_need_transformations_update)
 			{
 				m_absolute_transformations = m_transformations;
@@ -47,7 +55,6 @@ namespace Ness
 		return m_absolute_transformations;
 	}
 
-	// calculate target rect
 	void Entity::calc_target_rect()
 	{
 		m_target_rect.w = (int)(m_size.x * m_absolute_transformations.scale.x);
@@ -57,7 +64,6 @@ namespace Ness
 	}
 
 
-	// return true if this sprite is in screen
 	bool Entity::is_really_visible(const CameraPtr& camera)
 	{
 		// get absolute transformations
@@ -78,7 +84,27 @@ namespace Ness
 		return is_in_screen(target);
 	}
 
-	bool Entity::is_in_screen(const Rectangle& target)
+	bool Entity::is_really_visible_const(const CameraPtr& camera) const
+	{
+		// get absolute transformations
+		const SRenderTransformations& trans = get_absolute_transformations_const();
+
+		// invisible?
+		if (trans.color.a <= 0)
+			return false;
+
+		// set camera position
+		Rectangle target = m_target_rect;
+		if (!m_static && camera)
+		{
+			target.x -= (int)camera->position.x;
+			target.y -= (int)camera->position.y;
+		} 
+
+		return is_in_screen(target);
+	}
+
+	bool Entity::is_in_screen(const Rectangle& target) const
 	{
 		if (target.x >= m_renderer->get_target_size().x || target.y >= m_renderer->get_target_size().y || target.x + abs(target.w) <= 0 || target.y + abs(target.h) <= 0 )
 		{

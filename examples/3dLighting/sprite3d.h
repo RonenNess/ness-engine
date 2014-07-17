@@ -10,10 +10,14 @@ private:
 	Ness::ManagedResources::ManagedTexturePtr		m_light_right;
 	Ness::LightNodePtr								m_light_node;
 	Ness::CameraPtr									m_last_camera;
+	bool											m_render_diffuse;
 
 public:
 
 	Sprite3d(Ness::LightNodePtr lightNode, const std::string& TextureFile);
+
+	// enable/disable diffuse layer
+	inline void render_diffuse(bool enabled) {m_render_diffuse = enabled;}
 
 	// override the render function just to store the camera before do_render (we need it inside)
 	virtual void render(const Ness::CameraPtr& camera = Ness::NullCamera);

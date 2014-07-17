@@ -10,7 +10,7 @@ namespace Ness
 		// we will render everything on the canvas as additive, and then render the canvas itself with mod blend
 		// note: canvas clear color will represent the ambient color, i.e. the color of light when there's no lighting.
 		static unsigned int uniqueId = 0;
-		m_canvas = NESS_MAKE_PTR<Canvas>(this->m_renderer, std::string("light_node_") + std::to_string((long long)uniqueId));
+		m_canvas = ness_make_ptr<Canvas>(this->m_renderer, std::string("light_node_") + std::to_string((long long)uniqueId));
 		uniqueId++;
 		set_blend_mode(BLEND_MODE_ADD);
 		m_render_target = m_canvas->get_texture();
@@ -18,6 +18,18 @@ namespace Ness
 		m_canvas->set_static(true);
 		m_canvas->set_blend_mode(BLEND_MODE_MOD);
 		set_ambient_color(Ness::Color::BLACK);
+	}
+
+	void LightNode::get_lights_in_screen(Ness::Vector<LightPtr>& out_list, const CameraPtr& camera) const
+	{
+		for (unsigned int i = 0; i < m_entities.size(); i++)
+		{
+			LightPtr curr = ness_ptr_cast<Light>(m_entities[i]);
+			if (curr->is_really_visible_const(camera))
+			{
+				out_list.push_back(curr);
+			}
+		}
 	}
 
 	void LightNode::add(const RenderablePtr& object)
@@ -41,7 +53,7 @@ namespace Ness
 
 	LightPtr LightNode::create_light(const std::string& lightTexture, const Color& color)
 	{
-		LightPtr NewSprite = NESS_MAKE_PTR<Light>(this->m_renderer, lightTexture, color);
+		LightPtr NewSprite = ness_make_ptr<Light>(this->m_renderer, lightTexture, color);
 		add(NewSprite);
 		return NewSprite;
 	}
