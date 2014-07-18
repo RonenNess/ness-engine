@@ -41,6 +41,12 @@ namespace Ness
 		// when transformations update
 		NESSENGINE_API virtual void transformations_update();
 
+		// check if at least one of the lines are really visible
+		NESSENGINE_API virtual bool is_really_visible(const CameraPtr& camera = NullCamera);
+
+		// check if at least one of the lines are really visible, without effecting their internal states
+		NESSENGINE_API virtual bool is_really_visible_const(const CameraPtr& camera) const;
+
 		// render this text
 		NESSENGINE_API virtual void render(const CameraPtr& camera = NullCamera);
 
@@ -56,8 +62,11 @@ namespace Ness
 		// update all the text lines position based on scale etc..
 		NESSENGINE_API void update_lines_positions();
 
-		// the actual rendering function
-		NESSENGINE_API virtual void do_render(const Rectangle& target, const SRenderTransformations& transformations);
+		// the actual rendering function - irrelevant for multitext object
+		NESSENGINE_API virtual void do_render(const Rectangle& target, const SRenderTransformations& transformations) {}
+
+		// irrelevant for multitext object
+		NESSENGINE_API virtual void calc_target_rect() {}
 	};
 
 	NESSENGINE_API typedef NessSharedPtr<MultiText> MultiTextPtr;

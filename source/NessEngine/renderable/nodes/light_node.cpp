@@ -10,7 +10,7 @@ namespace Ness
 		// we will render everything on the canvas as additive, and then render the canvas itself with mod blend
 		// note: canvas clear color will represent the ambient color, i.e. the color of light when there's no lighting.
 		static unsigned int uniqueId = 0;
-		m_canvas = ness_make_ptr<Canvas>(this->m_renderer, String("light_node_") + std::to_string((long long)uniqueId));
+		m_canvas = ness_make_ptr<Canvas>(this->m_renderer, String("light_node_") + ness_to_string((long long)uniqueId));
 		uniqueId++;
 		set_blend_mode(BLEND_MODE_ADD);
 		m_render_target = m_canvas->get_texture();

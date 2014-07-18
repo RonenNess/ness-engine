@@ -26,4 +26,5 @@ namespace Ness
 	#define ness_ptr_cast std::dynamic_pointer_cast
 
 	typedef std::string String;
+	#define ness_to_string std::to_string
 };

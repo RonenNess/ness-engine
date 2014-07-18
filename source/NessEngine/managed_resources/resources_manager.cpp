@@ -65,7 +65,7 @@ namespace Ness
 		NESSENGINE_API ManagedFontPtr ResourcesManager::get_font(const String& fontName, int fontSize)
 		{
 			// get name in hash
-			String fullName = fontName + std::to_string((long long)fontSize);
+			String fullName = fontName + ness_to_string((long long)fontSize);
 
 			// if not loaded, load it
 			if (m_fonts.find(fullName) == m_fonts.end())

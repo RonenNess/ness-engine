@@ -18,6 +18,13 @@ namespace Ness
 
 	void MultiText::set_text(const String& text)
 	{
+		// clear previous lines
+		for (unsigned int i = 0; i < m_lines.size(); ++i)
+		{
+			m_lines[i]->__change_parent(nullptr);
+		}
+		m_lines.clear();
+
 		// loop over the string split by \n character
 		std::istringstream f(text);
 		String current;    
@@ -25,13 +32,14 @@ namespace Ness
 			
 			// create the text line
 			TextPtr text = TextPtr(new Text(Entity::m_renderer, m_font, current, m_font_size));
-			m_lines.push_back(text);
 			text->__change_parent(m_node.get());
 			text->set_static(m_static);
+			m_lines.push_back(text);
 		}
 
 		// required text positioning
 		m_need_text_positioning = true;
+		transformations_update();
 	}
 
 	// update all the text lines position based on scale etc..
@@ -58,17 +66,34 @@ namespace Ness
 		}
 	}
 
+	bool MultiText::is_really_visible(const CameraPtr& camera)
+	{
+		for (unsigned int i = 0; i < m_lines.size(); ++i)
+		{
+			if(m_lines[i]->is_really_visible(camera))
+				return true;
+		}
+		return false;
+	}
+
+	bool MultiText::is_really_visible_const(const CameraPtr& camera) const
+	{
+		for (unsigned int i = 0; i < m_lines.size(); ++i)
+		{
+			if(m_lines[i]->is_really_visible_const(camera))
+				return true;
+		}
+		return false;
+	}
+
 	void MultiText::render(const CameraPtr& camera)
 	{
 		if (m_need_text_positioning)
 			update_lines_positions();
 		
 		for (unsigned int i = 0; i < m_lines.size(); ++i)
+		{
 			m_lines[i]->render(camera);
-	}
-
-	// this rendering function is blank for multitask entity, since everything is done in render()
-	void MultiText::do_render(const Rectangle& target, const SRenderTransformations& transformations)
-	{
+		}
 	}
 };

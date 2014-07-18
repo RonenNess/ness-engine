@@ -55,6 +55,9 @@ namespace Ness
 		NESSENGINE_API inline const ManagedResources::ManagedFontPtr& get_font() const {return m_font;}
 		NESSENGINE_API inline ManagedResources::ManagedFontPtr get_font() {return m_font;}
 
+		// override render so we update text first if we need to
+		void render(const CameraPtr& camera = NullCamera);
+
 	protected:
 
 		// update after font/text change

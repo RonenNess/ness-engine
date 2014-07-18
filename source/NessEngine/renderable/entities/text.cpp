@@ -8,9 +8,9 @@ namespace Ness
 		Entity(renderer), m_need_text_update(true), m_texture(nullptr), m_line_width(0)
 	{
 		change_font(font);
+		set_size(Size(100, 100));	// <-- must call this or 'update' will never be called
 		change_text(text);
 		set_static(true);
-		set_size(Size(100, 100));	// <-- must call this or 'update' will never be called
 		set_blend_mode(BLEND_MODE_BLEND);
 	}
 
@@ -18,9 +18,9 @@ namespace Ness
 		Entity(renderer), m_need_text_update(true), m_texture(nullptr), m_line_width(0)
 	{
 		change_font(m_renderer->resources().get_font(FontFile, fontSize));
+		set_size(Size(100, 100));	// <-- must call this or 'update' will never be called
 		change_text(text);
 		set_static(true);
-		set_size(Size(100, 100));	// <-- must call this or 'update' will never be called
 		set_blend_mode(BLEND_MODE_BLEND);
 	}
 
@@ -55,7 +55,7 @@ namespace Ness
 		// render text on surface
 		static SDL_Color text_color = {255, 255, 255};
 		SDL_Surface* surface = nullptr;
-		if (m_line_width)
+		if (m_line_width > 0)
 		{
 			surface = TTF_RenderText_Blended_Wrapped(m_font->font(), m_text.c_str(), text_color, m_line_width);
 		}
@@ -86,19 +86,25 @@ namespace Ness
 		SDL_QueryTexture(m_texture, &format, &access, &size.x, &size.y);
 		set_size(size);
 
-		// no longer need update
+		// no longer need update text, but need to update transformations
+		transformations_update();
 		m_need_text_update = false;
 	}
 
-	void Text::do_render(const Rectangle& target, const SRenderTransformations& transformations)
+	void Text::render(const CameraPtr& camera)
 	{
-
-		// if need to update the surface call update
+		// if need to update the text surface call update
 		if (m_need_text_update)
 		{
 			update();
 		}
 
+		// call the base render function
+		Entity::render(camera);
+	}
+
+	void Text::do_render(const Rectangle& target, const SRenderTransformations& transformations)
+	{
 		m_renderer->blit(m_texture, nullptr, target, transformations.blend, transformations.color, transformations.rotation, m_anchor);
 	}
 };
