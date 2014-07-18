@@ -60,7 +60,7 @@ int _tmain(int argc, _TCHAR* argv[])
 
 	Ness::MultiTextPtr fpsshow = scene->create_multitext("../ness-engine/resources/fonts/courier.ttf", 
 		"fps", 24);
-	fpsshow->set_position(Ness::Point(750, 550));
+	fpsshow->set_position(Ness::Point(790, 570));
 	fpsshow->set_alignment(Ness::TEXT_ALIGN_RIGHT);
 	fpsshow->set_color(Ness::Color(1.0f, 0.5f, 0.25f, 1.0f));
 
@@ -78,7 +78,7 @@ int _tmain(int argc, _TCHAR* argv[])
 		scene->render();
 		renderer.end_frame();
 
-		fpsshow->set_text(ness_to_string((long long)renderer.fps()));
+		fpsshow->set_text("fps:" + ness_to_string((long long)renderer.fps()));
 	}
 
 	// cleanup
