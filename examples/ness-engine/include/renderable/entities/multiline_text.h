@@ -16,14 +16,13 @@ namespace Ness
 	class MultiText : public Entity
 	{
 	private:
-		Vector<TextPtr>							m_lines;
-		String									m_text;
-		unsigned int							m_line_width;
-		unsigned int							m_font_size;
-		String									m_font;
-		ETextAlignment							m_alignement;
-		bool									m_need_text_positioning;
-		BaseNodePtr								m_node;
+		Vector<TextPtr>							m_lines;					// string lines and part of lines (if break sign)
+		unsigned int							m_line_width;				// max line width
+		unsigned int							m_font_size;				// font size
+		String									m_font;						// font to use by default
+		ETextAlignment							m_alignement;				// alignment to all the string parts
+		bool									m_need_text_positioning;	// if true, means we need to rearrange the text part positions
+		BaseNodePtr								m_node;						// the node used to store all the string parts
 
 
 	public:

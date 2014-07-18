@@ -44,7 +44,7 @@ namespace Ness
 		NESSENGINE_API inline void set_line_width(unsigned int width) {m_line_width = width;}
 		NESSENGINE_API inline unsigned int get_line_width() const {return m_line_width;}
 
-		// change text
+		// change the text.
 		NESSENGINE_API void change_text(const String& text) {m_text = text; m_need_text_update = true;}
 		NESSENGINE_API const String& get_text() {return m_text;}
 
