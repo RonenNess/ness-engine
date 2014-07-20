@@ -15,7 +15,7 @@ namespace Ness
 	namespace Utils
 	{
 		// callback function for events polling
-		NESSENGINE_API typedef void (*eventCallback)(const SDL_Event& event);
+		NESSENGINE_API typedef void (*eventCallback)(const Event& event);
 
 		// class that manage polling events and distribute them to the handlers
 		class EventsPoller

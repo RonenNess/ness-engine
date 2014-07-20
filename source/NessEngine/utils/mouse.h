@@ -37,13 +37,13 @@ namespace Ness
 			NESSENGINE_API Mouse();
 
 			// update the keyboard with incoming event
-			NESSENGINE_API virtual bool inject_event(const SDL_Event& event);
+			NESSENGINE_API virtual bool inject_event(const Event& event);
 
 			// get mouse position
 			NESSENGINE_API const Pointi& position();
 
 			// get mouse button state
-			inline bool is_down(EMouseButtons button) {return m_down[button];}
+			inline bool is_down(EMouseButtons button) const {return m_down[button];}
 
 		private:
 

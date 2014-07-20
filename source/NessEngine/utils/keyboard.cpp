@@ -7,7 +7,7 @@ namespace Ness
 
 		// update the keyboard with incoming event
 		// always call this, Keyboard will filter it out if it's not a keyboard event!
-		bool Keyboard::inject_event(const SDL_Event& event)
+		bool Keyboard::inject_event(const Event& event)
 		{
 			switch (event.type)
 			{

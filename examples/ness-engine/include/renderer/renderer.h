@@ -48,7 +48,7 @@ namespace Ness
 
 	public:
 		// create the renderer instance!
-		NESSENGINE_API Renderer(const char* windowName, const Sizei& screenSize, bool FullScreen = false, int rendererFlags = RENDERER_FLAG_ACCELERATED);
+		NESSENGINE_API Renderer(const char* windowName, const Sizei& screenSize, bool FullScreen = false, int rendererFlags = RENDERER_FLAG_ACCELERATED | RENDERER_FLAG_LIGHTING_NODE);
 
 		// delete the renderer
 		NESSENGINE_API ~Renderer();

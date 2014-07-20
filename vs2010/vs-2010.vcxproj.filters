@@ -257,5 +257,8 @@
     <ClInclude Include="..\source\NessEngine\renderable\entities\multiline_text.h">
       <Filter>Source Files\renderables\entities</Filter>
     </ClInclude>
+    <ClInclude Include="..\source\NessEngine\basic_types\events.h">
+      <Filter>Source Files\basic_types</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>

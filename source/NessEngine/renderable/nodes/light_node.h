@@ -75,6 +75,9 @@ namespace Ness
 		// add/remove object
 		NESSENGINE_API void add(const RenderablePtr& object);
 		NESSENGINE_API void remove(const RenderablePtr& object);
+
+		// return the light node canvas
+		NESSENGINE_API const CanvasPtr& get_target_canvas() const {return m_canvas;}
 	};
 
 	// scene pointer

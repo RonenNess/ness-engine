@@ -7,7 +7,7 @@ namespace Ness
 		void EventsPoller::poll_events(eventCallback callback, bool callIfHandled)
 		{
 			// fetch all events we got to fetch
-			SDL_Event event;
+			Event event;
 			while( (SDL_PollEvent( &event ) != 0 ))
 			{
 				// call all handlers

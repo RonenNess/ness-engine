@@ -19,15 +19,15 @@ namespace Ness
 		class Keyboard : public EventsHandler
 		{
 		private:
-			std::unordered_map<SDL_Keycode, bool> m_key_codes;
+			std::unordered_map<Keycode, bool> m_key_codes;
 
 		public:
 
 			// update the keyboard with incoming event
-			NESSENGINE_API virtual bool inject_event(const SDL_Event& event);
+			NESSENGINE_API virtual bool inject_event(const Event& event);
 
 			// get key state
-			NESSENGINE_API inline bool ket_state(SDL_Keycode key) {return m_key_codes[key];}
+			NESSENGINE_API inline bool ket_state(Keycode key) {return m_key_codes[key];}
 		};
 
 	};

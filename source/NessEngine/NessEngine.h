@@ -42,7 +42,6 @@ namespace Ness
 
 	// get next system event. return true if got more events to read, false otherwise
 	// note: this is just a wrapper to SDL events mechanism, and exist to allow users to fetch events without having to import the SDL libs
-	NESSENGINE_API typedef SDL_Event Event;
 	NESSENGINE_API bool get_poll_event(Event& event);
 
 	// don't call this yourself, its called automatically when application ends

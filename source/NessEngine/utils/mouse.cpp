@@ -9,7 +9,7 @@ namespace Ness
 			memset(m_down, false, sizeof(m_down));
 		}
 
-		bool Mouse::inject_event(const SDL_Event& event)
+		bool Mouse::inject_event(const Event& event)
 		{
 			switch (event.type)
 			{
