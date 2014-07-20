@@ -4,8 +4,7 @@
 class Sprite3d : public Ness::Sprite
 {
 private:
-	Ness::ManagedResources::ManagedTexturePtr		m_light_top;
-	Ness::ManagedResources::ManagedTexturePtr		m_light_bottom;
+	Ness::ManagedResources::ManagedTexturePtr		m_light_front;
 	Ness::ManagedResources::ManagedTexturePtr		m_light_left;
 	Ness::ManagedResources::ManagedTexturePtr		m_light_right;
 	Ness::LightNodePtr								m_light_node;
@@ -14,7 +13,7 @@ private:
 
 public:
 
-	Sprite3d(Ness::LightNodePtr lightNode, const std::string& TextureFile, bool IncludeBottom = true);
+	Sprite3d(Ness::LightNodePtr lightNode, const std::string& TextureFile);
 
 	// enable/disable diffuse layer
 	inline void render_diffuse(bool enabled) {m_render_diffuse = enabled;}

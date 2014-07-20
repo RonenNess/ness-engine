@@ -47,6 +47,7 @@ int _tmain(int argc, _TCHAR* argv[])
 
 	// create the light node
 	Ness::LightNodePtr lightNode = scene->create_light_node();
+	lightNode->set_ambient_color(Ness::Color(0.5f, 0.5f, 0.6f));
 	Ness::LightPtr light1 = lightNode->create_light("../ness-engine/resources/gfx/light_round.jpg", Ness::Color::WHITE);
 	light1->set_scale(Ness::Point(2.0f, 1.75f));
 
@@ -58,7 +59,7 @@ int _tmain(int argc, _TCHAR* argv[])
 	for (int i = 0; i < NumOfObjects; i++)
 	{
 		Ness::SpritePtr object;
-		object = Ness::SpritePtr(new Sprite3d(lightNode, i < 200 ? "gfx/tree.png" : "gfx/rock.png", true));
+		object = Ness::SpritePtr(new Sprite3d(lightNode, i < 200 ? "gfx/tree.png" : "gfx/rock.png"));
 		znode->add(object);
 		object->set_anchor(Ness::Point(0.5f, 1.0f));
 		object->set_position(Ness::Pointi(rand() % TotalMapSize, rand() % TotalMapSize));
@@ -122,6 +123,7 @@ int _tmain(int argc, _TCHAR* argv[])
 
 		// fix player zorder based on his y position
 		player->set_zindex(playerPos.y);
+		light1->set_zindex(playerPos.y);
 
 		// set camera to focus on player
 		camera->position.x = player->get_position().x - (render.get_screen_size().x * 0.5f);

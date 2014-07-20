@@ -51,6 +51,10 @@ namespace Ness
 		NESSENGINE_API inline Point get_absolute_position() {return get_absolute_transformations().position;}
 		NESSENGINE_API inline Point get_absolute_position_const() const {return m_absolute_transformations.position;}
 
+		// return absolute z index
+		NESSENGINE_API inline float get_absolute_zindex() {return get_absolute_transformations().zorder;}
+		NESSENGINE_API inline float get_absolute_zindex_const() const {return m_absolute_transformations.zorder;}
+
 		// check if this sprite really is visible: if it's currently visible, opacity > 0, and inside screen bounderies
 		NESSENGINE_API virtual bool is_really_visible(const CameraPtr& camera = NullCamera);
 
