@@ -22,7 +22,7 @@ namespace Ness
 	// TileMap is a special node that creates a grid of sprites
 	class TileMap : public NodeAPI
 	{
-	private:
+	protected:
 		Sizei										m_size;						// size of the tilemap
 		Size										m_sprites_distance;			// distance between sprites
 		Size										m_tile_size;				// size of a single tile
@@ -53,7 +53,7 @@ namespace Ness
 
 		// get a specific sprite by position
 		// return empty if out of range
-		NESSENGINE_API SpritePtr& get_sprite_by_position(const Point& position);
+		NESSENGINE_API virtual SpritePtr& get_sprite_by_position(const Point& position);
 
 		// get all visible son entities
 		NESSENGINE_API virtual void __get_visible_entities(Vector<RenderableAPI*>& out_list, const CameraPtr& camera = NullCamera);
@@ -88,6 +88,10 @@ namespace Ness
 
 		// render this tilemap
 		NESSENGINE_API virtual void render(const CameraPtr& camera = NullCamera);
+
+	protected:
+		// arrange a single tile sprite during creation
+		NESSENGINE_API void arrange_sprite(const SpritePtr& sprite, const Ness::Pointi& index);
 	};
 
 	NESSENGINE_API typedef NessSharedPtr<TileMap> TileMapPtr;

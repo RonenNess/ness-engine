@@ -9,12 +9,13 @@
 
 #include <NessEngine.h>
 #include "sprite3d.h"
+#include "isoTilemap.h"
 
 // is the program still running
 bool g_running = true;
 
 // number of random objects
-const int NumOfObjects = 500;
+const int NumOfObjects = 250;
 
 // resolution
 #define SCREEN_WIDTH 1800
@@ -39,8 +40,9 @@ int _tmain(int argc, _TCHAR* argv[])
 	// create the tilemap
 	const int TileSize = 64;
 	const int TileMapSize = 100;
-	const int TotalMapSize = (TileSize * TileMapSize);
-	Ness::TileMapPtr map = scene->create_tilemap("gfx/tilemap.jpg", Ness::Sizei(TileMapSize, TileMapSize), Ness::Sizei(TileSize, TileSize));
+	const int TotalMapSize = (TileSize * (TileMapSize - 1));
+	Ness::TileMapPtr map = ness_make_ptr<IsoTilemap>(&render, "gfx/tilemap.jpg", Ness::Sizei(TileMapSize, TileMapSize), Ness::Sizei(TileSize, TileSize));
+	scene->add(map);
 
 	// create the znode - a depth-based ordering scene node
 	Ness::NodePtr znode = scene->create_znode();
@@ -59,7 +61,7 @@ int _tmain(int argc, _TCHAR* argv[])
 	for (int i = 0; i < NumOfObjects; i++)
 	{
 		Ness::SpritePtr object;
-		object = Ness::SpritePtr(new Sprite3d(lightNode, i < 200 ? "gfx/tree.png" : "gfx/rock.png"));
+		object = ness_make_ptr<Sprite3d>(lightNode, i < 200 ? "gfx/tree.png" : "gfx/rock.png");
 		znode->add(object);
 		object->set_anchor(Ness::Point(0.5f, 1.0f));
 		object->set_position(Ness::Pointi(rand() % TotalMapSize, rand() % TotalMapSize));
@@ -68,7 +70,9 @@ int _tmain(int argc, _TCHAR* argv[])
 	}
 
 	// create the player character!
-	Ness::SpritePtr player = znode->create_sprite("gfx/fighter.png");
+	Ness::SpritePtr player = znode->create_sprite("gfx/player.png");
+	player->set_source_from_sprite_sheet(Ness::Pointi(0, 0), Ness::Pointi(4, 4), true);
+	player->set_scale(2.5f);
 	player->set_anchor(Ness::Point(0.5f, 1.0f));
 	player->set_position(Ness::Pointi(TotalMapSize / 2, TotalMapSize / 2));
 	player->set_blend_mode(Ness::BLEND_MODE_BLEND);
@@ -102,15 +106,15 @@ int _tmain(int argc, _TCHAR* argv[])
 		{
 			playerPos.y += render.time_factor() * PlayerSpeed;
 		}
-		if (keyboard.ket_state(SDLK_UP))
+		else if (keyboard.ket_state(SDLK_UP))
 		{
 			playerPos.y -= render.time_factor() * PlayerSpeed;
 		}
-		if (keyboard.ket_state(SDLK_LEFT))
+		else if (keyboard.ket_state(SDLK_LEFT))
 		{
 			playerPos.x -= render.time_factor() * PlayerSpeed;
 		}
-		if (keyboard.ket_state(SDLK_RIGHT))
+		else if (keyboard.ket_state(SDLK_RIGHT))
 		{
 			playerPos.x += render.time_factor() * PlayerSpeed;
 		}
@@ -119,7 +123,6 @@ int _tmain(int argc, _TCHAR* argv[])
 			g_running = false;
 		}
 		player->set_position(playerPos);
-		light1->set_position(playerPos - Ness::Point(0.0f, player->get_absolute_size().y * 0.25f));
 
 		// fix player zorder based on his y position
 		player->set_zindex(playerPos.y);
@@ -128,6 +131,13 @@ int _tmain(int argc, _TCHAR* argv[])
 		// set camera to focus on player
 		camera->position.x = player->get_position().x - (render.get_screen_size().x * 0.5f);
 		camera->position.y = player->get_position().y - (render.get_screen_size().y * 0.5f) - player->get_absolute_size().y * 0.5f;
+
+		// fix camera position
+		camera->position.limitx(0, TotalMapSize - SCREEN_WIDTH);
+		camera->position.limity(0, TotalMapSize - SCREEN_HEIGHT);
+
+		// set light position
+		light1->set_position(playerPos - Ness::Point(0.0f, player->get_absolute_size().y * 0.25f));
 
 		// render scene and end frame
 		scene->render(camera);
@@ -138,8 +148,5 @@ int _tmain(int argc, _TCHAR* argv[])
 		fpsShow->change_text(FpsShow + std::to_string((long long)render.fps()));
 	}
 
-	// cleanup. 
-	// note: the 'remove' lines are not mandatory, they are just to illustrate how to remove an entity from the scene.
-	scene->remove(map);
 	return 0;
 }

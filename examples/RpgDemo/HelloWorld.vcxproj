@@ -85,6 +85,7 @@
     <ClCompile Include="sprite3d.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="isoTilemap.h" />
     <ClInclude Include="sprite3d.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

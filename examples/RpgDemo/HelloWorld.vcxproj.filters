@@ -26,5 +26,8 @@
     <ClInclude Include="sprite3d.h">
       <Filter>Source Files</Filter>
     </ClInclude>
+    <ClInclude Include="isoTilemap.h">
+      <Filter>Source Files</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>

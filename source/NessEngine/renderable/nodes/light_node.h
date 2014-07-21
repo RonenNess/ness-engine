@@ -13,6 +13,9 @@ namespace Ness
 {
 	class Light : public Sprite
 	{
+	private:
+		bool m_need_redraw;
+
 	public:
 		// create the light object
 		NESSENGINE_API Light(Renderer* renderer, const String& TextureFile, const Color& color) 
@@ -20,7 +23,20 @@ namespace Ness
 		{
 			set_color(color);
 			set_anchor(Point::HALF);
+			m_need_redraw = false;
 		}
+
+		// set need transformations update + redraw
+		NESSENGINE_API virtual void transformations_update()
+		{
+			m_need_transformations_update = m_need_redraw = true;
+		}
+
+		// return if this light needs redraw
+		NESSENGINE_API inline bool need_redraw() const {return m_need_redraw;}
+
+		// set no longer need redraw
+		NESSENGINE_API inline void set_need_redraw(bool need) {m_need_redraw = need;}
 
 		// need to update transformations when changing visible so that the light node will re-render
 		NESSENGINE_API inline void set_visible(bool Visible) 

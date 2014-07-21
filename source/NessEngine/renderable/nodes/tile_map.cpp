@@ -23,41 +23,49 @@ namespace Ness
 		m_sprites_distance = (tilesDistance == Ness::Size::ZERO ? singleTileSize : tilesDistance);
 
 		// create the sprites grid
+		Pointi index;
 		m_sprites.resize(m_size.x);
-		for (int i = 0; i < m_size.x; i++)
+		for (index.x = 0; index.x < m_size.x; index.x++)
 		{
-			m_sprites[i].resize(m_size.y);
-			for (int j = 0; j < m_size.y; j++)
+			m_sprites[index.x].resize(m_size.y);
+			for (index.y = 0; index.y < m_size.y; index.y++)
 			{
 				// create the sprite
 				SpritePtr NewSprite;
 				if (createSpriteFunction == nullptr)
 				{
-					NewSprite.reset(new Sprite(this->m_renderer, spriteFile));
+					NewSprite = ness_make_ptr<Sprite>(this->m_renderer, spriteFile);
 				}
 				else
 				{
-					NewSprite = createSpriteFunction(Ness::Pointi(i, j));
+					NewSprite = createSpriteFunction(index);
 				}
 				NewSprite->__change_parent(this);
 				
-				// set position
-				NewSprite->set_position(Point(
-					(float)(i * m_tile_size.x) + (m_tile_size.x * 0.5f), 
-					(float)(j * m_tile_size.y) + m_tile_size.y));
-
-				// set size, anchor and default blend mode
-				NewSprite->set_size(m_tile_size);
-				NewSprite->set_anchor(Point(0.5f, 1.0f));
-				NewSprite->set_blend_mode(BLEND_MODE_NONE);
-
-				// set z-index
-				NewSprite->set_zindex((j * m_tile_size.y));
+				// arrange it in the grid
+				arrange_sprite(NewSprite, index);
 
 				// add to matrix of tiles
-				m_sprites[i][j] = NewSprite;
+				m_sprites[index.x][index.y] = NewSprite;
 			}
 		}
+	}
+
+	// arrange a single tile sprite during creation
+	void TileMap::arrange_sprite(const SpritePtr& sprite, const Ness::Pointi& index)
+	{				
+		// set position
+		sprite->set_position(Point(
+			(float)(index.x * m_tile_size.x) + (m_tile_size.x * 0.5f), 
+			(float)(index.y * m_tile_size.y) + m_tile_size.y));
+
+		// set size, anchor and default blend mode
+		sprite->set_size(m_tile_size);
+		sprite->set_anchor(Point(0.5f, 1.0f));
+		sprite->set_blend_mode(BLEND_MODE_NONE);
+
+		// set z-index
+		sprite->set_zindex((index.y * m_tile_size.y));
 	}
 
 	void TileMap::set_all_tiles_type(const Pointi& step, const Sizei stepsCount)
