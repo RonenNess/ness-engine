@@ -45,6 +45,7 @@ namespace Ness
 		const Sizei*							m_target_size;				// size of the target we are currently rendering on (screen or target texture)
 		Colorb									m_background_color;			// background clear color
 		const int								m_flags;					// init flags (passed in constructor)
+		bool									m_auto_animate;				// do animations automatically (default to true)
 
 	public:
 		// create the renderer instance!
@@ -68,6 +69,9 @@ namespace Ness
 
 		// get fps count
 		NESSENGINE_API inline int fps() const {return m_fps;}
+
+		// enable/disable auto animate (default to true)
+		NESSENGINE_API inline void animate_automatically(bool enable) {m_auto_animate = enable;}
 
 		// set the title of the window
 		NESSENGINE_API void set_window_title(const String& NewTitle);

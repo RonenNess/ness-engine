@@ -50,8 +50,7 @@ int _tmain(int argc, _TCHAR* argv[])
 	alien->set_position(Ness::Point(300.0f, 300.0f));
 	alien->set_blend_mode(Ness::BLEND_MODE_BLEND);
 	alien->set_size(Ness::Size(85, 128));
-	Ness::Animators::AnimatorPtr alienAnim(new Ness::Animators::AnimatorSprite(Ness::Sizei(3, 1), 0, 2, 5.0f, Ness::Animators::SPRITE_ANIM_END_REPEAT));
-	alienAnim->set_target(alien);
+	Ness::Animators::AnimatorPtr alienAnim = ness_make_ptr<Ness::Animators::AnimatorSprite>(alien, Ness::Sizei(3, 1), 0, 2, 5.0f, Ness::Animators::SPRITE_ANIM_END_REPEAT);
 	renderer.register_animator(alienAnim);
 
 	// create the light node
@@ -99,9 +98,6 @@ int _tmain(int argc, _TCHAR* argv[])
 			player.walk_right();
 		else
 			player.stand();
-		
-		// do animations
-		renderer.do_animations();
 
 		// render the scene
 		renderer.start_frame();

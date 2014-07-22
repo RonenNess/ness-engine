@@ -15,38 +15,27 @@ namespace Ness
 
 	namespace Animators
 	{
-		class AnimatorAPI;
-
-		// callback to call when animation is finished
-		NESSENGINE_API typedef void (*FinishAnimationCallback)(AnimatorAPI* animator);
 
 		// the animator class API
 		class AnimatorAPI
 		{
 		private:
-			bool m_paused;
-			bool m_should_be_removed;
-			FinishAnimationCallback m_callback;
+			bool m_animation_paused;
+			bool m_animator_should_be_removed;
 
 		public:
-			AnimatorAPI() : m_paused(false), m_should_be_removed(false), m_callback(nullptr) {}
-
-			// register callback to call when animation finish
-			NESSENGINE_API inline void set_animation_end_callback(FinishAnimationCallback callback) {m_callback = callback;}
+			AnimatorAPI() : m_animation_paused(false), m_animator_should_be_removed(false) {}
 
 			// pause/unpause animation
-			NESSENGINE_API inline bool is_paused() const {return m_paused;}
-			NESSENGINE_API inline void pause(bool doPause) {m_paused = doPause;}
+			NESSENGINE_API inline bool is_animation_paused() const {return m_animation_paused;}
+			NESSENGINE_API inline void pause_animation(bool doPause) {m_animation_paused = doPause;}
 
 			// destroy this animator
-			NESSENGINE_API void destroy() {m_should_be_removed = true; if (m_callback) m_callback(this);}
-			inline bool __should_be_removed() const {return m_should_be_removed;}
-		
-			// set the animated object or add it to a list if this animator support multiply objects
-			NESSENGINE_API virtual void set_target(RenderablePtr object) = 0;
+			NESSENGINE_API void remove_animation() {m_animator_should_be_removed = true;}
+			inline bool __should_be_removed() const {return m_animator_should_be_removed;}
 
 			// animate this object. note: to destroy the animator call 'destroy()', even from within the animator itself.
-			NESSENGINE_API virtual void animate(Renderer* renderer) = 0;
+			NESSENGINE_API virtual void do_animation(Renderer* renderer) = 0;
 		};
 
 		// define the animator pointer

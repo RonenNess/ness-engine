@@ -36,7 +36,7 @@ namespace Ness
 		NESSENGINE_API inline bool need_redraw() const {return m_need_redraw;}
 
 		// set no longer need redraw
-		NESSENGINE_API inline void dont_need_redraw() {m_need_redraw = false;}
+		NESSENGINE_API inline void set_need_redraw(bool need) {m_need_redraw = need;}
 
 		// need to update transformations when changing visible so that the light node will re-render
 		NESSENGINE_API inline void set_visible(bool Visible) 

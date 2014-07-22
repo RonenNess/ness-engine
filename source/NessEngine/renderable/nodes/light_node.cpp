@@ -73,8 +73,7 @@ namespace Ness
 		// stop the loop when looping all objects or once need update is true.
 		for (unsigned int i = 0; ((i < m_entities.size()) && !m_need_update); i++)
 		{
-			LightPtr curr = ness_ptr_cast<Light>(m_entities[i]);
-			if (curr->need_redraw())
+			if (ness_ptr_cast<Light>(m_entities[i])->need_redraw())
 			{
 				m_need_update = m_entities[i]->is_really_visible(camera);
 			}

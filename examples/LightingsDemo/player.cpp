@@ -101,7 +101,7 @@ void Player::change_action(EPlayerAction newAction)
 	// remove previous animator
 	if (m_animation)
 	{
-		m_sprite->renderer()->remove_animator(m_animation);
+		m_animation->remove_animation();
 		m_animation.reset();
 	}
 
@@ -113,8 +113,7 @@ void Player::change_action(EPlayerAction newAction)
 			break;
 
 		case PLAYER_WALKING:
-			m_animation.reset(new Ness::Animators::AnimatorSprite(SpacemanTotalSteps, 0, 10, 10.0f, Ness::Animators::SPRITE_ANIM_END_REPEAT));
-			m_animation->set_target(m_sprite);
+			m_animation = ness_make_ptr<Ness::Animators::AnimatorSprite>(m_sprite, SpacemanTotalSteps, 0, 10, 10.0f, Ness::Animators::SPRITE_ANIM_END_REPEAT);
 			m_sprite->renderer()->register_animator(m_animation);
 			break;
 	}

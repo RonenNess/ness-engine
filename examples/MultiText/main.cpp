@@ -58,6 +58,14 @@ int _tmain(int argc, _TCHAR* argv[])
 	text5->set_rotation(25);
 	text5->set_color(Ness::Color(1.0f, 0.0f, 1.0f, 1.0f));
 
+	Ness::MultiTextPtr text6 = scene->create_multitext("../ness-engine/resources/fonts/courier.ttf", 
+		"can also be animated!", 24);
+	text6->set_position(Ness::Point(5, 500));
+	text6->set_alignment(Ness::TEXT_ALIGN_LEFT);
+	text6->set_color(Ness::Color(1.0f, 1.0f, 0.0f, 1.0f));
+	Ness::Animators::AnimatorPtr anim = ness_make_ptr<Ness::Animators::AnimatorFaderOut>(text6, true, 0.1f);
+	renderer.register_animator(anim);
+
 	Ness::MultiTextPtr fpsshow = scene->create_multitext("../ness-engine/resources/fonts/courier.ttf", 
 		"fps", 24);
 	fpsshow->set_position(Ness::Point(790, 570));

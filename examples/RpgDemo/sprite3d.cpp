@@ -19,6 +19,7 @@ void Sprite3d::render(const Ness::CameraPtr& camera)
 
 void Sprite3d::do_render(const Ness::Rectangle& target, const Ness::SRenderTransformations& transformations)
 {
+
 	// first render black figure of this texture
 	m_renderer->blit(m_texture, &m_source_rect, target, Ness::BLEND_MODE_BLEND, m_light_node->get_ambient_color(), transformations.rotation, m_anchor);
 

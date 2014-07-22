@@ -8,7 +8,7 @@ namespace Ness
 	// create the renderer
 	Renderer::Renderer(const char* windowName, const Sizei& screenSize, bool FullScreen, int rendererFlags) :
 		m_second_timer(0), m_curr_fps_count(0), m_fps(0), m_timefactor(0), m_screen_size(screenSize), 
-		m_frameid(0), m_background_color(75, 0, 255, 255), m_flags(rendererFlags)
+		m_frameid(0), m_background_color(75, 0, 255, 255), m_flags(rendererFlags), m_auto_animate(true)
 	{
 
 		// create window
@@ -60,6 +60,7 @@ namespace Ness
 	// begin a rendering frame
 	void Renderer::start_frame(bool clearScene)
 	{
+		// begin scene and clear if needed
 		m_start_frame_time = SDL_GetTicks();
 		if (clearScene) 
 		{
@@ -72,6 +73,7 @@ namespace Ness
 	// end a rendering frame
 	void Renderer::end_frame()
 	{
+		// render everything and set time factor
 		SDL_RenderPresent(m_renderer);
 		m_timefactor = (SDL_GetTicks() - m_start_frame_time) / 1000.0f;
 		m_second_timer += m_timefactor;
@@ -86,6 +88,11 @@ namespace Ness
 			m_curr_fps_count++;
 		}
 
+		// do animations
+		if (m_auto_animate)
+			do_animations();
+
+		// increase frame unique id
 		m_frameid++;
 	}
 
@@ -111,16 +118,20 @@ namespace Ness
 	void Renderer::do_animations()
 	{
 		// loop and animate all animators
+		bool gotAnimatorsToRemove = false;
 		for (unsigned int i = 0; i < m_animators.size(); ++i)
 		{
-			if (m_animators[i]->is_paused())
+			Animators::AnimatorPtr& curr = m_animators[i];
+			if (curr->is_animation_paused())
 				continue;
 
-			m_animators[i]->animate(this);
+			curr->do_animation(this);
+			gotAnimatorsToRemove |= curr->__should_be_removed();
 		}
 
 		// remove all 'dead' animators
-		m_animators.erase(std::remove_if(m_animators.begin(), m_animators.end(), remove_dead_animators), m_animators.end());
+		if (gotAnimatorsToRemove)
+			m_animators.erase(std::remove_if(m_animators.begin(), m_animators.end(), remove_dead_animators), m_animators.end());
 	}
 
 	// remove a scene

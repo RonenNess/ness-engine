@@ -10,16 +10,17 @@
 #include <NessEngine.h>
 #include "sprite3d.h"
 #include "isoTilemap.h"
+#include "character.h"
 
 // is the program still running
 bool g_running = true;
 
 // number of random objects
-const int NumOfObjects = 250;
+const int NumOfObjects = 500;
 
 // resolution
-#define SCREEN_WIDTH 1800
-#define SCREEN_HEIGHT 1100
+#define SCREEN_WIDTH 800
+#define SCREEN_HEIGHT 600
 
 // callback to handle exit events
 void HandleEvents(const SDL_Event& event)
@@ -38,7 +39,7 @@ int _tmain(int argc, _TCHAR* argv[])
 	Ness::ScenePtr scene = render.create_scene();
 
 	// create the tilemap
-	const int TileSize = 64;
+	const int TileSize = 128;
 	const int TileMapSize = 100;
 	const int TotalMapSize = (TileSize * (TileMapSize - 1));
 	Ness::TileMapPtr map = ness_make_ptr<IsoTilemap>(&render, "gfx/tilemap.jpg", Ness::Sizei(TileMapSize, TileMapSize), Ness::Sizei(TileSize, TileSize));
@@ -60,8 +61,20 @@ int _tmain(int argc, _TCHAR* argv[])
 	// create random trees and rocks
 	for (int i = 0; i < NumOfObjects; i++)
 	{
+		int type = rand() % 4;
 		Ness::SpritePtr object;
-		object = ness_make_ptr<Sprite3d>(lightNode, i < 200 ? "gfx/tree.png" : "gfx/rock.png");
+		switch (type)
+		{
+		case 0:
+			object = ness_make_ptr<Sprite3d>(lightNode, "gfx/rock.png");
+			break;
+		case 1:
+			object = ness_make_ptr<Sprite3d>(lightNode, "gfx/bush.png");
+			break;
+		default:
+			object = ness_make_ptr<Sprite3d>(lightNode, "gfx/tree.png");
+			break;
+		}
 		znode->add(object);
 		object->set_anchor(Ness::Point(0.5f, 1.0f));
 		object->set_position(Ness::Pointi(rand() % TotalMapSize, rand() % TotalMapSize));
@@ -70,12 +83,8 @@ int _tmain(int argc, _TCHAR* argv[])
 	}
 
 	// create the player character!
-	Ness::SpritePtr player = znode->create_sprite("gfx/player.png");
-	player->set_source_from_sprite_sheet(Ness::Pointi(0, 0), Ness::Pointi(4, 4), true);
-	player->set_scale(2.5f);
-	player->set_anchor(Ness::Point(0.5f, 1.0f));
-	player->set_position(Ness::Pointi(TotalMapSize / 2, TotalMapSize / 2));
-	player->set_blend_mode(Ness::BLEND_MODE_BLEND);
+	Character player(znode, "gfx/wolf.png");
+	player.set_position(Ness::Pointi(TotalMapSize / 2, TotalMapSize / 2));
 
 	// create the event handlers
 	Ness::Utils::Keyboard keyboard;
@@ -101,43 +110,55 @@ int _tmain(int argc, _TCHAR* argv[])
 		render.start_frame();
 
 		// do keyboard control - move player around
-		Ness::Point playerPos = player->get_position();
+		Ness::Point playerPos = player.get_position();
 		if (keyboard.ket_state(SDLK_DOWN))
 		{
 			playerPos.y += render.time_factor() * PlayerSpeed;
+			player.walk(DIRECTION_DOWN);
 		}
 		else if (keyboard.ket_state(SDLK_UP))
 		{
 			playerPos.y -= render.time_factor() * PlayerSpeed;
+			player.walk(DIRECTION_UP);
 		}
 		else if (keyboard.ket_state(SDLK_LEFT))
 		{
 			playerPos.x -= render.time_factor() * PlayerSpeed;
+			player.walk(DIRECTION_LEFT);
 		}
 		else if (keyboard.ket_state(SDLK_RIGHT))
 		{
 			playerPos.x += render.time_factor() * PlayerSpeed;
+			player.walk(DIRECTION_RIGHT);
+		}
+		else
+		{
+			player.stop();
+		}
+		if (keyboard.ket_state(SDLK_SPACE))
+		{
+			player.shoot();
 		}
 		if (keyboard.ket_state(SDLK_ESCAPE))
 		{
 			g_running = false;
 		}
-		player->set_position(playerPos);
+		player.set_position(playerPos);
 
 		// fix player zorder based on his y position
-		player->set_zindex(playerPos.y);
+		player.set_zindex(playerPos.y);
 		light1->set_zindex(playerPos.y);
 
 		// set camera to focus on player
-		camera->position.x = player->get_position().x - (render.get_screen_size().x * 0.5f);
-		camera->position.y = player->get_position().y - (render.get_screen_size().y * 0.5f) - player->get_absolute_size().y * 0.5f;
+		camera->position.x = player.get_position().x - (render.get_screen_size().x * 0.5f);
+		camera->position.y = player.get_position().y - (render.get_screen_size().y * 0.5f) - player.get_absolute_size().y * 0.5f;
 
 		// fix camera position
 		camera->position.limitx(0, TotalMapSize - SCREEN_WIDTH);
 		camera->position.limity(0, TotalMapSize - SCREEN_HEIGHT);
 
 		// set light position
-		light1->set_position(playerPos - Ness::Point(0.0f, player->get_absolute_size().y * 0.25f));
+		light1->set_position(playerPos - Ness::Point(0.0f, player.get_absolute_size().y * 0.25f));
 
 		// render scene and end frame
 		scene->render(camera);

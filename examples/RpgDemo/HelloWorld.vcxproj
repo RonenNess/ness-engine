@@ -81,11 +81,13 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="character.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="sprite3d.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="isoTilemap.h" />
+    <ClInclude Include="character.h" />
     <ClInclude Include="sprite3d.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

@@ -39,7 +39,7 @@ namespace Ness
 				if (m_target->get_opacity() >= 1.0f)
 				{
 					m_target->set_opacity(1.0f);
-					this->destroy();
+					this->remove_animation();
 				}
 			}
 		};
@@ -54,26 +54,18 @@ namespace Ness
 
 		public:
 			// if removeTargetWhenDone = true, will remove the target from its parent when opacity reach 0
-			AnimatorFaderOut(bool removeTargetWhenDone, float fadeSpeed = 1.0f) : m_remove_when_done(removeTargetWhenDone), m_speed(fadeSpeed) {}
+			AnimatorFaderOut(const RenderablePtr& target, bool removeTargetWhenDone, float fadeSpeed = 1.0f) 
+				: m_target(target), m_remove_when_done(removeTargetWhenDone), m_speed(fadeSpeed) {}
 
-			NESSENGINE_API virtual void set_target(RenderablePtr object)
-			{
-				m_target = object;
-			}
 
-			NESSENGINE_API virtual RenderablePtr get_target()
-			{
-				return m_target;
-			}
-
-			NESSENGINE_API virtual void animate(Renderer* renderer)
+			NESSENGINE_API virtual void do_animation(Renderer* renderer)
 			{
 
 				m_target->set_opacity(m_target->get_opacity() - renderer->time_factor() * m_speed);
 				if (m_target->get_opacity() <= 0.0f)
 				{
 					m_target->set_opacity(0.0f);
-					this->destroy();
+					this->remove_animation();
 					if (m_remove_when_done)
 					{
 						m_target->parent()->remove(m_target);

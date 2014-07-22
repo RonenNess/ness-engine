@@ -126,9 +126,6 @@ int _tmain(int argc, _TCHAR* argv[])
 		// render the scene
 		renderer.start_frame();
 
-		// do animatins
-		renderer.do_animations();
-
 		// do players events
 		player1.do_events();
 		player2.do_events();
