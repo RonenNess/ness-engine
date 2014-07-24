@@ -1,5 +1,5 @@
 /*
-* NessEngine TileMap demo. creates a tilemap and gives basic editing toolbar.
+* NessEngine Isometric tileMap demo. creates a custom tilemap object and turn it isometric. gives basic editing toolbar.
 * PLEASE NOTE: this project relays on the folder examples/ness-engine to be one step above the project dir. so make sure you include it as well.
 *				also, the vs project adds the libs dir to the PATH variable when running debug/release. so if you want to run the exectuables outside 
 *				visual studio (by clicking on the exectuable), you'll need to copy the dll files to the same dir as the exe.
@@ -24,7 +24,7 @@ int _tmain(int argc, _TCHAR* argv[])
 {
 	// init and create a renderer
 	Ness::init();
-	Ness::Renderer render("Tilemap demo!", Ness::Sizei(800, 600));
+	Ness::Renderer render("Isometric tilemap demo!", Ness::Sizei(800, 600));
 
 	// create a new scene
 	Ness::ScenePtr scene = render.create_scene();
@@ -44,20 +44,24 @@ int _tmain(int argc, _TCHAR* argv[])
 	selectedTile->set_anchor(Ness::Point(0.5f, 1.0f));
 	selectedTile->set_filled(false);
 
+	// create the toolbar node
+	Ness::NodePtr toolNode = scene->create_node();
+
 	// create the tile selection box
-	Ness::SpritePtr tilesToolbar = scene->create_sprite("tilemap.png");
+	Ness::SpritePtr tilesToolbar = toolNode->create_sprite("tilemap.png");
 	tilesToolbar->set_blend_mode(Ness::BLEND_MODE_BLEND);
 	tilesToolbar->set_static(true);
 
-	// create the tile selection red border
-	Ness::RectangleShapePtr tilesToolbarBorder = scene->create_rectangle();
+	// create the tile selection background
+	Ness::RectangleShapePtr tilesToolbarBorder = toolNode->create_rectangle(false);
+	toolNode->add_first(tilesToolbarBorder);
 	tilesToolbarBorder->set_size(tilesToolbar->get_size());
-	tilesToolbarBorder->set_color(Ness::Color::RED);
+	tilesToolbarBorder->set_color(Ness::Color::GREY);
 	tilesToolbarBorder->set_static(true);
-	tilesToolbarBorder->set_filled(false);
+	tilesToolbarBorder->set_filled(true);
 
 	// create the highlight of the selected tile from the toolbar on the left
-	Ness::RectangleShapePtr tilesToolbarSelectedType = scene->create_rectangle();
+	Ness::RectangleShapePtr tilesToolbarSelectedType = toolNode->create_rectangle();
 	tilesToolbarSelectedType->set_size(TileSize);
 	tilesToolbarSelectedType->set_color(Ness::Color(1.0f, 0.0f, 0.0f, 0.45f));
 	tilesToolbarSelectedType->set_static(true);

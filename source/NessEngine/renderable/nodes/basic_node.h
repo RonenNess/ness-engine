@@ -28,6 +28,7 @@ namespace Ness
 
 		// add/remove sub entity or node
 		NESSENGINE_API virtual void add(const RenderablePtr& object);
+		NESSENGINE_API virtual void add_first(const RenderablePtr& object);
 		NESSENGINE_API virtual void remove(const RenderablePtr& object);
 
 		// called whenever transformations are updated

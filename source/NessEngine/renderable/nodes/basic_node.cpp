@@ -39,6 +39,13 @@ namespace Ness
 		object->__change_parent(this);
 	}
 
+	void BaseNode::add_first(const RenderablePtr& object)
+	{
+		object->transformations_update();
+		m_entities.insert(m_entities.begin(), object);
+		object->__change_parent(this);
+	}
+
 	void BaseNode::remove(const RenderablePtr& object)
 	{
 		object->transformations_update();

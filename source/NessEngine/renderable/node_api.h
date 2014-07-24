@@ -27,7 +27,9 @@ namespace Ness
 		virtual const SRenderTransformations& get_absolute_transformations() = 0;
 
 		// add/remove entities from this node
+		// add first adds to the begining of the list, i.e. to the absolute background.
 		NESSENGINE_API virtual void add(const RenderablePtr& object) = 0;
+		NESSENGINE_API virtual void add_first(const RenderablePtr& object) = 0;
 		NESSENGINE_API virtual void remove(const RenderablePtr& object) = 0;
 
 		// render this scene node (all nodes must also be renderable)

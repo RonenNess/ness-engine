@@ -41,15 +41,15 @@ namespace Ness
 			BaseNode(renderer) {}
 
 		// create and return a son entities
-		NESSENGINE_API virtual NodePtr create_node();
-		NESSENGINE_API virtual ZNodePtr create_znode();
-		NESSENGINE_API virtual LightNodePtr create_light_node();
-		NESSENGINE_API virtual RectangleShapePtr create_rectangle();
-		NESSENGINE_API virtual SpritePtr create_sprite(const String& textureName);
-		NESSENGINE_API virtual CanvasPtr create_canvas(const String& textureName, const Sizei& size = Sizei::ZERO);
-		NESSENGINE_API virtual TileMapPtr create_tilemap(const String& spriteFile, Sizei mapSize, Size singleTileSize = Size(36, 36));
-		NESSENGINE_API virtual TextPtr create_text(const String& fontFile, const String& text, int fontSize = 12);
-		NESSENGINE_API virtual MultiTextPtr create_multitext(const String& fontFile, const String& text, int fontSize = 12);
+		NESSENGINE_API virtual NodePtr create_node(bool add_immediatly=true);
+		NESSENGINE_API virtual ZNodePtr create_znode(bool add_immediatly=true);
+		NESSENGINE_API virtual LightNodePtr create_light_node(bool add_immediatly=true);
+		NESSENGINE_API virtual RectangleShapePtr create_rectangle(bool add_immediatly=true);
+		NESSENGINE_API virtual SpritePtr create_sprite(const String& textureName, bool add_immediatly=true);
+		NESSENGINE_API virtual CanvasPtr create_canvas(const String& textureName, const Sizei& size = Sizei::ZERO, bool add_immediatly=true);
+		NESSENGINE_API virtual TileMapPtr create_tilemap(const String& spriteFile, Sizei mapSize, Size singleTileSize = Size(36, 36), bool add_immediatly=true);
+		NESSENGINE_API virtual TextPtr create_text(const String& fontFile, const String& text, int fontSize = 12, bool add_immediatly=true);
+		NESSENGINE_API virtual MultiTextPtr create_multitext(const String& fontFile, const String& text, int fontSize = 12, bool add_immediatly=true);
 
 	};
 };

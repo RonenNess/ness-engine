@@ -80,6 +80,7 @@ namespace Ness
 
 		// add/remove entities from this node - illegal in tilesmap node!
 		NESSENGINE_API virtual void add(const RenderablePtr& object) {throw IllegalAction("Cannot add new entities to tilemap!");}
+		NESSENGINE_API virtual void add_first(const RenderablePtr& object) {throw IllegalAction("Cannot add new entities to tilemap!");}
 		NESSENGINE_API virtual void remove(const RenderablePtr& object) {throw IllegalAction("Cannot remove entities from tilemap!");}
 
 		// apply the given function to all tiles
