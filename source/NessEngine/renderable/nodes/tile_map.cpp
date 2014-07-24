@@ -56,8 +56,8 @@ namespace Ness
 	{				
 		// set position
 		sprite->set_position(Point(
-			(float)(index.x * m_tile_size.x) + (m_tile_size.x * 0.5f), 
-			(float)(index.y * m_tile_size.y) + m_tile_size.y));
+			(float)(index.x * m_sprites_distance.x) + (m_tile_size.x * 0.5f), 
+			(float)(index.y * m_sprites_distance.y) + m_tile_size.y));
 
 		// set size, anchor and default blend mode
 		sprite->set_size(m_tile_size);
@@ -130,12 +130,12 @@ namespace Ness
 		}
 
 		// get first and last tiles to render
-		int startI = pos.x < 0 ? (int)(-pos.x / m_tile_size.x) : 0;
+		int startI = pos.x < 0 ? (int)(-pos.x / m_sprites_distance.x) : 0;
 		if (startI >= m_size.x) startI = m_size.x - 1;
-		int startJ = pos.y < 0 ? (int)(-pos.y / m_tile_size.y) : 0;
+		int startJ = pos.y < 0 ? (int)(-pos.y / m_sprites_distance.y) : 0;
 		if (startJ >= m_size.y) startJ = m_size.y - 1;
-		int endI = startI + (int)(m_renderer->get_target_size().x / m_tile_size.x) + 2;
-		int endJ = startJ + (int)(m_renderer->get_target_size().y / m_tile_size.y) + 2;
+		int endI = startI + (int)((m_renderer->get_target_size().x + m_tile_size.x) / m_sprites_distance.x) + 1;
+		int endJ = startJ + (int)((m_renderer->get_target_size().y + m_tile_size.y) / m_sprites_distance.y) + 1;
 		if (endI >= m_size.x) endI = m_size.x - 1;
 		if (endJ >= m_size.y) endJ = m_size.y - 1;
 		ret.x = startI;
@@ -149,8 +149,8 @@ namespace Ness
 	{
 		static SpritePtr empty;
 		Pointi index;
-		index.x = (int)(position.x / m_tile_size.x);
-		index.y = (int)(position.y / m_tile_size.y);
+		index.x = (int)(position.x / m_sprites_distance.x);
+		index.y = (int)(position.y / m_sprites_distance.y);
 		if (index.x < 0 || index.y < 0 || index.x >= m_size.x || index.y >= m_size.y)
 			return empty;
 		return get_sprite(index);
@@ -169,19 +169,19 @@ namespace Ness
 		pos.x -= camera->position.x;
 		pos.y -= camera->position.y;
 
-		int startI = pos.x < 0 ? (int)(-pos.x / m_tile_size.x) : 0;
+		int startI = pos.x < 0 ? (int)(-pos.x / m_sprites_distance.x) : 0;
 		if (startI >= m_size.x)
 			return false;
 		
-		int startJ = pos.y < 0 ? (int)(-pos.y / m_tile_size.y) : 0;
+		int startJ = pos.y < 0 ? (int)(-pos.y / m_sprites_distance.y) : 0;
 		if (startJ >= m_size.y)
 			return false;
 		
-		int endI = startI + (int)(m_renderer->get_target_size().x / m_tile_size.x) + 2;
+		int endI = startI + (int)((m_renderer->get_target_size().x + m_tile_size.x) / m_sprites_distance.x) + 1;
 		if (endI <= 0)
 			return false;
 		
-		int endJ = startJ + (int)(m_renderer->get_target_size().y / m_tile_size.y) + 2;
+		int endJ = startJ + (int)((m_renderer->get_target_size().y + m_tile_size.y) / m_sprites_distance.y) + 1;
 		if (endJ <= 0)
 			return false;
 

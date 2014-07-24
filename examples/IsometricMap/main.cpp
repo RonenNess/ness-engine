@@ -1,5 +1,5 @@
 /*
-* NessEngine Depth ordering demo. creates a depth map with multiple characters and objects, illustrating the z ordering feature (znode).
+* NessEngine TileMap demo. creates a tilemap and gives basic editing toolbar.
 * PLEASE NOTE: this project relays on the folder examples/ness-engine to be one step above the project dir. so make sure you include it as well.
 *				also, the vs project adds the libs dir to the PATH variable when running debug/release. so if you want to run the exectuables outside 
 *				visual studio (by clicking on the exectuable), you'll need to copy the dll files to the same dir as the exe.
@@ -8,16 +8,10 @@
 */
 
 #include <NessEngine.h>
+#include "isoTilemap.h"
 
 // is the program still running
 bool g_running = true;
-
-// number of random objects
-const int NumOfObjects = 500;
-
-// resolution
-#define SCREEN_WIDTH 800
-#define SCREEN_HEIGHT 600
 
 // callback to handle exit events
 void HandleEvents(const SDL_Event& event)
@@ -30,40 +24,59 @@ int _tmain(int argc, _TCHAR* argv[])
 {
 	// init and create a renderer
 	Ness::init();
-	Ness::Renderer render("Depth ordering demo!", Ness::Sizei(SCREEN_WIDTH, SCREEN_HEIGHT));
+	Ness::Renderer render("Tilemap demo!", Ness::Sizei(800, 600));
 
 	// create a new scene
 	Ness::ScenePtr scene = render.create_scene();
 
 	// create the tilemap
-	const int TileSize = 64;
-	const int TileMapSize = 100;
-	const int TotalMapSize = (TileSize * TileMapSize);
-	Ness::TileMapPtr map = scene->create_tilemap("tilemap.jpg", Ness::Sizei(TileMapSize, TileMapSize), Ness::Sizei(TileSize, TileSize));
+	const Ness::Sizei TileSize(128, 75);				// <-- 128x75 is the size of a single tile in the spritesheet
+	const Ness::Pointi TilesInSpritesheet(2, 4);		// <-- 2 is how many tile types we got in the spritesheet on X axis, 4 is how many we got on Y axis
 
-	// create the znode - a depth-based ordering scene node
-	Ness::NodePtr znode = scene->create_znode();
+	Ness::TileMapPtr map = ness_make_ptr<IsoTilemap>(&render, "tilemap.png", Ness::Sizei(100, 100), TileSize);
+	scene->add(map);
+	map->set_all_tiles_type(Ness::Pointi(0, 0), TilesInSpritesheet);
+
+	// create the highlight of the currently selected tile
+	Ness::RectangleShapePtr selectedTile = scene->create_rectangle();
+	selectedTile->set_size(TileSize);
+	selectedTile->set_color(Ness::Color::GREEN);
+	selectedTile->set_anchor(Ness::Point(0.5f, 1.0f));
+	selectedTile->set_filled(false);
+
+	// create the tile selection box
+	Ness::SpritePtr tilesToolbar = scene->create_sprite("tilemap.png");
+	tilesToolbar->set_blend_mode(Ness::BLEND_MODE_BLEND);
+	tilesToolbar->set_static(true);
+
+	// create the tile selection red border
+	Ness::RectangleShapePtr tilesToolbarBorder = scene->create_rectangle();
+	tilesToolbarBorder->set_size(tilesToolbar->get_size());
+	tilesToolbarBorder->set_color(Ness::Color::RED);
+	tilesToolbarBorder->set_static(true);
+	tilesToolbarBorder->set_filled(false);
+
+	// create the highlight of the selected tile from the toolbar on the left
+	Ness::RectangleShapePtr tilesToolbarSelectedType = scene->create_rectangle();
+	tilesToolbarSelectedType->set_size(TileSize);
+	tilesToolbarSelectedType->set_color(Ness::Color(1.0f, 0.0f, 0.0f, 0.45f));
+	tilesToolbarSelectedType->set_static(true);
+	tilesToolbarSelectedType->set_filled(true);
+	tilesToolbarSelectedType->set_blend_mode(Ness::BLEND_MODE_BLEND);
+
+	// the currently selected tile type to set
+	Ness::Pointi SelectedTileType(0, 0);
+
+	// create instructions text
+	Ness::TextPtr instructions = scene->create_text("../ness-engine/resources/fonts/courier.ttf", 
+		"use arrows to move. pick tile type from the left bar and click anywhere to set.", 16);
+	instructions->set_color(Ness::Color::BLACK);
+	instructions->set_position(Ness::Point(0.0f, (float)render.get_screen_size().y));
+	instructions->set_anchor(Ness::Point(0.0f, 1.0f));
 
 	// create a camera
 	Ness::CameraPtr camera = render.create_camera();
-	float PlayerSpeed = 250.0f;
-
-	// create random trees and rocks
-	for (int i = 0; i < NumOfObjects; i++)
-	{
-		Ness::SpritePtr object;
-		object = znode->create_sprite( i < 200 ? "tree.png" : "rock.png");
-		object->set_anchor(Ness::Point(0.5f, 1.0f));
-		object->set_position(Ness::Pointi(rand() % TotalMapSize, rand() % TotalMapSize));
-		object->set_zindex(object->get_position().y);
-		object->set_blend_mode(Ness::BLEND_MODE_BLEND);
-	}
-
-	// create the player character!
-	Ness::SpritePtr player = znode->create_sprite("fighter.png");
-	player->set_anchor(Ness::Point(0.5f, 1.0f));
-	player->set_position(Ness::Pointi(TotalMapSize / 2, TotalMapSize / 2));
-	player->set_blend_mode(Ness::BLEND_MODE_BLEND);
+	float CameraSpeed = 500.0f;
 
 	// create the event handlers
 	Ness::Utils::Keyboard keyboard;
@@ -71,13 +84,6 @@ int _tmain(int argc, _TCHAR* argv[])
 	Ness::Utils::EventsPoller EventsPoller;
 	EventsPoller.add_handler(mouse);
 	EventsPoller.add_handler(keyboard);
-
-	// create the fps show
-	Ness::TextPtr fpsShow = scene->create_text("../ness-engine/resources/fonts/courier.ttf", "fps", 20);
-
-	// create instructions text
-	Ness::TextPtr instructions = scene->create_text("../ness-engine/resources/fonts/courier.ttf", "use arrows to move around and see z-ordering in action.", 20);
-	instructions->set_position(Ness::Point(0, 24));
 
 	// loop until exit button is pressed
 	while( g_running )
@@ -88,48 +94,70 @@ int _tmain(int argc, _TCHAR* argv[])
 		// render the scene
 		render.start_frame();
 
-		// do keyboard control - move player around
-		Ness::Point playerPos = player->get_position();
+		// do keyboard control
 		if (keyboard.ket_state(SDLK_DOWN))
 		{
-			playerPos.y += render.time_factor() * PlayerSpeed;
+			camera->position.y += render.time_factor() * CameraSpeed;
 		}
 		if (keyboard.ket_state(SDLK_UP))
 		{
-			playerPos.y -= render.time_factor() * PlayerSpeed;
+			camera->position.y -= render.time_factor() * CameraSpeed;
 		}
 		if (keyboard.ket_state(SDLK_LEFT))
 		{
-			playerPos.x -= render.time_factor() * PlayerSpeed;
+			camera->position.x -= render.time_factor() * CameraSpeed;
 		}
 		if (keyboard.ket_state(SDLK_RIGHT))
 		{
-			playerPos.x += render.time_factor() * PlayerSpeed;
+			camera->position.x += render.time_factor() * CameraSpeed;
 		}
 		if (keyboard.ket_state(SDLK_ESCAPE))
 		{
 			g_running = false;
 		}
-		player->set_position(playerPos);
 
-		// fix player zorder based on his y position
-		player->set_zindex(playerPos.y);
+		// pick the tile we currently point on with the mouse
+		Ness::SpritePtr tile = map->get_sprite_by_position((Ness::Pointi)camera->position + mouse.position());
 
-		// set camera to focus on player
-		camera->position.x = player->get_position().x - (render.get_screen_size().x * 0.5f);
-		camera->position.y = player->get_position().y - (render.get_screen_size().y * 0.5f);
+		// if a tile is picked set the visual on it
+		if (tile)
+		{
+			selectedTile->set_position(tile->get_position());
+			selectedTile->set_visible(true);
+		}
+		else
+		{
+			selectedTile->set_visible(false);
+		}
+		
+
+		// if left mouse click is down:
+		if (mouse.is_down(Ness::Utils::MOUSE_LEFT))
+		{
+			// if mouse position is inside the tile selection, we pick a new tile type:
+			if (mouse.position().x <= tilesToolbar->get_size().x && mouse.position().y <= tilesToolbar->get_size().y)
+			{
+				SelectedTileType.x = (int)(mouse.position().x / TileSize.x);
+				SelectedTileType.y = (int)(mouse.position().y / TileSize.y);
+				tilesToolbarSelectedType->set_position(SelectedTileType * TileSize);
+			}
+
+			// else, if we got selected tile, change its type
+			else if (tile)
+			{
+				tile->set_source_from_sprite_sheet(SelectedTileType, TilesInSpritesheet);
+			}
+		}
 
 		// render and end the scene
 		scene->render(camera);
 		render.end_frame();
-
-		// update fps show
-		std::string FpsShow = std::string("fps ") + (render.get_flags() & Ness::RENDERER_FLAG_VSYNC ? "(vsync): " : ": ");
-		fpsShow->change_text(FpsShow + std::to_string((long long)render.fps()));
 	}
 
 	// cleanup. 
 	// note: the 'remove' lines are not mandatory, they are just to illustrate how to remove an entity from the scene.
+	scene->remove(tilesToolbarBorder);
+	scene->remove(tilesToolbar);
 	scene->remove(map);
 	return 0;
 }
