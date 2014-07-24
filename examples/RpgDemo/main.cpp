@@ -1,5 +1,5 @@
 /*
-* An RPG demo project.
+* RPG demo project.
 * PLEASE NOTE: this project relays on the folder examples/ness-engine to be one step above the project dir. so make sure you include it as well.
 *				also, the vs project adds the libs dir to the PATH variable when running debug/release. so if you want to run the exectuables outside 
 *				visual studio (by clicking on the exectuable), you'll need to copy the dll files to the same dir as the exe.
@@ -19,8 +19,8 @@ bool g_running = true;
 const int NumOfObjects = 500;
 
 // resolution
-#define SCREEN_WIDTH 800
-#define SCREEN_HEIGHT 600
+#define SCREEN_WIDTH 1000
+#define SCREEN_HEIGHT 800
 
 // callback to handle exit events
 void HandleEvents(const SDL_Event& event)
@@ -33,7 +33,7 @@ int _tmain(int argc, _TCHAR* argv[])
 {
 	// init and create a renderer
 	Ness::init();
-	Ness::Renderer render("Depth ordering demo!", Ness::Sizei(SCREEN_WIDTH, SCREEN_HEIGHT));
+	Ness::Renderer render("Wolf RPG demo!", Ness::Sizei(SCREEN_WIDTH, SCREEN_HEIGHT));
 
 	// create a new scene
 	Ness::ScenePtr scene = render.create_scene();
@@ -50,9 +50,7 @@ int _tmain(int argc, _TCHAR* argv[])
 
 	// create the light node
 	Ness::LightNodePtr lightNode = scene->create_light_node();
-	lightNode->set_ambient_color(Ness::Color(0.5f, 0.5f, 0.6f));
-	Ness::LightPtr light1 = lightNode->create_light("../ness-engine/resources/gfx/light_round.jpg", Ness::Color::WHITE);
-	light1->set_scale(Ness::Point(2.0f, 1.75f));
+	lightNode->set_ambient_color(Ness::Color(0.45f, 0.45f, 0.56f));
 
 	// create a camera
 	Ness::CameraPtr camera = render.create_camera();
@@ -83,8 +81,16 @@ int _tmain(int argc, _TCHAR* argv[])
 	}
 
 	// create the player character!
-	Character player(znode, "gfx/wolf.png");
-	player.set_position(Ness::Pointi(TotalMapSize / 2, TotalMapSize / 2));
+	NessSharedPtr<Character> player = ness_make_ptr<Character>(lightNode, znode, "gfx/wolf.png");
+	render.register_animator(player);
+	player->set_position(Ness::Pointi(TotalMapSize / 2, TotalMapSize / 2));
+	
+	// add the character sprite (just a guy standing in the forest, nothing serious)
+	NessSharedPtr<Character> wizard = ness_make_ptr<Character>(lightNode, znode, "gfx/player.png");
+	render.register_animator(wizard);
+	wizard->set_position(Ness::Pointi(TotalMapSize / 2 + 100, TotalMapSize / 2));
+	wizard->get_light()->set_scale(3.0f);
+	wizard->get_light()->set_color(Ness::Color::GREEN);
 
 	// create the event handlers
 	Ness::Utils::Keyboard keyboard;
@@ -97,7 +103,7 @@ int _tmain(int argc, _TCHAR* argv[])
 	Ness::TextPtr fpsShow = scene->create_text("../ness-engine/resources/fonts/courier.ttf", "fps", 20);
 
 	// create instructions text
-	Ness::TextPtr instructions = scene->create_text("../ness-engine/resources/fonts/courier.ttf", "use arrows to move around and see z-ordering in action.", 20);
+	Ness::TextPtr instructions = scene->create_text("../ness-engine/resources/fonts/courier.ttf", "use arrows to move around, space to shoot fireball", 20);
 	instructions->set_position(Ness::Point(0, 24));
 
 	// loop until exit button is pressed
@@ -110,55 +116,42 @@ int _tmain(int argc, _TCHAR* argv[])
 		render.start_frame();
 
 		// do keyboard control - move player around
-		Ness::Point playerPos = player.get_position();
 		if (keyboard.ket_state(SDLK_DOWN))
 		{
-			playerPos.y += render.time_factor() * PlayerSpeed;
-			player.walk(DIRECTION_DOWN);
+			player->walk(DIRECTION_DOWN);
 		}
 		else if (keyboard.ket_state(SDLK_UP))
 		{
-			playerPos.y -= render.time_factor() * PlayerSpeed;
-			player.walk(DIRECTION_UP);
+			player->walk(DIRECTION_UP);
 		}
 		else if (keyboard.ket_state(SDLK_LEFT))
 		{
-			playerPos.x -= render.time_factor() * PlayerSpeed;
-			player.walk(DIRECTION_LEFT);
+			player->walk(DIRECTION_LEFT);
 		}
 		else if (keyboard.ket_state(SDLK_RIGHT))
 		{
-			playerPos.x += render.time_factor() * PlayerSpeed;
-			player.walk(DIRECTION_RIGHT);
+			player->walk(DIRECTION_RIGHT);
 		}
 		else
 		{
-			player.stop();
+			player->stop();
 		}
 		if (keyboard.ket_state(SDLK_SPACE))
 		{
-			player.shoot();
+			player->shoot();
 		}
 		if (keyboard.ket_state(SDLK_ESCAPE))
 		{
 			g_running = false;
 		}
-		player.set_position(playerPos);
-
-		// fix player zorder based on his y position
-		player.set_zindex(playerPos.y);
-		light1->set_zindex(playerPos.y);
 
 		// set camera to focus on player
-		camera->position.x = player.get_position().x - (render.get_screen_size().x * 0.5f);
-		camera->position.y = player.get_position().y - (render.get_screen_size().y * 0.5f) - player.get_absolute_size().y * 0.5f;
+		camera->position.x = player->get_position().x - (render.get_screen_size().x * 0.5f);
+		camera->position.y = player->get_position().y - (render.get_screen_size().y * 0.5f) - player->get_absolute_size().y * 0.5f;
 
 		// fix camera position
 		camera->position.limitx(0, TotalMapSize - SCREEN_WIDTH);
 		camera->position.limity(0, TotalMapSize - SCREEN_HEIGHT);
-
-		// set light position
-		light1->set_position(playerPos - Ness::Point(0.0f, player.get_absolute_size().y * 0.25f));
 
 		// render scene and end frame
 		scene->render(camera);

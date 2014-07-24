@@ -82,10 +82,12 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="character.cpp" />
+    <ClCompile Include="fireball.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="sprite3d.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="fireball.h" />
     <ClInclude Include="isoTilemap.h" />
     <ClInclude Include="character.h" />
     <ClInclude Include="sprite3d.h" />

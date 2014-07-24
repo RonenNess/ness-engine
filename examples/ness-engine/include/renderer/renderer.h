@@ -36,6 +36,7 @@ namespace Ness
 		unsigned int							m_start_frame_time;			// tick count at the begining of the frame
 		float									m_timefactor;				// time delta (time factor) from begining to end of frame
 		float									m_second_timer;				// count time elapse until getting to a second (0 to 1.0)
+		float									m_total_time;				// total time passed (1.0f = second)
 		int										m_curr_fps_count;			// count fps
 		int										m_fps;						// final fps, updates every second
 		Sizei									m_screen_size;				// screen size/ resolution
@@ -59,6 +60,9 @@ namespace Ness
 
 		// get time factor for animation calculations
 		NESSENGINE_API inline float time_factor() const {return m_timefactor;}
+
+		// get total time passed since starting rendering and until now (counting only when calling end frame)
+		NESSENGINE_API inline float get_total_time_elapse() const {return m_total_time;}
 
 		// register / remove an animator
 		NESSENGINE_API void register_animator(const Animators::AnimatorPtr& animator);

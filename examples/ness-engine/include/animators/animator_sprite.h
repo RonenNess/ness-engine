@@ -68,7 +68,7 @@ namespace Ness
 					case SPRITE_ANIM_END_REMOVE_SPRITE:
 						m_sprite->parent()->remove(m_sprite);
 					case SPRITE_ANIM_END_DO_NOTHING:
-						this->remove_animation();
+						this->remove_from_animation_queue();
 						break;
 					}
 				}

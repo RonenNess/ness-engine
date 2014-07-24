@@ -9,18 +9,21 @@ enum EDirection
 };
 
 // represent a playable character
-class Character
+class Character : public Ness::Animators::AnimatorAPI
 {
 private:
 	Ness::NodePtr					m_parent;
+	Ness::LightNodePtr				m_light_node;
+	Ness::LightPtr					m_light;
 	Ness::SpritePtr					m_sprite;
 	Ness::Animators::AnimatorPtr	m_animator;
 	EDirection						m_last_direction;
 	bool							m_is_walking;
+	float							m_fire_cooldown;
 
 public:
 	// create the character
-	Character(Ness::NodePtr& parent, const Ness::String& sprite);
+	Character(Ness::LightNodePtr& lightNode, Ness::NodePtr& parent, const Ness::String& sprite);
 
 	// stop walking
 	void stop();
@@ -36,4 +39,10 @@ public:
 	inline const Ness::Point& get_position() const {return m_sprite->get_position();}
 	inline Ness::Size get_absolute_size() const {return m_sprite->get_absolute_size();}
 	inline void set_zindex(float z) {m_sprite->set_zindex(z);}
+
+	// get the character light
+	inline Ness::LightPtr& get_light() {return m_light;}
+
+	// do animations every frame
+	virtual void do_animation(Ness::Renderer* renderer);
 };

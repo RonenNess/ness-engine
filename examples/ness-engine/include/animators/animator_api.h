@@ -20,18 +20,18 @@ namespace Ness
 		class AnimatorAPI
 		{
 		private:
-			bool m_animation_paused;
+			bool m_animator_paused;
 			bool m_animator_should_be_removed;
 
 		public:
-			AnimatorAPI() : m_animation_paused(false), m_animator_should_be_removed(false) {}
+			AnimatorAPI() : m_animator_paused(false), m_animator_should_be_removed(false) {}
 
 			// pause/unpause animation
-			NESSENGINE_API inline bool is_animation_paused() const {return m_animation_paused;}
-			NESSENGINE_API inline void pause_animation(bool doPause) {m_animation_paused = doPause;}
+			NESSENGINE_API inline bool is_animation_paused() const {return m_animator_paused;}
+			NESSENGINE_API inline void pause_animation(bool doPause) {m_animator_paused = doPause;}
 
 			// destroy this animator
-			NESSENGINE_API void remove_animation() {m_animator_should_be_removed = true;}
+			NESSENGINE_API void remove_from_animation_queue() {m_animator_should_be_removed = true;}
 			inline bool __should_be_removed() const {return m_animator_should_be_removed;}
 
 			// animate this object. note: to destroy the animator call 'destroy()', even from within the animator itself.

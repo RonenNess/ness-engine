@@ -24,6 +24,9 @@
     <ClCompile Include="character.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="fireball.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="sprite3d.h">
@@ -33,6 +36,9 @@
       <Filter>Source Files</Filter>
     </ClInclude>
     <ClInclude Include="character.h">
+      <Filter>Source Files</Filter>
+    </ClInclude>
+    <ClInclude Include="fireball.h">
       <Filter>Source Files</Filter>
     </ClInclude>
   </ItemGroup>

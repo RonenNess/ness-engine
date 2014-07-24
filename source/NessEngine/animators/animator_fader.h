@@ -39,7 +39,7 @@ namespace Ness
 				if (m_target->get_opacity() >= 1.0f)
 				{
 					m_target->set_opacity(1.0f);
-					this->remove_animation();
+					this->remove_from_animation_queue();
 				}
 			}
 		};
@@ -65,7 +65,7 @@ namespace Ness
 				if (m_target->get_opacity() <= 0.0f)
 				{
 					m_target->set_opacity(0.0f);
-					this->remove_animation();
+					this->remove_from_animation_queue();
 					if (m_remove_when_done)
 					{
 						m_target->parent()->remove(m_target);

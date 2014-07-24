@@ -7,7 +7,7 @@ namespace Ness
 {
 	// create the renderer
 	Renderer::Renderer(const char* windowName, const Sizei& screenSize, bool FullScreen, int rendererFlags) :
-		m_second_timer(0), m_curr_fps_count(0), m_fps(0), m_timefactor(0), m_screen_size(screenSize), 
+		m_second_timer(0), m_total_time(0), m_curr_fps_count(0), m_fps(0), m_timefactor(0), m_screen_size(screenSize), 
 		m_frameid(0), m_background_color(75, 0, 255, 255), m_flags(rendererFlags), m_auto_animate(true)
 	{
 
@@ -76,6 +76,7 @@ namespace Ness
 		// render everything and set time factor
 		SDL_RenderPresent(m_renderer);
 		m_timefactor = (SDL_GetTicks() - m_start_frame_time) / 1000.0f;
+		m_total_time += m_timefactor;
 		m_second_timer += m_timefactor;
 		if (m_second_timer >= 1.0f)
 		{
