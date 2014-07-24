@@ -42,7 +42,7 @@ namespace Ness
 				}
 				NewSprite->__change_parent(this);
 				
-				// arrange it in the grid
+				// arrange current tile in the grid
 				arrange_sprite(NewSprite, index);
 
 				// add to matrix of tiles

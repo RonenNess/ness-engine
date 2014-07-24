@@ -1,5 +1,5 @@
 /*
-* RPG demo project.
+* NessEngine Depth ordering demo. creates a depth map with multiple characters and objects, illustrating the z ordering feature (znode).
 * PLEASE NOTE: this project relays on the folder examples/ness-engine to be one step above the project dir. so make sure you include it as well.
 *				also, the vs project adds the libs dir to the PATH variable when running debug/release. so if you want to run the exectuables outside 
 *				visual studio (by clicking on the exectuable), you'll need to copy the dll files to the same dir as the exe.
@@ -8,8 +8,6 @@
 */
 
 #include <NessEngine.h>
-#include "sprite3d.h"
-#include "character.h"
 
 // is the program still running
 bool g_running = true;
@@ -32,23 +30,19 @@ int _tmain(int argc, _TCHAR* argv[])
 {
 	// init and create a renderer
 	Ness::init();
-	Ness::Renderer render("Wolf RPG demo!", Ness::Sizei(SCREEN_WIDTH, SCREEN_HEIGHT));
+	Ness::Renderer render("Depth ordering demo!", Ness::Sizei(SCREEN_WIDTH, SCREEN_HEIGHT));
 
 	// create a new scene
 	Ness::ScenePtr scene = render.create_scene();
 
 	// create the tilemap
-	const int TileSize = 128;
+	const int TileSize = 64;
 	const int TileMapSize = 100;
-	const int TotalMapSize = (TileSize * (TileMapSize - 1));
-	Ness::TileMapPtr map =scene->create_tilemap("gfx/tilemap.jpg", Ness::Sizei(TileMapSize, TileMapSize), Ness::Sizei(TileSize, TileSize));
+	const int TotalMapSize = (TileSize * TileMapSize);
+	Ness::TileMapPtr map = scene->create_tilemap("tilemap.jpg", Ness::Sizei(TileMapSize, TileMapSize), Ness::Sizei(TileSize, TileSize));
 
 	// create the znode - a depth-based ordering scene node
 	Ness::NodePtr znode = scene->create_znode();
-
-	// create the light node
-	Ness::LightNodePtr lightNode = scene->create_light_node();
-	lightNode->set_ambient_color(Ness::Color(0.45f, 0.45f, 0.56f));
 
 	// create a camera
 	Ness::CameraPtr camera = render.create_camera();
@@ -57,21 +51,8 @@ int _tmain(int argc, _TCHAR* argv[])
 	// create random trees and rocks
 	for (int i = 0; i < NumOfObjects; i++)
 	{
-		int type = rand() % 4;
 		Ness::SpritePtr object;
-		switch (type)
-		{
-		case 0:
-			object = ness_make_ptr<Sprite3d>(lightNode, "gfx/rock.png");
-			break;
-		case 1:
-			object = ness_make_ptr<Sprite3d>(lightNode, "gfx/bush.png");
-			break;
-		default:
-			object = ness_make_ptr<Sprite3d>(lightNode, "gfx/tree.png");
-			break;
-		}
-		znode->add(object);
+		object = znode->create_sprite( i < 200 ? "tree.png" : "rock.png");
 		object->set_anchor(Ness::Point(0.5f, 1.0f));
 		object->set_position(Ness::Pointi(rand() % TotalMapSize, rand() % TotalMapSize));
 		object->set_zindex(object->get_position().y);
@@ -79,16 +60,10 @@ int _tmain(int argc, _TCHAR* argv[])
 	}
 
 	// create the player character!
-	NessSharedPtr<Character> player = ness_make_ptr<Character>(lightNode, znode, "gfx/wolf.png");
-	render.register_animator(player);
+	Ness::SpritePtr player = znode->create_sprite("fighter.png");
+	player->set_anchor(Ness::Point(0.5f, 1.0f));
 	player->set_position(Ness::Pointi(TotalMapSize / 2, TotalMapSize / 2));
-	
-	// add the character sprite (just a guy standing in the forest, nothing serious)
-	NessSharedPtr<Character> wizard = ness_make_ptr<Character>(lightNode, znode, "gfx/player.png");
-	render.register_animator(wizard);
-	wizard->set_position(Ness::Pointi(TotalMapSize / 2 + 100, TotalMapSize / 2));
-	wizard->get_light()->set_scale(3.0f);
-	wizard->get_light()->set_color(Ness::Color::GREEN);
+	player->set_blend_mode(Ness::BLEND_MODE_BLEND);
 
 	// create the event handlers
 	Ness::Utils::Keyboard keyboard;
@@ -101,7 +76,7 @@ int _tmain(int argc, _TCHAR* argv[])
 	Ness::TextPtr fpsShow = scene->create_text("../ness-engine/resources/fonts/courier.ttf", "fps", 20);
 
 	// create instructions text
-	Ness::TextPtr instructions = scene->create_text("../ness-engine/resources/fonts/courier.ttf", "use arrows to move around, space to shoot fireball", 20);
+	Ness::TextPtr instructions = scene->create_text("../ness-engine/resources/fonts/courier.ttf", "use arrows to move around and see z-ordering in action.", 20);
 	instructions->set_position(Ness::Point(0, 24));
 
 	// loop until exit button is pressed
@@ -114,44 +89,37 @@ int _tmain(int argc, _TCHAR* argv[])
 		render.start_frame();
 
 		// do keyboard control - move player around
+		Ness::Point playerPos = player->get_position();
 		if (keyboard.ket_state(SDLK_DOWN))
 		{
-			player->walk(DIRECTION_DOWN);
+			playerPos.y += render.time_factor() * PlayerSpeed;
 		}
-		else if (keyboard.ket_state(SDLK_UP))
+		if (keyboard.ket_state(SDLK_UP))
 		{
-			player->walk(DIRECTION_UP);
+			playerPos.y -= render.time_factor() * PlayerSpeed;
 		}
-		else if (keyboard.ket_state(SDLK_LEFT))
+		if (keyboard.ket_state(SDLK_LEFT))
 		{
-			player->walk(DIRECTION_LEFT);
+			playerPos.x -= render.time_factor() * PlayerSpeed;
 		}
-		else if (keyboard.ket_state(SDLK_RIGHT))
+		if (keyboard.ket_state(SDLK_RIGHT))
 		{
-			player->walk(DIRECTION_RIGHT);
-		}
-		else
-		{
-			player->stop();
-		}
-		if (keyboard.ket_state(SDLK_SPACE))
-		{
-			player->shoot();
+			playerPos.x += render.time_factor() * PlayerSpeed;
 		}
 		if (keyboard.ket_state(SDLK_ESCAPE))
 		{
 			g_running = false;
 		}
+		player->set_position(playerPos);
+
+		// fix player zorder based on his y position
+		player->set_zindex(playerPos.y);
 
 		// set camera to focus on player
 		camera->position.x = player->get_position().x - (render.get_screen_size().x * 0.5f);
-		camera->position.y = player->get_position().y - (render.get_screen_size().y * 0.5f) - player->get_absolute_size().y * 0.5f;
+		camera->position.y = player->get_position().y - (render.get_screen_size().y * 0.5f);
 
-		// fix camera position
-		camera->position.limitx(0, TotalMapSize - SCREEN_WIDTH);
-		camera->position.limity(0, TotalMapSize - SCREEN_HEIGHT);
-
-		// render scene and end frame
+		// render and end the scene
 		scene->render(camera);
 		render.end_frame();
 
@@ -160,5 +128,8 @@ int _tmain(int argc, _TCHAR* argv[])
 		fpsShow->change_text(FpsShow + std::to_string((long long)render.fps()));
 	}
 
+	// cleanup. 
+	// note: the 'remove' lines are not mandatory, they are just to illustrate how to remove an entity from the scene.
+	scene->remove(map);
 	return 0;
 }

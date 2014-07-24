@@ -89,7 +89,7 @@ namespace Ness
 		// render this tilemap
 		NESSENGINE_API virtual void render(const CameraPtr& camera = NullCamera);
 
-	protected:
+	private:
 		// arrange a single tile sprite during creation
 		NESSENGINE_API void arrange_sprite(const SpritePtr& sprite, const Ness::Pointi& index);
 	};

@@ -14,7 +14,7 @@
     <ProjectGuid>{5A475E34-766E-4737-9AE8-86FE9CF3AEE7}</ProjectGuid>
     <Keyword>Win32Proj</Keyword>
     <RootNamespace>HelloWorld</RootNamespace>
-    <ProjectName>RpgDemo</ProjectName>
+    <ProjectName>DepthOrdering</ProjectName>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
@@ -81,15 +81,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="character.cpp" />
-    <ClCompile Include="fireball.cpp" />
     <ClCompile Include="main.cpp" />
-    <ClCompile Include="sprite3d.cpp" />
-  </ItemGroup>
-  <ItemGroup>
-    <ClInclude Include="fireball.h" />
-    <ClInclude Include="character.h" />
-    <ClInclude Include="sprite3d.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
