@@ -32,22 +32,41 @@ for root, dirs, files in os.walk("source"):
 
 
 # copy ness-engine winx86 binaries
-for version in ["vs2010", "vs2013"]:
-    LibDir = OUTDIR + "/lib/win_x86/" + version + "/"
+for version in [("vs2010", '100'), ("vs2013", '120')]:
+    
+    LibDir = OUTDIR + "/lib/win_x86/" + version[0] + "/"
     os.mkdir(LibDir)
-    shutil.copy(version + "/Debug/ness_engine_d.dll", LibDir)
-    shutil.copy(version + "/Debug/ness_engine_d.lib", LibDir)
-    shutil.copy(version + "/Release/ness_engine.dll", LibDir)
-    shutil.copy(version + "/Release/ness_engine.lib", LibDir)
+
+    # copy dll and libs
+    shutil.copy(version[0] + "/Debug/ness_engine_d.dll", LibDir)
+    shutil.copy(version[0] + "/Debug/ness_engine_d.lib", LibDir)
+    shutil.copy(version[0] + "/Release/ness_engine.dll", LibDir)
+    shutil.copy(version[0] + "/Release/ness_engine.lib", LibDir)
+
+    # copy debug symbols
+    shutil.copy(version[0] + "/Release/vc" + version[1] + ".pdb", LibDir)
+    shutil.copy(version[0] + "/Release/ness_engine.pdb", LibDir)
+    shutil.copy(version[0] + "/Debug/vc" + version[1] + ".pdb", LibDir + "/vc" + version[1] + "_d.pdb")
+    shutil.copy(version[0] + "/Debug/ness_engine_d.pdb", LibDir)
+    
 
 # copy ness-engine winx64 binaries
-for version in ["vs2013"]:
-    LibDir = OUTDIR + "/lib/win_x64/" + version + "/"
+for version in [("vs2013", '120')]:
+
+    LibDir = OUTDIR + "/lib/win_x64/" + version[0] + "/"
     os.mkdir(LibDir)
-    shutil.copy(version + "/x64/Debug/ness_engine_d.dll", LibDir)
-    shutil.copy(version + "/x64/Debug/ness_engine_d.lib", LibDir)
-    shutil.copy(version + "/x64/Release/ness_engine.dll", LibDir)
-    shutil.copy(version + "/x64/Release/ness_engine.lib", LibDir)
+
+    # copy dll and libs
+    shutil.copy(version[0] + "/x64/Debug/ness_engine_d.dll", LibDir)
+    shutil.copy(version[0] + "/x64/Debug/ness_engine_d.lib", LibDir)
+    shutil.copy(version[0] + "/x64/Release/ness_engine.dll", LibDir)
+    shutil.copy(version[0] + "/x64/Release/ness_engine.lib", LibDir)
+
+    # copy debug symbols
+    shutil.copy(version[0] + "/Release/vc" + version[1] + ".pdb", LibDir)
+    shutil.copy(version[0] + "/Release/ness_engine.pdb", LibDir)
+    shutil.copy(version[0] + "/Debug/vc" + version[1] + ".pdb", LibDir + "/vc" + version[1] + "_d.pdb")
+    shutil.copy(version[0] + "/Debug/ness_engine_d.pdb", LibDir)
 
 # copy new runtime to examples dir
 if os.path.isdir("examples/ness-engine"):
