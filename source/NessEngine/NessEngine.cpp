@@ -31,7 +31,7 @@ namespace Ness
 	}
 
 	// get next event
-	bool get_poll_event(Event& event)
+	bool poll_event(Event& event)
 	{
 		return (SDL_PollEvent( &event ) != 0 );
 	}

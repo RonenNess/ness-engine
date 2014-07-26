@@ -50,7 +50,11 @@ namespace Ness
 
 	public:
 		// create the renderer instance!
-		NESSENGINE_API Renderer(const char* windowName, const Sizei& screenSize, bool FullScreen = false, int rendererFlags = RENDERER_FLAG_ACCELERATED | RENDERER_FLAG_LIGHTING_NODE);
+		// windowName - name to give to the main application window (and caption)
+		// screenSize - resolution / window size
+		// fullScreen - if true will run ness-engine at fullscreen mode
+		// rendererFlags - creation flags. check out ERendererFlags for more information
+		NESSENGINE_API Renderer(const char* windowName, const Sizei& screenSize, bool fullScreen = false, int rendererFlags = RENDERER_FLAG_ACCELERATED | RENDERER_FLAG_LIGHTING_NODE);
 
 		// delete the renderer
 		NESSENGINE_API ~Renderer();

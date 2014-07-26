@@ -6,14 +6,14 @@
 namespace Ness
 {
 	// create the renderer
-	Renderer::Renderer(const char* windowName, const Sizei& screenSize, bool FullScreen, int rendererFlags) :
+	Renderer::Renderer(const char* windowName, const Sizei& screenSize, bool fullScreen, int rendererFlags) :
 		m_second_timer(0), m_total_time(0), m_curr_fps_count(0), m_fps(0), m_timefactor(0), m_screen_size(screenSize), 
 		m_frameid(0), m_background_color(75, 0, 255, 255), m_flags(rendererFlags), m_auto_animate(true)
 	{
 
 		// create window
 		m_window = SDL_CreateWindow( windowName, SDL_WINDOWPOS_UNDEFINED, SDL_WINDOWPOS_UNDEFINED, 
-									(int)screenSize.x, (int)screenSize.y, SDL_WINDOW_SHOWN | SDL_WINDOW_OPENGL | ( FullScreen ? SDL_WINDOW_FULLSCREEN : 0) );
+									(int)screenSize.x, (int)screenSize.y, SDL_WINDOW_SHOWN | SDL_WINDOW_OPENGL | ( fullScreen ? SDL_WINDOW_FULLSCREEN : 0) );
 		if (m_window == nullptr)
 		{
 			throw FailedToInitRenderer(SDL_GetError());
