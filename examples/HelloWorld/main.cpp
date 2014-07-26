@@ -38,8 +38,6 @@ int _tmain(int argc, _TCHAR* argv[])
 		renderer.end_frame();
 	}
 
-	// cleanup
-	scene->remove(sprite);
-	renderer.remove_scene(scene);
+	// finish
 	return 0;
 }

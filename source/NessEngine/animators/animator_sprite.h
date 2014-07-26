@@ -38,15 +38,27 @@ namespace Ness
 			// if fadeIn = true, will increase opacity of object and remove animator once reach 1.0
 			// if false, will reduce opacity until 0.0f
 			AnimatorSprite(const SpritePtr& target, const Sizei& spritesheet_total_steps, unsigned int startingStep, 
-				unsigned int stepsCount, float AnimationSpeed = 1.0f, ESpriteAnimatorEnd endAction = SPRITE_ANIM_END_DO_NOTHING) 
-				: m_spritesheet_total_steps(spritesheet_total_steps), 
-				m_speed(AnimationSpeed), 
+				unsigned int stepsCount, float AnimationSpeed = 1.0f, ESpriteAnimatorEnd endAction = SPRITE_ANIM_END_DO_NOTHING) : 
+				m_spritesheet_total_steps(spritesheet_total_steps), 
 				m_sprite(target),
-				m_starting(startingStep), 
-				m_end_action(endAction), 
-				m_count(stepsCount)
+				m_end_action(endAction)
 			{
-				m_currStep = (float)startingStep;
+				reset(startingStep, stepsCount, AnimationSpeed);
+			}
+
+			// reset animation
+			NESSENGINE_API inline void reset()
+			{
+				m_currStep = (float)m_starting;
+			}
+
+			// change animation + reset
+			NESSENGINE_API inline void reset(unsigned int startingStep, unsigned int stepsCount, float AnimationSpeed = 1.0f)
+			{
+				m_count = stepsCount;
+				m_starting = startingStep;
+				m_speed = AnimationSpeed;
+				m_currStep = (float)m_starting;
 			}
 
 			NESSENGINE_API virtual void do_animation(Renderer* renderer)
