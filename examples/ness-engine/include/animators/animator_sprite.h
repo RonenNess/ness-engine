@@ -35,8 +35,12 @@ namespace Ness
 			unsigned int		m_count;						// how many steps in animation
 
 		public:
-			// if fadeIn = true, will increase opacity of object and remove animator once reach 1.0
-			// if false, will reduce opacity until 0.0f
+			// target - target sprite to animate
+			// spritesheet_total_steps - how many steps the spritesheet animation has (x & y)
+			// startingStep - counting from top-left corner and moving right, the position of the starting step for the animation (zero based)
+			// stepsCount - how many steps this animation has (including first step)
+			// animationSpeed - how fast to play this animation
+			// endAction - what to do when animation ends cycle
 			AnimatorSprite(const SpritePtr& target, const Sizei& spritesheet_total_steps, unsigned int startingStep, 
 				unsigned int stepsCount, float AnimationSpeed = 1.0f, ESpriteAnimatorEnd endAction = SPRITE_ANIM_END_DO_NOTHING) : 
 				m_spritesheet_total_steps(spritesheet_total_steps), 
@@ -44,6 +48,22 @@ namespace Ness
 				m_end_action(endAction)
 			{
 				reset(startingStep, stepsCount, AnimationSpeed);
+			}
+
+			// target - target sprite to animate
+			// spritesheet_total_steps - how many steps the spritesheet animation has (x & y)
+			// startingStep - x and y of the first step of the animation to play
+			// stepsCount - how many steps this animation has (including first step)
+			// animationSpeed - how fast to play this animation
+			// endAction - what to do when animation ends cycle
+			AnimatorSprite(const SpritePtr& target, const Sizei& spritesheet_total_steps, const Sizei& startingStep, 
+				unsigned int stepsCount, float AnimationSpeed = 1.0f, ESpriteAnimatorEnd endAction = SPRITE_ANIM_END_DO_NOTHING) : 
+				m_spritesheet_total_steps(spritesheet_total_steps), 
+				m_sprite(target),
+				m_end_action(endAction)
+			{
+				unsigned int startingStepInt = startingStep.x + (startingStep.y * m_spritesheet_total_steps.x);
+				reset(startingStepInt, stepsCount, AnimationSpeed);
 			}
 
 			// reset animation
@@ -69,7 +89,7 @@ namespace Ness
 				m_sprite->set_source_from_sprite_sheet(currStep, m_spritesheet_total_steps);
 				m_currStep += renderer->time_factor() * m_speed;
 
-				if ((unsigned int)m_currStep > m_starting + m_count)
+				if ((unsigned int)m_currStep >= m_starting + m_count)
 				{
 					switch (m_end_action)
 					{
