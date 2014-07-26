@@ -44,6 +44,9 @@ namespace Ness
 			}
 		};
 
+		// define the animator pointer
+		NESSENGINE_API typedef NessSharedPtr<AnimatorFaderIn> AnimatorFaderInPtr;
+
 		// fade-out animator
 		class AnimatorFaderOut : public AnimatorAPI
 		{
@@ -73,6 +76,9 @@ namespace Ness
 				}
 			}
 		};
+
+		// define the animator pointer
+		NESSENGINE_API typedef NessSharedPtr<AnimatorFaderOut> AnimatorFaderOutPtr;
 
 	};
 };

@@ -62,8 +62,7 @@ namespace Ness
 				m_sprite(target),
 				m_end_action(endAction)
 			{
-				unsigned int startingStepInt = startingStep.x + (startingStep.y * m_spritesheet_total_steps.x);
-				reset(startingStepInt, stepsCount, AnimationSpeed);
+				reset(startingStep, stepsCount, AnimationSpeed);
 			}
 
 			// reset animation
@@ -77,6 +76,15 @@ namespace Ness
 			{
 				m_count = stepsCount;
 				m_starting = startingStep;
+				m_speed = AnimationSpeed;
+				m_currStep = (float)m_starting;
+			}
+
+			// change animation + reset
+			NESSENGINE_API inline void reset(const Sizei& startingStep, unsigned int stepsCount, float AnimationSpeed = 1.0f)
+			{
+				m_count = stepsCount;
+				m_starting = startingStep.x + (startingStep.y * m_spritesheet_total_steps.x);
 				m_speed = AnimationSpeed;
 				m_currStep = (float)m_starting;
 			}
@@ -106,6 +114,9 @@ namespace Ness
 				}
 			}
 		};
+
+		// define the animator pointer
+		NESSENGINE_API typedef NessSharedPtr<AnimatorSprite> AnimatorSpritePtr;
 
 	};
 };
