@@ -10,19 +10,9 @@
 #include <NessEngine.h>
 #include <time.h>
 
-// is the program still running
-bool g_running = true;
-
 // resolution
 #define SCREEN_WIDTH 800
 #define SCREEN_HEIGHT 600
-
-// callback to handle exit events
-void HandleEvents(const SDL_Event& event)
-{
-	if (event.type == SDL_QUIT)
-		g_running = false;
-}
 
 int _tmain(int argc, _TCHAR* argv[])
 {
@@ -84,18 +74,18 @@ int _tmain(int argc, _TCHAR* argv[])
 	// create camera
 	Ness::CameraPtr camera = renderer.create_camera();
 
-	// create the event handlers
-	Ness::Utils::Keyboard keyboard;
-	Ness::Utils::Mouse mouse;
+	// create the events handler
 	Ness::Utils::EventsPoller EventsPoller;
-	EventsPoller.add_handler(mouse);
+	Ness::Utils::Keyboard keyboard;
+	Ness::Utils::ApplicationEvents app;
 	EventsPoller.add_handler(keyboard);
+	EventsPoller.add_handler(app);
 
 	// loop until exit button is pressed
-	while( g_running )
+	while( !app.got_quit() )
 	{
 		// handle events
-		EventsPoller.poll_events(HandleEvents, false);
+		EventsPoller.poll_events();
 
 		// move camera
 		float cameraSpeed = 100.0f;

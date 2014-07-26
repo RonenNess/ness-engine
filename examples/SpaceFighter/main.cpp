@@ -13,19 +13,9 @@
 #include <memory>
 #include <time.h>
 
-// is the program still running
-bool g_running = true;
-
 // resolution
 #define SCREEN_WIDTH 800
 #define SCREEN_HEIGHT 600
-
-// callback to handle exit events
-void HandleEvents(const SDL_Event& event)
-{
-	if (event.type == SDL_QUIT)
-		g_running = false;
-}
 
 // function to remove all meteors that are off-screen from the list of meteors
 bool remove_meteors_off_screen(const std::auto_ptr<Meteor>& meteor)
@@ -78,18 +68,20 @@ int _tmain(int argc, _TCHAR* argv[])
 	fpsShow->set_size(Ness::Size(100, 100));
 	fpsShow->set_position(Ness::Point(0, 22));
 
-	// create the event handlers
-	Ness::Utils::Keyboard keyboard;
-	Ness::Utils::Mouse mouse;
+	// create the events handler
 	Ness::Utils::EventsPoller EventsPoller;
+	Ness::Utils::Mouse mouse;
+	Ness::Utils::Keyboard keyboard;
+	Ness::Utils::ApplicationEvents app;
 	EventsPoller.add_handler(mouse);
 	EventsPoller.add_handler(keyboard);
+	EventsPoller.add_handler(app);
 
 	// loop until exit button is pressed
-	while( g_running )
+	while( !app.got_quit() )
 	{
 		// handle events
-		EventsPoller.poll_events(HandleEvents, false);
+		EventsPoller.poll_events();
 
 		// spawn meteors randomly
 		timeUntilNextMeteor -= renderer.time_factor();
@@ -168,12 +160,6 @@ int _tmain(int argc, _TCHAR* argv[])
 			player2.turn_right();
 		if (keyboard.ket_state(SDLK_SPACE))
 			player2.fire();
-
-		// exit
-		if (keyboard.ket_state(SDLK_ESCAPE))
-		{
-			g_running = false;
-		}
 
 		// render and end the scene
 		scene->render();

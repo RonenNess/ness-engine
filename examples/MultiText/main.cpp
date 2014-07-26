@@ -9,16 +9,6 @@
 
 #include <NessEngine.h>
 
-// is the program still running
-bool g_running = true;
-
-// callback to handle exit events
-void HandleEvents(const SDL_Event& event)
-{
-	if (event.type == SDL_QUIT)
-		g_running = false;
-}
-
 int _tmain(int argc, _TCHAR* argv[])
 {
 	// init and create a renderer
@@ -74,12 +64,14 @@ int _tmain(int argc, _TCHAR* argv[])
 
 	// create the events handler
 	Ness::Utils::EventsPoller EventsPoller;
+	Ness::Utils::ApplicationEvents app;
+	EventsPoller.add_handler(app);
 
 	// loop until exit button is pressed
-	while( g_running )
+	while( !app.got_quit() )
 	{
 		// handle events
-		EventsPoller.poll_events(HandleEvents, false);
+		EventsPoller.poll_events();
 
 		// render the scene
 		renderer.start_frame();

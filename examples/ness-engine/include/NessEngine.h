@@ -22,6 +22,7 @@
 // include utils
 #include "utils\keyboard.h"
 #include "utils\mouse.h"
+#include "utils\application_events.h"
 #include "utils\events_poller.h"
 
 // include all renderables

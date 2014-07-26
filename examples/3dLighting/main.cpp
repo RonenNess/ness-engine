@@ -10,17 +10,6 @@
 #include <NessEngine.h>
 #include "sprite3d.h"
 
-// is the program still running
-bool g_running = true;
-
-
-// callback to handle exit events
-void HandleEvents(const SDL_Event& event)
-{
-	if (event.type == SDL_QUIT)
-		g_running = false;
-}
-
 int _tmain(int argc, _TCHAR* argv[])
 {
 	// init and create a renderer
@@ -87,14 +76,16 @@ int _tmain(int argc, _TCHAR* argv[])
 	Ness::Utils::EventsPoller EventsPoller;
 	Ness::Utils::Mouse mouse;
 	Ness::Utils::Keyboard keyboard;
+	Ness::Utils::ApplicationEvents app;
 	EventsPoller.add_handler(mouse);
 	EventsPoller.add_handler(keyboard);
+	EventsPoller.add_handler(app);
 
 	// loop until exit button is pressed
-	while( g_running )
+	while( !app.got_quit() )
 	{
 		// handle events
-		EventsPoller.poll_events(HandleEvents, false);
+		EventsPoller.poll_events();
 
 		// update 3d sprite position
 		light1->set_position(mouse.position());

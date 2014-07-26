@@ -30,6 +30,7 @@ namespace Ness
 		private:
 			Pointi m_last_mouse_pos;
 			bool m_down[_MOUSE_BUTTONS_COUNT];
+			bool m_in_screen;
 
 		public:
 
@@ -42,8 +43,11 @@ namespace Ness
 			// get mouse position
 			NESSENGINE_API const Pointi& position();
 
+			// return if mouse is in screen
+			NESSENGINE_API inline bool in_screen() const {return m_in_screen;}
+
 			// get mouse button state
-			inline bool is_down(EMouseButtons button) const {return m_down[button];}
+			NESSENGINE_API inline bool is_down(EMouseButtons button) const {return m_down[button];}
 
 		private:
 

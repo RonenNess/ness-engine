@@ -7,6 +7,7 @@ namespace Ness
 		NESSENGINE_API Mouse::Mouse()
 		{
 			memset(m_down, false, sizeof(m_down));
+			m_in_screen = false;
 		}
 
 		bool Mouse::inject_event(const Event& event)
@@ -20,6 +21,19 @@ namespace Ness
 				case SDL_MOUSEBUTTONUP:
 					change_button_state(event.button.button, false);
 					return true;
+
+					
+				case SDL_WINDOWEVENT:
+					switch (event.window.event)
+					{
+					case SDL_WINDOWEVENT_ENTER:
+						m_in_screen = true;
+						return true;
+
+					case SDL_WINDOWEVENT_LEAVE:
+						m_in_screen = false;
+						return true;
+					}
 			}
 			return false;
 		}

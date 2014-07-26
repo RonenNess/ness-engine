@@ -24,8 +24,7 @@ void LaserShot::destroy(bool withExplosion)
 		explosion->set_anchor(Ness::Point::HALF);
 		explosion->set_position(get_position());
 		explosion->set_size(Ness::Size(25.0f, 25.0f));
-		Ness::Animators::AnimatorPtr anim(new Ness::Animators::AnimatorSprite(Ness::Sizei(5, 5), 0, 25, 75.0f, Ness::Animators::SPRITE_ANIM_END_REMOVE_SPRITE));
-		anim->set_target(explosion);
+		Ness::Animators::AnimatorPtr anim(new Ness::Animators::AnimatorSprite(explosion, Ness::Sizei(5, 5), 0, 25, 75.0f, Ness::Animators::SPRITE_ANIM_END_REMOVE_SPRITE));
 		m_shot->renderer()->register_animator(anim);
 	}
 }

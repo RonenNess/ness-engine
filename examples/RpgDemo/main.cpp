@@ -11,22 +11,12 @@
 #include "sprite3d.h"
 #include "character.h"
 
-// is the program still running
-bool g_running = true;
-
 // number of random objects
 const int NumOfObjects = 500;
 
 // resolution
 #define SCREEN_WIDTH 800
 #define SCREEN_HEIGHT 600
-
-// callback to handle exit events
-void HandleEvents(const SDL_Event& event)
-{
-	if (event.type == SDL_QUIT)
-		g_running = false;
-}
 
 int _tmain(int argc, _TCHAR* argv[])
 {
@@ -90,13 +80,6 @@ int _tmain(int argc, _TCHAR* argv[])
 	wizard->get_light()->set_scale(3.0f);
 	wizard->get_light()->set_color(Ness::Color::GREEN);
 
-	// create the event handlers
-	Ness::Utils::Keyboard keyboard;
-	Ness::Utils::Mouse mouse;
-	Ness::Utils::EventsPoller EventsPoller;
-	EventsPoller.add_handler(mouse);
-	EventsPoller.add_handler(keyboard);
-
 	// create the fps show
 	Ness::TextPtr fpsShow = scene->create_text("../ness-engine/resources/fonts/courier.ttf", "fps", 20);
 
@@ -104,11 +87,20 @@ int _tmain(int argc, _TCHAR* argv[])
 	Ness::TextPtr instructions = scene->create_text("../ness-engine/resources/fonts/courier.ttf", "use arrows to move around, space to shoot fireball", 20);
 	instructions->set_position(Ness::Point(0, 24));
 
+	// create the events handler
+	Ness::Utils::EventsPoller EventsPoller;
+	Ness::Utils::Mouse mouse;
+	Ness::Utils::Keyboard keyboard;
+	Ness::Utils::ApplicationEvents app;
+	EventsPoller.add_handler(mouse);
+	EventsPoller.add_handler(keyboard);
+	EventsPoller.add_handler(app);
+
 	// loop until exit button is pressed
-	while( g_running )
+	while( !app.got_quit() )
 	{
 		// handle events
-		EventsPoller.poll_events(HandleEvents, false);
+		EventsPoller.poll_events();
 
 		// render the scene
 		render.start_frame();
@@ -137,10 +129,6 @@ int _tmain(int argc, _TCHAR* argv[])
 		if (keyboard.ket_state(SDLK_SPACE))
 		{
 			player->shoot();
-		}
-		if (keyboard.ket_state(SDLK_ESCAPE))
-		{
-			g_running = false;
 		}
 
 		// set camera to focus on player

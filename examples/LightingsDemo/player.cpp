@@ -101,7 +101,7 @@ void Player::change_action(EPlayerAction newAction)
 	// remove previous animator
 	if (m_animation)
 	{
-		m_animation->remove_animation();
+		m_animation->remove_from_animation_queue();
 		m_animation.reset();
 	}
 

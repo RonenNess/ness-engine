@@ -10,16 +10,6 @@
 #include <NessEngine.h>
 #include "isoTilemap.h"
 
-// is the program still running
-bool g_running = true;
-
-// callback to handle exit events
-void HandleEvents(const SDL_Event& event)
-{
-	if (event.type == SDL_QUIT)
-		g_running = false;
-}
-
 int _tmain(int argc, _TCHAR* argv[])
 {
 	// init and create a renderer
@@ -82,18 +72,20 @@ int _tmain(int argc, _TCHAR* argv[])
 	Ness::CameraPtr camera = render.create_camera();
 	float CameraSpeed = 500.0f;
 
-	// create the event handlers
-	Ness::Utils::Keyboard keyboard;
-	Ness::Utils::Mouse mouse;
+	// create the events handler
 	Ness::Utils::EventsPoller EventsPoller;
+	Ness::Utils::Mouse mouse;
+	Ness::Utils::Keyboard keyboard;
+	Ness::Utils::ApplicationEvents app;
 	EventsPoller.add_handler(mouse);
 	EventsPoller.add_handler(keyboard);
+	EventsPoller.add_handler(app);
 
 	// loop until exit button is pressed
-	while( g_running )
+	while( !app.got_quit() )
 	{
 		// handle events
-		EventsPoller.poll_events(HandleEvents, false);
+		EventsPoller.poll_events();
 
 		// render the scene
 		render.start_frame();
@@ -114,10 +106,6 @@ int _tmain(int argc, _TCHAR* argv[])
 		if (keyboard.ket_state(SDLK_RIGHT))
 		{
 			camera->position.x += render.time_factor() * CameraSpeed;
-		}
-		if (keyboard.ket_state(SDLK_ESCAPE))
-		{
-			g_running = false;
 		}
 
 		// pick the tile we currently point on with the mouse
