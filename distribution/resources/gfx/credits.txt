@@ -1,1 +1,2 @@
-spaceship.png by http://arboris.deviantart.com/art/Spaceship-sprites-43030167
+spaceship.png & meteor.png by http://arboris.deviantart.com/art/Spaceship-sprites-43030167
+explosion.png from http://hasgraphics.com/phaedy-explosion-generator/spritesheet9/
