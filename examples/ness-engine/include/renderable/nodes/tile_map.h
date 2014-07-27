@@ -14,7 +14,7 @@
 namespace Ness
 {
 	// callback function to run on all tiles
-	NESSENGINE_API typedef void (*executeOnTiles)(const Pointi& index, const SpritePtr& tile);
+	NESSENGINE_API typedef void (*executeOnTiles)(const Ness::Pointi& index, const Ness::SpritePtr& tile);
 
 	// callback function to create custom sprite types for the tilemap
 	NESSENGINE_API typedef SpritePtr (*createTileSprites)(const Pointi& index);

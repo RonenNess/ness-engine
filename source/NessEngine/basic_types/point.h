@@ -78,6 +78,14 @@ namespace Ness
 			if (y > max) y = max;
 		}
 
+		// get point copy within limit
+		NESSENGINE_API inline __Point<type> get_limit(type min, type max) const
+		{
+			__Point<type> ret = *this;
+			ret.limit(min, max);
+			return ret;
+		}
+
 		// return distance from other point
 		NESSENGINE_API inline float distance(const __Point<type>& other) const 
 		{

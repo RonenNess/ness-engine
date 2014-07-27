@@ -16,6 +16,7 @@ namespace Ness
 	class MultiText;
 	class Node;
 	class ZNode;
+	class StaticNode;
 	class TileMap;
 	class RectangleShape;
 	class NodeAPI;
@@ -24,6 +25,7 @@ namespace Ness
 	// node and sprite pointers
 	NESSENGINE_API typedef SharedPtr<Node>				NodePtr;
 	NESSENGINE_API typedef SharedPtr<ZNode>				ZNodePtr;
+	NESSENGINE_API typedef SharedPtr<StaticNode>		StaticNodePtr;
 	NESSENGINE_API typedef SharedPtr<LightNode>			LightNodePtr;
 	NESSENGINE_API typedef SharedPtr<Sprite>			SpritePtr;
 	NESSENGINE_API typedef SharedPtr<Canvas>			CanvasPtr;
@@ -43,6 +45,7 @@ namespace Ness
 		// create and return a son entities
 		NESSENGINE_API virtual NodePtr create_node(bool add_immediatly=true);
 		NESSENGINE_API virtual ZNodePtr create_znode(bool add_immediatly=true);
+		NESSENGINE_API virtual StaticNodePtr create_static_node(bool add_immediatly=true);
 		NESSENGINE_API virtual LightNodePtr create_light_node(bool add_immediatly=true);
 		NESSENGINE_API virtual RectangleShapePtr create_rectangle(bool add_immediatly=true);
 		NESSENGINE_API virtual SpritePtr create_sprite(const String& textureName, bool add_immediatly=true);

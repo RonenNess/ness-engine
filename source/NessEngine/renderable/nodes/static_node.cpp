@@ -75,31 +75,33 @@ namespace Ness
 			}
 
 			// get target rectangle
-			Rectangle targetRect = curr->get_target_rect();
+			curr->get_absolute_transformations();
+			Rectangle targetRect = curr->get_last_target_rect();
 
 			// get range of batches this entity is drawn upon
 			Rectangle canvases;
 			canvases.x = targetRect.x / m_batch_size.x;
 			canvases.y = targetRect.y / m_batch_size.y;
-			canvases.w = canvases.x + (targetRect.w / m_batch_size.x);
-			canvases.h = canvases.y + (targetRect.h / m_batch_size.y);
-
-			// prepare a relative camera
-			CameraPtr tempCam = ness_make_ptr<Camera>();
-			tempCam->position.x = (float)(canvases.x * m_batch_size.x);
-			tempCam->position.y = (float)(canvases.y * m_batch_size.y);
+			canvases.w = canvases.x + (int)ceil((float)targetRect.w / (float)m_batch_size.x);
+			canvases.h = canvases.y + (int)ceil((float)targetRect.h / (float)m_batch_size.y);
 
 			// render this entity on the canvases
 			for (int cx = canvases.x; cx <= canvases.w; cx++)
 			{
 				for (int cy = canvases.y; cy <= canvases.h; cy++)
 				{
+
+					// prepare a relative camera
+					CameraPtr tempCam = ness_make_ptr<Camera>();
+					tempCam->position.x = (float)(cx * m_batch_size.x);
+					tempCam->position.y = (float)(cy * m_batch_size.y);
+
 					// first time drawing on this batch? create the canvas!
 					if (m_batches[cx][cy].get() == nullptr)
 					{
-						String batchName("static" + ness_int_to_string(m_unique_id) + "." + ness_int_to_string(cx) + ness_int_to_string(cy));
+						String batchName("static" + ness_int_to_string(m_unique_id) + "." + ness_int_to_string(cx) + "." + ness_int_to_string(cy));
 						m_batches[cx][cy] = ness_make_ptr<Canvas>(this->m_renderer, batchName, m_batch_size);
-						m_batches[cx][cy]->set_position(Ness::Pointi(cx * m_batch_size.x, cy * m_batch_size.y));
+						m_batches[cx][cy]->set_position(tempCam->position);
 						m_batches[cx][cy]->__change_parent(this);
 					}
 
@@ -141,8 +143,8 @@ namespace Ness
 		Rectangle ret;
 		ret.x = (int)(-pos.x / m_batch_size.x);
 		ret.y = (int)(-pos.y / m_batch_size.y);
-		ret.w = ret.x + (int)((m_renderer->get_target_size().x + m_batch_size.x) / m_batch_size.x);
-		ret.h = ret.y + (int)((m_renderer->get_target_size().y + m_batch_size.y) / m_batch_size.y);
+		ret.w = ret.x + (int)((m_renderer->get_target_size().x + m_batch_size.x) / m_batch_size.x) + 1;
+		ret.h = ret.y + (int)((m_renderer->get_target_size().y + m_batch_size.y) / m_batch_size.y) + 1;
 		return ret;
 	}
 };

@@ -69,7 +69,7 @@ namespace Ness
 		NESSENGINE_API inline const Point& get_anchor() const {return m_anchor;}
 
 		// return the target rectangle this sprite will be rendered on
-		NESSENGINE_API const Rectangle& get_target_rect() const {return m_target_rect;}
+		NESSENGINE_API const Rectangle& get_last_target_rect() const {return m_target_rect;}
 
 		// get absolute transformations for this renderable sprite
 		NESSENGINE_API virtual const SRenderTransformations& get_absolute_transformations();
@@ -85,6 +85,9 @@ namespace Ness
 
 	protected:
 
+		// calculate the target rect, which is the position and size of this entity when rendered on the screen
+		NESSENGINE_API virtual void calc_target_rect();
+
 		// check if target rectangle is inside screen
 		NESSENGINE_API bool is_in_screen(const Rectangle& target) const;
 
@@ -92,8 +95,5 @@ namespace Ness
 		// target: target rectangle to render to (final, with camera and everything calculated)
 		// transformations: absolute final transformations to render with (with parents included)
 		NESSENGINE_API virtual void do_render(const Rectangle& target, const SRenderTransformations& transformations) = 0;
-
-		// calculate target rect
-		NESSENGINE_API virtual void calc_target_rect();
 	};
 };

@@ -21,6 +21,13 @@ namespace Ness
 		return NewNode;
 	}
 
+	StaticNodePtr Node::create_static_node(bool add_immediatly)
+	{
+		StaticNodePtr NewNode = ness_make_ptr<StaticNode>(this->m_renderer);
+		if (add_immediatly) add(NewNode);
+		return NewNode;
+	}
+
 	LightNodePtr Node::create_light_node(bool add_immediatly)
 	{
 		LightNodePtr NewNode = ness_make_ptr<LightNode>(this->m_renderer);

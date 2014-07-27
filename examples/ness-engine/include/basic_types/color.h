@@ -77,6 +77,14 @@ namespace Ness
 			if (a > max) a = max;
 		}
 
+		// get point copy within limit
+		NESSENGINE_API inline __Color<type> get_limit(type min, type max) const
+		{
+			__Color<type> ret = *this;
+			ret.limit(min, max);
+			return ret;
+		}
+
 		// some useful defaults
 		NESSENGINE_API static __Color<type> WHITE;
 		NESSENGINE_API static __Color<type> GREY;
@@ -86,9 +94,11 @@ namespace Ness
 		NESSENGINE_API static __Color<type> BLUE;
 		NESSENGINE_API static __Color<type> INVISIBLE;
 
-		// get random color
-		static NESSENGINE_API __Color<type> get_random_255() {return __Color<type>((type)(rand() % 255), (type)(rand() % 255), (type)(rand() % 255));}
-		static NESSENGINE_API __Color<type> get_random() {return __Color<type>((type)(rand()), (type)(rand()), (type)(rand()));}
+		// get random color from 0 to 255
+		static NESSENGINE_API __Color<type> get_random_255() {return __Color<type>((type)(rand() % 256), (type)(rand() % 256), (type)(rand() % 256));}
+
+		// get random color from 0.0f to 1.0f
+		static NESSENGINE_API __Color<type> get_random() {return __Color<type>((type)((rand() % 1000) / 1000.0f), (type)((rand() % 1000) / 1000.0f), (type)((rand() % 1000) / 1000.0f));}
 	};
 
 	// predefined color types we'll be using
