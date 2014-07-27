@@ -65,6 +65,10 @@ namespace Ness
 				reset(startingStep, stepsCount, AnimationSpeed);
 			}
 
+			// return animation starting step
+			NESSENGINE_API inline unsigned int get_starting_step() {return m_starting;}
+			NESSENGINE_API inline Ness::Pointi get_starting_step_point() {return Ness::Pointi(m_starting % m_spritesheet_total_steps.x, m_starting / m_spritesheet_total_steps.x);}
+
 			// reset animation
 			NESSENGINE_API inline void reset()
 			{
