@@ -11,7 +11,7 @@ namespace Ness
 {
 	class Renderer;
 	class RenderableAPI;
-	NESSENGINE_API typedef NessSharedPtr<RenderableAPI> RenderablePtr;
+	NESSENGINE_API typedef SharedPtr<RenderableAPI> RenderablePtr;
 
 	namespace Animators
 	{
@@ -39,7 +39,7 @@ namespace Ness
 		};
 
 		// define the animator pointer
-		NESSENGINE_API typedef NessSharedPtr<AnimatorAPI> AnimatorPtr;
+		NESSENGINE_API typedef SharedPtr<AnimatorAPI> AnimatorPtr;
 
 
 		// template function to create an animator pointer (requires C++11 features)

@@ -7,7 +7,6 @@
 #pragma once
 #include "../exports.h"
 #include "../basic_types/containers.h"
-#include <unordered_map>
 #include "managed_texture.h"
 #include "managed_font.h"
 
@@ -36,9 +35,9 @@ namespace Ness
 		class ResourcesManager
 		{
 		private:
-			std::unordered_map<String, __STextureInManager>	m_textures;			// map that holds all loaded textures
-			std::unordered_map<String, __SFontInManager>		m_fonts;			// map that holds all loaded fonts
-			String												m_base_path;		// basic path to search resources under
+			UnorderedMap<String, __STextureInManager>			m_textures;			// map that holds all loaded textures
+			UnorderedMap<String, __SFontInManager>				m_fonts;			// map that holds all loaded fonts
+			String													m_base_path;		// basic path to search resources under
 			Colorb													m_color_key;		// transparency color key
 			bool													m_use_color_key;	// enable/disable color key
 			SDL_Renderer*											m_renderer;			// our sdl renderer

@@ -46,7 +46,7 @@ namespace Ness
 	}
 
 	// build all the static batches (the matrix of canvases)
-	void StaticNode::build()
+	void StaticNode::build(bool removeEntities)
 	{
 		// first get one big list with all the entities to render (break down son nodes)
 		Vector<RenderableAPI*> render_list;
@@ -84,6 +84,11 @@ namespace Ness
 			canvases.w = canvases.x + (targetRect.w / m_batch_size.x);
 			canvases.h = canvases.y + (targetRect.h / m_batch_size.y);
 
+			// prepare a relative camera
+			CameraPtr tempCam = ness_make_ptr<Camera>();
+			tempCam->position.x = (float)(canvases.x * m_batch_size.x);
+			tempCam->position.y = (float)(canvases.y * m_batch_size.y);
+
 			// render this entity on the canvases
 			for (int cx = canvases.x; cx <= canvases.w; cx++)
 			{
@@ -101,11 +106,23 @@ namespace Ness
 					// set render on current canvas
 					m_renderer->set_render_target(m_batches[cx][cy]->get_texture());
 
-					// render the entity
-					curr->render();
+					// render the entity on current canvas
+					curr->render(tempCam);
 				}
 			}
+
+			// if need to remove all entities
+			if (removeEntities) curr->__change_parent(nullptr);
 		}
+
+		// remove all son entities (if needed to)
+		if (removeEntities)
+		{
+			m_entities.clear();
+		}
+
+		// reset rendering target
+		m_renderer->reset_render_target();
 	}
 
 	// get the range of visible batches (canvases)

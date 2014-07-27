@@ -120,7 +120,7 @@ namespace Ness
 		};
 
 		// define the animator pointer
-		NESSENGINE_API typedef NessSharedPtr<AnimatorSprite> AnimatorSpritePtr;
+		NESSENGINE_API typedef SharedPtr<AnimatorSprite> AnimatorSpritePtr;
 
 	};
 };

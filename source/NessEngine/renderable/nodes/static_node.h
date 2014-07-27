@@ -23,7 +23,9 @@ namespace Ness
 		NESSENGINE_API StaticNode(Renderer* renderer, const Sizei& batchSize = Sizei(512, 512));
 
 		// build all the static batches (the matrix of canvases)
-		NESSENGINE_API void build();
+		// if removeEntities = true, after the build all entities and nodes will be removed from this node. those
+		// who have no more references will be deleted.
+		NESSENGINE_API void build(bool removeEntities = true);
 
 		// render the static batches
 		NESSENGINE_API virtual void render(const CameraPtr& camera = NullCamera);

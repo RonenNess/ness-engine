@@ -7,7 +7,6 @@
 #pragma once
 #include <memory>
 #include "../resources/font.h"
-#include <unordered_map>
 #include "managed_resource.h"
 
 namespace Ness
@@ -25,6 +24,6 @@ namespace Ness
 		};
 
 		// a manager texture pointer
-		NESSENGINE_API typedef NessSharedPtr<ManagedFont> ManagedFontPtr;
+		NESSENGINE_API typedef SharedPtr<ManagedFont> ManagedFontPtr;
 	};
 };

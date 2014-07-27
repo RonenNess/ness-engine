@@ -31,9 +31,6 @@ namespace Ness
 		// called whenever transformations are updated
 		NESSENGINE_API virtual void transformations_update();
 
-		// set source as rect
-		NESSENGINE_API void set_source_rect(const Rectangle& srcRect);
-
 		// return if need transformations udpate
 		NESSENGINE_API virtual bool need_transformations_update() {return m_need_transformations_update;}
 

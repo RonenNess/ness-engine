@@ -44,6 +44,10 @@ namespace Ness
 		// get all visible son entities
 		NESSENGINE_API virtual void __get_visible_entities(Vector<RenderableAPI*>& out_list, const CameraPtr& camera = NullCamera);
 
+		// get a list with ALL entities in node
+		// if breakGroups is true, will break down son nodes as well. else, will add son nodes to the list as whole
+		NESSENGINE_API virtual void __get_all_entities(Vector<RenderableAPI*>& out_list, bool breakGroups);
+
 		// check if this node is really visible by checking all its sub nodes and sprites (until hitting yes)
 		NESSENGINE_API virtual bool is_really_visible(const CameraPtr& camera = NullCamera);
 
@@ -59,5 +63,5 @@ namespace Ness
 
 	};
 
-	NESSENGINE_API typedef NessSharedPtr<BaseNode> BaseNodePtr;
+	NESSENGINE_API typedef SharedPtr<BaseNode> BaseNodePtr;
 };

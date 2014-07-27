@@ -22,5 +22,5 @@ namespace Ness
 	};
 
 	// entity pointer
-	NESSENGINE_API typedef NessSharedPtr<EntityAPI> EntityPtr;
+	NESSENGINE_API typedef SharedPtr<EntityAPI> EntityPtr;
 };

@@ -6,10 +6,12 @@
 */
 
 #pragma once
+#include "../exports.h"
 #include <vector>
 #include <list>
 #include <memory>
 #include <string>
+#include <unordered_map>
 
 namespace Ness
 {
@@ -19,12 +21,19 @@ namespace Ness
 	template <typename T>
 	class List : public std::list<T> {};
 
-	#define NessSharedPtr std::shared_ptr
-	
-	#define ness_make_ptr std::make_shared
+	template <typename _KEY, typename _TYPE>
+	class UnorderedMap : public std::unordered_map<_KEY, _TYPE> {};
 
+	// shared ptr
+	//template <typename T>
+	//class SharedPtr : public std::shared_ptr<T> {};
+	#define SharedPtr std::shared_ptr
+	#define ness_make_ptr std::make_shared
 	#define ness_ptr_cast std::dynamic_pointer_cast
 
+	// string stuff
 	typedef std::string String;
 	#define ness_to_string std::to_string
+	#define ness_int_to_string(__int) std::to_string((long long)__int)
+	#define ness_float_to_string(__int) std::to_string((long double)__int)
 };

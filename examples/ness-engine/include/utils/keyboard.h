@@ -6,9 +6,9 @@
 
 #pragma once
 #include <SDL.h>
-#include <unordered_map>
 #include "../exports.h"
 #include "event_handler.h"
+#include "../basic_types/containers.h"
 
 namespace Ness
 {
@@ -19,7 +19,7 @@ namespace Ness
 		class Keyboard : public EventsHandler
 		{
 		private:
-			std::unordered_map<Keycode, bool> m_key_codes;
+			UnorderedMap<Keycode, bool> m_key_codes;
 
 		public:
 

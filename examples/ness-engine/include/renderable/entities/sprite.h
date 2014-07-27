@@ -49,7 +49,7 @@ namespace Ness
 		// change texture
 		NESSENGINE_API inline void change_texture(ManagedResources::ManagedTexturePtr NewTexture) {m_texture = NewTexture;}
 
-		// set source as rect
+		// set texture source rect (to render entire texture give (0, 0, textureSize.x, textureSize.y)
 		NESSENGINE_API void set_source_rect(const Rectangle& srcRect);
 
 		// return the texture this sprite uses
@@ -77,5 +77,5 @@ namespace Ness
 	};
 
 	// sprite pointer type
-	NESSENGINE_API typedef NessSharedPtr<Sprite> SpritePtr;
+	NESSENGINE_API typedef SharedPtr<Sprite> SpritePtr;
 };
