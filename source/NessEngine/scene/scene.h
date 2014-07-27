@@ -29,5 +29,5 @@ namespace Ness
 	};
 
 	// scene pointer
-	NESSENGINE_API typedef NessSharedPtr<Scene> ScenePtr;
+	NESSENGINE_API typedef SharedPtr<Scene> ScenePtr;
 };

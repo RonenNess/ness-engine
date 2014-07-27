@@ -69,5 +69,5 @@ namespace Ness
 		NESSENGINE_API virtual void calc_target_rect() {}
 	};
 
-	NESSENGINE_API typedef NessSharedPtr<MultiText> MultiTextPtr;
+	NESSENGINE_API typedef SharedPtr<MultiText> MultiTextPtr;
 };

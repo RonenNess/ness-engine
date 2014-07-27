@@ -58,6 +58,9 @@ namespace Ness
 		// get all visible son entities
 		NESSENGINE_API virtual void __get_visible_entities(Vector<RenderableAPI*>& out_list, const CameraPtr& camera = NullCamera);
 
+		// get all son entities (all the tiles)
+		NESSENGINE_API virtual void __get_all_entities(Vector<RenderableAPI*>& out_list, bool breakGroups);
+
 		// update that the tilemap needs update
 		NESSENGINE_API virtual void transformations_update();
 
@@ -95,5 +98,5 @@ namespace Ness
 		NESSENGINE_API void arrange_sprite(const SpritePtr& sprite, const Ness::Pointi& index);
 	};
 
-	NESSENGINE_API typedef NessSharedPtr<TileMap> TileMapPtr;
+	NESSENGINE_API typedef SharedPtr<TileMap> TileMapPtr;
 };

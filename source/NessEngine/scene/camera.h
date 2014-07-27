@@ -35,7 +35,7 @@ namespace Ness
 	};
 
 	// camera pointer
-	NESSENGINE_API typedef NessSharedPtr<Camera> CameraPtr;
+	NESSENGINE_API typedef SharedPtr<Camera> CameraPtr;
 
 	// null camera
 	#define NullCamera CameraPtr()

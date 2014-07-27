@@ -46,7 +46,7 @@ namespace Ness
 		}
 	};
 
-	NESSENGINE_API typedef NessSharedPtr<Light> LightPtr;
+	NESSENGINE_API typedef SharedPtr<Light> LightPtr;
 
 	// a special node that generate lights.
 	// how this works:
@@ -97,5 +97,5 @@ namespace Ness
 	};
 
 	// scene pointer
-	NESSENGINE_API typedef NessSharedPtr<LightNode> LightNodePtr;
+	NESSENGINE_API typedef SharedPtr<LightNode> LightNodePtr;
 };

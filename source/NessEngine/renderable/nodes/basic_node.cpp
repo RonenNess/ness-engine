@@ -9,8 +9,6 @@ namespace Ness
 
 	void BaseNode::__get_visible_entities(Vector<RenderableAPI*>& out_list, const CameraPtr& camera)
 	{
-
-		// add all the visible objects
 		for (unsigned int i = 0; i < m_entities.size(); i++)
 		{
 			// check if current entity is a node
@@ -28,6 +26,31 @@ namespace Ness
 
 				// add to rendering list
 				out_list.push_back(current);
+			}
+		}
+	}
+
+	void BaseNode::__get_all_entities(Vector<RenderableAPI*>& out_list, bool breakGroups)
+	{
+		for (unsigned int i = 0; i < m_entities.size(); i++)
+		{
+			// if need to break son nodes:
+			if (breakGroups)
+			{
+				NodeAPI* currentNode = dynamic_cast<NodeAPI*>(m_entities[i].get());
+				if (currentNode)
+				{
+					currentNode->__get_all_entities(out_list, breakGroups);
+				}
+				else
+				{
+					out_list.push_back(m_entities[i].get());
+				}
+			}
+			// if not a node, check if in screen and if so add it
+			else
+			{
+				out_list.push_back(m_entities[i].get());
 			}
 		}
 	}

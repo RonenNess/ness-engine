@@ -120,6 +120,9 @@
     <ClCompile Include="..\source\NessEngine\utils\application_events.cpp">
       <Filter>Source Files\utils</Filter>
     </ClCompile>
+    <ClCompile Include="..\source\NessEngine\renderable\nodes\static_node.cpp">
+      <Filter>Source Files\renderables\nodes</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\source\NessEngine\NessEngine.h">
@@ -265,6 +268,9 @@
     </ClInclude>
     <ClInclude Include="..\source\NessEngine\utils\application_events.h">
       <Filter>Source Files\utils</Filter>
+    </ClInclude>
+    <ClInclude Include="..\source\NessEngine\renderable\nodes\static_node.h">
+      <Filter>Source Files\renderables\nodes</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

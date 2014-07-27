@@ -37,8 +37,12 @@ namespace Ness
 
 		// get a list with ALL the son entities that are currently visible in screen
 		NESSENGINE_API virtual void __get_visible_entities(Vector<RenderableAPI*>& out_list, const CameraPtr& camera = NullCamera) = 0;
+
+		// get a list with ALL entities in node
+		// if breakGroups is true, will break down son nodes as well. else, will add son nodes to the list as whole
+		NESSENGINE_API virtual void __get_all_entities(Vector<RenderableAPI*>& out_list, bool breakGroups) = 0;
 	};
 
 	// renderable parent pointer
-	NESSENGINE_API typedef NessSharedPtr<NodeAPI> NodeAPIPtr;
+	NESSENGINE_API typedef SharedPtr<NodeAPI> NodeAPIPtr;
 };

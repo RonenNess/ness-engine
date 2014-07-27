@@ -7,7 +7,6 @@
 #pragma once
 #include <memory>
 #include "../resources/TextureSheet.h"
-#include <unordered_map>
 #include "managed_resource.h"
 
 namespace Ness
@@ -29,6 +28,6 @@ namespace Ness
 		};
 
 		// a manager texture pointer
-		NESSENGINE_API typedef NessSharedPtr<ManagedTexture> ManagedTexturePtr;
+		NESSENGINE_API typedef SharedPtr<ManagedTexture> ManagedTexturePtr;
 	};
 };

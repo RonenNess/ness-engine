@@ -103,7 +103,6 @@ namespace Ness
 		}
 	}
 
-	// get all visible son entities
 	void TileMap::__get_visible_entities(Vector<RenderableAPI*>& out_list, const CameraPtr& camera)
 	{
 		Rectangle range = get_tiles_in_screen(camera);
@@ -115,8 +114,18 @@ namespace Ness
 			}
 		}
 	}
+	
+	void TileMap::__get_all_entities(Vector<RenderableAPI*>& out_list, bool breakGroups)
+	{
+		for (int i = 0; i < m_size.x; i++)
+		{
+			for (int j = 0; j < m_size.y; j++)
+			{
+				out_list.push_back(m_sprites[i][j].get());
+			}
+		}
+	}
 
-	// get range of tiles that are within the map
 	Rectangle TileMap::get_tiles_in_screen(const CameraPtr& camera) 
 	{
 		Rectangle ret;

@@ -22,16 +22,16 @@ namespace Ness
 	class LightNode;
 
 	// node and sprite pointers
-	NESSENGINE_API typedef NessSharedPtr<Node>				NodePtr;
-	NESSENGINE_API typedef NessSharedPtr<ZNode>				ZNodePtr;
-	NESSENGINE_API typedef NessSharedPtr<LightNode>			LightNodePtr;
-	NESSENGINE_API typedef NessSharedPtr<Sprite>			SpritePtr;
-	NESSENGINE_API typedef NessSharedPtr<Canvas>			CanvasPtr;
-	NESSENGINE_API typedef NessSharedPtr<Text>				TextPtr;
-	NESSENGINE_API typedef NessSharedPtr<MultiText>			MultiTextPtr;
-	NESSENGINE_API typedef NessSharedPtr<RectangleShape>	RectangleShapePtr;
-	NESSENGINE_API typedef NessSharedPtr<TileMap>			TileMapPtr;
-	NESSENGINE_API typedef NessSharedPtr<NodeAPI>			NodeAPIPtr;
+	NESSENGINE_API typedef SharedPtr<Node>				NodePtr;
+	NESSENGINE_API typedef SharedPtr<ZNode>				ZNodePtr;
+	NESSENGINE_API typedef SharedPtr<LightNode>			LightNodePtr;
+	NESSENGINE_API typedef SharedPtr<Sprite>			SpritePtr;
+	NESSENGINE_API typedef SharedPtr<Canvas>			CanvasPtr;
+	NESSENGINE_API typedef SharedPtr<Text>				TextPtr;
+	NESSENGINE_API typedef SharedPtr<MultiText>			MultiTextPtr;
+	NESSENGINE_API typedef SharedPtr<RectangleShape>	RectangleShapePtr;
+	NESSENGINE_API typedef SharedPtr<TileMap>			TileMapPtr;
+	NESSENGINE_API typedef SharedPtr<NodeAPI>			NodeAPIPtr;
 
 	// a scene node that can create all type of built-in entities and nodes
 	class Node : public BaseNode

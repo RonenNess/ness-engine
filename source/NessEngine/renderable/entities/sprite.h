@@ -77,5 +77,5 @@ namespace Ness
 	};
 
 	// sprite pointer type
-	NESSENGINE_API typedef NessSharedPtr<Sprite> SpritePtr;
+	NESSENGINE_API typedef SharedPtr<Sprite> SpritePtr;
 };
