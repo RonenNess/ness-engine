@@ -27,7 +27,7 @@ namespace Ness
 			NESSENGINE_API virtual bool inject_event(const Event& event);
 
 			// get key state
-			NESSENGINE_API inline bool ket_state(Keycode key) {return m_key_codes[key];}
+			NESSENGINE_API inline bool key_state(Keycode key) {return m_key_codes[key];}
 		};
 
 	};

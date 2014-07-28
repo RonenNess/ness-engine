@@ -93,41 +93,41 @@ int _tmain(int argc, _TCHAR* argv[])
 		light3->set_position(mouse.position() - Ness::Point(200.0f, 0.0f));
 
 		// keyboard control - toggle objects
-		if (keyboard.ket_state(SDLK_1))
+		if (keyboard.key_state(SDLK_1))
 		{
 			sprite1->set_visible(true);
 			sprite2->set_visible(false);
 			sprite3->set_visible(false);
 			sprite4->set_visible(false);
 		}
-		if (keyboard.ket_state(SDLK_2))
+		if (keyboard.key_state(SDLK_2))
 		{
 			sprite1->set_visible(false);
 			sprite2->set_visible(true);
 			sprite3->set_visible(false);
 			sprite4->set_visible(false);
 		}
-		if (keyboard.ket_state(SDLK_3))
+		if (keyboard.key_state(SDLK_3))
 		{
 			sprite1->set_visible(false);
 			sprite2->set_visible(false);
 			sprite3->set_visible(true);
 			sprite4->set_visible(false);
 		}
-		if (keyboard.ket_state(SDLK_4))
+		if (keyboard.key_state(SDLK_4))
 		{
 			sprite1->set_visible(false);
 			sprite2->set_visible(false);
 			sprite3->set_visible(false);
 			sprite4->set_visible(true);
 		}
-		if (keyboard.ket_state(SDLK_5))
+		if (keyboard.key_state(SDLK_5))
 		{
 			light1->set_visible(true);
 			light2->set_visible(false);
 			light3->set_visible(false);
 		}
-		if (keyboard.ket_state(SDLK_6))
+		if (keyboard.key_state(SDLK_6))
 		{
 			light1->set_visible(false);
 			light2->set_visible(true);

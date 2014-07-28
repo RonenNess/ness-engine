@@ -83,19 +83,19 @@ int _tmain(int argc, _TCHAR* argv[])
 		render.start_frame();
 
 		// do keyboard control
-		if (keyboard.ket_state(SDLK_DOWN))
+		if (keyboard.key_state(SDLK_DOWN))
 		{
 			camera->position.y += render.time_factor() * CameraSpeed;
 		}
-		if (keyboard.ket_state(SDLK_UP))
+		if (keyboard.key_state(SDLK_UP))
 		{
 			camera->position.y -= render.time_factor() * CameraSpeed;
 		}
-		if (keyboard.ket_state(SDLK_LEFT))
+		if (keyboard.key_state(SDLK_LEFT))
 		{
 			camera->position.x -= render.time_factor() * CameraSpeed;
 		}
-		if (keyboard.ket_state(SDLK_RIGHT))
+		if (keyboard.key_state(SDLK_RIGHT))
 		{
 			camera->position.x += render.time_factor() * CameraSpeed;
 		}

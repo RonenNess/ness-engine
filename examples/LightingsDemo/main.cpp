@@ -80,13 +80,13 @@ int _tmain(int argc, _TCHAR* argv[])
 		player.do_events();
 
 		// keyboard controls
-		if (keyboard.ket_state(SDLK_UP))
+		if (keyboard.key_state(SDLK_UP))
 			player.aim_light_up();
-		if (keyboard.ket_state(SDLK_DOWN))
+		if (keyboard.key_state(SDLK_DOWN))
 			player.aim_light_down();
-		if (keyboard.ket_state(SDLK_LEFT))
+		if (keyboard.key_state(SDLK_LEFT))
 			player.walk_left();
-		else if (keyboard.ket_state(SDLK_RIGHT))
+		else if (keyboard.key_state(SDLK_RIGHT))
 			player.walk_right();
 		else
 			player.stand();
@@ -98,7 +98,6 @@ int _tmain(int argc, _TCHAR* argv[])
 	}
 
 	// cleanup
-	//scene->remove(sprite);
 	renderer.remove_scene(scene);
 	return 0;
 }

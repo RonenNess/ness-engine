@@ -62,13 +62,13 @@ int _tmain(int argc, _TCHAR* argv[])
 		}
 		meteors.remove_if(remove_meteors_off_screen);
 		if (is_player_alive) {
-			if (keyboard.ket_state(SDLK_LEFT)) {
+			if (keyboard.key_state(SDLK_LEFT)) {
 				if (playerAnim->get_starting_step_point() != Ness::Sizei(0, 1))
 					playerAnim->reset(Ness::Sizei(0, 1), 3, ANIMATION_SPEED);
 				if (player->get_position().x > player->get_size().x * 0.5f)
 					player->set_position(player->get_position() - Ness::Point(renderer.time_factor() * MOVEMENT_SPEED, 0));
 			}
-			else if (keyboard.ket_state(SDLK_RIGHT)) {
+			else if (keyboard.key_state(SDLK_RIGHT)) {
 				if (playerAnim->get_starting_step_point() != Ness::Sizei(0, 2))
 					playerAnim->reset(Ness::Sizei(0, 2), 3, ANIMATION_SPEED);
 				if (player->get_position().x < renderer.get_screen_size().x - player->get_size().x * 0.5f)
@@ -78,11 +78,11 @@ int _tmain(int argc, _TCHAR* argv[])
 				if (playerAnim->get_starting_step_point() != Ness::Sizei(0, 0))
 					playerAnim->reset(Ness::Sizei(0, 0), 3, ANIMATION_SPEED);
 			}
-			if (keyboard.ket_state(SDLK_UP)) {
+			if (keyboard.key_state(SDLK_UP)) {
 				if (player->get_position().y > player->get_size().x * 0.5f)
 					player->set_position(player->get_position() - Ness::Point(0, renderer.time_factor() * MOVEMENT_SPEED));
 			}
-			if (keyboard.ket_state(SDLK_DOWN)) {
+			if (keyboard.key_state(SDLK_DOWN)) {
 				if (player->get_position().y < renderer.get_screen_size().y)
 					player->set_position(player->get_position() + Ness::Point(0, renderer.time_factor() * MOVEMENT_SPEED));
 			}

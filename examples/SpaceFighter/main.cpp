@@ -138,27 +138,27 @@ int _tmain(int argc, _TCHAR* argv[])
 		// KEYBOARD CONTROL:
 
 		// player1 controls
-		if (keyboard.ket_state(SDLK_UP))
+		if (keyboard.key_state(SDLK_UP))
 			player1.fly_forward();
-		if (keyboard.ket_state(SDLK_DOWN))
+		if (keyboard.key_state(SDLK_DOWN))
 			player1.fly_backwards();
-		if (keyboard.ket_state(SDLK_LEFT))
+		if (keyboard.key_state(SDLK_LEFT))
 			player1.turn_left();
-		if (keyboard.ket_state(SDLK_RIGHT))
+		if (keyboard.key_state(SDLK_RIGHT))
 			player1.turn_right();
-		if (keyboard.ket_state(SDLK_RETURN))
+		if (keyboard.key_state(SDLK_RETURN))
 			player1.fire();
 
 		// player2 controls
-		if (keyboard.ket_state(SDLK_w))
+		if (keyboard.key_state(SDLK_w))
 			player2.fly_forward();
-		if (keyboard.ket_state(SDLK_s))
+		if (keyboard.key_state(SDLK_s))
 			player2.fly_backwards();
-		if (keyboard.ket_state(SDLK_a))
+		if (keyboard.key_state(SDLK_a))
 			player2.turn_left();
-		if (keyboard.ket_state(SDLK_d))
+		if (keyboard.key_state(SDLK_d))
 			player2.turn_right();
-		if (keyboard.ket_state(SDLK_SPACE))
+		if (keyboard.key_state(SDLK_SPACE))
 			player2.fire();
 
 		// render and end the scene

@@ -82,19 +82,19 @@ int _tmain(int argc, _TCHAR* argv[])
 
 		// do keyboard control - move player around
 		Ness::Point playerPos = player->get_position();
-		if (keyboard.ket_state(SDLK_DOWN))
+		if (keyboard.key_state(SDLK_DOWN))
 		{
 			playerPos.y += render.time_factor() * PlayerSpeed;
 		}
-		if (keyboard.ket_state(SDLK_UP))
+		if (keyboard.key_state(SDLK_UP))
 		{
 			playerPos.y -= render.time_factor() * PlayerSpeed;
 		}
-		if (keyboard.ket_state(SDLK_LEFT))
+		if (keyboard.key_state(SDLK_LEFT))
 		{
 			playerPos.x -= render.time_factor() * PlayerSpeed;
 		}
-		if (keyboard.ket_state(SDLK_RIGHT))
+		if (keyboard.key_state(SDLK_RIGHT))
 		{
 			playerPos.x += render.time_factor() * PlayerSpeed;
 		}

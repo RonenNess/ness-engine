@@ -108,19 +108,19 @@ int _tmain(int argc, _TCHAR* argv[])
 		render.start_frame();
 
 		// do keyboard control - move player around
-		if (keyboard.ket_state(SDLK_DOWN))
+		if (keyboard.key_state(SDLK_DOWN))
 		{
 			player->walk(DIRECTION_DOWN);
 		}
-		else if (keyboard.ket_state(SDLK_UP))
+		else if (keyboard.key_state(SDLK_UP))
 		{
 			player->walk(DIRECTION_UP);
 		}
-		else if (keyboard.ket_state(SDLK_LEFT))
+		else if (keyboard.key_state(SDLK_LEFT))
 		{
 			player->walk(DIRECTION_LEFT);
 		}
-		else if (keyboard.ket_state(SDLK_RIGHT))
+		else if (keyboard.key_state(SDLK_RIGHT))
 		{
 			player->walk(DIRECTION_RIGHT);
 		}
@@ -128,7 +128,7 @@ int _tmain(int argc, _TCHAR* argv[])
 		{
 			player->stop();
 		}
-		if (keyboard.ket_state(SDLK_SPACE))
+		if (keyboard.key_state(SDLK_SPACE))
 		{
 			player->shoot();
 		}

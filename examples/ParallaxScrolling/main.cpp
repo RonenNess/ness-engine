@@ -89,13 +89,13 @@ int _tmain(int argc, _TCHAR* argv[])
 
 		// move camera
 		float cameraSpeed = 100.0f;
-		if (keyboard.ket_state(SDLK_UP))
+		if (keyboard.key_state(SDLK_UP))
 			camera->position.y -= renderer.time_factor() * cameraSpeed;
-		if (keyboard.ket_state(SDLK_DOWN))
+		if (keyboard.key_state(SDLK_DOWN))
 			camera->position.y += renderer.time_factor() * cameraSpeed;
-		if (keyboard.ket_state(SDLK_LEFT))
+		if (keyboard.key_state(SDLK_LEFT))
 			camera->position.x -= renderer.time_factor() * cameraSpeed;
-		if (keyboard.ket_state(SDLK_RIGHT))
+		if (keyboard.key_state(SDLK_RIGHT))
 			camera->position.x += renderer.time_factor() * cameraSpeed;
 
 		// make sure camera is at legal position
