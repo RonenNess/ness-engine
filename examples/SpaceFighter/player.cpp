@@ -6,7 +6,7 @@ bool remove_dead_shots(const std::auto_ptr<LaserShot>& shot)
 	return shot->get_time_to_live() <= 0.0f;
 }
 
-Player::Player(Ness::NodePtr& parentNode, const std::string& spacehipTexture, const Ness::Color& fireColor) : 
+Player::Player(Ness::NodePtr& parentNode, const Ness::String& spacehipTexture, const Ness::Color& fireColor) : 
 m_acceleration(1.25f), m_turning_speed(250.0f), m_max_speed(2.0f), m_parent(parentNode), m_speed(0.0f, 0.0f), 
 	m_fire_color(fireColor), m_fire_cooldown(0.0f), m_shooting_rate(2.0f)
 {

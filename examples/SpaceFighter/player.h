@@ -24,7 +24,7 @@ private:
 
 public:
 	// create the player and put it under parentNode
-	Player(Ness::NodePtr& parentNode, const std::string& spacehipTexture, const Ness::Color& fireColor);
+	Player(Ness::NodePtr& parentNode, const Ness::String& spacehipTexture, const Ness::Color& fireColor);
 
 	// remove the player
 	~Player();

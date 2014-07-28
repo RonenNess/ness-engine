@@ -1,6 +1,6 @@
 #include "sprite3d.h"
 
-Sprite3d::Sprite3d(Ness::LightNodePtr lightNode, const std::string& TextureFile) 
+Sprite3d::Sprite3d(Ness::LightNodePtr lightNode, const Ness::String& TextureFile) 
 	: Sprite(lightNode->renderer(), TextureFile), m_light_node(lightNode)
 {
 	m_light_left = m_renderer->resources().get_texture(TextureFile + ".left.png");

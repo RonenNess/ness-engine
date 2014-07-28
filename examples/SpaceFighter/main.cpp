@@ -166,8 +166,8 @@ int _tmain(int argc, _TCHAR* argv[])
 		renderer.end_frame();
 
 		// update fps show
-		std::string FpsShow = std::string("fps ") + (renderer.get_flags() & Ness::RENDERER_FLAG_VSYNC ? "(vsync): " : ": ");
-		fpsShow->change_text(FpsShow + std::to_string((long long)renderer.fps()));
+		Ness::String FpsShow = Ness::String("fps ") + (renderer.get_flags() & Ness::RENDERER_FLAG_VSYNC ? "(vsync): " : ": ");
+		fpsShow->change_text(FpsShow + ness_int_to_string(renderer.fps()));
 	}
 
 	// cleanup. 

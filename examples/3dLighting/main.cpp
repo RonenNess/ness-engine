@@ -44,25 +44,25 @@ int _tmain(int argc, _TCHAR* argv[])
 	light3->set_position(Ness::Point(800.0f, 300.0f));
 
 	// sprite 1: monster with diffuse
-	NessSharedPtr<Sprite3d> sprite1 = ness_make_ptr<Sprite3d>(lightNode, "deamon.png");
+	SharedPtr<Sprite3d> sprite1 = ness_make_ptr<Sprite3d>(lightNode, "deamon.png");
 	sprite1->set_scale(1.5f);
 	node->add(sprite1);
 
 	// sprite 2: monster without diffuse
-	NessSharedPtr<Sprite3d> sprite2 = ness_make_ptr<Sprite3d>(lightNode, "deamon.png");
+	SharedPtr<Sprite3d> sprite2 = ness_make_ptr<Sprite3d>(lightNode, "deamon.png");
 	sprite2->set_scale(1.5f);
 	sprite2->render_diffuse(false);
 	sprite2->set_visible(false);
 	node->add(sprite2);
 
 	// sprite 3: rock
-	NessSharedPtr<Sprite3d> sprite3 = ness_make_ptr<Sprite3d>(lightNode, "rock.png", false);
+	SharedPtr<Sprite3d> sprite3 = ness_make_ptr<Sprite3d>(lightNode, "rock.png", false);
 	sprite3->set_scale(1.5f);
 	sprite3->set_visible(false);
 	node->add(sprite3);
 
 	// sprite 4: rock without diffuse
-	NessSharedPtr<Sprite3d> sprite4 = ness_make_ptr<Sprite3d>(lightNode, "rock.png", false);
+	SharedPtr<Sprite3d> sprite4 = ness_make_ptr<Sprite3d>(lightNode, "rock.png", false);
 	sprite4->set_scale(1.5f);
 	sprite4->render_diffuse(false);
 	sprite4->set_visible(false);

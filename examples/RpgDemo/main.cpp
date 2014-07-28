@@ -28,10 +28,12 @@ int _tmain(int argc, _TCHAR* argv[])
 	Ness::ScenePtr scene = render.create_scene();
 
 	// create the tilemap
+	Ness::StaticNodePtr staticNode = scene->create_static_node();
 	const int TileSize = 128;
 	const int TileMapSize = 100;
 	const int TotalMapSize = (TileSize * (TileMapSize - 1));
-	Ness::TileMapPtr map =scene->create_tilemap("gfx/tilemap.jpg", Ness::Sizei(TileMapSize, TileMapSize), Ness::Sizei(TileSize, TileSize));
+	Ness::TileMapPtr map = staticNode->create_tilemap("gfx/tilemap.jpg", Ness::Sizei(TileMapSize, TileMapSize), Ness::Sizei(TileSize, TileSize));
+	staticNode->build();
 
 	// create the znode - a depth-based ordering scene node
 	Ness::NodePtr znode = scene->create_znode();
@@ -69,12 +71,12 @@ int _tmain(int argc, _TCHAR* argv[])
 	}
 
 	// create the player character!
-	NessSharedPtr<Character> player = ness_make_ptr<Character>(lightNode, znode, "gfx/wolf.png");
+	SharedPtr<Character> player = ness_make_ptr<Character>(lightNode, znode, "gfx/wolf.png");
 	render.register_animator(player);
 	player->set_position(Ness::Pointi(TotalMapSize / 2, TotalMapSize / 2));
 	
 	// add the character sprite (just a guy standing in the forest, nothing serious)
-	NessSharedPtr<Character> wizard = ness_make_ptr<Character>(lightNode, znode, "gfx/player.png");
+	SharedPtr<Character> wizard = ness_make_ptr<Character>(lightNode, znode, "gfx/player.png");
 	render.register_animator(wizard);
 	wizard->set_position(Ness::Pointi(TotalMapSize / 2 + 100, TotalMapSize / 2));
 	wizard->get_light()->set_scale(3.0f);
@@ -144,8 +146,8 @@ int _tmain(int argc, _TCHAR* argv[])
 		render.end_frame();
 
 		// update fps show
-		std::string FpsShow = std::string("fps ") + (render.get_flags() & Ness::RENDERER_FLAG_VSYNC ? "(vsync): " : ": ");
-		fpsShow->change_text(FpsShow + std::to_string((long long)render.fps()));
+		Ness::String FpsShow = Ness::String("fps ") + (render.get_flags() & Ness::RENDERER_FLAG_VSYNC ? "(vsync): " : ": ");
+		fpsShow->change_text(FpsShow + ness_int_to_string(render.fps()));
 	}
 
 	return 0;
