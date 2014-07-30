@@ -28,7 +28,7 @@ namespace Ness
 		// create the sprite with texture
 		NESSENGINE_API Entity(Renderer* renderer);
 
-		// called whenever transformations are updated
+		// set the flag of this entity that it needs transformations update. don't call this yourself, ness-engine should call it automatically.
 		NESSENGINE_API virtual void transformations_update();
 
 		// return if need transformations udpate
@@ -68,7 +68,7 @@ namespace Ness
 		NESSENGINE_API inline void set_anchor(const Point& NewAnchor) {m_anchor = NewAnchor;}
 		NESSENGINE_API inline const Point& get_anchor() const {return m_anchor;}
 
-		// return the target rectangle this sprite will be rendered on
+		// return the target rectangle this sprite will be rendered on, not including camera position
 		NESSENGINE_API const Rectangle& get_last_target_rect() const {return m_target_rect;}
 
 		// get absolute transformations for this renderable sprite
@@ -76,9 +76,6 @@ namespace Ness
 
 		// a const version of get_absolute_transformations, which does not affect the inner state of the entity (but might return information not fully up-to-date)
 		NESSENGINE_API virtual const SRenderTransformations& get_absolute_transformations_const() const;
-
-		// reset source rect to be full image size
-		NESSENGINE_API void reset_source_rect();
 
 		// render this entity
 		NESSENGINE_API virtual void render(const CameraPtr& camera = NullCamera);

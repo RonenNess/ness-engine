@@ -85,7 +85,7 @@ namespace Ness
 			}
 
 			// change animation + reset
-			NESSENGINE_API inline void reset(const Sizei& startingStep, unsigned int stepsCount, float AnimationSpeed = 1.0f)
+			NESSENGINE_API inline void reset(const Pointi& startingStep, unsigned int stepsCount, float AnimationSpeed = 1.0f)
 			{
 				m_count = stepsCount;
 				m_starting = startingStep.x + (startingStep.y * m_spritesheet_total_steps.x);

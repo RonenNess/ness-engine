@@ -1,2 +1,3 @@
 spaceship.png & meteor.png by http://arboris.deviantart.com/art/Spaceship-sprites-43030167
 explosion.png from http://hasgraphics.com/phaedy-explosion-generator/spritesheet9/
+wizard.png from http://kaiser321.deviantart.com/art/Custom-Sprite-for-RPG-maker-XP-104794448

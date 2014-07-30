@@ -14,9 +14,9 @@ namespace Ness
 	// default properties you can set to all future sprites
 	struct SSpriteDefaults
 	{
-		bool	is_static;
-		Point	anchor;
-		bool	alpha_channels;
+		bool	is_static;				// if true, will make all sprites you create static by default
+		Point	anchor;					// set default anchor point for newly created sprites
+		bool	alpha_channels;			// if true, will make all new sprites blending mode set to BLEND by default
 
 		SSpriteDefaults()
 		{
