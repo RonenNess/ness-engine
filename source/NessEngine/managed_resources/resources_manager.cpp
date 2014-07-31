@@ -1,6 +1,7 @@
 #include "resources_manager.h"
 #include "../exceptions/exceptions.h"
 #include "../exceptions/log.h"
+#include "../renderer/renderer.h"
 
 namespace Ness
 {
@@ -51,7 +52,7 @@ namespace Ness
 			{
 				NESS_LOG(("rc_manager: load texture: " + textureName).c_str());
 				__STextureInManager& NewEntry = m_textures[textureName];
-				NewEntry.texture = new ManagedTexture(m_base_path + textureName, m_renderer, (m_use_color_key ? &m_color_key : nullptr));
+				NewEntry.texture = new ManagedTexture(m_base_path + textureName, m_renderer->__sdl_renderer(), (m_use_color_key ? &m_color_key : nullptr));
 				NewEntry.texture->rc_mng_manager = this;
 				NewEntry.texture->rc_mng_name = textureName;
 				NewEntry.ref_count = 0;
@@ -94,15 +95,11 @@ namespace Ness
 			}
 
 			// convert size if zero
-			Sizei TexSize = size;
-			if (TexSize == Sizei::ZERO)
-			{
-				SDL_GetRendererOutputSize(m_renderer, &TexSize.x, &TexSize.y);
-			}
+			Sizei TexSize = (size == Sizei::ZERO ? m_renderer->get_screen_size() : size);
 
 			// create the texture
 			__STextureInManager& NewEntry = m_textures[textureName];
-			NewEntry.texture = new ManagedTexture(m_renderer, TexSize);
+			NewEntry.texture = new ManagedTexture(m_renderer->__sdl_renderer(), TexSize);
 			NewEntry.texture->rc_mng_manager = this;
 			NewEntry.texture->rc_mng_name = textureName;
 			NewEntry.ref_count = 0;

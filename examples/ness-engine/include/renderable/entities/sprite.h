@@ -48,6 +48,7 @@ namespace Ness
 
 		// change texture
 		NESSENGINE_API inline void change_texture(ManagedResources::ManagedTexturePtr NewTexture) {m_texture = NewTexture;}
+		NESSENGINE_API void change_texture(const String& NewTextureFile);
 
 		// set texture source rect (to render entire texture give (0, 0, textureSize.x, textureSize.y)
 		NESSENGINE_API void set_source_rect(const Rectangle& srcRect);

@@ -12,6 +12,9 @@
 
 namespace Ness
 {
+	// predeclare renderer
+	class Renderer;
+
 	namespace ManagedResources
 	{
 
@@ -37,10 +40,10 @@ namespace Ness
 		private:
 			UnorderedMap<String, __STextureInManager>			m_textures;			// map that holds all loaded textures
 			UnorderedMap<String, __SFontInManager>				m_fonts;			// map that holds all loaded fonts
-			String													m_base_path;		// basic path to search resources under
-			Colorb													m_color_key;		// transparency color key
-			bool													m_use_color_key;	// enable/disable color key
-			SDL_Renderer*											m_renderer;			// our sdl renderer
+			String												m_base_path;		// basic path to search resources under
+			Colorb												m_color_key;		// transparency color key
+			bool												m_use_color_key;	// enable/disable color key
+			Renderer*											m_renderer;			// pointer to the renderer manager
 
 		public:
 
@@ -48,7 +51,7 @@ namespace Ness
 			NESSENGINE_API ResourcesManager();
 
 			// set the renderer for this resources manager
-			NESSENGINE_API inline void set_renderer(SDL_Renderer* renderer) {m_renderer = renderer;}
+			NESSENGINE_API inline void set_renderer(Renderer* renderer) {m_renderer = renderer;}
 
 			// get/load a texture
 			NESSENGINE_API ManagedTexturePtr get_texture(const String& textureName);

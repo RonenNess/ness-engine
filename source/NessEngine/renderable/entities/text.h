@@ -41,7 +41,7 @@ namespace Ness
 		NESSENGINE_API inline void change_font(ManagedResources::ManagedFontPtr NewFont) {m_font = NewFont; m_need_text_update = true;}
 
 		// set line width (in pixel). if text pass this limit, it will break line. give 0 to cancel line width limit
-		NESSENGINE_API inline void set_line_width(unsigned int width) {m_line_width = width;}
+		NESSENGINE_API inline void set_line_width(unsigned int width) {m_line_width = width; m_need_text_update = true;}
 		NESSENGINE_API inline unsigned int get_line_width() const {return m_line_width;}
 
 		// change the text.
@@ -56,12 +56,12 @@ namespace Ness
 		NESSENGINE_API inline ManagedResources::ManagedFontPtr get_font() {return m_font;}
 
 		// override render so we update text first if we need to
-		void render(const CameraPtr& camera = NullCamera);
+		NESSENGINE_API void render(const CameraPtr& camera = NullCamera);
 
 	protected:
 
 		// update after font/text change
-		void update();
+		NESSENGINE_API void update();
 
 		// the actual rendering function
 		NESSENGINE_API virtual void do_render(const Rectangle& target, const SRenderTransformations& transformations);

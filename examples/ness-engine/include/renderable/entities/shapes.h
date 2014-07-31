@@ -21,7 +21,7 @@ namespace Ness
 		NESSENGINE_API RectangleShape(Renderer* renderer);
 
 		// set if this rectangle is filled or just outlines
-		inline void set_filled(bool filled) {m_is_filled = filled;}
+		NESSENGINE_API inline void set_filled(bool filled) {m_is_filled = filled;}
 
 	protected:
 		// the actual rendering function

@@ -17,6 +17,12 @@ namespace Ness
 		init_from_texture(texture);
 	}
 
+	void Sprite::change_texture(const String& NewTextureFile)
+	{
+		m_texture = m_renderer->resources().get_texture(NewTextureFile);
+	}
+
+
 	Sprite::Sprite(Renderer* renderer, const String& TextureFile) : Entity(renderer)
 	{
 		set_defaults();

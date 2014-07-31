@@ -26,7 +26,7 @@ namespace Ness
 		m_renderer = SDL_CreateRenderer(m_window, -1, rendererFlags);
 
 		// give the renderer to the resources manager
-		m_resources.set_renderer(m_renderer);
+		m_resources.set_renderer(this);
 
 		// to set target size etc..
 		reset_render_target();
