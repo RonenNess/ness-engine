@@ -16,6 +16,7 @@ namespace Ness
 		m_render_target = m_canvas->get_texture();
 		m_canvas->set_auto_clean(false);
 		m_canvas->set_static(true);
+		m_canvas->set_anchor(Ness::Point::ZERO);
 		m_canvas->set_blend_mode(BLEND_MODE_MOD);
 		set_ambient_color(Ness::Color::BLACK);
 	}
