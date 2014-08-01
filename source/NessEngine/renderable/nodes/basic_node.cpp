@@ -111,6 +111,23 @@ namespace Ness
 		return m_absolute_trans;
 	}
 
+	void BaseNode::set_render_target(const ManagedResources::ManagedTexturePtr& NewTarget) 
+	{
+		m_render_target = NewTarget;
+	}
+
+	void BaseNode::set_render_target(const CanvasPtr& NewTarget) 
+	{
+		if (NewTarget->parent() == this)
+			throw IllegalAction("Cannot set node render target that is a direct son of the node!");
+		m_render_target = NewTarget->get_texture();
+	}
+
+	void BaseNode::remove_render_target() 
+	{
+		m_render_target.reset();
+	}
+
 	void BaseNode::transformations_update()
 	{
 		m_need_trans_update = true;
@@ -131,7 +148,7 @@ namespace Ness
 		// if there is alternative target texture
 		if (m_render_target)
 		{
-			m_renderer->set_render_target(m_render_target);
+			m_renderer->push_render_target(m_render_target);
 		}
 
 		// render all sprites
@@ -143,7 +160,7 @@ namespace Ness
 		// remove target texture
 		if (m_render_target)
 		{
-			m_renderer->reset_render_target();
+			m_renderer->pop_render_target();
 		}
 	}
 };

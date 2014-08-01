@@ -60,7 +60,7 @@ namespace Ness
 		// set rendering target
 		if (m_render_target)
 		{
-			m_renderer->set_render_target(m_render_target);
+			m_renderer->push_render_target(m_render_target);
 		}
 
 		// render everything!
@@ -72,7 +72,7 @@ namespace Ness
 		// reset rendering target if such target was used
 		if (m_render_target)
 		{
-			m_renderer->reset_render_target();
+			m_renderer->pop_render_target();
 		}
 	}
 };

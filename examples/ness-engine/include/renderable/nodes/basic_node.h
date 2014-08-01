@@ -12,6 +12,8 @@
 
 namespace Ness
 {
+	class Canvas;
+	NESSENGINE_API typedef SharedPtr<Canvas> CanvasPtr;
 
 	// a basic scene node, without functionality to create entities (only adding and removing)
 	class BaseNode : public NodeAPI
@@ -51,9 +53,10 @@ namespace Ness
 		// check if this node is really visible by checking all its sub nodes and sprites (until hitting yes)
 		NESSENGINE_API virtual bool is_really_visible(const CameraPtr& camera = NullCamera);
 
-		// set rendering target for this node
-		NESSENGINE_API void set_render_target(ManagedResources::ManagedTexturePtr NewTarget) {m_render_target = NewTarget;}
-		NESSENGINE_API void remove_render_target() {m_render_target.reset();}
+		// set/remove rendering target for this node
+		NESSENGINE_API void set_render_target(const ManagedResources::ManagedTexturePtr& NewTarget);
+		NESSENGINE_API void set_render_target(const CanvasPtr& NewTarget);
+		NESSENGINE_API void remove_render_target();
 
 		// return if need transformations udpate
 		NESSENGINE_API virtual bool need_transformations_update() {return m_need_trans_update;}

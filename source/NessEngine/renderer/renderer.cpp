@@ -175,10 +175,37 @@ namespace Ness
 		m_target_size = &m_screen_size;
 	}
 
-	// set rendering to target texture
-	void Renderer::set_render_target(ManagedResources::ManagedTexturePtr texture)
+	void Renderer::push_render_target(const ManagedResources::ManagedTexturePtr& texture)
 	{
-		// got null: remove target texture
+		// push texture to render targets queue and set as current render target
+		m_render_targets_queue.push_back(texture);
+		set_render_target(texture);
+	}
+
+	// remove all render targets from queue
+	void Renderer::clear_render_targets()
+	{
+		m_render_targets_queue.clear();
+		reset_render_target();
+	}
+
+	void Renderer::pop_render_target()
+	{
+		// if not empty, pop last target
+		if (!m_render_targets_queue.empty())
+			m_render_targets_queue.pop_back();
+
+		// if empty, reset render target
+		if (m_render_targets_queue.empty())
+			reset_render_target();
+		// if not empty, set render target to be next in queue
+		else
+			set_render_target(m_render_targets_queue.back());
+	}
+
+	void Renderer::set_render_target(const ManagedResources::ManagedTexturePtr& texture)
+	{
+		// got null? remove target texture
 		if (texture.get() == nullptr)
 		{
 			reset_render_target();
@@ -194,7 +221,6 @@ namespace Ness
 		m_target_size = &texture->get_size();
 	}
 
-	// clear texture (remove everything)
 	void Renderer::clear_texture(ManagedResources::ManagedTexturePtr texture)
 	{
 		SDL_SetRenderTarget(m_renderer, texture->texture());
@@ -202,7 +228,6 @@ namespace Ness
 		set_render_target(m_render_target);
 	}
 
-	// fill texture to given color
 	void Renderer::fill_texture(ManagedResources::ManagedTexturePtr texture, const Color& fillColor)
 	{
 		Rectangle screen;

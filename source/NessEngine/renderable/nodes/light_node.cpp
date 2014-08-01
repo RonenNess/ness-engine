@@ -92,13 +92,13 @@ namespace Ness
 		m_canvas->clear();
 
 		// render all lights
-		m_renderer->set_render_target(m_canvas->get_texture());
+		m_renderer->push_render_target(m_canvas->get_texture());
 		for (unsigned int i = 0; i < m_entities.size(); i++)
 		{
 			m_entities[i]->render(camera);
 			ness_ptr_cast<Light>(m_entities[i])->set_need_redraw(false);
 		}
-		m_renderer->reset_render_target();
+		m_renderer->pop_render_target();
 
 		// render the canvas layer
 		m_canvas->render();

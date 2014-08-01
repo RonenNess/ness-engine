@@ -28,25 +28,26 @@ namespace Ness
 	class Renderer
 	{
 	private:
-		SDL_Window*								m_window;					// our window pointer
-		SDL_Renderer*							m_renderer;					// our main renderer
-		ManagedResources::ResourcesManager		m_resources;				// the resources manager class
-		Vector<ScenePtr>						m_scenes;					// all the scenes this renderer has
-		Vector<Animators::AnimatorPtr>			m_animators;				// all the animators currently registered
-		unsigned int							m_start_frame_time;			// tick count at the begining of the frame
-		float									m_timefactor;				// time delta (time factor) from begining to end of frame
-		float									m_second_timer;				// count time elapse until getting to a second (0 to 1.0)
-		float									m_total_time;				// total time passed (1.0f = second)
-		int										m_curr_fps_count;			// count fps
-		int										m_fps;						// final fps, updates every second
-		Sizei									m_screen_size;				// screen size/ resolution
-		bool									m_can_render_to_texture;	// does our renderer support render to texture target?
-		ManagedResources::ManagedTexturePtr		m_render_target;			// current texture we render on
-		unsigned int							m_frameid;					// a unique frame id, increased by 1 after every frame
-		const Sizei*							m_target_size;				// size of the target we are currently rendering on (screen or target texture)
-		Colorb									m_background_color;			// background clear color
-		const int								m_flags;					// init flags (passed in constructor)
-		bool									m_auto_animate;				// do animations automatically (default to true)
+		SDL_Window*									m_window;					// our window pointer
+		SDL_Renderer*								m_renderer;					// our main renderer
+		ManagedResources::ResourcesManager			m_resources;				// the resources manager class
+		Vector<ScenePtr>							m_scenes;					// all the scenes this renderer has
+		Vector<Animators::AnimatorPtr>				m_animators;				// all the animators currently registered
+		unsigned int								m_start_frame_time;			// tick count at the begining of the frame
+		float										m_timefactor;				// time delta (time factor) from begining to end of frame
+		float										m_second_timer;				// count time elapse until getting to a second (0 to 1.0)
+		float										m_total_time;				// total time passed (1.0f = second)
+		int											m_curr_fps_count;			// count fps
+		int											m_fps;						// final fps, updates every second
+		Sizei										m_screen_size;				// screen size/ resolution
+		bool										m_can_render_to_texture;	// does our renderer support render to texture target?
+		ManagedResources::ManagedTexturePtr			m_render_target;			// current texture we render on (or null if we render on screen)
+		List<ManagedResources::ManagedTexturePtr>	m_render_targets_queue;		// queue of render targets waiting in line
+		unsigned int								m_frameid;					// a unique frame id, increased by 1 after every frame
+		const Sizei*								m_target_size;				// size of the target we are currently rendering on (screen or target texture)
+		Colorb										m_background_color;			// background clear color
+		const int									m_flags;					// init flags (passed in constructor)
+		bool										m_auto_animate;				// do animations automatically (default to true)
 
 	public:
 		// create the renderer instance!
@@ -114,9 +115,13 @@ namespace Ness
 		// end a rendering frame
 		NESSENGINE_API void end_frame();
 
-		// set rendering target. if no texture is provided, will render on the renderer default target (screen)
-		NESSENGINE_API void set_render_target(ManagedResources::ManagedTexturePtr texture);
-		NESSENGINE_API void reset_render_target();
+		// push render target (texture) to the render targets queue. the renderer will render everything on the target at the top of the queue
+		// so this will basically set the current rendering target. after you finish pop the rendering target with pop_render_target();
+		NESSENGINE_API void push_render_target(const ManagedResources::ManagedTexturePtr& texture);
+		NESSENGINE_API void pop_render_target();
+
+		// remove all render targets from queue
+		NESSENGINE_API void clear_render_targets();
 
 		// return last renderer error
 		NESSENGINE_API inline const char* get_last_renderer_error() const {return SDL_GetError();}
@@ -148,6 +153,11 @@ namespace Ness
 
 		// return the sdl renderer
 		inline SDL_Renderer* __sdl_renderer() {return m_renderer;}
+
+	protected:
+		// set/remove the current rendering target. note: this does not effect the rendering targets queue, it only set or reset the current target
+		NESSENGINE_API void set_render_target(const ManagedResources::ManagedTexturePtr& texture);
+		NESSENGINE_API void reset_render_target();
 
 	};
 };
