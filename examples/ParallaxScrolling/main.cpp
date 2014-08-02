@@ -81,6 +81,9 @@ int _tmain(int argc, _TCHAR* argv[])
 	EventsPoller.add_handler(keyboard);
 	EventsPoller.add_handler(app);
 
+	// show logo screen
+	Ness::Utils::make_logo_screen(front, "../ness-engine/resources/gfx/logo.png");
+
 	// loop until exit button is pressed
 	while( !app.got_quit() )
 	{

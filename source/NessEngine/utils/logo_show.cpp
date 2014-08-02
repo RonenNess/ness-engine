@@ -22,6 +22,7 @@ namespace Ness
 			rect->set_anchor(Ness::Point::ZERO);
 			rect->set_size(parentNode->renderer()->get_screen_size());
 			rect->set_color(backColor);
+			rect->set_static(true);
 			
 			// create the logo
 			if (textureName.length())
@@ -29,6 +30,7 @@ namespace Ness
 				Ness::SpritePtr sprite = node->create_sprite(textureName);
 				sprite->set_anchor(Ness::Point::HALF);
 				sprite->set_position(parentNode->renderer()->get_screen_center());
+				sprite->set_static(true);
 			}
 
 			// add the fade-out animator

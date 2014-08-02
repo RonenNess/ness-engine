@@ -70,13 +70,19 @@ int _tmain(int argc, _TCHAR* argv[])
 	// show score
 	Ness::TextPtr scoreShow = scene->create_text("../ness-engine/resources/fonts/courier.ttf", "score", 24);
 
+	// time until next meteor spawn
+	float TimeUntilNextSpawn = 1.35f;
+
+	// show logo screen
+	Ness::Utils::make_logo_screen(scene, "../ness-engine/resources/gfx/logo.png");
+
     while( !app.got_quit() )
     {
 		// poll events
         EventsPoller.poll_events();
 
 		// spawn random meteors
-		if (rand() % 10000 < 5)
+		if (TimeUntilNextSpawn <= 0.0f)
 		{
 			Ness::SpritePtr meteor = meteorsNode->create_sprite("../ness-engine/resources/gfx/meteor.png");
 			meteor->set_anchor(Ness::Point::HALF);
@@ -84,7 +90,9 @@ int _tmain(int argc, _TCHAR* argv[])
 			meteor->set_scale(0.75f + ((rand() % 30) / 10.0f));
 			meteor->set_blend_mode(Ness::BLEND_MODE_BLEND);
 			meteors.push_back(meteor);
+			TimeUntilNextSpawn = (rand() % 10) / 5.5f;
 		}
+		TimeUntilNextSpawn -= renderer.time_factor();
 
 		// move meteors
 		for (auto meteor = meteors.begin(); meteor != meteors.end(); ++meteor)
