@@ -114,6 +114,15 @@
     <ClCompile Include="..\source\NessEngine\renderable\nodes\light_node.cpp">
       <Filter>Source Files\renderables\nodes</Filter>
     </ClCompile>
+    <ClCompile Include="..\source\NessEngine\renderable\nodes\static_node.cpp">
+      <Filter>Source Files\renderables\nodes</Filter>
+    </ClCompile>
+    <ClCompile Include="..\source\NessEngine\renderable\entities\multiline_text.cpp">
+      <Filter>Source Files\renderables\entities</Filter>
+    </ClCompile>
+    <ClCompile Include="..\source\NessEngine\utils\application_events.cpp">
+      <Filter>Source Files\utils</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\source\NessEngine\NessEngine.h">
@@ -247,6 +256,18 @@
     </ClInclude>
     <ClInclude Include="..\source\NessEngine\renderable\nodes\light_node.h">
       <Filter>Source Files\renderables\nodes</Filter>
+    </ClInclude>
+    <ClInclude Include="..\source\NessEngine\renderable\nodes\static_node.h">
+      <Filter>Source Files\renderables\nodes</Filter>
+    </ClInclude>
+    <ClInclude Include="..\source\NessEngine\renderable\entities\multiline_text.h">
+      <Filter>Source Files\renderables\entities</Filter>
+    </ClInclude>
+    <ClInclude Include="..\source\NessEngine\utils\application_events.h">
+      <Filter>Source Files\utils</Filter>
+    </ClInclude>
+    <ClInclude Include="..\source\NessEngine\basic_types\events.h">
+      <Filter>Source Files\basic_types</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

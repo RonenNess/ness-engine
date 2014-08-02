@@ -1,4 +1,5 @@
 #include "mouse.h"
+#include <string.h>
 
 namespace Ness
 {

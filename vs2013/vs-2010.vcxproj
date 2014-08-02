@@ -24,12 +24,14 @@
     <ClCompile Include="..\source\NessEngine\NessEngine.cpp" />
     <ClCompile Include="..\source\NessEngine\renderable\entities\entity.cpp" />
     <ClCompile Include="..\source\NessEngine\renderable\entities\canvas.cpp" />
+    <ClCompile Include="..\source\NessEngine\renderable\entities\multiline_text.cpp" />
     <ClCompile Include="..\source\NessEngine\renderable\entities\shapes.cpp" />
     <ClCompile Include="..\source\NessEngine\renderable\entities\sprite.cpp" />
     <ClCompile Include="..\source\NessEngine\renderable\entities\text.cpp" />
     <ClCompile Include="..\source\NessEngine\renderable\nodes\basic_node.cpp" />
     <ClCompile Include="..\source\NessEngine\renderable\nodes\light_node.cpp" />
     <ClCompile Include="..\source\NessEngine\renderable\nodes\node.cpp" />
+    <ClCompile Include="..\source\NessEngine\renderable\nodes\static_node.cpp" />
     <ClCompile Include="..\source\NessEngine\renderable\nodes\tile_map.cpp" />
     <ClCompile Include="..\source\NessEngine\renderable\nodes\znode.cpp" />
     <ClCompile Include="..\source\NessEngine\renderer\renderer.cpp" />
@@ -37,6 +39,7 @@
     <ClCompile Include="..\source\NessEngine\resources\TextureSheet.cpp" />
     <ClCompile Include="..\source\NessEngine\scene\camera.cpp" />
     <ClCompile Include="..\source\NessEngine\scene\scene.cpp" />
+    <ClCompile Include="..\source\NessEngine\utils\application_events.cpp" />
     <ClCompile Include="..\source\NessEngine\utils\events_poller.cpp" />
     <ClCompile Include="..\source\NessEngine\utils\keyboard.cpp" />
     <ClCompile Include="..\source\NessEngine\utils\mouse.cpp" />
@@ -49,6 +52,7 @@
     <ClInclude Include="..\source\NessEngine\animators\animator_sprite.h" />
     <ClInclude Include="..\source\NessEngine\basic_types\color.h" />
     <ClInclude Include="..\source\NessEngine\basic_types\containers.h" />
+    <ClInclude Include="..\source\NessEngine\basic_types\events.h" />
     <ClInclude Include="..\source\NessEngine\basic_types\math.h" />
     <ClInclude Include="..\source\NessEngine\basic_types\point.h" />
     <ClInclude Include="..\source\NessEngine\basic_types\all_basic_types.h" />
@@ -64,6 +68,7 @@
     <ClInclude Include="..\source\NessEngine\renderable\entities\all_entities.h" />
     <ClInclude Include="..\source\NessEngine\renderable\entities\entity.h" />
     <ClInclude Include="..\source\NessEngine\renderable\entities\canvas.h" />
+    <ClInclude Include="..\source\NessEngine\renderable\entities\multiline_text.h" />
     <ClInclude Include="..\source\NessEngine\renderable\entities\shapes.h" />
     <ClInclude Include="..\source\NessEngine\renderable\entities\sprite.h" />
     <ClInclude Include="..\source\NessEngine\renderable\entities\text.h" />
@@ -72,6 +77,7 @@
     <ClInclude Include="..\source\NessEngine\renderable\nodes\basic_node.h" />
     <ClInclude Include="..\source\NessEngine\renderable\nodes\light_node.h" />
     <ClInclude Include="..\source\NessEngine\renderable\nodes\node.h" />
+    <ClInclude Include="..\source\NessEngine\renderable\nodes\static_node.h" />
     <ClInclude Include="..\source\NessEngine\renderable\nodes\tile_map.h" />
     <ClInclude Include="..\source\NessEngine\renderable\nodes\znode.h" />
     <ClInclude Include="..\source\NessEngine\renderable\node_api.h" />
@@ -83,6 +89,7 @@
     <ClInclude Include="..\source\NessEngine\resources\TextureSheet.h" />
     <ClInclude Include="..\source\NessEngine\scene\camera.h" />
     <ClInclude Include="..\source\NessEngine\scene\scene.h" />
+    <ClInclude Include="..\source\NessEngine\utils\application_events.h" />
     <ClInclude Include="..\source\NessEngine\utils\events_poller.h" />
     <ClInclude Include="..\source\NessEngine\utils\event_handler.h" />
     <ClInclude Include="..\source\NessEngine\utils\keyboard.h" />
