@@ -42,6 +42,7 @@
     <ClCompile Include="..\source\NessEngine\utils\application_events.cpp" />
     <ClCompile Include="..\source\NessEngine\utils\events_poller.cpp" />
     <ClCompile Include="..\source\NessEngine\utils\keyboard.cpp" />
+    <ClCompile Include="..\source\NessEngine\utils\logo_show.cpp" />
     <ClCompile Include="..\source\NessEngine\utils\mouse.cpp" />
     <ClCompile Include="dllmain.cpp" />
   </ItemGroup>
@@ -93,6 +94,7 @@
     <ClInclude Include="..\source\NessEngine\utils\events_poller.h" />
     <ClInclude Include="..\source\NessEngine\utils\event_handler.h" />
     <ClInclude Include="..\source\NessEngine\utils\keyboard.h" />
+    <ClInclude Include="..\source\NessEngine\utils\logo_show.h" />
     <ClInclude Include="..\source\NessEngine\utils\mouse.h" />
   </ItemGroup>
   <PropertyGroup Label="Globals">

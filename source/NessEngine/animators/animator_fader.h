@@ -12,30 +12,35 @@ namespace Ness
 {
 	namespace Animators
 	{
-		// fade in animator
+
+		// fade-out animator
 		class AnimatorFaderIn : public AnimatorAPI
 		{
 		private:
-			RenderablePtr	m_target;	// fader target
-			float			m_speed;	// fading speed
+			RenderablePtr	m_target;			// fader target
+			float			m_speed;			// fading speed
+			float			m_time_until;		// time until starting animation
 
 		public:
-			
-			AnimatorFaderIn(float fadeSpeed = 1.0f) : m_speed(fadeSpeed) {}
-
-			NESSENGINE_API virtual void set_target(RenderablePtr object)
+			// target is the renderable to fade-in
+			// fadeSpeed is the speed of the fadein animation
+			// timeUntilFadeIn is time to wait before starting to fade-in (1.0f == one second, default is 0.0f - start immediatly)
+			AnimatorFaderIn(const RenderablePtr& target, float fadeSpeed = 1.0f, float timeUntilFadeIn = 0.0f) 
+				: m_target(target),  m_speed(fadeSpeed), m_time_until(timeUntilFadeIn) 
 			{
-				m_target = object;
+				target->set_opacity(0.0f);
 			}
 
-			NESSENGINE_API virtual RenderablePtr get_target()
-			{
-				return m_target;
-			}
 
-			NESSENGINE_API virtual void animate(Renderer* renderer)
+			NESSENGINE_API virtual void do_animation(Renderer* renderer)
 			{
-				m_target->set_opacity(m_target->get_opacity() + renderer->time_factor() * m_speed);
+				if (m_time_until > 0.0f)
+				{
+					m_time_until -= renderer->time_factor();
+					return;
+				}
+
+				m_target->set_opacity(m_target->get_opacity() - renderer->time_factor() * m_speed);
 				if (m_target->get_opacity() >= 1.0f)
 				{
 					m_target->set_opacity(1.0f);
@@ -53,16 +58,24 @@ namespace Ness
 		private:
 			RenderablePtr	m_target;			// fader target
 			float			m_speed;			// fading speed
+			float			m_time_until;		// time until starting animation
 			bool			m_remove_when_done;	// remove target when done?
 
 		public:
 			// if removeTargetWhenDone = true, will remove the target from its parent when opacity reach 0
-			AnimatorFaderOut(const RenderablePtr& target, bool removeTargetWhenDone, float fadeSpeed = 1.0f) 
-				: m_target(target), m_remove_when_done(removeTargetWhenDone), m_speed(fadeSpeed) {}
+			// fadeSpeed is the speed of the fadeout animation
+			// timeUntilFadeOut is time to wait before starting to fade-out (1.0f == one second, default is 0.0f - start immediatly)
+			AnimatorFaderOut(const RenderablePtr& target, bool removeTargetWhenDone = true, float fadeSpeed = 1.0f, float timeUntilFadeOut = 0.0f) 
+				: m_target(target), m_remove_when_done(removeTargetWhenDone), m_speed(fadeSpeed), m_time_until(timeUntilFadeOut) {}
 
 
 			NESSENGINE_API virtual void do_animation(Renderer* renderer)
 			{
+				if (m_time_until > 0.0f)
+				{
+					m_time_until -= renderer->time_factor();
+					return;
+				}
 
 				m_target->set_opacity(m_target->get_opacity() - renderer->time_factor() * m_speed);
 				if (m_target->get_opacity() <= 0.0f)

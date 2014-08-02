@@ -24,6 +24,7 @@
 #include "utils\mouse.h"
 #include "utils\application_events.h"
 #include "utils\events_poller.h"
+#include "utils\logo_show.h"
 
 // include all renderables
 #include "renderable/nodes/all_nodes.h"
