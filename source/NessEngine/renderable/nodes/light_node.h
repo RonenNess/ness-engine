@@ -48,12 +48,11 @@ namespace Ness
 
 	NESSENGINE_API typedef SharedPtr<Light> LightPtr;
 
-	// a special node that generate lights.
+	// a special node that creates lighting effects.
 	// how this works:
-	// this node creates a canvas, and fill it with 'ambient light color' (default to black). every 'light' you add to this node
-	// is texture rendered with additive effect over this black canvas. if you render white light texture, it will put white on the black (or
-	// other colored) canvas. in the end, the light node render the light canvas all over the screen with modulus effect, meaning multiply every
-	// pixel of the canvas with the pixel already on screen. this create effect that everything less then white will darken the image.
+	// this node creates a canvas, and fill it with 'ambient light color' (default to black). 
+	// every 'light' you add to this node is a sprite rendered with additive effect over the canvas.
+	// when this node is rendered, the canvas is rendered all over the screen with modulus effect (so lights make it less dark).
 	// note: the light node has optimization that the canvas is re-rendered only when one of the lights or the lightnode itself changes.
 	// note2: the light node acts like a regular renderable node, with rendering order and even z-value. so make sure to add it last to affect all objects that should be below it.
 	class LightNode : public BaseNode

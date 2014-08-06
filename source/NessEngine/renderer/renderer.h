@@ -24,7 +24,10 @@ namespace Ness
 		RENDERER_FLAG_LIGHTING_NODE = SDL_RENDERER_TARGETTEXTURE,
 	};
 
-	// our main renderer class! manage everything
+	/**
+	* our main renderer class! manage all the rendering and frames functionality.
+	* usually you only create 1 renderer class, but you can also create multiple renderers.
+	*/
 	class Renderer
 	{
 	private:

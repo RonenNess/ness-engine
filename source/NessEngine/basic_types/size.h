@@ -10,6 +10,7 @@
 
 namespace Ness
 {
+	// represent size object (x, y)
 	NESSENGINE_API typedef __Point<float> Size;
 	NESSENGINE_API typedef __Point<int> Sizei;
 };

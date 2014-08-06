@@ -35,7 +35,7 @@ namespace Ness
 	NESSENGINE_API typedef SharedPtr<TileMap>			TileMapPtr;
 	NESSENGINE_API typedef SharedPtr<NodeAPI>			NodeAPIPtr;
 
-	// a scene node that can create all type of built-in entities and nodes
+	// a scene node with functionality to create all type of built-in entities and nodes
 	class Node : public BaseNode
 	{
 	public:

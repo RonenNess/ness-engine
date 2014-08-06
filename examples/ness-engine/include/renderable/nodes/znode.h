@@ -9,6 +9,9 @@
 
 namespace Ness
 {
+	/**
+	* A special node that re-order the entities in realtime based on their z-value, creating a z-ordering effect.
+	*/
 	class ZNode : public Node
 	{
 	private:

@@ -1,5 +1,5 @@
 /**
-* A managed texture (texture loaded via the resources manager)
+* A managed loadable font (fonts are loaded via the resources manager)
 * Author: Ronen Ness
 * Since: 07/1014
 */
@@ -13,17 +13,17 @@ namespace Ness
 {
 	namespace ManagedResources
 	{
-		// predeclare
+		// predeclare the resources manager
 		class ResourcesManager;
 
-		// a texture inside the resources manager
+		// a font inside the resources manager
 		class ManagedFont : public Resources::LoadedFont, public ManagedResource
 		{
 		public:
 			ManagedFont(const String& fileName, int fontSize = 12) : LoadedFont(fileName, fontSize) {}
 		};
 
-		// a manager texture pointer
+		// a manager font pointer
 		NESSENGINE_API typedef SharedPtr<ManagedFont> ManagedFontPtr;
 	};
 };

@@ -12,20 +12,20 @@
 
 namespace Ness
 {
-	// predeclare renderer
+	// predeclare renderer class
 	class Renderer;
 
 	namespace ManagedResources
 	{
 
-		// Texture as it stored in the resources manager
+		// Texture as it stored in the resources manager with reference count
 		struct __STextureInManager
 		{
 			unsigned int	ref_count;
 			ManagedTexture* texture;
 		};
 
-		// Font as it stored in the resources manager
+		// Font as it stored in the resources manager with reference count
 		struct __SFontInManager
 		{
 			unsigned int	ref_count;
@@ -33,7 +33,8 @@ namespace Ness
 		};
 
 		/**
-		* the resources manager
+		* the resources manager - manage all the resources loaded to memory (textures, fonts, etc..) and responsible
+		* to unload them automatically when no longer used.
 		*/
 		class ResourcesManager
 		{

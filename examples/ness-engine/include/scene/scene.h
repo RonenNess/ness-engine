@@ -13,6 +13,10 @@
 
 namespace Ness
 {
+	/**
+	* a scene is just the root node, you first create a scene and from that you can create entities and other son nodes.
+	* you create a scene via the renderer class.
+	*/
 	class Scene : public Node
 	{
 	public:

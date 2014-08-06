@@ -10,6 +10,10 @@
 
 namespace Ness
 {
+	/*
+	* A static node that converts all entities and nodes under it into a matrix of textures, thus reducing rendering calls.
+	* this is an optimizing node. after you fill it with entities and nodes call "build()" and then you can render it regulary.
+	*/
 	class StaticNode : public Node
 	{
 	private:

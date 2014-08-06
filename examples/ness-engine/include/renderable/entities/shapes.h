@@ -10,7 +10,7 @@
 namespace Ness
 {
 
-	// the renderable sprite class
+	// the renderable rectangle with color, either filled or just lines
 	class RectangleShape: public Entity
 	{
 	private:

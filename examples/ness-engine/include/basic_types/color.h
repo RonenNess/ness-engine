@@ -12,11 +12,8 @@
 namespace Ness
 {
 	/**
-	* The Color class is an object that holds 4 color components - red, green, blue and alpha.
-	* The type of the components is determine by the template. for example, Color<float> will
-	* represent a color made of 4 floats.
-	*
-	* NOTE: don't use this class directly, use the typedefs at the end of this file instead. for example, "Colorb".
+	* The __Color class is a template that holds 4 color components - red, green, blue and alpha.
+	* NOTE: don't use this class directly, use the typedefs at the end of this file instead. for example, "Color" or "Colorb".
 	*/
 	template <typename type>
 	class __Color

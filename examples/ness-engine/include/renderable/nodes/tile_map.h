@@ -19,7 +19,10 @@ namespace Ness
 	// callback function to create custom sprite types for the tilemap
 	NESSENGINE_API typedef SpritePtr (*createTileSprites)(const Pointi& index);
 
-	// TileMap is a special node that creates a grid of sprites
+	/* 
+	* TileMap is a special node that creates a grid of sprites, mostly useable to represent the ground in an rpg game or the
+	* platforms in a platformer. highly optimized!
+	*/
 	class TileMap : public NodeAPI
 	{
 	protected:

@@ -16,7 +16,7 @@ namespace Ness
 	class NodeAPI;
 	class Renderer;
 
-	// the API of a renderable object
+	// the API of any renderable object (entity or node)
 	class RenderableAPI: public Transformable
 	{
 	protected:

@@ -1,5 +1,5 @@
 /**
-* Canvas is a special type of sprite - instead of using existing texture it creates an empty texture and allow other nodes to actually render on itself.
+* Canvas is a special type of sprite - instead of using an existing texture it creates an empty texture and allow other nodes and entities to render on it.
 * Author: Ronen Ness
 * Since: 07/1014
 */
@@ -9,13 +9,19 @@
 
 namespace Ness
 {
+
+	/*
+	* Canvas is a sprite that creates an empty texture and let other nodes and entities render on that texture.
+	* with this object you can create post-render effects. for example, render your entire scene on a canvas and apply effects on that canvas like rotation or color tilt.
+	*/
 	class Canvas : public Sprite
 	{
 	private:
-		bool				m_auto_clear;
-		unsigned int		m_last_clear_time;
-		Color				m_clean_color;
+		bool				m_auto_clear;			// should we clear the canvas texture after every render automatically?
+		unsigned int		m_last_clear_time;		// last time we cleaned the canvas texture
+		Color				m_clean_color;			// color to clean canvas texture to
 	public:
+
 		// create the canvas.
 		// TextureName is the name of the texture in the resource manager
 		// size is the size of the canvas texture, if ZERO will use entire screen size

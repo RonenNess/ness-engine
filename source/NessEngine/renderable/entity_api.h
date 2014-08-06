@@ -11,7 +11,7 @@ namespace Ness
 {
 	class NodeAPI;
 
-	// the API of a renderable entity
+	// the API of a renderable entity (entities are contained in a node)
 	class EntityAPI : public RenderableAPI
 	{
 	public:

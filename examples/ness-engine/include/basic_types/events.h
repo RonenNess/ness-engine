@@ -10,6 +10,9 @@
 
 namespace Ness
 {
+	// ness-engine events (just SDL events)
 	NESSENGINE_API typedef SDL_Event Event;
+
+	// ness-engine keyboard codes (just SDL codes)
 	NESSENGINE_API typedef SDL_Keycode Keycode;
 }

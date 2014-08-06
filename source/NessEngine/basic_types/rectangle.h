@@ -12,6 +12,8 @@
 
 namespace Ness
 {
+	// represent a position + size rectangle
+	// extends the SDL_Rect struct
 	class Rectangle : public SDL_Rect
 	{
 	public:

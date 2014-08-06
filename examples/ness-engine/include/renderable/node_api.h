@@ -12,7 +12,7 @@
 namespace Ness
 {
 
-	// the API of a scene node class
+	// the API of a node class (containing other nodes and entities)
 	class NodeAPI : public RenderableAPI
 	{
 	public:

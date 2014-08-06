@@ -12,16 +12,18 @@
 namespace Ness
 {
 
-	// the renderable sprite class
+	// base class for every renderable entity.
+	// manage caching of transformations and inherit transformations from parents, calculating target rectangle, static/non-static and anchor logic.
+	// if you want to create a renderable entity in ness-engine that will behave like the other engine entities, it's recommended to inherit from this class!
 	class Entity : public EntityAPI
 	{
 	protected:
-		Size									m_size;
-		Point									m_anchor;
-		bool									m_static;
-		Rectangle								m_target_rect;
-		bool									m_need_transformations_update;
-		SRenderTransformations					m_absolute_transformations;
+		Size									m_size;								// size of this entity
+		Point									m_anchor;							// anchor point relative to entity size
+		bool									m_static;							// if true, this entity will not be affected by camera
+		Rectangle								m_target_rect;						// target rectagnle we render this entity on screen
+		bool									m_need_transformations_update;		// do we need to update the transforlmations cache?
+		SRenderTransformations					m_absolute_transformations;			// transformations cache, calculated with parents
 
 	public:
 

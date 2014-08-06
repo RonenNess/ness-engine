@@ -1,5 +1,5 @@
 /**
-* A managed resource. everything in the resources manager must inherit from it
+* A managed resource. everything in the resources manager must inherit from it (textures, fonts, etc..)
 * Author: Ronen Ness
 * Since: 07/1014
 */
@@ -12,15 +12,15 @@ namespace Ness
 	namespace ManagedResources
 	{
 
-		// predeclare
+		// predeclare resources manager
 		class ResourcesManager;
 
 		// a texture inside the resources manager
 		class ManagedResource
 		{
 		public:
-			ResourcesManager*	rc_mng_manager;
-			String			rc_mng_name;
+			ResourcesManager*	rc_mng_manager;		// pointer to the resource manager containing this resource
+			String				rc_mng_name;		// name of the resource inside the resources manager
 		};
 	};
 };

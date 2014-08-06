@@ -11,6 +11,10 @@
 
 namespace Ness
 {
+	/**
+	* Cameras are objects you can create and render scenes with, and they will move all entities in the scene to fit camera position.
+	* this is your method to "navigate" in a larger node without actually moving entities but rather move the camera instead.
+	*/
 	class Camera
 	{
 	public:

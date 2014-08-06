@@ -19,7 +19,7 @@ namespace Ness
 		BLEND_MODE_MOD = SDL_BLENDMODE_MOD
 	};
 
-	// rendering transformation
+	// rendering transformation (rendering settings you can apply on a renderable object
 	struct SRenderTransformations
 	{
 		Point				position;

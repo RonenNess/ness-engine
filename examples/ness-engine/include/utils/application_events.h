@@ -14,7 +14,7 @@ namespace Ness
 	namespace Utils
 	{
 
-		// wrap keyboard functionality for easy keyboard controls
+		// wrap general application events
 		class ApplicationEvents : public EventsHandler
 		{
 		private:

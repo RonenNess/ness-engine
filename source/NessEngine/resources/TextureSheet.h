@@ -17,7 +17,7 @@ namespace Ness
 	namespace Resources
 	{
 		/**
-		* represent a loadable texture sheet
+		* represent a loadable texture
 		*/
 		class TextureSheet
 		{

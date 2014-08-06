@@ -16,7 +16,11 @@ namespace Ness
 	namespace Animators
 	{
 
-		// the animator class API
+		/**
+		* Animator class API.
+		* to create an animator inherit from this class and implement do_animation(), which is the function that will be called
+		* by the renderer every frame. to remove animator from animators queue call remove_from_animation_queue().
+		*/
 		class AnimatorAPI
 		{
 		private:
@@ -26,19 +30,19 @@ namespace Ness
 		public:
 			AnimatorAPI() : m_animator_paused(false), m_animator_should_be_removed(false) {}
 
-			// pause/unpause animation
+			// pause/unpause animation without removing from animators queue
 			NESSENGINE_API inline bool is_animation_paused() const {return m_animator_paused;}
 			NESSENGINE_API inline void pause_animation(bool doPause) {m_animator_paused = doPause;}
 
-			// destroy this animator
+			// remove this animator from the renderer animators queue (will no longer run)
 			NESSENGINE_API void remove_from_animation_queue() {m_animator_should_be_removed = true;}
 			inline bool __should_be_removed() const {return m_animator_should_be_removed;}
 
-			// animate this object. note: to destroy the animator call 'destroy()', even from within the animator itself.
+			// animate this object. when finish, if you want to remove animator call 'remove_from_animation_queue()'
 			NESSENGINE_API virtual void do_animation(Renderer* renderer) = 0;
 		};
 
-		// define the animator pointer
+		// pointer to animator class
 		NESSENGINE_API typedef SharedPtr<AnimatorAPI> AnimatorPtr;
 
 

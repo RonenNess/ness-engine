@@ -26,7 +26,7 @@ namespace Ness
 		}
 	};
 
-	// the renderable sprite class
+	// the renderable sprite class - render textures on screen
 	class Sprite : public Entity
 	{
 	protected:

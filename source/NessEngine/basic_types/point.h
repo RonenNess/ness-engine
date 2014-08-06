@@ -11,7 +11,7 @@
 namespace Ness
 {
 	/**
-	* represent a 2d point (x, y)
+	* represent a 2d point or a vector (x, y)
 	*
 	* NOTE: don't use this class directly, use the typedefs at the end of this file instead. for example, "Point" or "Pointf".
 	*/

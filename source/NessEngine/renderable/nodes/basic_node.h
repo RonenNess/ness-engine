@@ -15,7 +15,8 @@ namespace Ness
 	class Canvas;
 	NESSENGINE_API typedef SharedPtr<Canvas> CanvasPtr;
 
-	// a basic scene node, without functionality to create entities (only adding and removing)
+	// a basic scene node, without functionality to create entities (only adding and removing existing sons)
+	// if you want to create your own node, it is recommended to inherit from this class
 	class BaseNode : public NodeAPI
 	{
 	protected:
