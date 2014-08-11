@@ -11,7 +11,7 @@ Fireball::Fireball(Ness::LightNodePtr& lightNode, Ness::NodePtr& parent, const N
 	m_sprite->set_blend_mode(Ness::BLEND_MODE_BLEND);
 	m_sprite->set_position(position - Ness::Point(0, 50));
 	m_sprite->set_source_from_sprite_sheet(Ness::Pointi(0, 0), Ness::Pointi(3, 4), true);
-	m_animator = ness_make_ptr<Ness::Animators::AnimatorSprite>(m_sprite, Ness::Sizei(3, 4), 3 * direction, 2, 10.0f, Ness::Animators::SPRITE_ANIM_END_REPEAT);
+	m_animator = ness_make_ptr<Ness::Animators::AnimatorSprite>(m_sprite, Ness::Sizei(3, 4), 3 * direction, 3, 10.0f, Ness::Animators::SPRITE_ANIM_END_REPEAT);
 	parent->renderer()->register_animator(m_animator);
 
 	// distance left before self-terminate

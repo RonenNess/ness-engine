@@ -22,9 +22,10 @@ Character::Character(Ness::LightNodePtr& lightNode, Ness::NodePtr& parent, const
 
 	// to set direction and create animator
 	m_is_walking = false;
-	m_last_direction = DIRECTION_UP;
-	walk(DIRECTION_DOWN);
-	stop();
+	m_last_direction = DIRECTION_DOWN;
+	m_animator = ness_make_ptr<Ness::Animators::AnimatorSprite>(m_sprite, Ness::Pointi(4, 4), m_last_direction * 4, 4, 10.0f, Ness::Animators::SPRITE_ANIM_END_REPEAT);
+	m_animator->pause_animation(true);
+	m_sprite->renderer()->register_animator(m_animator);
 }
 
 void Character::do_animation(Ness::Renderer* renderer)
@@ -88,8 +89,5 @@ void Character::walk(EDirection direction)
 	m_last_direction = direction;
 
 	// set animation to walking at given direction
-	if (m_animator)
-		m_animator->remove_from_animation_queue();
-	m_animator = ness_make_ptr<Ness::Animators::AnimatorSprite>(m_sprite, Ness::Pointi(4, 4), m_last_direction * 4, 3, 10.0f, Ness::Animators::SPRITE_ANIM_END_REPEAT);
-	m_sprite->renderer()->register_animator(m_animator);
+	m_animator->reset(m_last_direction * 4, 4, 10.0f);
 }
