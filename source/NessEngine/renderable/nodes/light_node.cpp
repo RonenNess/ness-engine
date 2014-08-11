@@ -66,7 +66,7 @@ namespace Ness
 			return;
 
 		// if always-update is set to true:
-		if (m_always_update)
+		if (m_always_update || camera)
 			m_need_update = true;
 
 		// check if need update

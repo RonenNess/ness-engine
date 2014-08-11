@@ -76,6 +76,11 @@ namespace Ness
 		NESSENGINE_API void register_animator(const Animators::AnimatorPtr& animator);
 		NESSENGINE_API void remove_animator(const Animators::AnimatorPtr& animator);
 
+		// register / remove an animator with regular pointer
+		// WARNING: it's your responsibility to remove animator once deleted or else you will cause seg-fault!
+		NESSENGINE_API void register_animator(Animators::AnimatorAPI* animator);
+		NESSENGINE_API void remove_animator(Animators::AnimatorAPI* animator);
+
 		// run all the animators
 		NESSENGINE_API void do_animations();
 

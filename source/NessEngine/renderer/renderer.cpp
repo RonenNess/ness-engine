@@ -97,6 +97,24 @@ namespace Ness
 		m_frameid++;
 	}
 
+	// empty deleter that does nothing. 
+	// this is a path to create animator smart pointer that don't really delete the object to be able to register anumator with a regular pointer
+	static void EmptyAnimatorDeleter(Animators::AnimatorAPI* anim)
+	{
+	}
+
+	// register an animator by regular pointer
+	void Renderer::register_animator(Animators::AnimatorAPI* animator)
+	{
+		register_animator(Animators::AnimatorPtr(animator, EmptyAnimatorDeleter));
+	}
+
+	// remove an animator by regular pointer
+	void Renderer::remove_animator(Animators::AnimatorAPI* animator)
+	{
+		remove_animator(Animators::AnimatorPtr(animator, EmptyAnimatorDeleter));
+	}
+
 	// register an animator
 	void Renderer::register_animator(const Animators::AnimatorPtr& animator)
 	{
