@@ -12,14 +12,14 @@ enum EDirection
 class Character : public Ness::Animators::AnimatorAPI
 {
 private:
-	Ness::NodePtr					m_parent;
-	Ness::LightNodePtr				m_light_node;
-	Ness::LightPtr					m_light;
-	Ness::SpritePtr					m_sprite;
-	Ness::Animators::AnimatorPtr	m_animator;
-	EDirection						m_last_direction;
-	bool							m_is_walking;
-	float							m_fire_cooldown;
+	Ness::NodePtr						m_parent;
+	Ness::LightNodePtr					m_light_node;
+	Ness::LightPtr						m_light;
+	Ness::SpritePtr						m_sprite;
+	Ness::Animators::AnimatorSpritePtr	m_animator;
+	EDirection							m_last_direction;
+	bool								m_is_walking;
+	float								m_fire_cooldown;
 
 public:
 	// create the character
