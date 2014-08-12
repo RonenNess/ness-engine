@@ -66,8 +66,16 @@ namespace Ness
 			return;
 
 		// if always-update is set to true:
-		if (m_always_update || camera)
+		if (m_always_update)
 			m_need_update = true;
+		else
+		{
+			if (camera && camera->position != m_last_camera_pos)
+			{
+				m_need_update = true;
+				m_last_camera_pos = camera->position;
+			}
+		}
 
 		// check if need update
 		// basically check if there's a light that need transformations update + is really visible and within screen.
