@@ -58,9 +58,10 @@ namespace Ness
 	class LightNode : public BaseNode
 	{
 	private:
-		CanvasPtr m_canvas;		// the light canvas
-		bool m_need_update;		// true when need to re-render the light canvas
-		bool m_always_update;	// if true, will always re-render the entire light canvas
+		CanvasPtr m_canvas;			// the light canvas
+		bool m_need_update;			// true when need to re-render the light canvas
+		bool m_always_update;		// if true, will always re-render the entire light canvas
+		Point m_last_camera_pos;	// last camera position
 
 	public:
 		// create the znode
