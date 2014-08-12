@@ -52,6 +52,7 @@ namespace Ness
 
 		// set texture source rect (to render entire texture give (0, 0, textureSize.x, textureSize.y)
 		NESSENGINE_API void set_source_rect(const Rectangle& srcRect);
+		NESSENGINE_API inline const Rectangle& get_source_rect() const {return m_source_rect;}
 
 		// return the texture this sprite uses
 		NESSENGINE_API inline const ManagedResources::ManagedTexturePtr& get_texture() const {return m_texture;}
