@@ -43,6 +43,7 @@ namespace Ness
 			rotation += other.rotation;
 			if ((int)other.blend > (int)blend) blend = other.blend;
 			color *= other.color;
+			zorder += other.zorder;
 		}
 	};
 };
