@@ -65,7 +65,7 @@ namespace Ness
 		sprite->set_blend_mode(BLEND_MODE_NONE);
 
 		// set z-index
-		sprite->set_zindex((index.y * m_tile_size.y));
+		sprite->set_zindex(sprite->get_position().y);
 	}
 
 	void TileMap::set_all_tiles_type(const Pointi& step, const Sizei stepsCount)
