@@ -65,7 +65,7 @@ namespace Ness
 		sprite->set_blend_mode(BLEND_MODE_NONE);
 
 		// set z-index
-		sprite->set_zindex(sprite->get_position().y);
+		sprite->set_zindex(sprite->get_position().y - m_sprites_distance.y);
 	}
 
 	void TileMap::set_all_tiles_type(const Pointi& tileIndex, const Sizei& tilesCount)
@@ -152,10 +152,11 @@ namespace Ness
 		// get first and last tiles to render
 		int startI = pos.x < 0 ? (int)(-pos.x / m_sprites_distance.x) : 0;
 		if (startI >= m_size.x) startI = m_size.x - 1;
-		int startJ = pos.y < 0 ? (int)(-pos.y / m_sprites_distance.y) : 0;
+		int startJ = pos.y < 0 ? (int)(((-pos.y - m_tile_size.y) / m_sprites_distance.y) - 1) : 0;
 		if (startJ >= m_size.y) startJ = m_size.y - 1;
+		if (startJ < 0) startJ = 0;
 		int endI = startI + (int)((m_renderer->get_target_size().x + m_tile_size.x) / m_sprites_distance.x) + 1;
-		int endJ = startJ + (int)((m_renderer->get_target_size().y + m_tile_size.y) / m_sprites_distance.y) + 1;
+		int endJ = startJ + (int)((m_renderer->get_target_size().y + m_tile_size.y * 2) / m_sprites_distance.y) + 2;
 		if (endI >= m_size.x) endI = m_size.x - 1;
 		if (endJ >= m_size.y) endJ = m_size.y - 1;
 		ret.x = startI;
