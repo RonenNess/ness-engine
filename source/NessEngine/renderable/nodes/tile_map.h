@@ -58,6 +58,9 @@ namespace Ness
 		// return empty if out of range
 		NESSENGINE_API virtual SpritePtr& get_sprite_by_position(const Point& position);
 
+		// return index of tile from position
+		NESSENGINE_API virtual Pointi get_index_from_position(const Point& position);
+
 		// get all visible son entities
 		NESSENGINE_API virtual void __get_visible_entities(Vector<RenderableAPI*>& out_list, const CameraPtr& camera = NullCamera);
 

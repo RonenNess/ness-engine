@@ -166,12 +166,18 @@ namespace Ness
 		return ret;
 	}
 
-	SpritePtr& TileMap::get_sprite_by_position(const Point& position)
+	Pointi TileMap::get_index_from_position(const Point& position)
 	{
-		static SpritePtr empty;
 		Pointi index;
 		index.x = (int)(position.x / m_sprites_distance.x);
 		index.y = (int)(position.y / m_sprites_distance.y);
+		return index;
+	}
+
+	SpritePtr& TileMap::get_sprite_by_position(const Point& position)
+	{
+		static SpritePtr empty;
+		Pointi index = get_index_from_position(position);
 		if (index.x < 0 || index.y < 0 || index.x >= m_size.x || index.y >= m_size.y)
 			return empty;
 		return get_sprite(index);
