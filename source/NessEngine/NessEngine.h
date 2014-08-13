@@ -27,6 +27,7 @@
 #include "utils\logo_show.h"
 
 // include all renderables
+#include "renderable/renderable_api.h"
 #include "renderable/nodes/all_nodes.h"
 #include "renderable/entities/all_entities.h"
 

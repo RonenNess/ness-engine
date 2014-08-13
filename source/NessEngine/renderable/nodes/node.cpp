@@ -70,9 +70,9 @@ namespace Ness
 		return NewSprite;
 	}
 
-	TileMapPtr Node::create_tilemap(const String& spriteFile, Sizei mapSize, Size singleTileSize, bool add_immediatly)
+	TileMapPtr Node::create_tilemap(const String& spriteFile, Sizei mapSize, Size singleTileSize, const Size& tilesDistance, bool add_immediatly)
 	{
-		TileMapPtr NewMap(new TileMap(this->m_renderer, spriteFile, mapSize, singleTileSize));
+		TileMapPtr NewMap(new TileMap(this->m_renderer, spriteFile, mapSize, singleTileSize, tilesDistance));
 		if (add_immediatly) add(NewMap);
 		return NewMap;
 	}
