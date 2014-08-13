@@ -77,12 +77,15 @@ namespace Ness
 		// for (int i = range.x; i < range.w; i++) ....
 		NESSENGINE_API Rectangle get_tiles_in_screen(const CameraPtr& camera);
 
-		// set source rect from sprite sheet for all tiles
+		// set source rect from sprite sheet for all tiles, based on position in tilesheet and how many tiles there are
 		// for example, if your sprite sheet contains 4x8 animation steps, and you want to set sprite to step (3,2), use it like so:
 		//		set_source_from_sprite_sheet(Pointi(3,2), Sizei(4,8));
-		// step: the index of the animation step inside the sprite sheet (x, y)
-		// stepsCount: how many total animation steps the sheet has (x, y)
-		NESSENGINE_API void set_all_tiles_type(const Pointi& step, const Sizei stepsCount);
+		// tileIndex: the index of the tile to set inside the sprite sheet (x, y)
+		// tilesCount: how many total tiles the sheet has (x, y)
+		NESSENGINE_API void set_all_tiles_type(const Pointi& tileIndex, const Sizei& tilesCount);
+
+		// set source rect from sprite sheet for all tiles
+		NESSENGINE_API void set_all_tiles_source_rect(const Rectangle& sourceRect);
 
 		// add/remove entities from this node - illegal in tilesmap node!
 		NESSENGINE_API virtual void add(const RenderablePtr& object) {throw IllegalAction("Cannot add new entities to tilemap!");}

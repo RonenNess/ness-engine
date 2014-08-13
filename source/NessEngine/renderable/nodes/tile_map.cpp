@@ -68,13 +68,24 @@ namespace Ness
 		sprite->set_zindex(sprite->get_position().y);
 	}
 
-	void TileMap::set_all_tiles_type(const Pointi& step, const Sizei stepsCount)
+	void TileMap::set_all_tiles_type(const Pointi& tileIndex, const Sizei& tilesCount)
 	{
 		for (int i = 0; i < m_size.x; i++)
 		{
 			for (int j = 0; j < m_size.y; j++)
 			{
-				m_sprites[i][j]->set_source_from_sprite_sheet(step, stepsCount);
+				m_sprites[i][j]->set_source_from_sprite_sheet(tileIndex, tilesCount);
+			}
+		}
+	}
+
+	void TileMap::set_all_tiles_source_rect(const Rectangle& sourceRect)
+	{
+		for (int i = 0; i < m_size.x; i++)
+		{
+			for (int j = 0; j < m_size.y; j++)
+			{
+				m_sprites[i][j]->set_source_rect(sourceRect);
 			}
 		}
 	}
