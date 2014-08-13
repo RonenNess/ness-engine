@@ -34,6 +34,9 @@ namespace Ness
 		NESSENGINE_API virtual void add_first(const RenderablePtr& object);
 		NESSENGINE_API virtual void remove(const RenderablePtr& object);
 
+		// clear all son entities and nodes from this node
+		NESSENGINE_API void clear() {m_entities.clear();}
+
 		// called whenever transformations are updated
 		NESSENGINE_API virtual void transformations_update();
 
