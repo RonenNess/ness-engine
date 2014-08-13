@@ -16,6 +16,17 @@ namespace Ness
 	class NodeAPI;
 	class Renderer;
 
+	// all ness-engine flags you can use with renderable node flags
+	enum ERenderableNodeFlags
+	{
+		RNF_NEVER_BREAK = 0,		// never break this node when z-ordering inside a z-node
+	};
+
+	// all ness-engine flags you can use with renderable entity flags
+	enum ERenderableEntityFlags
+	{
+	};
+
 	// the API of any renderable object (entity or node)
 	class RenderableAPI: public Transformable
 	{
@@ -23,11 +34,12 @@ namespace Ness
 		Renderer*				m_renderer;						// pointer to the renderer
 		NodeAPI*				m_parent;						// parent node
 		bool					m_visible;						// should this renderable be displayed or not
+		int						m_flags;						// flags you can set on this renderable for any purpose
 		void*					m_user_data;					// optional user data you can attach to this object
 
 	public:
 		NESSENGINE_API RenderableAPI(Renderer* renderer) : 
-		  m_renderer(renderer), m_parent(nullptr), m_visible(true), m_user_data(nullptr) {}
+		  m_renderer(renderer), m_parent(nullptr), m_visible(true), m_flags(0), m_user_data(nullptr) {}
 
 		// attached customized user data to this object
 		inline void set_user_data(void* user_data) {m_user_data = user_data;}
@@ -37,6 +49,13 @@ namespace Ness
 		// enable/disable rendering of this object
 		NESSENGINE_API inline void set_visible(bool Visible) {m_visible = Visible;}
 		NESSENGINE_API inline bool is_visible() const {return m_visible;}
+
+		// set/get flags
+		NESSENGINE_API inline int get_flags() const {return m_flags;}
+		NESSENGINE_API inline void set_flags(int flags) {m_flags = flags;}
+		NESSENGINE_API inline bool get_flag(int flag) const {return ((m_flags >> flag) & 0x1);}
+		NESSENGINE_API inline void set_flag(int flag) {(m_flags |= (0x1 << flag));}
+		NESSENGINE_API inline void reset_flag(int flag) {(m_flags &= ~(0x1 << flag));}
 
 		// is this renderable object actually visible and inside screen?
 		NESSENGINE_API virtual bool is_really_visible(const CameraPtr& camera = NullCamera) = 0;

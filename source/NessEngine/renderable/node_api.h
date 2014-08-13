@@ -15,6 +15,8 @@ namespace Ness
 	// the API of a node class (containing other nodes and entities)
 	class NodeAPI : public RenderableAPI
 	{
+	private:
+
 	public:
 
 		NESSENGINE_API NodeAPI(Renderer* renderer) : 

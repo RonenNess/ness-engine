@@ -30,7 +30,7 @@ namespace Ness
 			{
 				// check if current entity is indeed a node, and if so, break it
 				NodeAPI* currentNode = dynamic_cast<NodeAPI*>(m_entities[i].get());
-				if (currentNode)
+				if (currentNode && (!currentNode->get_flag(Ness::RNF_NEVER_BREAK)))
 				{
 					currentNode->__get_visible_entities(render_list, camera);
 					continue;

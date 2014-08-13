@@ -24,6 +24,7 @@ namespace Ness
 		// set if this znode should break groups or not
 		// if break groups is true, this znode will take ALL entities from all son nodes and arrange them based on zorder.
 		// if break groups is false, the znode will arrange son nodes as son entities, meaning every son node shares the same z-order.
+		// NOTE: if you want a node that never will be broken, set it's flag with: node->set_flag(Ness::RNF_NEVER_BREAK);
 		inline void set_break_groups(bool BreakGroups) {m_break_groups = BreakGroups;}
 
 		// render everything, with z order!
