@@ -170,7 +170,7 @@ namespace Ness
 	{
 		Pointi index;
 		index.x = (int)(position.x / m_sprites_distance.x);
-		index.y = (int)((position.y - m_tile_size.y) / m_sprites_distance.y) - 1;
+		index.y = (int)((position.y) / m_sprites_distance.y);
 		return index;
 	}
 
