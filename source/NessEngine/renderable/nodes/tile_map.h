@@ -14,10 +14,10 @@
 namespace Ness
 {
 	// callback function to run on all tiles
-	NESSENGINE_API typedef void (*executeOnTiles)(const Ness::Pointi& index, const Ness::SpritePtr& tile);
+	NESSENGINE_API typedef void (*TExecuteOnTiles)(const Ness::Pointi& index, const Ness::SpritePtr& tile);
 
 	// callback function to create custom sprite types for the tilemap
-	NESSENGINE_API typedef SpritePtr (*createTileSprites)(const Pointi& index);
+	NESSENGINE_API typedef SpritePtr (*TCreateTileSprites)(const Pointi& index);
 
 	/* 
 	* TileMap is a special node that creates a grid of sprites, mostly useable to represent the ground in an rpg game or the
@@ -43,7 +43,7 @@ namespace Ness
 		//		note: use it only if you want to use different objects for this tilemap (must inherit from Sprite). 
 		//		don't use this for custom properties per-sprite, since they will be overrided anyway when arranged into the tilemap grid.
 		NESSENGINE_API TileMap(Renderer* renderer, const String& spriteFile, const Sizei& mapSize, const Size& singleTileSize = Size(36, 36), 
-			const Size& tilesDistance = Size::ZERO, createTileSprites createSpriteFunction = nullptr);
+			const Size& tilesDistance = Size::ZERO, TCreateTileSprites createSpriteFunction = nullptr);
 
 		// return the absolute transformations of this tilemap
 		NESSENGINE_API virtual const SRenderTransformations& get_absolute_transformations();
@@ -102,7 +102,7 @@ namespace Ness
 
 		// apply the given function to all tiles
 		// every call will contain a single tile and its index.
-		NESSENGINE_API void apply_to_all(executeOnTiles func);
+		NESSENGINE_API void apply_to_all(TExecuteOnTiles func);
 
 		// render this tilemap
 		NESSENGINE_API virtual void render(const CameraPtr& camera = NullCamera);

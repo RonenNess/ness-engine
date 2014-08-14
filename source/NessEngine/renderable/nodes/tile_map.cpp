@@ -16,7 +16,7 @@ namespace Ness
 	}
 
 	TileMap::TileMap(Renderer* renderer, const String& spriteFile, const Sizei& mapSize, 
-		const Size& singleTileSize, const Size& tilesDistance, createTileSprites createSpriteFunction) 
+		const Size& singleTileSize, const Size& tilesDistance, TCreateTileSprites createSpriteFunction) 
 		: NodeAPI(renderer), m_size(mapSize), m_tile_size(singleTileSize)
 	{
 		// set distance between sprites (either sprite size or provided distance)
@@ -90,7 +90,7 @@ namespace Ness
 		}
 	}
 
-	void TileMap::apply_to_all(executeOnTiles func)
+	void TileMap::apply_to_all(TExecuteOnTiles func)
 	{
 		Sizei index;
 		for (index.x = 0; index.x < m_size.x; index.x++)
@@ -200,7 +200,7 @@ namespace Ness
 		if (startI >= m_size.x)
 			return false;
 		
-		int startJ = pos.y < 0 ? (int)(-pos.y / m_sprites_distance.y) : 0;
+		int startJ = pos.y < 0 ? (int)(((-pos.y - m_tile_size.y) / m_sprites_distance.y) - 1) : 0;
 		if (startJ >= m_size.y)
 			return false;
 		
