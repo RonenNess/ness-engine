@@ -146,7 +146,7 @@ namespace Ness
 		return index;
 	}
 
-	NodeAPIPtr& NodesMap::get_node_by_position(const Point& position)
+	NodeAPIPtr& NodesMap::get_node_by_position_any(const Point& position)
 	{
 		static NodeAPIPtr empty;
 		Pointi index = get_index_from_position(position);
@@ -154,7 +154,7 @@ namespace Ness
 		{
 			return empty;
 		}
-		return get_node(index);
+		return get_node_any(index);
 	}
 
 	bool NodesMap::is_really_visible(const CameraPtr& camera)

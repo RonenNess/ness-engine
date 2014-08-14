@@ -38,6 +38,10 @@ namespace Ness
 		NESSENGINE_API virtual unsigned int get_sons_count() const = 0;
 		NESSENGINE_API virtual RenderablePtr get_son(unsigned int index) = 0;
 
+		// is it node or entity?
+		NESSENGINE_API virtual bool is_node() const {return true;}
+		NESSENGINE_API virtual bool is_entity() const {return false;}
+
 		// render this scene node (all nodes must also be renderable)
 		NESSENGINE_API virtual void render(const CameraPtr& camera = NullCamera) = 0;
 
