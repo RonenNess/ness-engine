@@ -57,6 +57,10 @@ namespace Ness
 		NESSENGINE_API inline void set_flag(int flag) {(m_flags |= (0x1 << flag));}
 		NESSENGINE_API inline void reset_flag(int flag) {(m_flags &= ~(0x1 << flag));}
 
+		// is it node or entity?
+		NESSENGINE_API virtual bool is_node() const = 0;
+		NESSENGINE_API virtual bool is_entity() const = 0;
+
 		// is this renderable object actually visible and inside screen?
 		NESSENGINE_API virtual bool is_really_visible(const CameraPtr& camera = NullCamera) = 0;
 

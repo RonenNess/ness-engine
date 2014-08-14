@@ -53,8 +53,12 @@ namespace Ness
 		// return if need transformations udpate (always false for tilemap)
 		NESSENGINE_API virtual bool need_transformations_update() {return false;}
 
-		// get a specific node by index
-		NESSENGINE_API inline NodeAPIPtr& get_node(const Pointi& index) {return m_nodes[index.x][index.y];}
+		// get a specific node by index, for any type of node (up to you to make the casting)
+		NESSENGINE_API inline NodeAPIPtr& get_node_any(const Pointi& index) {return m_nodes[index.x][index.y];}
+
+		// get a specific node, assuming it's a basic scene node type.
+		// If your nodes map does not use regular scenes node don't use this, you'll get null
+		NESSENGINE_API inline NodePtr get_node(const Pointi& index) {return ness_ptr_cast<Node>(m_nodes[index.x][index.y]);}
 
 		// direct access to son entities (note: son entities are in vector so efficiecny is alright here)
 		NESSENGINE_API virtual unsigned int get_sons_count() const {return m_size.x * m_size.y;}
@@ -62,7 +66,12 @@ namespace Ness
 
 		// get a specific node by position
 		// return empty if out of range
-		NESSENGINE_API virtual NodeAPIPtr& get_node_by_position(const Point& position);
+		NESSENGINE_API virtual NodeAPIPtr& get_node_by_position_any(const Point& position);
+
+		// get a specific node by position
+		// If your nodes map does not use regular scenes node don't use this, you'll get null
+		// return empty if out of range or if your nodes map does not use regular scene nodes
+		NESSENGINE_API inline NodePtr get_node_by_position(const Point& position) {return ness_ptr_cast<Node>(get_node_by_position_any(position));}
 
 		// return index of tile from position
 		NESSENGINE_API virtual Pointi get_index_from_position(const Point& position);

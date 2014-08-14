@@ -29,7 +29,14 @@ namespace Ness
 
 	// ness-engine shared ptr
 	#define SharedPtr std::shared_ptr
+
+	// create a shared ptr.
+	// usage: SpritePtr NewSprite = ness_make_ptr<Sprite>(renderer, "sometexture.png");
 	#define ness_make_ptr std::make_shared
+
+	// cast a ness-pointer.
+	// usage: Ness::SpritePtr sprite = ness_ptr_cast<Ness::Sprite>( SomeRenderablePtr );
+	// will return empty ptr if type cannot be cast to sprite.
 	#define ness_ptr_cast std::dynamic_pointer_cast
 
 	// ness-engine strings

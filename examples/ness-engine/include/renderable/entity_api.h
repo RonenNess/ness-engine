@@ -19,6 +19,10 @@ namespace Ness
 		NESSENGINE_API EntityAPI(Renderer* renderer) : 
 			RenderableAPI(renderer) {}
 
+		// is it node or entity?
+		NESSENGINE_API virtual bool is_node() const {return false;}
+		NESSENGINE_API virtual bool is_entity() const {return true;}
+
 	};
 
 	// entity pointer
