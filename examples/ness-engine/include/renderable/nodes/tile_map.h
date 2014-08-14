@@ -48,6 +48,11 @@ namespace Ness
 		// return the absolute transformations of this tilemap
 		NESSENGINE_API virtual const SRenderTransformations& get_absolute_transformations();
 
+		// return tilemap params
+		NESSENGINE_API inline const Sizei& get_map_size() const {return m_size;}
+		NESSENGINE_API inline const Size& get_sprites_distance() const {return m_sprites_distance;}
+		NESSENGINE_API inline const Size& get_tiles_size() const {return m_tile_size;}
+
 		// return if need transformations udpate (always false for tilemap)
 		NESSENGINE_API virtual bool need_transformations_update() {return false;}
 
