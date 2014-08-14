@@ -34,6 +34,10 @@ namespace Ness
 		NESSENGINE_API virtual void add_first(const RenderablePtr& object) = 0;
 		NESSENGINE_API virtual void remove(const RenderablePtr& object) = 0;
 
+		// direct access to son entities (note: son entities are in vector so efficiecny is alright here)
+		NESSENGINE_API virtual unsigned int get_sons_count() const = 0;
+		NESSENGINE_API virtual RenderablePtr get_son(unsigned int index) = 0;
+
 		// render this scene node (all nodes must also be renderable)
 		NESSENGINE_API virtual void render(const CameraPtr& camera = NullCamera) = 0;
 

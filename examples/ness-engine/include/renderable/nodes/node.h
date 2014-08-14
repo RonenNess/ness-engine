@@ -18,6 +18,7 @@ namespace Ness
 	class ZNode;
 	class StaticNode;
 	class TileMap;
+	class NodesMap;
 	class RectangleShape;
 	class NodeAPI;
 	class LightNode;
@@ -33,6 +34,7 @@ namespace Ness
 	NESSENGINE_API typedef SharedPtr<MultiText>			MultiTextPtr;
 	NESSENGINE_API typedef SharedPtr<RectangleShape>	RectangleShapePtr;
 	NESSENGINE_API typedef SharedPtr<TileMap>			TileMapPtr;
+	NESSENGINE_API typedef SharedPtr<NodesMap>			NodesMapPtr;
 	NESSENGINE_API typedef SharedPtr<NodeAPI>			NodeAPIPtr;
 
 	// a scene node with functionality to create all type of built-in entities and nodes
@@ -50,7 +52,8 @@ namespace Ness
 		NESSENGINE_API virtual RectangleShapePtr create_rectangle(bool add_immediatly=true);
 		NESSENGINE_API virtual SpritePtr create_sprite(const String& textureName, bool add_immediatly=true);
 		NESSENGINE_API virtual CanvasPtr create_canvas(const String& textureName, const Sizei& size = Sizei::ZERO, bool add_immediatly=true);
-		NESSENGINE_API virtual TileMapPtr create_tilemap(const String& spriteFile, Sizei mapSize, Size singleTileSize=Size(36, 36), const Size& tilesDistance=Size::ZERO, bool add_immediatly=true);
+		NESSENGINE_API virtual TileMapPtr create_tilemap(const String& spriteFile, const Sizei& mapSize, const Size& singleTileSize=Size(36, 36), const Size& tilesDistance=Size::ZERO, bool add_immediatly=true);
+		NESSENGINE_API virtual NodesMapPtr create_nodesmap(const Sizei& mapSize, const Size& singleNodeSize=Size(36, 36), const Size& nodesDistance=Size::ZERO, bool add_immediatly=true);
 		NESSENGINE_API virtual TextPtr create_text(const String& fontFile, const String& text, int fontSize = 12, bool add_immediatly=true);
 		NESSENGINE_API virtual MultiTextPtr create_multitext(const String& fontFile, const String& text, int fontSize = 12, bool add_immediatly=true);
 

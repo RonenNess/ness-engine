@@ -53,6 +53,10 @@ namespace Ness
 		NESSENGINE_API inline const Size& get_sprites_distance() const {return m_sprites_distance;}
 		NESSENGINE_API inline const Size& get_tiles_size() const {return m_tile_size;}
 
+		// direct access to son entities (note: son entities are in vector so efficiecny is alright here)
+		NESSENGINE_API virtual unsigned int get_sons_count() const {return m_size.x * m_size.y;}
+		NESSENGINE_API virtual RenderablePtr get_son(unsigned int index) {return m_sprites[index % m_size.x][index / m_size.x];}
+
 		// return if need transformations udpate (always false for tilemap)
 		NESSENGINE_API virtual bool need_transformations_update() {return false;}
 
