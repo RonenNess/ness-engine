@@ -60,7 +60,7 @@ namespace Ness
 		NESSENGINE_API void clear() {m_entities.clear();}
 
 		// direct access to son entities (note: son entities are in vector so efficiecny is alright here)
-		NESSENGINE_API virtual unsigned int get_sons_count() const {return m_entities.size();}
+		NESSENGINE_API virtual unsigned int get_sons_count() const {return (unsigned int)m_entities.size();}
 		NESSENGINE_API virtual RenderablePtr get_son(unsigned int index) {return m_entities[index];}
 
 		// called whenever transformations are updated

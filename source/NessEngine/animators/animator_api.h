@@ -28,6 +28,7 @@
 
 #pragma once
 #include "../exports.h"
+#include "../basic_types/containers.h"
 
 namespace Ness
 {
