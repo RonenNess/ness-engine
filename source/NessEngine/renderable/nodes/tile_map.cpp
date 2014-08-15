@@ -78,8 +78,8 @@ namespace Ness
 	{				
 		// set position
 		sprite->set_position(Point(
-			(float)(index.x * m_sprites_distance.x) + (m_tile_size.x * 0.5f), 
-			(float)(index.y * m_sprites_distance.y) + m_tile_size.y));
+			(float)(index.x * m_sprites_distance.x), 
+			(float)(index.y * m_sprites_distance.y)));
 
 		// set size, anchor and default blend mode
 		sprite->set_size(m_tile_size);
@@ -171,21 +171,43 @@ namespace Ness
 			pos.y -= camera->position.y;
 		}
 
-		// get first and last tiles to render
-		int startI = pos.x < 0 ? (int)(-pos.x / m_sprites_distance.x) : 0;
-		if (startI >= m_size.x) startI = m_size.x - 1;
-		int startJ = pos.y < 0 ? (int)(((-pos.y - m_tile_size.y) / m_sprites_distance.y) - 1) : 0;
-		if (startJ >= m_size.y) startJ = m_size.y - 1;
-		if (startJ < 0) startJ = 0;
-		int endI = startI + (int)((m_renderer->get_target_size().x + m_tile_size.x) / m_sprites_distance.x) + 1;
-		int endJ = startJ + (int)((m_renderer->get_target_size().y + m_tile_size.y * 2) / m_sprites_distance.y) + 2;
-		if (endI >= m_size.x) endI = m_size.x - 1;
-		if (endJ >= m_size.y) endJ = m_size.y - 1;
-		ret.x = startI;
-		ret.y = startJ;
-		ret.w = endI;
-		ret.h = endJ;
+		ret.x = get_first_tile_in_screen_x(pos);
+		ret.y = get_first_tile_in_screen_y(pos);
+		ret.w = ret.x + get_tiles_in_screen_x() + 1;
+		ret.h = ret.y + get_tiles_in_screen_y() + 2;
+		
+		put_in_range(ret.x, ret.y);
+		put_in_range(ret.w, ret.h);
+
 		return ret;
+	}
+
+	void TileMap::put_in_range(int& i, int& j)
+	{
+		if (i < 0) i = 0;
+		if (i >= m_size.x) i = m_size.x - 1;
+		if (j < 0) j = 0;
+		if (j >= m_size.y) j = m_size.y - 1;
+	}
+
+	int TileMap::get_first_tile_in_screen_x(const Ness::Point& cameraPos)
+	{
+		return cameraPos.x < 0 ? (int)(((-cameraPos.x - m_tile_size.x) / m_sprites_distance.x)) : 0;
+	}
+
+	int TileMap::get_first_tile_in_screen_y(const Ness::Point& cameraPos)
+	{
+		return cameraPos.y < 0 ? (int)(((-cameraPos.y - m_tile_size.y) / m_sprites_distance.y)) : 0;
+	}
+
+	int TileMap::get_tiles_in_screen_x()
+	{
+		return (int)((m_renderer->get_target_size().x + m_tile_size.x) / m_sprites_distance.x) + 1;
+	}
+
+	int TileMap::get_tiles_in_screen_y()
+	{
+		return (int)((m_renderer->get_target_size().y + m_tile_size.y) / m_sprites_distance.y) + 1;
 	}
 
 	Pointi TileMap::get_index_from_position(const Point& position)
@@ -214,24 +236,8 @@ namespace Ness
 		if (trans.color.a <= 0.0f)
 			return false;
 
-		Point pos = trans.position;
-		pos.x -= camera->position.x;
-		pos.y -= camera->position.y;
-
-		int startI = pos.x < 0 ? (int)(-pos.x / m_sprites_distance.x) : 0;
-		if (startI >= m_size.x)
-			return false;
-		
-		int startJ = pos.y < 0 ? (int)(((-pos.y - m_tile_size.y) / m_sprites_distance.y) - 1) : 0;
-		if (startJ >= m_size.y)
-			return false;
-		
-		int endI = startI + (int)((m_renderer->get_target_size().x + m_tile_size.x) / m_sprites_distance.x) + 1;
-		if (endI <= 0)
-			return false;
-		
-		int endJ = startJ + (int)((m_renderer->get_target_size().y + m_tile_size.y) / m_sprites_distance.y) + 1;
-		if (endJ <= 0)
+		Rectangle TileInScreen = get_tiles_in_screen(camera);
+		if (TileInScreen.x >= TileInScreen.w || TileInScreen.y >= TileInScreen.h)
 			return false;
 
 		return true;

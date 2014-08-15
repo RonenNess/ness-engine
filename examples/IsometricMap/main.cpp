@@ -23,7 +23,7 @@ int _tmain(int argc, _TCHAR* argv[])
 	const Ness::Sizei TileSize(128, 75);				// <-- 128x75 is the size of a single tile in the spritesheet
 	const Ness::Pointi TilesInSpritesheet(2, 4);		// <-- 2 is how many tile types we got in the spritesheet on X axis, 4 is how many we got on Y axis
 
-	Ness::TileMapPtr map = ness_make_ptr<IsoTilemap>(&render, "tilemap.png", Ness::Sizei(100, 100), TileSize);
+	SharedPtr<IsoTilemap> map = ness_make_ptr<IsoTilemap>(&render, "tilemap.png", Ness::Sizei(100, 100), TileSize);
 	scene->add(map);
 	map->set_all_tiles_type(Ness::Pointi(0, 0), TilesInSpritesheet);
 
