@@ -53,6 +53,7 @@ namespace Ness
 		Size										m_tile_size;				// size of a single tile
 		Vector< Vector<SpritePtr> >					m_sprites;					// the sprites matrix
 		SRenderTransformations						m_absolute_transformations;	// absolute transformations of this tilemap
+		Sizei										m_extra_tiles_factor;		// extra tiles to render (count in screen) on eatch side of x and y axis
 
 	public:
 
@@ -69,6 +70,11 @@ namespace Ness
 
 		// return the absolute transformations of this tilemap
 		NESSENGINE_API virtual const SRenderTransformations& get_absolute_transformations();
+
+		// set extra tiles to render in screen for x and y axis.
+		// what is it for? if your normal tiles size is 32x32 but sometimes you have tiles of 32x64, you can set it to (0, 1), meaning you
+		// will count additional tile from top and bottom when rendering the tiles in screen
+		NESSENGINE_API inline void set_extra_tiles_in_screen(const Ness::Sizei& extra) {m_extra_tiles_factor = extra;}
 
 		// return tilemap params
 		NESSENGINE_API inline const Sizei& get_map_size() const {return m_size;}

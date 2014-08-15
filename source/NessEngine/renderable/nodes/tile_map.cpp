@@ -39,7 +39,7 @@ namespace Ness
 
 	TileMap::TileMap(Renderer* renderer, const String& spriteFile, const Sizei& mapSize, 
 		const Size& singleTileSize, const Size& tilesDistance, TCreateTileSprites createSpriteFunction) 
-		: NodeAPI(renderer), m_size(mapSize), m_tile_size(singleTileSize)
+		: NodeAPI(renderer), m_size(mapSize), m_tile_size(singleTileSize), m_extra_tiles_factor(0, 0)
 	{
 		// set distance between sprites (either sprite size or provided distance)
 		m_sprites_distance = (tilesDistance == Ness::Size::ZERO ? singleTileSize : tilesDistance);
@@ -192,22 +192,22 @@ namespace Ness
 
 	int TileMap::get_first_tile_in_screen_x(const Ness::Point& cameraPos)
 	{
-		return cameraPos.x < 0 ? (int)(((-cameraPos.x - m_tile_size.x) / m_sprites_distance.x)) : 0;
+		return cameraPos.x < 0 ? (int)(((-cameraPos.x - m_tile_size.x) / m_sprites_distance.x)) - m_extra_tiles_factor.x : 0;
 	}
 
 	int TileMap::get_first_tile_in_screen_y(const Ness::Point& cameraPos)
 	{
-		return cameraPos.y < 0 ? (int)(((-cameraPos.y - m_tile_size.y) / m_sprites_distance.y)) : 0;
+		return cameraPos.y < 0 ? (int)(((-cameraPos.y - m_tile_size.y) / m_sprites_distance.y)) - m_extra_tiles_factor.y : 0;
 	}
 
 	int TileMap::get_tiles_in_screen_x()
 	{
-		return (int)((m_renderer->get_target_size().x + m_tile_size.x) / m_sprites_distance.x) + 1;
+		return (int)((m_renderer->get_target_size().x + m_tile_size.x) / m_sprites_distance.x) + 1 + m_extra_tiles_factor.x * 2;
 	}
 
 	int TileMap::get_tiles_in_screen_y()
 	{
-		return (int)((m_renderer->get_target_size().y + m_tile_size.y) / m_sprites_distance.y) + 1;
+		return (int)((m_renderer->get_target_size().y + m_tile_size.y) / m_sprites_distance.y) + 1 + m_extra_tiles_factor.y * 2;
 	}
 
 	Pointi TileMap::get_index_from_position(const Point& position)

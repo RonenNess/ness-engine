@@ -38,7 +38,7 @@ namespace Ness
 	}
 
 	NodesMap::NodesMap(Renderer* renderer, const Sizei& mapSize, const Size& nodesSize, const Size& nodesDistance, TCreateNodes createNodesFunction)
-		: NodeAPI(renderer), m_size(mapSize), m_nodes_distance(nodesDistance),  m_node_size(nodesSize)
+		: NodeAPI(renderer), m_size(mapSize), m_nodes_distance(nodesDistance),  m_node_size(nodesSize), m_extra_tiles_factor(0, 0)
 	{
 		if (m_nodes_distance == Size::ZERO)
 			m_nodes_distance = m_node_size;
@@ -118,22 +118,22 @@ namespace Ness
 
 	int NodesMap::get_first_tile_in_screen_x(const Ness::Point& cameraPos)
 	{
-		return cameraPos.x < 0 ? (int)(((-cameraPos.x - m_node_size.x) / m_nodes_distance.x)) : 0;
+		return cameraPos.x < 0 ? (int)(((-cameraPos.x - m_node_size.x) / m_nodes_distance.x)) - m_extra_tiles_factor.x : 0;
 	}
 
 	int NodesMap::get_first_tile_in_screen_y(const Ness::Point& cameraPos)
 	{
-		return cameraPos.y < 0 ? (int)(((-cameraPos.y - m_node_size.y) / m_nodes_distance.y)) : 0;
+		return cameraPos.y < 0 ? (int)(((-cameraPos.y - m_node_size.y) / m_nodes_distance.y)) - m_extra_tiles_factor.y : 0;
 	}
 
 	int NodesMap::get_tiles_in_screen_x()
 	{
-		return (int)((m_renderer->get_target_size().x + m_node_size.x) / m_nodes_distance.x) + 1;
+		return (int)((m_renderer->get_target_size().x + m_node_size.x) / m_nodes_distance.x) + 1 + m_extra_tiles_factor.x * 2;
 	}
 
 	int NodesMap::get_tiles_in_screen_y()
 	{
-		return (int)((m_renderer->get_target_size().y + m_node_size.y) / m_nodes_distance.y) + 1;
+		return (int)((m_renderer->get_target_size().y + m_node_size.y) / m_nodes_distance.y) + 1 + m_extra_tiles_factor.y * 2;
 	}
 
 	void NodesMap::__get_visible_entities(Vector<RenderableAPI*>& out_list, const CameraPtr& camera)
