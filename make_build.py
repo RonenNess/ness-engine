@@ -8,6 +8,9 @@ if os.path.isdir(OUTDIR):
 # copy the libs dir based on platform and build type, and also copy the readme files
 shutil.copytree("distribution", OUTDIR)
 
+# copy the license file
+shutil.copy("LICENSE.txt", OUTDIR)
+
 # copy the include files
 shutil.copytree("sdl/include", OUTDIR + "/include")
 
