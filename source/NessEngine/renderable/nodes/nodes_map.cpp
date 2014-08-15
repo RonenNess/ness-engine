@@ -185,8 +185,8 @@ namespace Ness
 	Pointi NodesMap::get_index_from_position(const Point& position)
 	{
 		Pointi index;
-		index.x = (int)(position.x / m_nodes_distance.x);
-		index.y = (int)((position.y) / m_nodes_distance.y);
+		index.x = (int)((position.x + m_node_size.x * 0.5f) / m_nodes_distance.x);
+		index.y = (int)((position.y + m_node_size.y) / m_nodes_distance.y);
 		return index;
 	}
 

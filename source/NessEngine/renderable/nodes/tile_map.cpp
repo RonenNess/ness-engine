@@ -213,8 +213,8 @@ namespace Ness
 	Pointi TileMap::get_index_from_position(const Point& position)
 	{
 		Pointi index;
-		index.x = (int)(position.x / m_sprites_distance.x);
-		index.y = (int)((position.y) / m_sprites_distance.y);
+		index.x = (int)((position.x + m_tile_size.x * 0.5f) / m_sprites_distance.x);
+		index.y = (int)((position.y + m_tile_size.y) / m_sprites_distance.y);
 		return index;
 	}
 
