@@ -114,7 +114,7 @@ namespace Ness
 				{
 
 					// prepare a relative camera
-					CameraPtr tempCam = ness_make_ptr<Camera>();
+					CameraPtr tempCam = ness_make_ptr<Camera>(renderer());
 					tempCam->position.x = (float)(cx * m_batch_size.x);
 					tempCam->position.y = (float)(cy * m_batch_size.y);
 

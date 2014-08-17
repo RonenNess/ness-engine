@@ -62,6 +62,12 @@ namespace Ness
 		NESSENGINE_API inline const EBlendModes get_blend_mode() const {return m_transformations.blend;}
 		NESSENGINE_API inline float get_zindex() const {return m_transformations.zorder;}
 
+		// return absolute position
+		NESSENGINE_API inline Point get_absolute_position() {return get_absolute_transformations().position;}
+
+		// return absolute z index
+		NESSENGINE_API inline float get_absolute_zindex() {return get_absolute_transformations().zorder;}
+
 		// called whenever transformations are updated
 		NESSENGINE_API virtual void transformations_update() {}
 		NESSENGINE_API virtual bool need_transformations_update() = 0;

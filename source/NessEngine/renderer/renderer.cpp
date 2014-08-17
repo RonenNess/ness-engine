@@ -72,6 +72,12 @@ namespace Ness
 		return Sizei((int)(m_screen_size.x * 0.5f), (int)(m_screen_size.y * 0.5f));
 	}
 
+	// create the camera object
+	CameraPtr Renderer::create_camera() const 
+	{
+		return ness_make_ptr<Camera>((Renderer*)this);
+	}
+
 	// destroy the renderer
 	Renderer::~Renderer()
 	{

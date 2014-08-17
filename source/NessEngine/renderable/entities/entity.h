@@ -68,12 +68,8 @@ namespace Ness
 		NESSENGINE_API inline Size get_absolute_size() {return get_absolute_transformations().scale * m_size;}
 		NESSENGINE_API inline Size get_absolute_size_const() const {return m_absolute_transformations.scale * m_size;}
 
-		// return absolute position
-		NESSENGINE_API inline Point get_absolute_position() {return get_absolute_transformations().position;}
+		// return absolute position and z-index, const versions
 		NESSENGINE_API inline Point get_absolute_position_const() const {return m_absolute_transformations.position;}
-
-		// return absolute z index
-		NESSENGINE_API inline float get_absolute_zindex() {return get_absolute_transformations().zorder;}
 		NESSENGINE_API inline float get_absolute_zindex_const() const {return m_absolute_transformations.zorder;}
 
 		// check if this sprite really is visible: if it's currently visible, opacity > 0, and inside screen bounderies
