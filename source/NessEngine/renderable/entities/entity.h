@@ -106,7 +106,7 @@ namespace Ness
 		NESSENGINE_API virtual void calc_target_rect();
 
 		// check if target rectangle is inside screen
-		NESSENGINE_API bool is_in_screen(const Rectangle& target) const;
+		NESSENGINE_API bool is_in_screen(const Rectangle& target, float rotation) const;
 
 		// the actual rendering function to override
 		// target: target rectangle to render to (final, with camera and everything calculated)

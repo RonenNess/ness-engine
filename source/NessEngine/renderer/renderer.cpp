@@ -288,11 +288,6 @@ namespace Ness
 
 	void Renderer::draw_rect(const Rectangle& TargetRect, const Color& color, bool filled, EBlendModes mode)
 	{
-		// check if in screen
-		if (TargetRect.x >= m_target_size->x || TargetRect.y >= m_target_size->y || TargetRect.x + TargetRect.w <= 0 || TargetRect.y + TargetRect.h <= 0 )
-		{
-			return;
-		}
 
 		// set blend mode and color
 		SDL_SetRenderDrawBlendMode(m_renderer, (SDL_BlendMode)mode);
@@ -325,12 +320,6 @@ namespace Ness
 		{
 			target.h *= -1;
 			flip |= SDL_FLIP_VERTICAL;
-		}
-
-		// check if in screen
-		if (target.x >= m_target_size->x || target.y >= m_target_size->y || target.x + target.w <= 0 || target.y + target.h <= 0 )
-		{
-			return;
 		}
 
 		// set alpha

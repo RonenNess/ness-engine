@@ -107,7 +107,7 @@ namespace Ness
 			target.y -= (int)camera->position.y;
 		} 
 
-		return is_in_screen(target);
+		return is_in_screen(target, trans.rotation);
 	}
 
 	bool Entity::is_really_visible_const(const CameraPtr& camera) const
@@ -131,15 +131,29 @@ namespace Ness
 			target.y -= (int)camera->position.y;
 		} 
 
-		return is_in_screen(target);
+		return is_in_screen(target, trans.rotation);
 	}
 
-	bool Entity::is_in_screen(const Rectangle& target) const
+	bool Entity::is_in_screen(const Rectangle& target, float rotation) const
 	{
-		if (target.x >= m_renderer->get_target_size().x || target.y >= m_renderer->get_target_size().y || target.x + abs(target.w) <= 0 || target.y + abs(target.h) <= 0 )
+		// if no rotation make simple rect-in-screen check
+		if (rotation == 0.0f)
 		{
-			return false;
+			if (target.x >= m_renderer->get_target_size().x || target.y >= m_renderer->get_target_size().y || target.x + abs(target.w) <= 0 || target.y + abs(target.h) <= 0 )
+			{
+				return false;
+			}
 		}
+		// if got rotation fix target rect
+		else
+		{
+			int size = (abs(target.h) > abs(target.w)) ? abs(target.h) : abs(target.w);
+			if (target.x >= m_renderer->get_target_size().x || target.y >= m_renderer->get_target_size().y || target.x + size <= 0 || target.y + size <= 0 )
+			{
+				return false;
+			}
+		}
+
 		return true;
 	}
 
@@ -164,8 +178,8 @@ namespace Ness
 			target.y -= (int)camera->position.y;
 		}
 
-		// check if in screen. NOTE: this checked inside the renderer as well, but having this check here boost up speed with tons of entities (> 10,000...)
-		if (!is_in_screen(target))
+		// check if in screen.
+		if (!is_in_screen(target, trans.rotation))
 			return;
 
 		// render!

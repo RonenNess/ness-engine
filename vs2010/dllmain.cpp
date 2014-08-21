@@ -23,11 +23,16 @@
 // dllmain.cpp : Defines the entry point for the DLL application.
 #include <windows.h>
 
+#define UNUSED_VAR(__x)  __x;
+
 BOOL APIENTRY DllMain( HMODULE hModule,
                        DWORD  ul_reason_for_call,
                        LPVOID lpReserved
 					 )
 {
+	UNUSED_VAR(lpReserved);
+	UNUSED_VAR(hModule);
+
 	switch (ul_reason_for_call)
 	{
 	case DLL_PROCESS_ATTACH:
