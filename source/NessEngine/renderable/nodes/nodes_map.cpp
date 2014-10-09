@@ -190,6 +190,11 @@ namespace Ness
 		return index;
 	}
 
+	Point NodesMap::get_position_from_index(const Pointi& index) const
+	{
+		return m_nodes[index.x][index.y]->get_position();
+	}
+
 	NodeAPIPtr& NodesMap::get_node_by_position_any(const Point& position)
 	{
 		static NodeAPIPtr empty;

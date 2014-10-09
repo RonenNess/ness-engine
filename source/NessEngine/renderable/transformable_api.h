@@ -73,6 +73,7 @@ namespace Ness
 		NESSENGINE_API inline const float get_opacity() const {return m_transformations.color.a;}
 		NESSENGINE_API inline const EBlendModes get_blend_mode() const {return m_transformations.blend;}
 		NESSENGINE_API inline float get_zindex() const {return m_transformations.zorder;}
+		NESSENGINE_API inline Ness::Point get_direction_vector() const {return Ness::Point::from_angle(get_rotation());}
 
 		// return absolute position
 		NESSENGINE_API inline Point get_absolute_position() {return get_absolute_transformations().position;}

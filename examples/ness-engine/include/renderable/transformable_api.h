@@ -45,11 +45,23 @@ namespace Ness
 		NESSENGINE_API inline void set_transformations(const SRenderTransformations& newTrans) {m_transformations = newTrans; transformations_update();}
 		NESSENGINE_API inline const SRenderTransformations& get_transformation() const {return m_transformations;}
 		NESSENGINE_API inline void set_position(const Ness::Point& NewPos) {if (NewPos == m_transformations.position) return; m_transformations.position = NewPos; transformations_update();}
+		NESSENGINE_API inline void add_position(const Ness::Point& NewPos) {m_transformations.position += NewPos; transformations_update();}
+		NESSENGINE_API inline void multiply_position(const Ness::Point& NewPos) {m_transformations.position *= NewPos; transformations_update();}
 		NESSENGINE_API inline void set_scale(const Size& NewScale) {if (NewScale == m_transformations.scale) return; m_transformations.scale = NewScale; transformations_update();}
+		NESSENGINE_API inline void add_scale(const Size& NewScale) {m_transformations.scale += NewScale; transformations_update();}
+		NESSENGINE_API inline void multiply_scale(const Size& NewScale) {m_transformations.scale *= NewScale; transformations_update();}
 		NESSENGINE_API inline void set_scale(float NewScale) {set_scale(Point(NewScale, NewScale));}
+		NESSENGINE_API inline void add_scale(float NewScale) {m_transformations.scale += NewScale; transformations_update();}
+		NESSENGINE_API inline void multiply_scale(float NewScale) {m_transformations.scale *= NewScale; transformations_update();}
 		NESSENGINE_API inline void set_rotation(float NewRotation) {if (NewRotation == m_transformations.rotation) return; m_transformations.rotation = NewRotation; transformations_update();}
-		NESSENGINE_API inline void set_color(const Color& NewColor) {m_transformations.color = NewColor; transformations_update();}
+		NESSENGINE_API inline void add_rotation(float NewRotation) {m_transformations.rotation += NewRotation; transformations_update();}
+		NESSENGINE_API inline void multiply_rotation(float NewRotation) {m_transformations.rotation *= NewRotation; transformations_update();}
+		NESSENGINE_API inline void set_color(const Color& NewColor) {if (NewColor == m_transformations.color) return; m_transformations.color = NewColor; transformations_update();}
+		NESSENGINE_API inline void add_color(const Color& NewColor) {m_transformations.color += NewColor; transformations_update();}
+		NESSENGINE_API inline void multiply_color(const Color& NewColor) {m_transformations.color *= NewColor; transformations_update();}
 		NESSENGINE_API inline void set_opacity(float opacity) {if (opacity == m_transformations.color.a) return; m_transformations.color.a = opacity; transformations_update();}
+		NESSENGINE_API inline void add_opacity(float opacity) {m_transformations.color.a += opacity; transformations_update();}
+		NESSENGINE_API inline void multiply_opacity(float opacity) {m_transformations.color.a *= opacity; transformations_update();}
 		NESSENGINE_API inline void set_blend_mode(EBlendModes NewMode) {if (m_transformations.blend == NewMode) return; m_transformations.blend = NewMode; transformations_update();}
 		NESSENGINE_API inline void set_zindex(float newZ) {m_transformations.zorder = newZ; transformations_update();}
 		NESSENGINE_API inline void flip_x() {m_transformations.scale.x *= -1; transformations_update();}
@@ -61,6 +73,7 @@ namespace Ness
 		NESSENGINE_API inline const float get_opacity() const {return m_transformations.color.a;}
 		NESSENGINE_API inline const EBlendModes get_blend_mode() const {return m_transformations.blend;}
 		NESSENGINE_API inline float get_zindex() const {return m_transformations.zorder;}
+		NESSENGINE_API inline Ness::Point get_direction_vector() const {return Ness::Point::from_angle(get_rotation());}
 
 		// return absolute position
 		NESSENGINE_API inline Point get_absolute_position() {return get_absolute_transformations().position;}

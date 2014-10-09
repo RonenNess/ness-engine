@@ -96,6 +96,9 @@ namespace Ness
 		// return empty if out of range
 		NESSENGINE_API virtual NodeAPIPtr& get_node_by_position_any(const Point& position);
 
+		// return node position from a given index
+		NESSENGINE_API virtual Point get_position_from_index(const Pointi& index) const;
+
 		// get a specific node by position
 		// If your nodes map does not use regular scenes node don't use this, you'll get null
 		// return empty if out of range or if your nodes map does not use regular scene nodes

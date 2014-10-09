@@ -98,6 +98,9 @@ namespace Ness
 		// return index of tile from position
 		NESSENGINE_API virtual Pointi get_index_from_position(const Point& position);
 
+		// return position of tile from index
+		NESSENGINE_API virtual Point get_position_from_index(const Pointi& index) const;
+
 		// get all visible son entities
 		NESSENGINE_API virtual void __get_visible_entities(Vector<RenderableAPI*>& out_list, const CameraPtr& camera = NullCamera);
 
