@@ -81,6 +81,11 @@ namespace Ness
 		NESSENGINE_API inline bool operator==(const __Point<type>& other) const {return (x == other.x && y == other.y);}
 		NESSENGINE_API inline bool operator!=(const __Point<type> &other) const {return !(*this == other);}
 
+		// return the angle between this vector and the x axis
+		// note: value will range between 180 to -180, while 0 is when vector is (1, 0)
+		NESSENGINE_API inline int get_angle() const {return Math::constrain_angle_180((int)RADIAN_TO_DEGREE(get_radian()));}
+		NESSENGINE_API inline float get_radian() const {return (float)atan2((float)y, (float)x);}
+
 		// put point within limit
 		NESSENGINE_API inline void limit(type min, type max)
 		{
