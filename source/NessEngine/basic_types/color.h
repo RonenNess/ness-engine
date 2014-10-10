@@ -69,7 +69,7 @@ namespace Ness
 		NESSENGINE_API __Color<type> operator-(const type& scalar) const {return __Color<type>(r - scalar, g - scalar, b - scalar, a - scalar);}
 
 		// equal operator
-		NESSENGINE_API bool operator==(const __Color<type>& other) const {return (memcmp(this, &other, sizeof(this)) == 0);}
+		NESSENGINE_API bool operator==(const __Color<type>& other) const {return (memcmp(this, &other, sizeof(__Color<type>)) == 0);}
 
 		// create empty color (with garbage values)
 		NESSENGINE_API __Color<type>()
