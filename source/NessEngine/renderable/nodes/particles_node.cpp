@@ -28,7 +28,8 @@
 namespace Ness
 {
 
-	ParticlesNode::ParticlesNode(Renderer* renderer) : BaseNode(renderer), m_time_since_last_emit(0.0f) 
+	ParticlesNode::ParticlesNode(Renderer* renderer, const Size& BounderiesSize) 
+		: BaseNode(renderer), m_emit_when_not_in_screen(false), m_bounderies_size(BounderiesSize), m_time_since_last_emit(0.0f) 
 	{
 		renderer->register_animator(this);
 	}
@@ -48,6 +49,42 @@ namespace Ness
 		{
 			invoke_emit();
 		}
+
+		// do animation of all the particles
+		for (unsigned int i = 0; i < m_entities.size(); i++)
+		{
+			// try to get current entity as particle
+			SpritePtr CurrParticle = ness_ptr_cast<Sprite>(m_entities[i]);
+
+			// if really particle, active its animation
+			if (CurrParticle)
+			{
+//				CurrParticle->do_animation(renderer);
+			}
+		}
+	}
+
+	// check if this particles system is visible using the particles system boundery size (set_bounderies_size())
+	bool ParticlesNode::is_really_visible(const CameraPtr& camera)
+	{
+		// first check if even enabled
+		if (!m_visible || m_absolute_trans.color.a <= 0.0f)
+			return false;
+
+		// get absolute position
+		Ness::Point pos = get_absolute_position();
+		if (camera)
+		{
+			pos -= camera->position;
+		}
+
+		if (pos.x - m_bounderies_size.x >= m_renderer->get_target_size().x || pos.y - m_bounderies_size.y >= m_renderer->get_target_size().y 
+			|| pos.x + m_bounderies_size.x <= 0 || pos.y + m_bounderies_size.y <= 0 )
+		{
+			return false;
+		}
+
+		return true;
 	}
 
 	void ParticlesNode::invoke_emit()
@@ -68,6 +105,12 @@ namespace Ness
 			{
 				return;
 			}
+		}
+
+		// if not visible and not allowed to emit when not visible, skip
+		if (is_really_visible() == false && m_emit_when_not_in_screen == false)
+		{
+			return;
 		}
 
 		// check if we don't have too much already

@@ -27,3 +27,4 @@
 #include "nodes_map.h"
 #include "light_node.h"
 #include "static_node.h"
+#include "particles_node.h"

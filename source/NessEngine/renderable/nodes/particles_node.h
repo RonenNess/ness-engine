@@ -73,12 +73,28 @@ namespace Ness
 	{
 	private:
 		SParticlesNodeEmitSettings		m_settings;
+		bool							m_emit_when_not_in_screen;
+		Size							m_bounderies_size;
 		float							m_time_since_last_emit;
 
 	public:
 		// create the particles node and register/unregister to animators queue automatically
-		NESSENGINE_API ParticlesNode(Renderer* renderer);
+		// BounderiesSize is the estimated size of the whole particles system. determine visibilty and 
+		// will not emit particles when out of screen, unless 'set_emit_when_not_in_screen()' is set.
+		NESSENGINE_API ParticlesNode(Renderer* renderer, const Size& BounderiesSize);
 		NESSENGINE_API ~ParticlesNode();
+
+		// set if should emit when out of screen
+		// if true, it means this particles node will continue emitting particles even when out of screen.
+		// if false, it will automatically pause when out of screen bounderies.
+		// note: you can use set_bounderies_size to determine the total size of this particles system
+		NESSENGINE_API inline void set_emit_when_not_in_screen(bool Enabled) {m_emit_when_not_in_screen = Enabled;}
+
+		// estimated size determines if this particles node is in-screen or not
+		NESSENGINE_API inline void set_bounderies_size(const Size& size) {m_bounderies_size = size * 0.5f;}
+
+		// check if this particles system is visible using the particles system boundery size (set_bounderies_size())
+		NESSENGINE_API virtual bool is_really_visible(const CameraPtr& camera = NullCamera);
 
 		// set the emit settings of this node
 		NESSENGINE_API inline void set_emit_settings(const SParticlesNodeEmitSettings& settings) {m_settings = settings;}

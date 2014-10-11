@@ -233,6 +233,16 @@ namespace Ness
 		return get_sprite(index);
 	}
 
+	Rectangle TileMap::get_occupied_region() const
+	{
+		Rectangle ret;
+		ret.x = (int)m_absolute_transformations.position.x;
+		ret.y = (int)m_absolute_transformations.position.y;
+		ret.w = (int)((m_size.x * m_sprites_distance.x) + m_tile_size.x);
+		ret.h = (int)((m_size.y * m_sprites_distance.y) + m_tile_size.y);
+		return ret;
+	}
+
 	bool TileMap::is_really_visible(const CameraPtr& camera)
 	{
 		if (!m_visible)

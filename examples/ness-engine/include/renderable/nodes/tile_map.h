@@ -81,6 +81,11 @@ namespace Ness
 		NESSENGINE_API inline const Size& get_sprites_distance() const {return m_sprites_distance;}
 		NESSENGINE_API inline const Size& get_tiles_size() const {return m_tile_size;}
 
+		// return the total region that this nodes map take (based on current absolute position, nodes matrix size, and distance between nodes)
+		// note: this is estimation based on the starting configuration you provided the constructor. this will not work if you made a custom
+		// matrix of tiles or tempered with the tiles map.
+		NESSENGINE_API Rectangle get_occupied_region() const;
+
 		// direct access to son entities (note: son entities are in vector so efficiecny is alright here)
 		NESSENGINE_API virtual unsigned int get_sons_count() const {return m_size.x * m_size.y;}
 		NESSENGINE_API virtual RenderablePtr get_son(unsigned int index) {return m_sprites[index % m_size.x][index / m_size.x];}

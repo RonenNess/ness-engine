@@ -27,7 +27,8 @@
 namespace Ness
 {
 
-	Camera::Camera(Renderer* renderer, const Point& Position) : m_renderer(renderer), position(Position), m_follow_target_speed(0, 0), m_follow_target_offset(0, 0), m_follow_target_max_distance(0, 0)
+	Camera::Camera(Renderer* renderer, const Point& Position) 
+		: m_renderer(renderer), position(Position), m_follow_target_speed(0, 0), m_follow_target_offset(0, 0), m_follow_target_max_distance(0, 0), m_bounderies_enabled(false)
 	{
 	}
 
@@ -120,6 +121,19 @@ namespace Ness
 					}
 				}
 			}
+		}
+
+		// check bounderies
+		if (m_bounderies_enabled)
+		{
+			if (position.x < m_bounderies.x)
+				position.x = (float)m_bounderies.x;
+			if (position.y < m_bounderies.y)
+				position.y = (float)m_bounderies.y;
+			if (position.x + renderer->get_target_size().x > m_bounderies.w)
+				position.x = (float)m_bounderies.w - renderer->get_target_size().x;
+			if (position.y + renderer->get_target_size().y > m_bounderies.h)
+				position.y = (float)m_bounderies.h - renderer->get_target_size().y;
 		}
 	}
 

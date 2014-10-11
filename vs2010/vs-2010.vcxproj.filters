@@ -293,5 +293,8 @@
     <ClInclude Include="..\source\NessEngine\animators\animator_color_shifter.h">
       <Filter>Source Files\animators</Filter>
     </ClInclude>
+    <ClInclude Include="..\source\NessEngine\renderable\entities\animated_sprite.h">
+      <Filter>Source Files\renderables\entities</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>

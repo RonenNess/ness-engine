@@ -43,9 +43,9 @@ namespace Ness
 		return NewNode;
 	}
 
-	ParticlesNodePtr Node::create_particles_node(bool add_immediatly)
+	ParticlesNodePtr Node::create_particles_node(const Size& EstimatedSize, bool add_immediatly)
 	{
-		ParticlesNodePtr NewNode = ness_make_ptr<ParticlesNode>(this->m_renderer);
+		ParticlesNodePtr NewNode = ness_make_ptr<ParticlesNode>(this->m_renderer, EstimatedSize);
 		if (add_immediatly) add(NewNode);
 		return NewNode;
 	}

@@ -73,6 +73,10 @@ namespace Ness
 		NESSENGINE_API inline const Size& get_nodes_distance() const {return m_nodes_distance;}
 		NESSENGINE_API inline const Size& get_nodes_size() const {return m_node_size;}
 
+		// return the total region that this nodes map take (based on current absolute position, nodes matrix size, and distance between nodes)
+		// note: this is estimation based on the starting configuration you provided the constructor
+		NESSENGINE_API Rectangle get_occupied_region() const;
+
 		// set extra tiles to render in screen for x and y axis.
 		// what is it for? if your normal tiles size is 32x32 but sometimes you have tiles of 32x64, you can set it to (0, 1), meaning you
 		// will count additional tile from top and bottom when rendering the tiles in screen

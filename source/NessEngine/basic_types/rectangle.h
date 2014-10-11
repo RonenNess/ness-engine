@@ -41,6 +41,7 @@ namespace Ness
 	public:
 		Rectangle()
 		{
+			x = 0; y = 0; w = 0; h = 0;
 		}
 
 		Rectangle(int X, int Y, int W, int H)

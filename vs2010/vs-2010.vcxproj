@@ -63,6 +63,7 @@
     <ClInclude Include="..\source\NessEngine\managed_resources\resources_manager.h" />
     <ClInclude Include="..\source\NessEngine\NessEngine.h" />
     <ClInclude Include="..\source\NessEngine\renderable\entities\all_entities.h" />
+    <ClInclude Include="..\source\NessEngine\renderable\entities\animated_sprite.h" />
     <ClInclude Include="..\source\NessEngine\renderable\entities\entity.h" />
     <ClInclude Include="..\source\NessEngine\renderable\entities\canvas.h" />
     <ClInclude Include="..\source\NessEngine\renderable\entities\multiline_text.h" />

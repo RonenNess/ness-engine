@@ -29,6 +29,7 @@
 #pragma once
 #include "../exports.h"
 #include "../basic_types/point.h"
+#include "../basic_types/rectangle.h"
 #include "../basic_types/containers.h"
 #include "../animators/animator_api.h"
 
@@ -53,6 +54,8 @@ namespace Ness
 		Point				m_follow_target_speed;			// speed to foolow target on x and y axis. if 0, will follow immediatly
 		Point				m_follow_target_offset;			// offset on x and y axis to follow target
 		Point				m_follow_target_max_distance;	// maximum distance the camera can drift away from target
+		Rectangle			m_bounderies;					// bounderies for camera position
+		bool				m_bounderies_enabled;			// are bounderies enabled?
 
 	public:
 		Point position;
@@ -69,6 +72,10 @@ namespace Ness
 
 		// set the target offset, i.e. the camera will follow target position + given offset
 		NESSENGINE_API inline void set_target_follow_offset(const Point& offset) {m_follow_target_offset = offset;}
+
+		// set bounderies for this camera
+		// to disable bounderies check set rectangle of 0, 0, 0, 0
+		NESSENGINE_API inline void set_bounderies(const Rectangle& bounderies) {m_bounderies = bounderies; m_bounderies_enabled = ((bounderies.x | bounderies.y | bounderies.w | bounderies.h) != 0);}
 
 		// set the maximum distance the camera can drift away from the following target. 0 is distance unlimited.
 		// note: this is relevant only if you got following speed and target can drift away from the camera if moving too fast.

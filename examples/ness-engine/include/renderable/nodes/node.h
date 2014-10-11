@@ -44,6 +44,7 @@ namespace Ness
 	class RectangleShape;
 	class NodeAPI;
 	class LightNode;
+	class ParticlesNode;
 
 	// node and sprite pointers
 	NESSENGINE_API typedef SharedPtr<Node>				NodePtr;
@@ -57,6 +58,7 @@ namespace Ness
 	NESSENGINE_API typedef SharedPtr<RectangleShape>	RectangleShapePtr;
 	NESSENGINE_API typedef SharedPtr<TileMap>			TileMapPtr;
 	NESSENGINE_API typedef SharedPtr<NodesMap>			NodesMapPtr;
+	NESSENGINE_API typedef SharedPtr<ParticlesNode>		ParticlesNodePtr;
 	NESSENGINE_API typedef SharedPtr<NodeAPI>			NodeAPIPtr;
 
 	// a scene node with functionality to create all type of built-in entities and nodes
@@ -73,6 +75,7 @@ namespace Ness
 		NESSENGINE_API virtual LightNodePtr create_light_node(bool add_immediatly=true);
 		NESSENGINE_API virtual RectangleShapePtr create_rectangle(bool add_immediatly=true);
 		NESSENGINE_API virtual SpritePtr create_sprite(const String& textureName, bool add_immediatly=true);
+		NESSENGINE_API virtual ParticlesNodePtr create_particles_node(const Size& EstimatedSize, bool add_immediatly=true);
 		NESSENGINE_API virtual CanvasPtr create_canvas(const String& textureName, const Sizei& size = Sizei::ZERO, bool add_immediatly=true);
 		NESSENGINE_API virtual TileMapPtr create_tilemap(const String& spriteFile, const Sizei& mapSize, const Size& singleTileSize=Size(36, 36), const Size& tilesDistance=Size::ZERO, bool add_immediatly=true);
 		NESSENGINE_API virtual NodesMapPtr create_nodesmap(const Sizei& mapSize, const Size& singleNodeSize=Size(36, 36), const Size& nodesDistance=Size::ZERO, bool add_immediatly=true);
