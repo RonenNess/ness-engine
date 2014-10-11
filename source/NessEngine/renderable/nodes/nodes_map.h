@@ -152,6 +152,7 @@ namespace Ness
 		// function to get amount of tiles in screen on y axis
 		NESSENGINE_API virtual int get_tiles_in_screen_y();
 		// make sure given index are within the tilemap size
+		// note: i and j may be equal to size.x and size.y, its still count in range
 		NESSENGINE_API void put_in_range(int& i, int& j);
 
 	private:

@@ -111,9 +111,9 @@ namespace Ness
 	void NodesMap::put_in_range(int& i, int& j)
 	{
 		if (i < 0) i = 0;
-		if (i >= m_size.x) i = m_size.x - 1;
+		if (i > m_size.x) i = m_size.x ;
 		if (j < 0) j = 0;
-		if (j >= m_size.y) j = m_size.y - 1;
+		if (j > m_size.y) j = m_size.y;
 	}
 
 	int NodesMap::get_first_tile_in_screen_x(const Ness::Point& cameraPos)
