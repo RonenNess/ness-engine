@@ -149,7 +149,7 @@ namespace Ness
 		{
 			float size = (abs(target.h) > abs(target.w)) ? (float)abs(target.h) : (float)abs(target.w);
 			size *= 1.5f;
-			if (target.x >= m_renderer->get_target_size().x || target.y >= m_renderer->get_target_size().y || target.x + size <= 0 || target.y + size <= 0 )
+			if (target.x - size >= m_renderer->get_target_size().x || target.y - size >= m_renderer->get_target_size().y || target.x + size <= 0 || target.y + size <= 0 )
 			{
 				return false;
 			}

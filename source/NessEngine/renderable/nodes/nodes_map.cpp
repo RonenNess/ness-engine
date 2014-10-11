@@ -200,8 +200,8 @@ namespace Ness
 		Rectangle ret;
 		ret.x = (int)m_absolute_transformations.position.x;
 		ret.y = (int)m_absolute_transformations.position.y;
-		ret.w = (int)((m_size.x * m_nodes_distance.x) + m_node_size.x);
-		ret.h = (int)((m_size.y * m_nodes_distance.y) + m_node_size.y);
+		ret.w = (int)(((m_size.x - 1) * m_nodes_distance.x) + m_node_size.x);
+		ret.h = (int)(((m_size.y - 1) * m_nodes_distance.y) + m_node_size.y);
 		return ret;
 	}
 
