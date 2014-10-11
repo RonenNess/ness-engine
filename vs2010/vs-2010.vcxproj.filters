@@ -129,6 +129,9 @@
     <ClCompile Include="..\source\NessEngine\renderable\nodes\nodes_map.cpp">
       <Filter>Source Files\renderables\nodes</Filter>
     </ClCompile>
+    <ClCompile Include="..\source\NessEngine\renderable\nodes\particles_node.cpp">
+      <Filter>Source Files\renderables\nodes</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\source\NessEngine\NessEngine.h">
@@ -283,6 +286,12 @@
     </ClInclude>
     <ClInclude Include="..\source\NessEngine\renderable\nodes\nodes_map.h">
       <Filter>Source Files\renderables\nodes</Filter>
+    </ClInclude>
+    <ClInclude Include="..\source\NessEngine\renderable\nodes\particles_node.h">
+      <Filter>Source Files\renderables\nodes</Filter>
+    </ClInclude>
+    <ClInclude Include="..\source\NessEngine\animators\animator_color_shifter.h">
+      <Filter>Source Files\animators</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

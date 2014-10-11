@@ -21,7 +21,8 @@
 */
 
 /**
-* A scene node that takes z-order into consideration
+* A scene node that takes z-order into consideration.
+* this node will arrange entities and nodes automatically based on their z-index.
 * Author: Ronen Ness
 * Since: 07/1014
 */

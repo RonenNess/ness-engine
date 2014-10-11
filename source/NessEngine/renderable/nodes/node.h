@@ -44,6 +44,7 @@ namespace Ness
 	class RectangleShape;
 	class NodeAPI;
 	class LightNode;
+	class ParticlesNode;
 
 	// node and sprite pointers
 	NESSENGINE_API typedef SharedPtr<Node>				NodePtr;
@@ -57,6 +58,7 @@ namespace Ness
 	NESSENGINE_API typedef SharedPtr<RectangleShape>	RectangleShapePtr;
 	NESSENGINE_API typedef SharedPtr<TileMap>			TileMapPtr;
 	NESSENGINE_API typedef SharedPtr<NodesMap>			NodesMapPtr;
+	NESSENGINE_API typedef SharedPtr<ParticlesNode>		ParticlesNodePtr;
 	NESSENGINE_API typedef SharedPtr<NodeAPI>			NodeAPIPtr;
 
 	// a scene node with functionality to create all type of built-in entities and nodes
@@ -69,6 +71,7 @@ namespace Ness
 		// create and return a son entities
 		NESSENGINE_API virtual NodePtr create_node(bool add_immediatly=true);
 		NESSENGINE_API virtual ZNodePtr create_znode(bool add_immediatly=true);
+		NESSENGINE_API virtual ParticlesNodePtr create_particles_node(bool add_immediatly=true);
 		NESSENGINE_API virtual StaticNodePtr create_static_node(bool add_immediatly=true);
 		NESSENGINE_API virtual LightNodePtr create_light_node(bool add_immediatly=true);
 		NESSENGINE_API virtual RectangleShapePtr create_rectangle(bool add_immediatly=true);
