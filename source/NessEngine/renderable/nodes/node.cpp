@@ -71,6 +71,13 @@ namespace Ness
 		return NewSprite;
 	}
 
+	AnimatedSpritePtr Node::create_animated_sprite(const String& textureName, bool add_immediatly)
+	{
+		AnimatedSpritePtr NewSprite = ness_make_ptr<AnimatedSprite>(this->m_renderer, textureName);
+		if (add_immediatly) add(NewSprite);
+		return NewSprite;
+	}
+
 	TextPtr Node::create_text(const String& fontFile, const String& text, int fontSize, bool add_immediatly)
 	{
 		TextPtr NewSprite = ness_make_ptr<Text>(this->m_renderer, fontFile, text, fontSize);

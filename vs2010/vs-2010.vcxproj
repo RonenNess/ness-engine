@@ -71,6 +71,7 @@
     <ClInclude Include="..\source\NessEngine\renderable\entities\entity.h" />
     <ClInclude Include="..\source\NessEngine\renderable\entities\canvas.h" />
     <ClInclude Include="..\source\NessEngine\renderable\entities\multiline_text.h" />
+    <ClInclude Include="..\source\NessEngine\renderable\entities\particle.h" />
     <ClInclude Include="..\source\NessEngine\renderable\entities\shapes.h" />
     <ClInclude Include="..\source\NessEngine\renderable\entities\sprite.h" />
     <ClInclude Include="..\source\NessEngine\renderable\entities\text.h" />

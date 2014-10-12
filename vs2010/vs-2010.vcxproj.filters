@@ -308,5 +308,8 @@
     <ClInclude Include="..\source\NessEngine\animators\animators_queue.h">
       <Filter>Source Files\animators</Filter>
     </ClInclude>
+    <ClInclude Include="..\source\NessEngine\renderable\entities\particle.h">
+      <Filter>Source Files\renderables\entities</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>

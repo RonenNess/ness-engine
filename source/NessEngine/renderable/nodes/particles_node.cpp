@@ -54,12 +54,12 @@ namespace Ness
 		for (unsigned int i = 0; i < m_entities.size(); i++)
 		{
 			// try to get current entity as particle
-			SpritePtr CurrParticle = ness_ptr_cast<Sprite>(m_entities[i]);
+			ParticlePtr CurrParticle = ness_ptr_cast<Particle>(m_entities[i]);
 
 			// if really particle, active its animation
 			if (CurrParticle)
 			{
-//				CurrParticle->do_animation(renderer);
+				CurrParticle->do_animation(renderer);
 			}
 		}
 	}
