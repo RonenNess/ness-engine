@@ -45,7 +45,7 @@ namespace Ness
 		};
 
 		// sprite from spritesheet animation
-		class AnimatorSprite : public AnimatorAPI
+		class AnimatorSprite : public TargetAnimatorAPI
 		{
 		private:
 			Sizei				m_spritesheet_total_steps;		// total steps (x and y) of the sprite sheet
@@ -65,6 +65,7 @@ namespace Ness
 			// endAction - what to do when animation ends cycle
 			AnimatorSprite(const SpritePtr& target, const Sizei& spritesheet_total_steps, unsigned int startingStep, 
 				unsigned int stepsCount, float AnimationSpeed = 1.0f, ESpriteAnimatorEnd endAction = SPRITE_ANIM_END_DO_NOTHING) : 
+				TargetAnimatorAPI(target),
 				m_spritesheet_total_steps(spritesheet_total_steps), 
 				m_sprite(target),
 				m_end_action(endAction)
@@ -80,6 +81,7 @@ namespace Ness
 			// endAction - what to do when animation ends cycle
 			AnimatorSprite(const SpritePtr& target, const Sizei& spritesheet_total_steps, const Sizei& startingStep, 
 				unsigned int stepsCount, float AnimationSpeed = 1.0f, ESpriteAnimatorEnd endAction = SPRITE_ANIM_END_DO_NOTHING) : 
+				TargetAnimatorAPI(target),
 				m_spritesheet_total_steps(spritesheet_total_steps), 
 				m_sprite(target),
 				m_end_action(endAction)

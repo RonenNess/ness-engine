@@ -11,9 +11,11 @@
     </ProjectConfiguration>
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="..\source\NessEngine\animators\animators_queue.cpp" />
     <ClCompile Include="..\source\NessEngine\basic_types\consts.cpp" />
     <ClCompile Include="..\source\NessEngine\managed_resources\resources_manager.cpp" />
     <ClCompile Include="..\source\NessEngine\NessEngine.cpp" />
+    <ClCompile Include="..\source\NessEngine\renderable\entities\animated_sprite.cpp" />
     <ClCompile Include="..\source\NessEngine\renderable\entities\entity.cpp" />
     <ClCompile Include="..\source\NessEngine\renderable\entities\canvas.cpp" />
     <ClCompile Include="..\source\NessEngine\renderable\entities\multiline_text.cpp" />
@@ -42,6 +44,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\source\NessEngine\animators\all_animators.h" />
+    <ClInclude Include="..\source\NessEngine\animators\animators_queue.h" />
     <ClInclude Include="..\source\NessEngine\animators\animator_api.h" />
     <ClInclude Include="..\source\NessEngine\animators\animator_color_shifter.h" />
     <ClInclude Include="..\source\NessEngine\animators\animator_fader.h" />

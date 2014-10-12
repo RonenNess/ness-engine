@@ -25,10 +25,14 @@
 #include "../scene/scene.h"
 #include <algorithm>
 
+// warning C4355: 'this' : used in base member initializer list (disabled due to Animators::AnimatorsQueue(this))
+#pragma warning(disable:4355)
+
 namespace Ness
 {
 	// create the renderer
 	Renderer::Renderer(const char* windowName, const Sizei& screenSize, bool fullScreen, int rendererFlags) :
+		Animators::AnimatorsQueue(this),
 		m_second_timer(0), m_total_time(0), m_curr_fps_count(0), m_fps(0), m_timefactor(0), m_screen_size(screenSize), 
 		m_frameid(0), m_background_color(75, 0, 255, 255), m_flags(rendererFlags), m_auto_animate(true)
 	{
@@ -123,62 +127,6 @@ namespace Ness
 
 		// increase frame unique id
 		m_frameid++;
-	}
-
-	// empty deleter that does nothing. 
-	// this is a path to create animator smart pointer that don't really delete the object to be able to register anumator with a regular pointer
-	static void EmptyAnimatorDeleter(Animators::AnimatorAPI* anim)
-	{
-	}
-
-	// register an animator by regular pointer
-	void Renderer::register_animator(Animators::AnimatorAPI* animator)
-	{
-		register_animator(Animators::AnimatorPtr(animator, EmptyAnimatorDeleter));
-	}
-
-	// remove an animator by regular pointer
-	void Renderer::remove_animator(Animators::AnimatorAPI* animator)
-	{
-		remove_animator(Animators::AnimatorPtr(animator, EmptyAnimatorDeleter));
-	}
-
-	// register an animator
-	void Renderer::register_animator(const Animators::AnimatorPtr& animator)
-	{
-		m_animators.push_back(animator);
-	}
-
-	// remove an animator
-	void Renderer::remove_animator(const Animators::AnimatorPtr& animator)
-	{
-		m_animators.erase(std::remove(m_animators.begin(), m_animators.end(), animator), m_animators.end());
-	}
-
-	// remove all dead animators from list
-	bool remove_dead_animators(const Animators::AnimatorPtr& animator)
-	{
-		return animator->__should_be_removed();
-	}
-
-	// run all animators
-	void Renderer::do_animations()
-	{
-		// loop and animate all animators
-		bool gotAnimatorsToRemove = false;
-		for (unsigned int i = 0; i < m_animators.size(); ++i)
-		{
-			Animators::AnimatorPtr& curr = m_animators[i];
-			if (curr->is_animation_paused())
-				continue;
-
-			curr->do_animation(this);
-			gotAnimatorsToRemove |= curr->__should_be_removed();
-		}
-
-		// remove all 'dead' animators
-		if (gotAnimatorsToRemove)
-			m_animators.erase(std::remove_if(m_animators.begin(), m_animators.end(), remove_dead_animators), m_animators.end());
 	}
 
 	// remove a scene

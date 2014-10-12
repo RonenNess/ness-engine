@@ -39,10 +39,9 @@ namespace Ness
 		* this animator set the target opacity to 0 and then increace the opacity until reaching 1.0f, thus creating a "fade-in" animation.
 		* NOTE! you must make sure the entity you animate support blending or else the animation will not work!
 		*/
-		class AnimatorFaderIn : public AnimatorAPI
+		class AnimatorFaderIn : public TargetAnimatorAPI
 		{
 		private:
-			RenderablePtr	m_target;			// fader target
 			float			m_speed;			// fading speed
 			float			m_time_until;		// time until starting animation
 
@@ -51,7 +50,7 @@ namespace Ness
 			// fadeSpeed is the speed of the fade-in animation
 			// timeUntilFadeIn is time to wait before starting to fade-in animation (1.0f == one second, default is 0.0f - start immediatly)
 			AnimatorFaderIn(const RenderablePtr& target, float fadeSpeed = 1.0f, float timeUntilFadeIn = 0.0f) 
-				: m_target(target),  m_speed(fadeSpeed), m_time_until(timeUntilFadeIn) 
+				: TargetAnimatorAPI(target),  m_speed(fadeSpeed), m_time_until(timeUntilFadeIn) 
 			{
 				target->set_opacity(0.0f);
 			}
@@ -81,10 +80,9 @@ namespace Ness
 		* this animator will decreace the opacity of the entity until reaching 0.0f, thus creating a "fade-out" animation.
 		* NOTE! you must make sure the entity you animate support blending or else the animation will not work!
 		*/
-		class AnimatorFaderOut : public AnimatorAPI
+		class AnimatorFaderOut : public TargetAnimatorAPI
 		{
 		private:
-			RenderablePtr	m_target;			// fader target
 			float			m_speed;			// fading speed
 			float			m_time_until;		// time until starting animation
 			bool			m_remove_when_done;	// remove target when done?
@@ -96,7 +94,7 @@ namespace Ness
 			// fadeSpeed is the speed of the fade-out animation
 			// timeUntilFadeOut is time to wait before starting to fade-out (1.0f == one second, default is 0.0f - start immediatly)
 			AnimatorFaderOut(const RenderablePtr& target, bool removeTargetWhenDone = true, float fadeSpeed = 1.0f, float timeUntilFadeOut = 0.0f) 
-				: m_target(target), m_remove_when_done(removeTargetWhenDone), m_speed(fadeSpeed), m_time_until(timeUntilFadeOut) {}
+				: TargetAnimatorAPI(target), m_remove_when_done(removeTargetWhenDone), m_speed(fadeSpeed), m_time_until(timeUntilFadeOut) {}
 
 
 			NESSENGINE_API virtual void do_animation(Renderer* renderer)

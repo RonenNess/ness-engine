@@ -32,7 +32,7 @@
 #include "../exports.h"
 #include "../managed_resources/resources_manager.h"
 #include "../basic_types/all_basic_types.h"
-#include "../animators/animator_api.h"
+#include "../animators/animators_queue.h"
 #include "../scene/scene.h"
 
 namespace Ness
@@ -52,14 +52,13 @@ namespace Ness
 	* our main renderer class! manage all the rendering and frames functionality.
 	* usually you only create 1 renderer class, but you can also create multiple renderers.
 	*/
-	class Renderer
+	class Renderer : public Animators::AnimatorsQueue
 	{
 	private:
 		SDL_Window*									m_window;					// our window pointer
 		SDL_Renderer*								m_renderer;					// our main renderer
 		ManagedResources::ResourcesManager			m_resources;				// the resources manager class
 		Vector<ScenePtr>							m_scenes;					// all the scenes this renderer has
-		Vector<Animators::AnimatorPtr>				m_animators;				// all the animators currently registered
 		unsigned int								m_start_frame_time;			// tick count at the begining of the frame
 		float										m_timefactor;				// time delta (time factor) from begining to end of frame
 		float										m_second_timer;				// count time elapse until getting to a second (0 to 1.0)
@@ -95,18 +94,6 @@ namespace Ness
 
 		// get total time passed since starting rendering and until now (counting only when calling end frame)
 		NESSENGINE_API inline float get_total_time_elapse() const {return m_total_time;}
-
-		// register / remove an animator
-		NESSENGINE_API void register_animator(const Animators::AnimatorPtr& animator);
-		NESSENGINE_API void remove_animator(const Animators::AnimatorPtr& animator);
-
-		// register / remove an animator with regular pointer
-		// WARNING: it's your responsibility to remove animator once deleted or else you will cause seg-fault!
-		NESSENGINE_API void register_animator(Animators::AnimatorAPI* animator);
-		NESSENGINE_API void remove_animator(Animators::AnimatorAPI* animator);
-
-		// run all the animators
-		NESSENGINE_API void do_animations();
 
 		// get fps count
 		NESSENGINE_API inline int fps() const {return m_fps;}

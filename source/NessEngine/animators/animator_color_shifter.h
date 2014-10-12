@@ -38,10 +38,9 @@ namespace Ness
 		/**
 		* this animator change the color of the entity from color A to color B over a const period of time.
 		*/
-		class AnimatorColorShifter : public AnimatorAPI
+		class AnimatorColorShifter : public TargetAnimatorAPI
 		{
 		private:
-			RenderablePtr	m_target;			// fader target
 			Color			m_color_a;			// starting color
 			Color			m_color_b;			// ending color
 			float			m_speed;			// shifting color speed
@@ -57,7 +56,7 @@ namespace Ness
 			// timeUntilBegin is time to wait, in seconds, until starting the color shifting
 			// removeWhenDone if true, will remove the target object once transition is complete
 			AnimatorColorShifter(const RenderablePtr& target, Color ColorA, Color ColorB, float timeToShift = 1.0f, float timeUntilBegin = 0.0f, bool removeWhenDone = false) 
-				: m_target(target), m_color_a(ColorA), m_color_b(ColorB),  m_speed(1.0f / timeToShift), 
+				: TargetAnimatorAPI(target), m_color_a(ColorA), m_color_b(ColorB),  m_speed(1.0f / timeToShift), 
 				m_complete(0.0f), m_time_until(timeUntilBegin), m_remove_when_done(removeWhenDone)
 			{
 				// set target to starting color

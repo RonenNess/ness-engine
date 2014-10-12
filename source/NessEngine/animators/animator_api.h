@@ -65,6 +65,21 @@ namespace Ness
 			NESSENGINE_API virtual void do_animation(Renderer* renderer) = 0;
 		};
 
+		/**
+		* Animator that operates on a given target.
+		* these animators are used as external objects that can animate entities or nodes.
+		*/
+		class TargetAnimatorAPI : public AnimatorAPI
+		{
+		protected:
+			RenderablePtr	m_target;
+
+		public:
+			TargetAnimatorAPI(RenderablePtr	target) : m_target(target) {}
+			NESSENGINE_API inline const RenderablePtr& get_target() const {return m_target;}
+			NESSENGINE_API inline RenderablePtr& get_target() {return m_target;}
+		};
+
 		// pointer to animator class
 		NESSENGINE_API typedef SharedPtr<AnimatorAPI> AnimatorPtr;
 
