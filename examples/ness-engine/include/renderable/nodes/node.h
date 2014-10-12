@@ -33,6 +33,7 @@ namespace Ness
 {
 	// some needed predeclares
 	class Sprite;
+	class AnimatedSprite;
 	class Canvas;
 	class Text;
 	class MultiText;
@@ -52,6 +53,7 @@ namespace Ness
 	NESSENGINE_API typedef SharedPtr<StaticNode>		StaticNodePtr;
 	NESSENGINE_API typedef SharedPtr<LightNode>			LightNodePtr;
 	NESSENGINE_API typedef SharedPtr<Sprite>			SpritePtr;
+	NESSENGINE_API typedef SharedPtr<AnimatedSprite>	AnimatedSpritePtr;
 	NESSENGINE_API typedef SharedPtr<Canvas>			CanvasPtr;
 	NESSENGINE_API typedef SharedPtr<Text>				TextPtr;
 	NESSENGINE_API typedef SharedPtr<MultiText>			MultiTextPtr;
@@ -75,6 +77,7 @@ namespace Ness
 		NESSENGINE_API virtual LightNodePtr create_light_node(bool add_immediatly=true);
 		NESSENGINE_API virtual RectangleShapePtr create_rectangle(bool add_immediatly=true);
 		NESSENGINE_API virtual SpritePtr create_sprite(const String& textureName, bool add_immediatly=true);
+		NESSENGINE_API virtual AnimatedSpritePtr create_animated_sprite(const String& textureName, bool add_immediatly=true);
 		NESSENGINE_API virtual ParticlesNodePtr create_particles_node(const Size& EstimatedSize, bool add_immediatly=true);
 		NESSENGINE_API virtual CanvasPtr create_canvas(const String& textureName, const Sizei& size = Sizei::ZERO, bool add_immediatly=true);
 		NESSENGINE_API virtual TileMapPtr create_tilemap(const String& spriteFile, const Sizei& mapSize, const Size& singleTileSize=Size(36, 36), const Size& tilesDistance=Size::ZERO, bool add_immediatly=true);

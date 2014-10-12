@@ -29,14 +29,14 @@
 
 #pragma once
 #include "node.h"
-#include "../entities/sprite.h"
+#include "../entities/particle.h"
 
 namespace Ness
 {
 	/**
 	* a callback function to generate a single particle
 	*/
-	NESSENGINE_API typedef SpritePtr (*TParticlesGenerator)();
+	NESSENGINE_API typedef ParticlePtr (*TParticlesGenerator)();
 
 	/** 
 	* emitting settings of a particles node.
