@@ -37,6 +37,9 @@ namespace Ness
 		m_frameid(0), m_background_color(75, 0, 255, 255), m_flags(rendererFlags), m_auto_animate(true)
 	{
 
+		// create resources manager
+		m_resources = new ManagedResources::ResourcesManager();
+
 		// create window
 		m_window = SDL_CreateWindow( windowName, SDL_WINDOWPOS_UNDEFINED, SDL_WINDOWPOS_UNDEFINED, 
 									(int)screenSize.x, (int)screenSize.y, SDL_WINDOW_SHOWN | SDL_WINDOW_OPENGL | ( fullScreen ? SDL_WINDOW_FULLSCREEN : 0) );
@@ -52,7 +55,7 @@ namespace Ness
 		m_renderer = SDL_CreateRenderer(m_window, -1, rendererFlags);
 
 		// give the renderer to the resources manager
-		m_resources.set_renderer(this);
+		m_resources->set_renderer(this);
 
 		// to set target size etc..
 		reset_render_target();
@@ -85,8 +88,20 @@ namespace Ness
 	// destroy the renderer
 	Renderer::~Renderer()
 	{
+		// this is very important! its to make sure all sprites are clear and thus all resources are cleared before
+		// destroying this window
+		m_scenes.clear();
+
+		// destroy all resources in resources manager.
+		// better happen before destroying the renderer and window
+		m_resources->destroy();
+
+		// destroy renderer and window
 		SDL_DestroyRenderer( m_renderer );
 		SDL_DestroyWindow( m_window );
+
+		// delete the resources manager
+		delete m_resources;
 	}
 
 	// begin a rendering frame

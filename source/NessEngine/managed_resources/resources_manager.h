@@ -67,6 +67,7 @@ namespace Ness
 			Colorb												m_color_key;		// transparency color key
 			bool												m_use_color_key;	// enable/disable color key
 			Renderer*											m_renderer;			// pointer to the renderer manager
+			bool												m_destroyed;		// was it destroyed?
 
 		public:
 
@@ -81,6 +82,10 @@ namespace Ness
 
 			// get/load a font
 			NESSENGINE_API ManagedFontPtr get_font(const String& fontName, int fontSize = 12);
+
+			// destroy the resources manager and anything in it
+			// once called, this instance is no longer useable!
+			NESSENGINE_API void destroy();
 
 			// create an empty texture you can render on (use as rendering target). 
 			// this texture will be added to the resource manager and you can later get it with get_texture()

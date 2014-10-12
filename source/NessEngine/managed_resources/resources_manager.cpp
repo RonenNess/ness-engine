@@ -43,6 +43,10 @@ namespace Ness
 
 		void ResourcesManager::__delete_texture(const String& textureName)
 		{	
+			// if already destroyed skip
+			if (m_destroyed)
+				return;
+
 			// decrease ref count by 1, and if no more refs delete the resource
 			m_textures[textureName].ref_count--;
 			if (m_textures[textureName].ref_count == 0)
@@ -56,6 +60,10 @@ namespace Ness
 
 		void ResourcesManager::__delete_font(const String& fontName)
 		{	
+			// if already destroyed skip
+			if (m_destroyed)
+				return;
+
 			// decrease ref count by 1, and if no more refs delete the resource
 			m_fonts[fontName].ref_count--;
 			if (m_fonts[fontName].ref_count == 0)
@@ -69,6 +77,12 @@ namespace Ness
 
 		ManagedTexturePtr ResourcesManager::get_texture(const String& textureName)
 		{
+			// make sure not destroyed
+			if (m_destroyed)
+			{
+				throw IllegalAction("Tried to get texture but the reousrces manager is already destroyed!");
+			}
+
 			// if not loaded, load it
 			if (m_textures.find(textureName) == m_textures.end())
 			{
@@ -87,6 +101,12 @@ namespace Ness
 
 		NESSENGINE_API ManagedFontPtr ResourcesManager::get_font(const String& fontName, int fontSize)
 		{
+			// make sure not destroyed
+			if (m_destroyed)
+			{
+				throw IllegalAction("Tried to get font but the reousrces manager is already destroyed!");
+			}
+
 			// get name in hash
 			String fullName = fontName + ness_to_string((long long)fontSize);
 
@@ -110,6 +130,12 @@ namespace Ness
 		{
 			NESS_LOG(("rc_manager: create new empty texture: " + textureName).c_str());
 
+			// make sure not destroyed
+			if (m_destroyed)
+			{
+				throw IllegalAction("Tried to create new texture but the reousrces manager is already destroyed!");
+			}
+
 			// if texture with that name exist, assert
 			if (m_textures.find(textureName) != m_textures.end())
 			{
@@ -131,14 +157,20 @@ namespace Ness
 			return ManagedTexturePtr(m_textures[textureName].texture, TextureResourceDeleter);
 		}
 
-		ResourcesManager::ResourcesManager() : m_use_color_key(false), m_renderer(nullptr)
+		void ResourcesManager::destroy()
+		{
+			m_destroyed = true;
+			m_textures.clear();
+			m_fonts.clear();
+		}
+
+		ResourcesManager::ResourcesManager() : m_use_color_key(false), m_renderer(nullptr), m_destroyed(false)
 		{
 		}
 
 		ResourcesManager::~ResourcesManager()
 		{
-			m_textures.clear();
-			m_fonts.clear();
+			destroy();
 		}
 	};
 };

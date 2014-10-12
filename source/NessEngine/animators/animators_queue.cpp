@@ -36,7 +36,7 @@ namespace Ness
 	namespace Animators
 	{
 		// empty deleter that does nothing. 
-		// this is a path to create animator smart pointer that don't really delete the object to be able to register anumator with a regular pointer
+		// this is a way to create animator shared pointer that don't delete the object itself, so we'll be able to register anumator with a regular pointer
 		static void EmptyAnimatorDeleter(Animators::AnimatorAPI* anim)
 		{
 		}
