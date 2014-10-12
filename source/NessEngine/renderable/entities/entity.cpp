@@ -63,7 +63,9 @@ namespace Ness
 
 		// don't need update?
 		if (!m_need_transformations_update)
+		{
 			return m_absolute_transformations;
+		}
 
 		// calculate this transformations with parent transformations
 		m_absolute_transformations = m_transformations;
@@ -90,14 +92,18 @@ namespace Ness
 	{
 		// first check if even enabled
 		if (!m_visible)
+		{
 			return false;
+		}
 
 		// get absolute transformations
 		const SRenderTransformations& trans = get_absolute_transformations();
 
 		// invisible?
 		if (trans.color.a <= 0)
+		{
 			return false;
+		}
 
 		// set camera position
 		Rectangle target = m_target_rect;

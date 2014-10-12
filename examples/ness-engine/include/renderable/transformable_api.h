@@ -63,7 +63,7 @@ namespace Ness
 		NESSENGINE_API inline void add_opacity(float opacity) {m_transformations.color.a += opacity; transformations_update();}
 		NESSENGINE_API inline void multiply_opacity(float opacity) {m_transformations.color.a *= opacity; transformations_update();}
 		NESSENGINE_API inline void set_blend_mode(EBlendModes NewMode) {if (m_transformations.blend == NewMode) return; m_transformations.blend = NewMode; transformations_update();}
-		NESSENGINE_API inline void set_zindex(float newZ) {m_transformations.zorder = newZ; transformations_update();}
+		NESSENGINE_API inline void set_zindex(float newZ) {if (m_transformations.zorder == newZ) return; m_transformations.zorder = newZ; transformations_update();}
 		NESSENGINE_API inline void flip_x() {m_transformations.scale.x *= -1; transformations_update();}
 		NESSENGINE_API inline void flip_y() {m_transformations.scale.y *= -1; transformations_update();}
 		NESSENGINE_API inline const Point& get_position() const {return m_transformations.position;}

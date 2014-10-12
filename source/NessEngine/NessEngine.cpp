@@ -67,4 +67,10 @@ namespace Ness
 		SDL_Quit();
 		g_is_ness_init = false;
 	}
+
+	// return current tick count
+	unsigned int get_ticks()
+	{
+		return SDL_GetTicks();
+	}
 };

@@ -311,5 +311,11 @@
     <ClInclude Include="..\source\NessEngine\renderable\entities\particle.h">
       <Filter>Source Files\renderables\entities</Filter>
     </ClInclude>
+    <ClInclude Include="..\source\NessEngine\animators\animator_scaler.h">
+      <Filter>Source Files\animators</Filter>
+    </ClInclude>
+    <ClInclude Include="..\source\NessEngine\animators\animator_rotator.h">
+      <Filter>Source Files\animators</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>

@@ -29,7 +29,7 @@ namespace Ness
 {
 
 	ParticlesNode::ParticlesNode(Renderer* renderer, const Size& BounderiesSize) 
-		: BaseNode(renderer), m_emit_when_not_in_screen(false), m_bounderies_size(BounderiesSize), m_time_since_last_emit(0.0f) 
+		: BaseNode(renderer), m_emit_while_not_visible(false), m_bounderies_size(BounderiesSize), m_time_since_last_emit(0.0f), m_is_currently_visible(true)
 	{
 		renderer->__register_animator_unsafe(this);
 	}
@@ -69,7 +69,9 @@ namespace Ness
 	{
 		// first check if even enabled
 		if (!m_visible || m_absolute_trans.color.a <= 0.0f)
+		{
 			return false;
+		}
 
 		// get absolute position
 		Ness::Point pos = get_absolute_position();
@@ -87,13 +89,22 @@ namespace Ness
 		return true;
 	}
 
+	void ParticlesNode::render(const CameraPtr& camera)
+	{
+		BaseNode::render(camera);
+		if (m_emit_while_not_visible == false)
+		{
+			m_is_currently_visible = is_really_visible(camera);
+		}
+	}
+
 	void ParticlesNode::invoke_emit()
 	{
 		// zero the time since last emit
 		m_time_since_last_emit = 0.0f;
 
 		// make sure we got emitting function
-		if (m_settings.particles_generator == nullptr)
+		if (m_settings.particles_emitter == nullptr)
 		{
 			return;
 		}
@@ -108,7 +119,7 @@ namespace Ness
 		}
 
 		// if not visible and not allowed to emit when not visible, skip
-		if (is_really_visible() == false && m_emit_when_not_in_screen == false)
+		if ((m_is_currently_visible == false) && (m_emit_while_not_visible == false))
 		{
 			return;
 		}
@@ -119,14 +130,22 @@ namespace Ness
 			return;
 
 		// calculate how many particles to emit
-		unsigned int particlesToEmit = m_settings.min_particles_emit + (rand() % (m_settings.max_particles_emit - m_settings.min_particles_emit));
+		unsigned int particlesToEmit;
+		if (m_settings.max_particles_emit > m_settings.min_particles_emit)
+		{
+			 particlesToEmit = m_settings.min_particles_emit + (rand() % (m_settings.max_particles_emit - m_settings.min_particles_emit));
+		}
+		else
+		{
+			particlesToEmit = m_settings.min_particles_emit;
+		}
 		if (particlesToEmit > (unsigned int)QuotaLimit)
 			particlesToEmit = QuotaLimit;
 
 		// generate the new particles!
 		for (unsigned int i = 0; i < particlesToEmit; i++)
 		{
-			add(m_settings.particles_generator());
+			add(m_settings.particles_emitter->emit_particle(m_renderer));
 		}
 
 	}

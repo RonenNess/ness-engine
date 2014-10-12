@@ -24,3 +24,5 @@
 #include "animator_fader.h"
 #include "animator_sprite.h"
 #include "animator_color_shifter.h"
+#include "animator_scaler.h"
+#include "animator_rotator.h"

@@ -34,9 +34,15 @@
 namespace Ness
 {
 	/**
-	* a callback function to generate a single particle
+	* a class responsible to emit particles as part of a particles node
 	*/
-	NESSENGINE_API typedef ParticlePtr (*TParticlesGenerator)();
+	class ParticlesEmitter
+	{
+	public:
+		// the function to emit a single particle
+		// note: just create and return the particle instance, do not add it to any node!
+		NESSENGINE_API virtual ParticlePtr emit_particle(Renderer* renderer) = 0;
+	};
 
 	/** 
 	* emitting settings of a particles node.
@@ -54,15 +60,15 @@ namespace Ness
 	*/
 	struct SParticlesNodeEmitSettings
 	{
-		float				emitting_interval;		// how often, in seconds, should the node emit particles. for example, 1.5 will emit particles every 1.5 seconds
-		unsigned char		chance_to_emit;			// whenever emitting interval expires and its time to emit, this is the chance (in percents) to emit something
-		unsigned int		min_particles_emit;		// when its time to emit particles AND chance to emit rolled ok, how many particles it will have to emit
-		unsigned int		max_particles_emit;		// when its time to emit particles AND chance to emit rolled ok, how many particles it will emit at most
-		unsigned int		max_particles_count;	// how many particles there can be in this particles node. will not emit new particles if blocked by quota
-		TParticlesGenerator	particles_generator;	// the callback to generate the particles
+		float						emitting_interval;		// how often, in seconds, should the node emit particles. for example, 1.5 will emit particles every 1.5 seconds
+		unsigned char				chance_to_emit;			// whenever emitting interval expires and its time to emit, this is the chance (in percents) to emit something
+		unsigned int				min_particles_emit;		// when its time to emit particles AND chance to emit rolled ok, how many particles it will have to emit
+		unsigned int				max_particles_emit;		// when its time to emit particles AND chance to emit rolled ok, how many particles it will emit at most
+		unsigned int				max_particles_count;	// how many particles there can be in this particles node. will not emit new particles if blocked by quota
+		SharedPtr<ParticlesEmitter>	particles_emitter;		// the callback to generate the particles
 
 		SParticlesNodeEmitSettings(float EmitInterval = 1.0f, unsigned char ChanceToEmit = 100, unsigned int MinEmit = 1, unsigned int MaxEmit = 3, unsigned int MaxCount = 100) :
-			emitting_interval(EmitInterval), chance_to_emit(ChanceToEmit), min_particles_emit(MinEmit), max_particles_emit(MaxEmit), max_particles_count(MaxCount), particles_generator(nullptr)
+			emitting_interval(EmitInterval), chance_to_emit(ChanceToEmit), min_particles_emit(MinEmit), max_particles_emit(MaxEmit), max_particles_count(MaxCount)
 		{ }
 	};
 
@@ -73,9 +79,10 @@ namespace Ness
 	{
 	private:
 		SParticlesNodeEmitSettings		m_settings;
-		bool							m_emit_when_not_in_screen;
+		bool							m_emit_while_not_visible;
 		Size							m_bounderies_size;
 		float							m_time_since_last_emit;
+		bool							m_is_currently_visible;
 
 	public:
 		// create the particles node and register/unregister to animators queue automatically
@@ -84,11 +91,11 @@ namespace Ness
 		NESSENGINE_API ParticlesNode(Renderer* renderer, const Size& BounderiesSize);
 		NESSENGINE_API ~ParticlesNode();
 
-		// set if should emit when out of screen
-		// if true, it means this particles node will continue emitting particles even when out of screen.
-		// if false, it will automatically pause when out of screen bounderies.
+		// set if should emit when out of screen (default to false)
+		// if true, it means this particles node will continue emitting particles even when out of screen or invisible.
+		// if false, it will automatically pause when out of screen bounderies or opacity is 0.
 		// note: you can use set_bounderies_size to determine the total size of this particles system
-		NESSENGINE_API inline void set_emit_when_not_in_screen(bool Enabled) {m_emit_when_not_in_screen = Enabled;}
+		NESSENGINE_API inline void set_emit_when_not_visible(bool Enabled) {m_emit_while_not_visible = Enabled;}
 
 		// estimated size determines if this particles node is in-screen or not
 		NESSENGINE_API inline void set_bounderies_size(const Size& size) {m_bounderies_size = size * 0.5f;}
@@ -98,6 +105,9 @@ namespace Ness
 
 		// set the emit settings of this node
 		NESSENGINE_API inline void set_emit_settings(const SParticlesNodeEmitSettings& settings) {m_settings = settings;}
+
+		// render the particles
+		NESSENGINE_API virtual void render(const CameraPtr& camera = NullCamera);
 
 		// animate the particles in this node & emit new particles when needed
 		NESSENGINE_API virtual void do_animation(Renderer* renderer);

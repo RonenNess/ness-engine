@@ -157,7 +157,9 @@ namespace Ness
 		{
 			Transformable* current = dynamic_cast<Transformable*>(m_entities[i].get());
 			if (current)
+			{
 				current->transformations_update();
+			}
 		}
 	}
 

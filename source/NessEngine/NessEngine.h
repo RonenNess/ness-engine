@@ -69,6 +69,9 @@ namespace Ness
 	// note: this is just a wrapper to SDL events mechanism, and exist to allow users to fetch events without having to import the SDL libs
 	NESSENGINE_API bool poll_event(Event& event);
 
+	// return current tick count
+	NESSENGINE_API unsigned int get_ticks();
+
 	// don't call this yourself, its called automatically when application ends
 	void __finish();
 };

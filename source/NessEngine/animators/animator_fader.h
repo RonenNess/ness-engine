@@ -64,8 +64,8 @@ namespace Ness
 					return;
 				}
 
-				m_target->set_opacity(m_target->get_opacity() - renderer->time_factor() * m_speed);
-				if (m_target->get_opacity() >= 1.0f)
+				m_target->add_opacity((renderer->time_factor() * m_speed));
+				if (m_target->get_opacity() > 1.0f)
 				{
 					m_target->set_opacity(1.0f);
 					this->remove_from_animation_queue();
@@ -105,8 +105,8 @@ namespace Ness
 					return;
 				}
 
-				m_target->set_opacity(m_target->get_opacity() - renderer->time_factor() * m_speed);
-				if (m_target->get_opacity() <= 0.0f)
+				m_target->add_opacity(-(renderer->time_factor() * m_speed));
+				if (m_target->get_opacity() < 0.0f)
 				{
 					m_target->set_opacity(0.0f);
 					this->remove_from_animation_queue();
