@@ -34,15 +34,5 @@ namespace Ness
 {
 	namespace Animators
 	{
-
-		TargetAnimatorAPI::TargetAnimatorAPI(RenderablePtr	target) : m_target(target) 
-		{
-			// special case - if target is animated sprite add to its queue automatically
-			AnimatedSpritePtr AnimSprite = ness_ptr_cast<AnimatedSprite>(target);
-			if (AnimSprite)
-			{
-				AnimSprite->__register_animator_unsafe(this);
-			}
-		}
 	};
 };

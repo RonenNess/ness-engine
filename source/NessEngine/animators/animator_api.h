@@ -75,7 +75,7 @@ namespace Ness
 			RenderablePtr	m_target;
 
 		public:
-			NESSENGINE_API TargetAnimatorAPI(RenderablePtr	target);
+			NESSENGINE_API TargetAnimatorAPI(RenderablePtr	target) : m_target(target) {}
 			NESSENGINE_API inline const RenderablePtr& get_target() const {return m_target;}
 			NESSENGINE_API inline RenderablePtr& get_target() {return m_target;}
 		};
