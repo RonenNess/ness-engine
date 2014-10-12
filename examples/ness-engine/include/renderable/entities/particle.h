@@ -39,13 +39,23 @@ namespace Ness
 	class Particle : public AnimatedSprite
 	{
 	protected:
+		bool m_move_with_node;
 		
 	public:
 
 		// create the animated sprite with or without texture
-		NESSENGINE_API Particle(Renderer* renderer, ManagedResources::ManagedTexturePtr texture) : AnimatedSprite(renderer, texture) {}
-		NESSENGINE_API Particle(Renderer* renderer, const String& TextureFile) : AnimatedSprite(renderer, TextureFile) {}
-		NESSENGINE_API Particle(Renderer* renderer) : AnimatedSprite(renderer) {}
+		NESSENGINE_API Particle(Renderer* renderer, ManagedResources::ManagedTexturePtr texture) : AnimatedSprite(renderer, texture), m_move_with_node(false) {}
+		NESSENGINE_API Particle(Renderer* renderer, const String& TextureFile) : AnimatedSprite(renderer, TextureFile), m_move_with_node(false) {}
+		NESSENGINE_API Particle(Renderer* renderer) : AnimatedSprite(renderer), m_move_with_node(false) {}
+
+		// if true, when moving the particles node owning this particle it will affect the particle as well.
+		// if false, the particle will spawn at the position of the node but will not move with it
+		// default to false.
+		NESSENGINE_API void set_move_with_node(bool Enabled) {m_move_with_node = Enabled;}
+		NESSENGINE_API bool get_move_with_node() const {return m_move_with_node;}
+
+		// get absolute transformations of this particle
+		NESSENGINE_API virtual const SRenderTransformations& get_absolute_transformations();
 	};
 
 	// sprite pointer type

@@ -20,6 +20,7 @@
     <ClCompile Include="..\source\NessEngine\renderable\entities\entity.cpp" />
     <ClCompile Include="..\source\NessEngine\renderable\entities\canvas.cpp" />
     <ClCompile Include="..\source\NessEngine\renderable\entities\multiline_text.cpp" />
+    <ClCompile Include="..\source\NessEngine\renderable\entities\particle.cpp" />
     <ClCompile Include="..\source\NessEngine\renderable\entities\shapes.cpp" />
     <ClCompile Include="..\source\NessEngine\renderable\entities\sprite.cpp" />
     <ClCompile Include="..\source\NessEngine\renderable\entities\text.cpp" />

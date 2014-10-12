@@ -145,7 +145,15 @@ namespace Ness
 		// generate the new particles!
 		for (unsigned int i = 0; i < particlesToEmit; i++)
 		{
-			add(m_settings.particles_emitter->emit_particle(m_renderer));
+			ParticlePtr NewParticle = m_settings.particles_emitter->emit_particle(m_renderer);
+			if (NewParticle)
+			{
+				if (NewParticle->get_move_with_node() == false)
+				{
+					NewParticle->add_position(get_absolute_position());
+				}
+				add(NewParticle);
+			}
 		}
 
 	}

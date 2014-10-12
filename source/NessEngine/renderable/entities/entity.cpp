@@ -47,7 +47,6 @@ namespace Ness
 
 	const SRenderTransformations& Entity::get_absolute_transformations()
 	{
-
 		// if don't have a parent, return self transformations
 		if (!m_parent)
 		{
