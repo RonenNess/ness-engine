@@ -129,6 +129,21 @@
     <ClCompile Include="..\source\NessEngine\renderable\nodes\nodes_map.cpp">
       <Filter>Source Files\renderables\nodes</Filter>
     </ClCompile>
+    <ClCompile Include="..\source\NessEngine\animators\animator_api.cpp">
+      <Filter>Source Files\animators</Filter>
+    </ClCompile>
+    <ClCompile Include="..\source\NessEngine\animators\animators_queue.cpp">
+      <Filter>Source Files\animators</Filter>
+    </ClCompile>
+    <ClCompile Include="..\source\NessEngine\renderable\entities\animated_sprite.cpp">
+      <Filter>Source Files\renderables\entities</Filter>
+    </ClCompile>
+    <ClCompile Include="..\source\NessEngine\renderable\entities\particle.cpp">
+      <Filter>Source Files\renderables\entities</Filter>
+    </ClCompile>
+    <ClCompile Include="..\source\NessEngine\renderable\nodes\particles_node.cpp">
+      <Filter>Source Files\renderables\nodes</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\source\NessEngine\NessEngine.h">
@@ -279,6 +294,27 @@
       <Filter>Source Files\utils</Filter>
     </ClInclude>
     <ClInclude Include="..\source\NessEngine\renderable\nodes\nodes_map.h">
+      <Filter>Source Files\renderables\nodes</Filter>
+    </ClInclude>
+    <ClInclude Include="..\source\NessEngine\animators\animator_color_shifter.h">
+      <Filter>Source Files\animators</Filter>
+    </ClInclude>
+    <ClInclude Include="..\source\NessEngine\animators\animator_rotator.h">
+      <Filter>Source Files\animators</Filter>
+    </ClInclude>
+    <ClInclude Include="..\source\NessEngine\animators\animator_scaler.h">
+      <Filter>Source Files\animators</Filter>
+    </ClInclude>
+    <ClInclude Include="..\source\NessEngine\animators\animators_queue.h">
+      <Filter>Source Files\animators</Filter>
+    </ClInclude>
+    <ClInclude Include="..\source\NessEngine\renderable\entities\animated_sprite.h">
+      <Filter>Source Files\renderables\entities</Filter>
+    </ClInclude>
+    <ClInclude Include="..\source\NessEngine\renderable\entities\particle.h">
+      <Filter>Source Files\renderables\entities</Filter>
+    </ClInclude>
+    <ClInclude Include="..\source\NessEngine\renderable\nodes\particles_node.h">
       <Filter>Source Files\renderables\nodes</Filter>
     </ClInclude>
   </ItemGroup>

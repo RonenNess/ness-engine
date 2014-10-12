@@ -19,12 +19,16 @@
     </ProjectConfiguration>
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="..\source\NessEngine\animators\animators_queue.cpp" />
+    <ClCompile Include="..\source\NessEngine\animators\animator_api.cpp" />
     <ClCompile Include="..\source\NessEngine\basic_types\consts.cpp" />
     <ClCompile Include="..\source\NessEngine\managed_resources\resources_manager.cpp" />
     <ClCompile Include="..\source\NessEngine\NessEngine.cpp" />
+    <ClCompile Include="..\source\NessEngine\renderable\entities\animated_sprite.cpp" />
     <ClCompile Include="..\source\NessEngine\renderable\entities\entity.cpp" />
     <ClCompile Include="..\source\NessEngine\renderable\entities\canvas.cpp" />
     <ClCompile Include="..\source\NessEngine\renderable\entities\multiline_text.cpp" />
+    <ClCompile Include="..\source\NessEngine\renderable\entities\particle.cpp" />
     <ClCompile Include="..\source\NessEngine\renderable\entities\shapes.cpp" />
     <ClCompile Include="..\source\NessEngine\renderable\entities\sprite.cpp" />
     <ClCompile Include="..\source\NessEngine\renderable\entities\text.cpp" />
@@ -32,6 +36,7 @@
     <ClCompile Include="..\source\NessEngine\renderable\nodes\light_node.cpp" />
     <ClCompile Include="..\source\NessEngine\renderable\nodes\node.cpp" />
     <ClCompile Include="..\source\NessEngine\renderable\nodes\nodes_map.cpp" />
+    <ClCompile Include="..\source\NessEngine\renderable\nodes\particles_node.cpp" />
     <ClCompile Include="..\source\NessEngine\renderable\nodes\static_node.cpp" />
     <ClCompile Include="..\source\NessEngine\renderable\nodes\tile_map.cpp" />
     <ClCompile Include="..\source\NessEngine\renderable\nodes\znode.cpp" />
@@ -49,8 +54,12 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\source\NessEngine\animators\all_animators.h" />
+    <ClInclude Include="..\source\NessEngine\animators\animators_queue.h" />
     <ClInclude Include="..\source\NessEngine\animators\animator_api.h" />
+    <ClInclude Include="..\source\NessEngine\animators\animator_color_shifter.h" />
     <ClInclude Include="..\source\NessEngine\animators\animator_fader.h" />
+    <ClInclude Include="..\source\NessEngine\animators\animator_rotator.h" />
+    <ClInclude Include="..\source\NessEngine\animators\animator_scaler.h" />
     <ClInclude Include="..\source\NessEngine\animators\animator_sprite.h" />
     <ClInclude Include="..\source\NessEngine\basic_types\color.h" />
     <ClInclude Include="..\source\NessEngine\basic_types\containers.h" />
@@ -68,9 +77,11 @@
     <ClInclude Include="..\source\NessEngine\managed_resources\resources_manager.h" />
     <ClInclude Include="..\source\NessEngine\NessEngine.h" />
     <ClInclude Include="..\source\NessEngine\renderable\entities\all_entities.h" />
+    <ClInclude Include="..\source\NessEngine\renderable\entities\animated_sprite.h" />
     <ClInclude Include="..\source\NessEngine\renderable\entities\entity.h" />
     <ClInclude Include="..\source\NessEngine\renderable\entities\canvas.h" />
     <ClInclude Include="..\source\NessEngine\renderable\entities\multiline_text.h" />
+    <ClInclude Include="..\source\NessEngine\renderable\entities\particle.h" />
     <ClInclude Include="..\source\NessEngine\renderable\entities\shapes.h" />
     <ClInclude Include="..\source\NessEngine\renderable\entities\sprite.h" />
     <ClInclude Include="..\source\NessEngine\renderable\entities\text.h" />
@@ -80,6 +91,7 @@
     <ClInclude Include="..\source\NessEngine\renderable\nodes\light_node.h" />
     <ClInclude Include="..\source\NessEngine\renderable\nodes\node.h" />
     <ClInclude Include="..\source\NessEngine\renderable\nodes\nodes_map.h" />
+    <ClInclude Include="..\source\NessEngine\renderable\nodes\particles_node.h" />
     <ClInclude Include="..\source\NessEngine\renderable\nodes\static_node.h" />
     <ClInclude Include="..\source\NessEngine\renderable\nodes\tile_map.h" />
     <ClInclude Include="..\source\NessEngine\renderable\nodes\znode.h" />

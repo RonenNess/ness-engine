@@ -125,7 +125,7 @@ namespace Ness
 		}
 
 		// check if we don't have too much already
-		int QuotaLimit = m_settings.max_particles_count - m_entities.size();
+		int QuotaLimit = (int)m_settings.max_particles_count - (int)m_entities.size();
 		if (QuotaLimit <= 0)
 			return;
 

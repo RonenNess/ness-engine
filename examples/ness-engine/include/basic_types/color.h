@@ -29,6 +29,7 @@
 
 #pragma once
 #include "../exports.h"
+#include <string.h>
 #include <cstdlib>
 
 namespace Ness
