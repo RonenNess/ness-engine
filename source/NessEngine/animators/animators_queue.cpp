@@ -42,13 +42,13 @@ namespace Ness
 		}
 
 		// register an animator by regular pointer
-		void AnimatorsQueue::register_animator(Animators::AnimatorAPI* animator)
+		void AnimatorsQueue::__register_animator_unsafe(Animators::AnimatorAPI* animator)
 		{
 			register_animator(Animators::AnimatorPtr(animator, EmptyAnimatorDeleter));
 		}
 
 		// remove an animator by regular pointer
-		void AnimatorsQueue::remove_animator(Animators::AnimatorAPI* animator)
+		void AnimatorsQueue::__remove_animator_unsafe(Animators::AnimatorAPI* animator)
 		{
 			remove_animator(Animators::AnimatorPtr(animator, EmptyAnimatorDeleter));
 		}

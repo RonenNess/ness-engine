@@ -138,6 +138,9 @@
     <ClCompile Include="..\source\NessEngine\animators\animators_queue.cpp">
       <Filter>Source Files\animators</Filter>
     </ClCompile>
+    <ClCompile Include="..\source\NessEngine\animators\animator_api.cpp">
+      <Filter>Source Files\animators</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\source\NessEngine\NessEngine.h">

@@ -24,5 +24,8 @@
 
 namespace Ness
 {
-
+	void AnimatedSprite::do_animation(Renderer* renderer)
+	{
+		do_animations();
+	}
 };

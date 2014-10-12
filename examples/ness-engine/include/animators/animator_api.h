@@ -75,14 +75,14 @@ namespace Ness
 			RenderablePtr	m_target;
 
 		public:
-			TargetAnimatorAPI(RenderablePtr	target) : m_target(target) {}
+			NESSENGINE_API TargetAnimatorAPI(RenderablePtr	target);
 			NESSENGINE_API inline const RenderablePtr& get_target() const {return m_target;}
 			NESSENGINE_API inline RenderablePtr& get_target() {return m_target;}
 		};
 
-		// pointer to animator class
+		// pointer to animator classes
 		NESSENGINE_API typedef SharedPtr<AnimatorAPI> AnimatorPtr;
-
+		NESSENGINE_API typedef SharedPtr<TargetAnimatorAPI> TargetAnimatorPtr;
 
 		// template function to create an animator pointer (requires C++11 features)
 		#if __cplusplus <= 199711L

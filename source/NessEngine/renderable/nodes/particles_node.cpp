@@ -31,12 +31,12 @@ namespace Ness
 	ParticlesNode::ParticlesNode(Renderer* renderer, const Size& BounderiesSize) 
 		: BaseNode(renderer), m_emit_when_not_in_screen(false), m_bounderies_size(BounderiesSize), m_time_since_last_emit(0.0f) 
 	{
-		renderer->register_animator(this);
+		renderer->__register_animator_unsafe(this);
 	}
 
 	ParticlesNode::~ParticlesNode()
 	{
-		m_renderer->remove_animator(this);
+		m_renderer->__remove_animator_unsafe(this);
 	}
 	
 	void ParticlesNode::do_animation(Renderer* renderer)

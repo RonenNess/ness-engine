@@ -11,6 +11,7 @@
     </ProjectConfiguration>
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="..\source\NessEngine\animators\animator_api.cpp" />
     <ClCompile Include="..\source\NessEngine\animators\animators_queue.cpp" />
     <ClCompile Include="..\source\NessEngine\basic_types\consts.cpp" />
     <ClCompile Include="..\source\NessEngine\managed_resources\resources_manager.cpp" />

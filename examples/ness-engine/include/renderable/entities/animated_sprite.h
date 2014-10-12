@@ -29,6 +29,7 @@
 #pragma once
 #include "sprite.h"
 #include "../../animators/animator_api.h"
+#include "../../animators/animators_queue.h"
 
 namespace Ness
 {
@@ -37,18 +38,28 @@ namespace Ness
 	* this sprite is a mash-up between a sprite and an animator.
 	* the result is a sprite you can register as an active animator and attach animators on it.
 	* this is useful for creating sprites with lots of animators on them and use them as a single unit.
+	*
+	* example of usage:
+	*
+	* AnimatedSpritePtr sprite = node->create_animated_sprite("bla.jpg");
+	* node->renderer()->register_animator(sprite);
+	* Ness::Animators::AnimatorSpritePtr animator = ness_make_ptr<Ness::Animators::AnimatorSprite>(sprite, ...);
+    * sprite->register_animator(animator);
+	* 
 	*/
-	class AnimatedSprite : public Sprite, public Animators::AnimatorAPI
+	class AnimatedSprite : public Sprite, public Animators::AnimatorAPI, public Animators::AnimatorsQueue
 	{
 	protected:
 		
 	public:
 
 		// create the animated sprite with or without texture
-		NESSENGINE_API AnimatedSprite(Renderer* renderer, ManagedResources::ManagedTexturePtr texture) : Sprite(renderer, texture) {}
-		NESSENGINE_API AnimatedSprite(Renderer* renderer, const String& TextureFile) : Sprite(renderer, TextureFile) {}
-		NESSENGINE_API AnimatedSprite(Renderer* renderer) : Sprite(renderer) {}
+		NESSENGINE_API AnimatedSprite(Renderer* renderer, ManagedResources::ManagedTexturePtr texture) : Animators::AnimatorsQueue(renderer), Sprite(renderer, texture) {}
+		NESSENGINE_API AnimatedSprite(Renderer* renderer, const String& TextureFile) : Animators::AnimatorsQueue(renderer), Sprite(renderer, TextureFile) {}
+		NESSENGINE_API AnimatedSprite(Renderer* renderer) : Animators::AnimatorsQueue(renderer), Sprite(renderer) {}
 
+		// activate all the animators on this sprite
+		NESSENGINE_API virtual void do_animation(Renderer* renderer);
 	};
 
 	// sprite pointer type
