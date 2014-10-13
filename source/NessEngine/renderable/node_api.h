@@ -56,6 +56,11 @@ namespace Ness
 		NESSENGINE_API virtual void add_first(const RenderablePtr& object) = 0;
 		NESSENGINE_API virtual void remove(const RenderablePtr& object) = 0;
 
+		// add/remove from regular pointer (this is so objects can add/remove themselves. it's memory-leakage unsafe)
+		NESSENGINE_API virtual void __add_unsafe(RenderableAPI* object);
+		NESSENGINE_API virtual void __add_first_unsafe(RenderableAPI* object);
+		NESSENGINE_API virtual void __remove_unsafe(RenderableAPI* object);
+
 		// direct access to son entities (note: son entities are in vector so efficiecny is alright here)
 		NESSENGINE_API virtual unsigned int get_sons_count() const = 0;
 		NESSENGINE_API virtual RenderablePtr get_son(unsigned int index) = 0;

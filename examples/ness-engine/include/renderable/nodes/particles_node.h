@@ -60,15 +60,19 @@ namespace Ness
 	*/
 	struct SParticlesNodeEmitSettings
 	{
-		float						emitting_interval;		// how often, in seconds, should the node emit particles. for example, 1.5 will emit particles every 1.5 seconds
-		unsigned char				chance_to_emit;			// whenever emitting interval expires and its time to emit, this is the chance (in percents) to emit something
-		unsigned int				min_particles_emit;		// when its time to emit particles AND chance to emit rolled ok, how many particles it will have to emit
-		unsigned int				max_particles_emit;		// when its time to emit particles AND chance to emit rolled ok, how many particles it will emit at most
-		unsigned int				max_particles_count;	// how many particles there can be in this particles node. will not emit new particles if blocked by quota
-		SharedPtr<ParticlesEmitter>	particles_emitter;		// the callback to generate the particles
+		float						emitting_interval;		// how often, in seconds, should the node emit particles. for example, 1.5 will emit particles every 1.5 seconds.
+		unsigned char				chance_to_emit;			// whenever emitting interval expires and its time to emit, this is the chance (in percents) to emit something.
+		unsigned int				min_particles_emit;		// when its time to emit particles AND chance to emit rolled ok, how many particles it will have to emit.
+		unsigned int				max_particles_emit;		// when its time to emit particles AND chance to emit rolled ok, how many particles it will emit at most.
+		unsigned int				max_particles_count;	// how many particles there can exist at the same time. will not emit new particles if blocked by quota.
+		float						stop_after_seconds;		// if not 0.0f, will stop emitting particles after given seconds count.
+		unsigned int				stop_after_count;		// if not 0, will stop emitting after reaching particles total count.
+		bool						remove_when_done;		// if have limit (stop_after_seconds or stop_after_count) and true, will remove the particle system when reaching limit.
+		SharedPtr<ParticlesEmitter>	particles_emitter;		// the callback to generate the particles.
 
 		SParticlesNodeEmitSettings(float EmitInterval = 1.0f, unsigned char ChanceToEmit = 100, unsigned int MinEmit = 1, unsigned int MaxEmit = 3, unsigned int MaxCount = 100) :
-			emitting_interval(EmitInterval), chance_to_emit(ChanceToEmit), min_particles_emit(MinEmit), max_particles_emit(MaxEmit), max_particles_count(MaxCount)
+			emitting_interval(EmitInterval), chance_to_emit(ChanceToEmit), min_particles_emit(MinEmit), max_particles_emit(MaxEmit), max_particles_count(MaxCount),
+				stop_after_seconds(0.0f), stop_after_count(0)
 		{ }
 	};
 
@@ -83,6 +87,8 @@ namespace Ness
 		Size							m_bounderies_size;
 		float							m_time_since_last_emit;
 		bool							m_is_currently_visible;
+		float							m_time_actived;
+		unsigned int					m_total_particles_generated;
 
 	public:
 		// create the particles node and register/unregister to animators queue automatically
@@ -90,6 +96,12 @@ namespace Ness
 		// will not emit particles when out of screen, unless 'set_emit_when_not_in_screen()' is set.
 		NESSENGINE_API ParticlesNode(Renderer* renderer, const Size& BounderiesSize);
 		NESSENGINE_API ~ParticlesNode();
+
+		// override the particles node function to remove from parent so we'll also unregister from animators queue
+		NESSENGINE_API virtual void remove_from_parent();
+
+		// get how many particles we currently have
+		NESSENGINE_API unsigned int get_particles_count() const;
 
 		// set if should emit when out of screen (default to false)
 		// if true, it means this particles node will continue emitting particles even when out of screen or invisible.
@@ -104,7 +116,14 @@ namespace Ness
 		NESSENGINE_API virtual bool is_really_visible(const CameraPtr& camera = NullCamera);
 
 		// set the emit settings of this node
-		NESSENGINE_API inline void set_emit_settings(const SParticlesNodeEmitSettings& settings) {m_settings = settings;}
+		NESSENGINE_API void set_emit_settings(const SParticlesNodeEmitSettings& settings, bool ResetCounters = true);
+
+		// get current emit settings
+		NESSENGINE_API inline const SParticlesNodeEmitSettings& get_emit_settings() const {return m_settings;}
+
+		// restart the particles system (zero counters and time to live)
+		// if RemoveExistingParticles is true, will also remove all existing particles
+		NESSENGINE_API void reset(bool RemoveExistingParticles = false);
 
 		// render the particles
 		NESSENGINE_API virtual void render(const CameraPtr& camera = NullCamera);

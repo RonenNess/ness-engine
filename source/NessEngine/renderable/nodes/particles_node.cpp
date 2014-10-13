@@ -38,18 +38,18 @@ namespace Ness
 	{
 		m_renderer->__remove_animator_unsafe(this);
 	}
+
+	void ParticlesNode::remove_from_parent()
+	{
+		if (m_parent)
+		{
+			m_parent->__remove_unsafe(this);
+		}
+		remove_from_animation_queue();
+	}
 	
 	void ParticlesNode::do_animation(Renderer* renderer)
 	{
-		// increase time passed since last time we emitted
-		m_time_since_last_emit += renderer->time_factor();
-
-		// check if its time to emit
-		if (m_time_since_last_emit >= m_settings.emitting_interval)
-		{
-			invoke_emit();
-		}
-
 		// do animation of all the particles
 		for (unsigned int i = 0; i < m_entities.size(); i++)
 		{
@@ -61,6 +61,65 @@ namespace Ness
 			{
 				CurrParticle->do_animation(renderer);
 			}
+		}
+
+		// check if should stop
+		if (((m_settings.stop_after_count > 0) && (m_total_particles_generated >= m_settings.stop_after_count)) || 
+			((m_settings.stop_after_seconds > 0.0f) && (m_time_actived >= m_settings.stop_after_seconds)))
+		{
+			if (m_settings.remove_when_done && get_particles_count() == 0)
+			{
+				remove_from_parent();
+			}
+			return;
+		}
+
+		// increase time passed since last time we emitted
+		m_time_since_last_emit += renderer->time_factor();
+		m_time_actived += renderer->time_factor();
+
+		// check if its time to emit
+		if (m_time_since_last_emit >= m_settings.emitting_interval)
+		{
+			invoke_emit();
+		}
+	}
+
+	unsigned int ParticlesNode::get_particles_count() const
+	{
+		unsigned int ret = 0;
+		for (unsigned int i = 0; i < m_entities.size(); i++)
+		{
+			// try to get current entity as particle
+			if (ness_ptr_cast<Particle>(m_entities[i]))
+			{
+				ret++;
+			}
+		}
+		return ret;
+	}
+
+	bool remove_particles(const RenderablePtr& entity)
+	{
+		return (ness_ptr_cast<Particle>(entity));
+	}
+
+	void ParticlesNode::reset(bool RemoveExistingParticles)
+	{
+		m_time_actived = 0.0f;
+		m_total_particles_generated = 0;
+		if (RemoveExistingParticles)
+		{
+			m_entities.erase(std::remove_if(m_entities.begin(), m_entities.end(), remove_particles), m_entities.end());
+		}
+	}
+
+	void ParticlesNode::set_emit_settings(const SParticlesNodeEmitSettings& settings, bool ResetCounters) 
+	{
+		m_settings = settings;
+		if (ResetCounters) 
+		{
+			reset(false);
 		}
 	}
 
@@ -125,7 +184,7 @@ namespace Ness
 		}
 
 		// check if we don't have too much already
-		int QuotaLimit = (int)m_settings.max_particles_count - (int)m_entities.size();
+		int QuotaLimit = (int)m_settings.max_particles_count - (int)get_particles_count();
 		if (QuotaLimit <= 0)
 			return;
 
@@ -142,6 +201,21 @@ namespace Ness
 		if (particlesToEmit > (unsigned int)QuotaLimit)
 			particlesToEmit = QuotaLimit;
 
+		// check total particles limit (if exists)
+		if (m_settings.stop_after_count > 0)
+		{
+			if (m_total_particles_generated >= m_settings.stop_after_count)
+			{
+				return;
+			}
+
+			unsigned int particlesLeft = m_settings.stop_after_count - m_total_particles_generated;
+			if (particlesToEmit > particlesLeft)
+			{
+				particlesToEmit = particlesLeft;
+			}
+		}
+
 		// generate the new particles!
 		for (unsigned int i = 0; i < particlesToEmit; i++)
 		{
@@ -153,9 +227,9 @@ namespace Ness
 					NewParticle->add_position(get_absolute_position());
 				}
 				add(NewParticle);
+				m_total_particles_generated += 1;
 			}
 		}
-
 	}
 
 			

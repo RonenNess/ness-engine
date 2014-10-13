@@ -32,6 +32,8 @@
     <ClCompile Include="..\source\NessEngine\renderable\nodes\static_node.cpp" />
     <ClCompile Include="..\source\NessEngine\renderable\nodes\tile_map.cpp" />
     <ClCompile Include="..\source\NessEngine\renderable\nodes\znode.cpp" />
+    <ClCompile Include="..\source\NessEngine\renderable\node_api.cpp" />
+    <ClCompile Include="..\source\NessEngine\renderable\renderable_api.cpp" />
     <ClCompile Include="..\source\NessEngine\renderer\renderer.cpp" />
     <ClCompile Include="..\source\NessEngine\resources\font.cpp" />
     <ClCompile Include="..\source\NessEngine\resources\TextureSheet.cpp" />

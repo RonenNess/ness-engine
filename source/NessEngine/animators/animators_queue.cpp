@@ -88,7 +88,9 @@ namespace Ness
 
 			// remove all 'dead' animators
 			if (gotAnimatorsToRemove)
+			{
 				m_animators.erase(std::remove_if(m_animators.begin(), m_animators.end(), remove_dead_animators), m_animators.end());
+			}
 		}
 	};
 };

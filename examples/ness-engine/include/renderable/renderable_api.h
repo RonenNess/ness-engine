@@ -89,12 +89,11 @@ namespace Ness
 		// render this object
 		NESSENGINE_API virtual void render(const CameraPtr& camera = NullCamera) = 0;
 
+		// remove this entity from parent
+		NESSENGINE_API virtual void remove_from_parent();
+
 		// change the parent of this object
-		NESSENGINE_API virtual void __change_parent(NodeAPI* parent) 
-		{
-			if (m_parent && parent && m_parent != parent) throw IllegalAction("Cannot change object parent without removing from previous parent first!");
-			m_parent = parent;
-		}
+		NESSENGINE_API virtual void __change_parent(NodeAPI* parent);
 
 		// get parent of this object
 		NESSENGINE_API inline NodeAPI* parent() const {return m_parent;}
