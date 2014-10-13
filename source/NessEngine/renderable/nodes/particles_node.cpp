@@ -168,6 +168,9 @@ namespace Ness
 			return;
 		}
 
+		// increase emitting interval
+		m_settings.emitting_interval += m_settings.emit_fading_rate;
+
 		// check if we should skip this emittion event based on chance_to_emit
 		if (m_settings.chance_to_emit < 100)
 		{

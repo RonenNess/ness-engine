@@ -68,11 +68,12 @@ namespace Ness
 		float						stop_after_seconds;		// if not 0.0f, will stop emitting particles after given seconds count.
 		unsigned int				stop_after_count;		// if not 0, will stop emitting after reaching particles total count.
 		bool						remove_when_done;		// if have limit (stop_after_seconds or stop_after_count) and true, will remove the particle system when reaching limit.
+		float						emit_fading_rate;		// increase the emitting interval by this factor every time emitting particles is invoked (note: regardless of chance_to_emit)
 		SharedPtr<ParticlesEmitter>	particles_emitter;		// the callback to generate the particles.
 
 		SParticlesNodeEmitSettings(float EmitInterval = 1.0f, unsigned char ChanceToEmit = 100, unsigned int MinEmit = 1, unsigned int MaxEmit = 3, unsigned int MaxCount = 100) :
 			emitting_interval(EmitInterval), chance_to_emit(ChanceToEmit), min_particles_emit(MinEmit), max_particles_emit(MaxEmit), max_particles_count(MaxCount),
-				stop_after_seconds(0.0f), stop_after_count(0)
+				stop_after_seconds(0.0f), stop_after_count(0), emit_fading_rate(0.0f)
 		{ }
 	};
 
