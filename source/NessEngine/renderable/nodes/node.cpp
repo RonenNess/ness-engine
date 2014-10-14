@@ -73,7 +73,10 @@ namespace Ness
 
 	AnimatedSpritePtr Node::create_animated_sprite(const String& textureName, bool add_immediatly)
 	{
-		AnimatedSpritePtr NewSprite = ness_make_ptr<AnimatedSprite>(this->m_renderer, textureName, this->m_renderer);
+		// get the animator queue to add this animated sprite to (either this or the renderer):
+		Animators::AnimatorsQueue* pAnimatorsQueue = dynamic_cast<Animators::AnimatorsQueue*>(this);
+		if (pAnimatorsQueue == nullptr) pAnimatorsQueue = m_renderer;
+		AnimatedSpritePtr NewSprite = ness_make_ptr<AnimatedSprite>(this->m_renderer, textureName, pAnimatorsQueue);
 		if (add_immediatly) add(NewSprite);
 		return NewSprite;
 	}
