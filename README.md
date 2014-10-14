@@ -38,3 +38,11 @@ To build a ness-engine package follow these steps:
 2. run make_build.py script
 3. a new folder will be created: last_build. inside that folder you will find 'ness-engine' folder, which will contain the ready build.
 4. zip it, and don't forget to increment Ness-Engine version (in NessEngine.h macro called NESS_VERSION and NESS_SUB_VERSION)
+
+## license
+
+Ness-Engine is distributed with the zlib-license. see LICENSE.txt for more info.
+
+## Contact me
+
+You can contact me at RonenNess@gmail.com
