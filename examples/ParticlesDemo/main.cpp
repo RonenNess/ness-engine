@@ -60,6 +60,7 @@ int _tmain(int argc, _TCHAR* argv[])
 	EmitSettings.max_particles_count = 100;
 	EmitSettings.max_particles_emit = 3;
 	EmitSettings.min_particles_emit = 1;
+	EmitSettings.chance_to_emit = 85;
 	particles->set_emit_settings(EmitSettings);
 
 	// create the events handler
