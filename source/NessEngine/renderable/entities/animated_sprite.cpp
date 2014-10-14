@@ -32,29 +32,38 @@ namespace Ness
 	}
 
 	// create the animated sprite with or without texture
-	AnimatedSprite::AnimatedSprite(Renderer* renderer, ManagedResources::ManagedTexturePtr texture)
+	AnimatedSprite::AnimatedSprite(Renderer* renderer, ManagedResources::ManagedTexturePtr texture, Animators::AnimatorsQueue* animatorsQueuePtr)
 		: Animators::AnimatorsQueue(renderer), Sprite(renderer, texture) 
 	{
-		renderer->__register_animator_unsafe(this);
+		if (animatorsQueuePtr)
+		{
+			animatorsQueuePtr->__register_animator_unsafe(this);
+		}
 	}
 
-	AnimatedSprite::AnimatedSprite(Renderer* renderer, const String& TextureFile)
+	AnimatedSprite::AnimatedSprite(Renderer* renderer, const String& TextureFile, Animators::AnimatorsQueue* animatorsQueuePtr)
 		: Animators::AnimatorsQueue(renderer), Sprite(renderer, TextureFile) 
 	{
-		renderer->__register_animator_unsafe(this);
+		if (animatorsQueuePtr)
+		{
+			animatorsQueuePtr->__register_animator_unsafe(this);
+		}
 	}
 
-	AnimatedSprite::AnimatedSprite(Renderer* renderer)
+	AnimatedSprite::AnimatedSprite(Renderer* renderer, Animators::AnimatorsQueue* animatorsQueuePtr)
 		: Animators::AnimatorsQueue(renderer), Sprite(renderer) 
 	{
-		renderer->__register_animator_unsafe(this);
+		if (animatorsQueuePtr)
+		{
+			animatorsQueuePtr->__register_animator_unsafe(this);
+		}
 	}
 
 	AnimatedSprite::~AnimatedSprite()
 	{
 		if (m_animator_queue_parent)
 		{
-			renderer()->__remove_animator_unsafe(this);
+			m_animator_queue_parent->__remove_animator_unsafe(this);
 		}
 	}
 };

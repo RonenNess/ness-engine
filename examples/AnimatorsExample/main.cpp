@@ -15,6 +15,8 @@ int _tmain(int argc, _TCHAR* argv[])
 	Ness::init();
 	Ness::Renderer renderer("Hello World!", Ness::Sizei(512, 512));
 
+	{
+
 	// create a new scene
 	Ness::ScenePtr scene = renderer.create_scene();
 
@@ -70,6 +72,8 @@ int _tmain(int argc, _TCHAR* argv[])
 		renderer.start_frame();
 		scene->render();
 		renderer.end_frame();
+	}
+
 	}
 
 	// finish

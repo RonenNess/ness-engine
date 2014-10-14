@@ -49,7 +49,8 @@ namespace Ness
 			Renderer* m_animator_queue_renderer;
 
 		public:
-			AnimatorsQueue(Renderer* renderer) : m_animator_queue_renderer(renderer) {}
+			NESSENGINE_API AnimatorsQueue(Renderer* renderer) : m_animator_queue_renderer(renderer) {}
+			NESSENGINE_API ~AnimatorsQueue();
 
 			// register / remove an animator from this animators queue
 			NESSENGINE_API void register_animator(const Animators::AnimatorPtr& animator);

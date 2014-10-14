@@ -36,6 +36,14 @@ namespace Ness
 
 	namespace Animators
 	{
+		AnimatorsQueue::~AnimatorsQueue()
+		{
+			for (unsigned int i = 0; i < m_animators.size(); ++i)
+			{
+				m_animators[i]->__change_animator_queue(nullptr);
+			}
+		}
+
 		// empty deleter that does nothing. 
 		// this is a way to create animator shared pointer that don't delete the object itself, so we'll be able to register anumator with a regular pointer
 		static void EmptyAnimatorDeleter(Animators::AnimatorAPI* anim)
