@@ -43,6 +43,6 @@ To build a ness-engine package follow these steps:
 
 Ness-Engine is distributed with the zlib-license. see LICENSE.txt for more info.
 
-## Contact me
+## contact me
 
 You can contact me at RonenNess@gmail.com
