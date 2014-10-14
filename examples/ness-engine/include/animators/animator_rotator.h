@@ -43,16 +43,17 @@ namespace Ness
 		private:
 			float			m_speed;			// rotating speed and direction
 			float			m_time_to_rotate;	// for how long we will rotate the object
+			bool			m_infinite;			// does this animator runs forever?
 			float			m_time_until;		// time until starting animation
 
 		public:
 			// target is the renderable to fade-in. make sure it supports blending!
 			// ExtraRotationPerSecond is how much rotation will be added over a period of 1 second.
 			// for example, ExtraScalePerSecond(1, 1) means the target will scale by +1 to x and +1 to y within 1 second
-			// TimeToRotate is for how long to keep the rotator running
+			// TimeToRotate is for how long to keep the rotator running (0.0f for infinite rotation)
 			// timeUntilRotate is how long in seconds to wait before starting to rotate
 			AnimatorRotator(const RenderablePtr& target, float ExtraRotationPerSecond, float TimeToRotate = 1.0f, float timeUntilRotate = 0.0f) 
-				: TargetAnimatorAPI(target),  m_speed(ExtraRotationPerSecond), m_time_to_rotate(TimeToRotate), m_time_until(timeUntilRotate) 
+				: TargetAnimatorAPI(target),  m_speed(ExtraRotationPerSecond), m_time_to_rotate(TimeToRotate), m_time_until(timeUntilRotate), m_infinite(TimeToRotate == 0.0f)
 			{
 			}
 
@@ -66,10 +67,14 @@ namespace Ness
 				}
 
 				m_target->add_rotation(m_speed * renderer->time_factor());
-				m_time_to_rotate -= renderer->time_factor();
-				if (m_time_to_rotate <= 0)
+
+				if (m_infinite == false)
 				{
-					this->remove_from_animation_queue();
+					m_time_to_rotate -= renderer->time_factor();
+					if (m_time_to_rotate <= 0)
+					{
+						this->remove_from_animation_queue();
+					}
 				}
 			}
 		};

@@ -92,5 +92,8 @@ namespace Ness
 				m_target->set_color((m_color_a * (1.0f - m_complete)) + (m_color_b * m_complete));
 			}
 		};
+
+		// color shifter animator pointer
+		NESSENGINE_API typedef SharedPtr<AnimatorColorShifter> AnimatorColorShifterPtr;
 	};
 };

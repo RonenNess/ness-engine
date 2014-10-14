@@ -27,6 +27,7 @@
 */
 
 #pragma once
+#include "../exceptions/exceptions.h"
 #include "animators_queue.h"
 #include <algorithm>
 
@@ -57,12 +58,18 @@ namespace Ness
 		void AnimatorsQueue::register_animator(const Animators::AnimatorPtr& animator)
 		{
 			m_animators.push_back(animator);
+			animator->__change_animator_queue(this);
 		}
 
 		// remove an animator
 		void AnimatorsQueue::remove_animator(const Animators::AnimatorPtr& animator)
 		{
+			if (animator->__get_animator_queue() != this)
+			{
+				throw IllegalAction("Cannot remove animator, animator is not even in this queue!");
+			}
 			m_animators.erase(std::remove(m_animators.begin(), m_animators.end(), animator), m_animators.end());
+			animator->__change_animator_queue(nullptr);
 		}
 
 		// remove all dead animators from list

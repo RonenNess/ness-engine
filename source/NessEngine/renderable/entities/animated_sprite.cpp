@@ -21,11 +21,40 @@
 */
 
 #include "animated_sprite.h"
+#include "../../renderer/renderer.h"
+#include "../../animators/animators_queue.h"
 
 namespace Ness
 {
 	void AnimatedSprite::do_animation(Renderer* renderer)
 	{
 		do_animations();
+	}
+
+	// create the animated sprite with or without texture
+	AnimatedSprite::AnimatedSprite(Renderer* renderer, ManagedResources::ManagedTexturePtr texture)
+		: Animators::AnimatorsQueue(renderer), Sprite(renderer, texture) 
+	{
+		renderer->__register_animator_unsafe(this);
+	}
+
+	AnimatedSprite::AnimatedSprite(Renderer* renderer, const String& TextureFile)
+		: Animators::AnimatorsQueue(renderer), Sprite(renderer, TextureFile) 
+	{
+		renderer->__register_animator_unsafe(this);
+	}
+
+	AnimatedSprite::AnimatedSprite(Renderer* renderer)
+		: Animators::AnimatorsQueue(renderer), Sprite(renderer) 
+	{
+		renderer->__register_animator_unsafe(this);
+	}
+
+	AnimatedSprite::~AnimatedSprite()
+	{
+		if (m_animator_queue_parent)
+		{
+			renderer()->__remove_animator_unsafe(this);
+		}
 	}
 };

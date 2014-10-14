@@ -28,11 +28,28 @@
 
 #pragma once
 #include "animator_api.h"
-#include "../renderable/entities/animated_sprite.h"
+#include "animators_queue.h"
+#include "../exceptions/exceptions.h"
 
 namespace Ness
 {
 	namespace Animators
 	{
+		AnimatorAPI::~AnimatorAPI()
+		{
+			if (m_animator_queue_parent)
+			{
+				m_animator_queue_parent->__remove_animator_unsafe(this);
+			}
+		}
+
+		void AnimatorAPI::__change_animator_queue(AnimatorsQueue* NewQueue) 
+		{
+			if (m_animator_queue_parent && m_animator_queue_parent != NewQueue)
+			{
+				throw IllegalAction("This animator is already in an Animators queue! you must remove it from previous parent before adding to a new queue!");
+			}
+			m_animator_queue_parent = NewQueue;
+		}
 	};
 };

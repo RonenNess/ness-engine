@@ -32,12 +32,16 @@
 
 namespace Ness
 {
+	// predeclare renderer and renderer API
 	class Renderer;
 	class RenderableAPI;
 	NESSENGINE_API typedef SharedPtr<RenderableAPI> RenderablePtr;
 
 	namespace Animators
 	{
+		
+		// predeclare animators queue class
+		class AnimatorsQueue;
 
 		/**
 		* Animator class API.
@@ -50,16 +54,24 @@ namespace Ness
 			bool m_animator_paused;
 			bool m_animator_should_be_removed;
 
+		protected:
+			AnimatorsQueue* m_animator_queue_parent;
+
 		public:
-			AnimatorAPI() : m_animator_paused(false), m_animator_should_be_removed(false) {}
+			NESSENGINE_API AnimatorAPI() : m_animator_paused(false), m_animator_should_be_removed(false), m_animator_queue_parent(nullptr) {}
+			NESSENGINE_API ~AnimatorAPI();
 
 			// pause/unpause animation without removing from animators queue
 			NESSENGINE_API inline bool is_animation_paused() const {return m_animator_paused;}
 			NESSENGINE_API inline void pause_animation(bool doPause) {m_animator_paused = doPause;}
 
+			// called whenever registered to a new animators queue, to update the parent animator queue
+			NESSENGINE_API void __change_animator_queue(AnimatorsQueue* NewQueue);
+			NESSENGINE_API inline AnimatorsQueue* __get_animator_queue() {return m_animator_queue_parent;}
+
 			// remove this animator from the renderer animators queue (will no longer run)
 			NESSENGINE_API void remove_from_animation_queue() {m_animator_should_be_removed = true;}
-			inline bool __should_be_removed() const {return m_animator_should_be_removed;}
+			NESSENGINE_API inline bool __should_be_removed() const {return m_animator_should_be_removed;}
 
 			// animate this object. when finish, if you want to remove animator call 'remove_from_animation_queue()'
 			NESSENGINE_API virtual void do_animation(Renderer* renderer) = 0;

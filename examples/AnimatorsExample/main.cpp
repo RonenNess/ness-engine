@@ -18,14 +18,42 @@ int _tmain(int argc, _TCHAR* argv[])
 	// create a new scene
 	Ness::ScenePtr scene = renderer.create_scene();
 
-	// add the hello-world sprite to it
-	Ness::SpritePtr sprite = scene->create_sprite("hello_world.png");
-	sprite->set_blend_mode(Ness::BLEND_MODE_BLEND);
-
-	// create the animator
-	// params: target, bool removeTargetWhenDone, float fadeSpeed, float timeUntilFadeOut
-	Ness::Animators::AnimatorFaderOutPtr anim = ness_make_ptr<Ness::Animators::AnimatorFaderOut>(sprite, true, 0.5f, 1.0f);
+	// create sprite with fader animator
+	Ness::SpritePtr sprite1 = scene->create_sprite("hello_world.png");
+	sprite1->set_blend_mode(Ness::BLEND_MODE_BLEND);
+	sprite1->set_size(Ness::Size(250, 250));
+	Ness::Animators::AnimatorFaderOutPtr anim = ness_make_ptr<Ness::Animators::AnimatorFaderOut>(sprite1, true, 0.5f, 1.0f);
 	renderer.register_animator(anim);
+
+	// create sprite with color shifter animator
+	Ness::SpritePtr sprite2 = scene->create_sprite("hello_world.png");
+	sprite2->set_size(Ness::Size(250, 250));
+	sprite2->set_position(Ness::Point(255, 0));
+	SharedPtr<Ness::Animators::AnimatorColorShifter> anim2 = ness_make_ptr<Ness::Animators::AnimatorColorShifter>(sprite2, Ness::Color::RED, Ness::Color::GREEN, 2.0f, 1.0f);
+	renderer.register_animator(anim2);
+
+	// create sprite with rotation animator
+	Ness::SpritePtr sprite3 = scene->create_sprite("hello_world.png");
+	sprite3->set_size(Ness::Size(250, 250));
+	sprite3->set_anchor(Ness::Point::HALF);
+	sprite3->set_position(Ness::Point(125, 255 + 125));
+	Ness::Animators::AnimatorRotatorPtr anim3 = ness_make_ptr<Ness::Animators::AnimatorRotator>(sprite3, 36.0f, 10.0f);
+	renderer.register_animator(anim3);
+
+	// create sprite with rotation animator
+	Ness::SpritePtr sprite4 = scene->create_sprite("hello_world.png");
+	sprite4->set_size(Ness::Size(250, 250));
+	sprite4->set_position(Ness::Point(255, 255));
+	Ness::Animators::AnimatorScalerPtr anim4 = ness_make_ptr<Ness::Animators::AnimatorScaler>(sprite4, Ness::Point(-0.2f, -0.2f), 10.0f, 1.0f);
+	renderer.register_animator(anim4);
+
+	// create animated sprite example
+	Ness::AnimatedSpritePtr AnimSprite = scene->create_animated_sprite("hello_world.png");
+	AnimSprite->set_size(Ness::Size(150, 150));
+	AnimSprite->set_anchor(Ness::Point::HALF);
+	AnimSprite->set_position(Ness::Point(252, 252));
+	AnimSprite->register_animator(ness_make_ptr<Ness::Animators::AnimatorColorShifter>(AnimSprite, Ness::Color::BLACK, Ness::Color::WHITE, 5.0f, 1.0f));
+	renderer.register_animator(AnimSprite);
 
 	// create the events handler
 	Ness::Utils::EventsPoller EventsPoller;

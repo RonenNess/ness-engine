@@ -54,9 +54,11 @@ namespace Ness
 	public:
 
 		// create the animated sprite with or without texture
-		NESSENGINE_API AnimatedSprite(Renderer* renderer, ManagedResources::ManagedTexturePtr texture) : Animators::AnimatorsQueue(renderer), Sprite(renderer, texture) {}
-		NESSENGINE_API AnimatedSprite(Renderer* renderer, const String& TextureFile) : Animators::AnimatorsQueue(renderer), Sprite(renderer, TextureFile) {}
-		NESSENGINE_API AnimatedSprite(Renderer* renderer) : Animators::AnimatorsQueue(renderer), Sprite(renderer) {}
+		NESSENGINE_API AnimatedSprite(Renderer* renderer, ManagedResources::ManagedTexturePtr texture);
+		NESSENGINE_API AnimatedSprite(Renderer* renderer, const String& TextureFile);
+		NESSENGINE_API AnimatedSprite(Renderer* renderer);
+
+		NESSENGINE_API ~AnimatedSprite();
 
 		// activate all the animators on this sprite
 		NESSENGINE_API virtual void do_animation(Renderer* renderer);

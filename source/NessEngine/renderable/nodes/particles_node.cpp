@@ -36,7 +36,10 @@ namespace Ness
 
 	ParticlesNode::~ParticlesNode()
 	{
-		m_renderer->__remove_animator_unsafe(this);
+		if (m_animator_queue_parent)
+		{
+			m_animator_queue_parent->__remove_animator_unsafe(this);
+		}
 	}
 
 	void ParticlesNode::remove_from_parent()
