@@ -44,9 +44,9 @@ namespace Ness
 	public:
 
 		// create the animated sprite with or without texture
-		NESSENGINE_API Particle(Renderer* renderer, ManagedResources::ManagedTexturePtr texture) : AnimatedSprite(renderer, texture), m_move_with_node(false) {}
-		NESSENGINE_API Particle(Renderer* renderer, const String& TextureFile) : AnimatedSprite(renderer, TextureFile), m_move_with_node(false) {}
-		NESSENGINE_API Particle(Renderer* renderer) : AnimatedSprite(renderer), m_move_with_node(false) {}
+		NESSENGINE_API Particle(Renderer* renderer, ManagedResources::ManagedTexturePtr texture) : AnimatedSprite(renderer, texture, nullptr), m_move_with_node(false) {}
+		NESSENGINE_API Particle(Renderer* renderer, const String& TextureFile) : AnimatedSprite(renderer, TextureFile, nullptr), m_move_with_node(false) {}
+		NESSENGINE_API Particle(Renderer* renderer) : AnimatedSprite(renderer, nullptr), m_move_with_node(false) {}
 
 		// if true, when moving the particles node owning this particle it will affect the particle as well.
 		// if false, the particle will spawn at the position of the node but will not move with it
