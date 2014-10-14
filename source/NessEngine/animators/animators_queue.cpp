@@ -89,7 +89,7 @@ namespace Ness
 				if (curr->is_animation_paused())
 					continue;
 
-				curr->do_animation(m_renderer);
+				curr->do_animation(m_animator_queue_renderer);
 				gotAnimatorsToRemove |= curr->__should_be_removed();
 			}
 

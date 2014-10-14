@@ -46,10 +46,10 @@ namespace Ness
 		{
 		private:
 			Vector<Animators::AnimatorPtr> m_animators;
-			Renderer* m_renderer;
+			Renderer* m_animator_queue_renderer;
 
 		public:
-			AnimatorsQueue(Renderer* renderer) : m_renderer(renderer) {}
+			AnimatorsQueue(Renderer* renderer) : m_animator_queue_renderer(renderer) {}
 
 			// register / remove an animator from this animators queue
 			NESSENGINE_API void register_animator(const Animators::AnimatorPtr& animator);
