@@ -66,7 +66,7 @@ namespace Ness
 			NESSENGINE_API inline void pause_animation(bool doPause) {m_animator_paused = doPause;}
 
 			// called whenever registered to a new animators queue, to update the parent animator queue
-			NESSENGINE_API inline void __change_animator_queue(AnimatorsQueue* NewQueue) {m_animator_queue_parent = NewQueue;}
+			NESSENGINE_API void __change_animator_queue(AnimatorsQueue* NewQueue);
 			NESSENGINE_API inline AnimatorsQueue* __get_animator_queue() {return m_animator_queue_parent;}
 
 			// remove this animator from the renderer animators queue (will no longer run)

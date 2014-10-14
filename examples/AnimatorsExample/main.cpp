@@ -29,7 +29,7 @@ int _tmain(int argc, _TCHAR* argv[])
 	Ness::SpritePtr sprite2 = scene->create_sprite("hello_world.png");
 	sprite2->set_size(Ness::Size(250, 250));
 	sprite2->set_position(Ness::Point(255, 0));
-	SharedPtr<Ness::Animators::AnimatorColorShifter> anim2 = ness_make_ptr<Ness::Animators::AnimatorColorShifter>(sprite2, Ness::Color::RED, Ness::Color::GREEN, 2.0f, 1.0f);
+	Ness::Animators::AnimatorColorShifterPtr anim2 = ness_make_ptr<Ness::Animators::AnimatorColorShifter>(sprite2, Ness::Color::RED, Ness::Color::GREEN, 2.0f, 1.0f);
 	renderer.register_animator(anim2);
 
 	// create sprite with rotation animator

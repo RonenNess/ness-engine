@@ -45,9 +45,12 @@ namespace Ness
 
 		void AnimatorAPI::__change_animator_queue(AnimatorsQueue* NewQueue) 
 		{
-			if (m_animator_queue_parent && m_animator_queue_parent != NewQueue)
+			if (NewQueue != nullptr)
 			{
-				throw IllegalAction("This animator is already in an Animators queue! you must remove it from previous parent before adding to a new queue!");
+				if (m_animator_queue_parent && m_animator_queue_parent != NewQueue)
+				{
+					throw IllegalAction("This animator is already in an Animators queue! you must remove it from previous parent before adding to a new queue!");
+				}
 			}
 			m_animator_queue_parent = NewQueue;
 		}
