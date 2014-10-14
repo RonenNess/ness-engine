@@ -144,6 +144,12 @@
     <ClCompile Include="..\source\NessEngine\renderable\nodes\particles_node.cpp">
       <Filter>Source Files\renderables\nodes</Filter>
     </ClCompile>
+    <ClCompile Include="..\source\NessEngine\renderable\renderable_api.cpp">
+      <Filter>Source Files\renderables</Filter>
+    </ClCompile>
+    <ClCompile Include="..\source\NessEngine\renderable\node_api.cpp">
+      <Filter>Source Files\renderables</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\source\NessEngine\NessEngine.h">

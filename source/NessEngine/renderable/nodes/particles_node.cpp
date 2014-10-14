@@ -104,7 +104,7 @@ namespace Ness
 
 	bool remove_particles(const RenderablePtr& entity)
 	{
-		return (ness_ptr_cast<Particle>(entity));
+		return ((bool)ness_ptr_cast<Particle>(entity));
 	}
 
 	void ParticlesNode::reset(bool RemoveExistingParticles)
