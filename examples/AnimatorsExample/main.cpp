@@ -55,7 +55,6 @@ int _tmain(int argc, _TCHAR* argv[])
 	AnimSprite->set_anchor(Ness::Point::HALF);
 	AnimSprite->set_position(Ness::Point(252, 252));
 	AnimSprite->register_animator(ness_make_ptr<Ness::Animators::AnimatorColorShifter>(AnimSprite, Ness::Color::BLACK, Ness::Color::WHITE, 5.0f, 1.0f));
-	renderer.register_animator(AnimSprite);
 
 	// create the events handler
 	Ness::Utils::EventsPoller EventsPoller;

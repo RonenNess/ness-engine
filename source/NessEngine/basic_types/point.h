@@ -149,6 +149,24 @@ namespace Ness
 			y /= div;
 		}
 
+		// return the length of this vector
+		NESSENGINE_API inline float get_length() const
+		{
+			return sqrt(pow((float)x, 2) + pow((float)y, 2));
+		}
+
+		// return a rotated version of this vector
+		NESSENGINE_API inline __Point<type> get_rotated(float angle) const
+		{
+			return __Point<type>::from_angle(this->get_angle() + angle, this->get_length());
+		}
+
+		// rotate this vector
+		NESSENGINE_API inline void rotate(float angle)
+		{
+			(*this) = __Point<type>::from_angle(this->get_angle() + angle, this->get_length());
+		}
+
 		// ctors
 		NESSENGINE_API inline __Point<type>(type X, type Y) : x(X), y(Y)
 		{}

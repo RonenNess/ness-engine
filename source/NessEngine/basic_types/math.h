@@ -74,5 +74,11 @@ namespace Ness
 		{
 			return min + (rand() % (max - min));
 		}
+
+		// return either +1 or -1
+		NESSENGINE_API inline static int rand_direction()
+		{
+			return (rand() % 100) < 50 ? 1 : -1;
+		}
 	};
 };

@@ -36,7 +36,7 @@ namespace Ness
 	{
 
 		/**
-		* this animator scales the target over time
+		* this animator rotates the target over time
 		*/
 		class AnimatorRotator : public TargetAnimatorAPI
 		{
@@ -47,9 +47,8 @@ namespace Ness
 			float			m_time_until;		// time until starting animation
 
 		public:
-			// target is the renderable to fade-in. make sure it supports blending!
+			// target is the renderable to rotate
 			// ExtraRotationPerSecond is how much rotation will be added over a period of 1 second.
-			// for example, ExtraScalePerSecond(1, 1) means the target will scale by +1 to x and +1 to y within 1 second
 			// TimeToRotate is for how long to keep the rotator running (0.0f for infinite rotation)
 			// timeUntilRotate is how long in seconds to wait before starting to rotate
 			AnimatorRotator(const RenderablePtr& target, float ExtraRotationPerSecond, float TimeToRotate = 1.0f, float timeUntilRotate = 0.0f) 

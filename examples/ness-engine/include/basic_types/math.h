@@ -22,6 +22,7 @@
 
 #pragma once
 #include <math.h>
+#include <stdlib.h>
 
 namespace Ness
 {
@@ -61,6 +62,23 @@ namespace Ness
 			if (x < 0) x += 360;
 			return x - 180;
 		}
+
+		// return a random float number between min and max
+		NESSENGINE_API inline static float rand_float(float min = 0.0f, float max = 1.0f)
+		{
+			return min + static_cast <float> (rand()) /( static_cast <float> (RAND_MAX/(max-min)));
+		}
 		
+		// return a random int number between min and max
+		NESSENGINE_API inline static int rand_int(unsigned int min = 0, unsigned int max = 100)
+		{
+			return min + (rand() % (max - min));
+		}
+
+		// return either +1 or -1
+		NESSENGINE_API inline static int rand_direction()
+		{
+			return (rand() % 100) < 50 ? 1 : -1;
+		}
 	};
 };

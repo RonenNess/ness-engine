@@ -26,3 +26,4 @@
 #include "animator_color_shifter.h"
 #include "animator_scaler.h"
 #include "animator_rotator.h"
+#include "animator_mover.h"

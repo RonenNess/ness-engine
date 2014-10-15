@@ -46,7 +46,7 @@ namespace Ness
 			float			m_time_until;		// time until starting animation
 
 		public:
-			// target is the renderable to fade-in. make sure it supports blending!
+			// target is the renderable to scale
 			// ExtraScalePerSecond is how much scale will be increased over a period of 1 second.
 			// for example, ExtraScalePerSecond(1, 1) means the target will scale by +1 to x and +1 to y within 1 second
 			// TimeToScale is for how long to keep the scaler running

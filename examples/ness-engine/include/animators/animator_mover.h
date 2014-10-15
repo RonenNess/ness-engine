@@ -21,7 +21,7 @@
 */
 
 /**
-* Animator that fade objects in and out
+* Animator that moves objects
 * Author: Ronen Ness
 * Since: 07/1014
 */
@@ -36,23 +36,23 @@ namespace Ness
 	{
 
 		/**
-		* this animator rotates the target over time
+		* this animator moves the target over time
 		*/
-		class AnimatorRotator : public TargetAnimatorAPI
+		class AnimatorMover : public TargetAnimatorAPI
 		{
 		private:
-			float			m_speed;			// rotating speed and direction
-			float			m_time_to_rotate;	// for how long we will rotate the object
+			Ness::Point		m_speed;			// moving speed and direction
+			float			m_time_to_move;		// for how long we will move the object
 			bool			m_infinite;			// does this animator runs forever?
 			float			m_time_until;		// time until starting animation
 
 		public:
-			// target is the renderable to rotate
-			// ExtraRotationPerSecond is how much rotation will be added over a period of 1 second.
-			// TimeToRotate is for how long to keep the rotator running (0.0f for infinite rotation)
+			// target is the renderable to move
+			// MovingSpeed is the speed and direction to move the entity
+			// TimeToMove is for how long to keep the mover running (0.0f for infinite movement)
 			// timeUntilRotate is how long in seconds to wait before starting to rotate
-			AnimatorRotator(const RenderablePtr& target, float ExtraRotationPerSecond, float TimeToRotate = 1.0f, float timeUntilRotate = 0.0f) 
-				: TargetAnimatorAPI(target),  m_speed(ExtraRotationPerSecond), m_time_to_rotate(TimeToRotate), m_time_until(timeUntilRotate), m_infinite(TimeToRotate == 0.0f)
+			AnimatorMover(const RenderablePtr& target, Ness::Point MovingSpeed, float TimeToMove = 1.0f, float timeUntilRotate = 0.0f) 
+				: TargetAnimatorAPI(target),  m_speed(MovingSpeed), m_time_to_move(TimeToMove), m_time_until(timeUntilRotate), m_infinite(TimeToMove == 0.0f)
 			{
 			}
 
@@ -65,12 +65,12 @@ namespace Ness
 					return;
 				}
 
-				m_target->add_rotation(m_speed * renderer->time_factor());
+				m_target->add_position(m_speed * renderer->time_factor());
 
 				if (m_infinite == false)
 				{
-					m_time_to_rotate -= renderer->time_factor();
-					if (m_time_to_rotate <= 0)
+					m_time_to_move -= renderer->time_factor();
+					if (m_time_to_move <= 0)
 					{
 						this->remove_from_animation_queue();
 					}
@@ -79,6 +79,6 @@ namespace Ness
 		};
 
 		// fade-in animator pointer
-		NESSENGINE_API typedef SharedPtr<AnimatorRotator> AnimatorRotatorPtr;
+		NESSENGINE_API typedef SharedPtr<AnimatorMover> AnimatorMoverPtr;
 	};
 };
