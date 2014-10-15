@@ -38,7 +38,7 @@ namespace Ness
 	class MultiText : public Entity
 	{
 	private:
-		Vector<TextPtr>							m_lines;					// string lines and part of lines (if break sign)
+		Containers::Vector<TextPtr>				m_lines;					// string lines and part of lines (if break sign)
 		unsigned int							m_line_width;				// max line width
 		unsigned int							m_font_size;				// font size
 		String									m_font;						// font to use by default
@@ -55,7 +55,7 @@ namespace Ness
 		NESSENGINE_API void set_text(const String& text);
 
 		// return the text lines
-		NESSENGINE_API inline const Vector<TextPtr>& get_lines() const {return m_lines;}
+		NESSENGINE_API inline const Containers::Vector<TextPtr>& get_lines() const {return m_lines;}
 
 		// set alignment
 		NESSENGINE_API void set_alignment(ETextAlignment align) {m_alignement = align; m_need_text_positioning = true;}

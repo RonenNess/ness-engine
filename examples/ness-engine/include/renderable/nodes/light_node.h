@@ -100,7 +100,7 @@ namespace Ness
 		NESSENGINE_API LightPtr create_light(const String& lightTexture, const Color& color = Color::WHITE);
 
 		// return all lights currently in screen
-		NESSENGINE_API void get_lights_in_screen(Ness::Vector<LightPtr>& out_list, const CameraPtr& camera = NullCamera) const;
+		NESSENGINE_API void get_lights_in_screen(Containers::Vector<LightPtr>& out_list, const CameraPtr& camera = NullCamera) const;
 
 		// render the light node
 		NESSENGINE_API virtual void render(const CameraPtr& camera = NullCamera);

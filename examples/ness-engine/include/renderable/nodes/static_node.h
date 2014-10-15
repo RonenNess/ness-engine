@@ -39,9 +39,9 @@ namespace Ness
 	class StaticNode : public Node
 	{
 	private:
-		UnorderedMap< int, UnorderedMap<int, CanvasPtr> >	m_batches;
-		Sizei												m_batch_size;
-		unsigned int										m_unique_id;
+		Containers::UnorderedMap< int, Containers::UnorderedMap<int, CanvasPtr> >	m_batches;
+		Sizei																		m_batch_size;
+		unsigned int																m_unique_id;
 
 	public:
 		// create the static node. be sure to call 'build' after setting all the objects to generate the batches.
@@ -57,7 +57,7 @@ namespace Ness
 		NESSENGINE_API virtual void render(const CameraPtr& camera = NullCamera);
 
 		// get a list with ALL the son entities that are currently visible in screen
-		NESSENGINE_API virtual void __get_visible_entities(Vector<RenderableAPI*>& out_list, const CameraPtr& camera = NullCamera);
+		NESSENGINE_API virtual void __get_visible_entities(Containers::Vector<RenderableAPI*>& out_list, const CameraPtr& camera = NullCamera);
 
 	protected:
 		// return the range of visible batches

@@ -47,12 +47,12 @@ namespace Ness
 	class NodesMap : public NodeAPI
 	{
 	protected:
-		Sizei										m_size;						// size of the tilemap
-		Size										m_nodes_distance;			// distance between nodes
-		Size										m_node_size;				// size of a single node in pixels
-		Vector< Vector<NodeAPIPtr> >				m_nodes;					// the nodes matrix
-		SRenderTransformations						m_absolute_transformations;	// absolute transformations of this nodes tilemap
-		Sizei										m_extra_tiles_factor;		// extra tiles to render (count in screen) on eatch side of x and y axis
+		Sizei													m_size;						// size of the tilemap
+		Size													m_nodes_distance;			// distance between nodes
+		Size													m_node_size;				// size of a single node in pixels
+		Containers::Vector< Containers::Vector<NodeAPIPtr> >	m_nodes;					// the nodes matrix
+		SRenderTransformations									m_absolute_transformations;	// absolute transformations of this nodes tilemap
+		Sizei													m_extra_tiles_factor;		// extra tiles to render (count in screen) on eatch side of x and y axis
 
 	public:
 
@@ -112,10 +112,10 @@ namespace Ness
 		NESSENGINE_API virtual Pointi get_index_from_position(const Point& position);
 
 		// get all visible son nodes and entities
-		NESSENGINE_API virtual void __get_visible_entities(Vector<RenderableAPI*>& out_list, const CameraPtr& camera = NullCamera);
+		NESSENGINE_API virtual void __get_visible_entities(Containers::Vector<RenderableAPI*>& out_list, const CameraPtr& camera = NullCamera);
 
 		// get all son entities (all the tiles)
-		NESSENGINE_API virtual void __get_all_entities(Vector<RenderableAPI*>& out_list, bool breakGroups);
+		NESSENGINE_API virtual void __get_all_entities(Containers::Vector<RenderableAPI*>& out_list, bool breakGroups);
 
 		// update that the tilemap needs update
 		NESSENGINE_API virtual void transformations_update();
