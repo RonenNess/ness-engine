@@ -29,3 +29,5 @@
 #include "color.h"
 #include "math.h"
 #include "events.h"
+#include "pointers.h"
+#include "string.h"

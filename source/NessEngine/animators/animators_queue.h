@@ -28,6 +28,7 @@
 
 #pragma once
 #include "../exports.h"
+#include "../basic_types/containers.h"
 #include "animator_api.h"
 
 namespace Ness
@@ -45,7 +46,7 @@ namespace Ness
 		class AnimatorsQueue
 		{
 		private:
-			Vector<Animators::AnimatorPtr> m_animators;
+			Containers::Vector<Animators::AnimatorPtr> m_animators;
 			Renderer* m_animator_queue_renderer;
 
 		public:

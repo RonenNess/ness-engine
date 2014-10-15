@@ -42,7 +42,7 @@ namespace Ness
 	class BaseNode : public NodeAPI
 	{
 	protected:
-		Vector<RenderablePtr>					m_entities;						// son entities (nodes, sprites, etc..)
+		Containers::Vector<RenderablePtr>		m_entities;						// son entities (nodes, sprites, etc..)
 		SRenderTransformations					m_absolute_trans;				// cache of last absolute transformations
 		bool									m_need_trans_update;			// do we need to update the cached transformations (called if parent changed)
 		ManagedResources::ManagedTexturePtr		m_render_target;				// if not null, will render to this target instead of to the screen
@@ -74,11 +74,11 @@ namespace Ness
 		NESSENGINE_API inline Point get_absolute_position_const() const {return m_absolute_trans.position;}
 
 		// get all visible son entities
-		NESSENGINE_API virtual void __get_visible_entities(Vector<RenderableAPI*>& out_list, const CameraPtr& camera = NullCamera);
+		NESSENGINE_API virtual void __get_visible_entities(Containers::Vector<RenderableAPI*>& out_list, const CameraPtr& camera = NullCamera);
 
 		// get a list with ALL entities in node
 		// if breakGroups is true, will break down son nodes as well. else, will add son nodes to the list as whole
-		NESSENGINE_API virtual void __get_all_entities(Vector<RenderableAPI*>& out_list, bool breakGroups);
+		NESSENGINE_API virtual void __get_all_entities(Containers::Vector<RenderableAPI*>& out_list, bool breakGroups);
 
 		// check if this node is really visible by checking all its sub nodes and sprites (until hitting yes)
 		NESSENGINE_API virtual bool is_really_visible(const CameraPtr& camera = NullCamera);

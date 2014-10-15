@@ -29,11 +29,10 @@
 #pragma once
 #include <exception>
 #include "log.h"
-#include "../basic_types/containers.h"
+#include "../basic_types/string.h"
 
 namespace Ness
 {
-
 	// raised when a file is not found
 	class FileNotFound : public std::exception {
 	  private:

@@ -61,13 +61,13 @@ namespace Ness
 		class ResourcesManager
 		{
 		private:
-			UnorderedMap<String, __STextureInManager>			m_textures;			// map that holds all loaded textures
-			UnorderedMap<String, __SFontInManager>				m_fonts;			// map that holds all loaded fonts
-			String												m_base_path;		// basic path to search resources under
-			Colorb												m_color_key;		// transparency color key
-			bool												m_use_color_key;	// enable/disable color key
-			Renderer*											m_renderer;			// pointer to the renderer manager
-			bool												m_destroyed;		// was it destroyed?
+			Containers::UnorderedMap<String, __STextureInManager>		m_textures;			// map that holds all loaded textures
+			Containers::UnorderedMap<String, __SFontInManager>			m_fonts;			// map that holds all loaded fonts
+			String														m_base_path;		// basic path to search resources under
+			Colorb														m_color_key;		// transparency color key
+			bool														m_use_color_key;	// enable/disable color key
+			Renderer*													m_renderer;			// pointer to the renderer manager
+			bool														m_destroyed;		// was it destroyed?
 
 		public:
 

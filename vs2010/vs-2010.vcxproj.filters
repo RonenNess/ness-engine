@@ -329,5 +329,11 @@
     <ClInclude Include="..\source\NessEngine\animators\animator_mover.h">
       <Filter>Source Files\animators</Filter>
     </ClInclude>
+    <ClInclude Include="..\source\NessEngine\basic_types\pointers.h">
+      <Filter>Source Files\basic_types</Filter>
+    </ClInclude>
+    <ClInclude Include="..\source\NessEngine\basic_types\string.h">
+      <Filter>Source Files\basic_types</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>

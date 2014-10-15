@@ -51,7 +51,7 @@ namespace Ness
 	}
 
 	// get all visible batches (canvases)
-	void StaticNode::__get_visible_entities(Vector<RenderableAPI*>& out_list, const CameraPtr& camera)
+	void StaticNode::__get_visible_entities(Containers::Vector<RenderableAPI*>& out_list, const CameraPtr& camera)
 	{
 		// get visible batches range and add to out list
 		Rectangle batches = get_batches_range(camera);
@@ -71,7 +71,7 @@ namespace Ness
 	void StaticNode::build(bool removeEntities)
 	{
 		// first get one big list with all the entities to render (break down son nodes)
-		Vector<RenderableAPI*> render_list;
+		Containers::Vector<RenderableAPI*> render_list;
 		for (unsigned int i = 0; i < m_entities.size(); i++)
 		{
 			// check if current entity is a node, and if so, break it

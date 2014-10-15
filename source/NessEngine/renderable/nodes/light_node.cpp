@@ -43,7 +43,7 @@ namespace Ness
 		set_ambient_color(Ness::Color::BLACK);
 	}
 
-	void LightNode::get_lights_in_screen(Ness::Vector<LightPtr>& out_list, const CameraPtr& camera) const
+	void LightNode::get_lights_in_screen(Containers::Vector<LightPtr>& out_list, const CameraPtr& camera) const
 	{
 		for (unsigned int i = 0; i < m_entities.size(); i++)
 		{

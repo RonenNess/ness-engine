@@ -136,7 +136,7 @@ namespace Ness
 		}
 	}
 
-	void TileMap::__get_visible_entities(Vector<RenderableAPI*>& out_list, const CameraPtr& camera)
+	void TileMap::__get_visible_entities(Containers::Vector<RenderableAPI*>& out_list, const CameraPtr& camera)
 	{
 		Rectangle range = get_tiles_in_screen(camera);
 		for (int i = range.x; i < range.w; i++)
@@ -148,7 +148,7 @@ namespace Ness
 		}
 	}
 	
-	void TileMap::__get_all_entities(Vector<RenderableAPI*>& out_list, bool breakGroups)
+	void TileMap::__get_all_entities(Containers::Vector<RenderableAPI*>& out_list, bool breakGroups)
 	{
 		for (int i = 0; i < m_size.x; i++)
 		{

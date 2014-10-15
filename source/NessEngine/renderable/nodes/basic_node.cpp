@@ -29,7 +29,7 @@
 namespace Ness
 {
 
-	void BaseNode::__get_visible_entities(Vector<RenderableAPI*>& out_list, const CameraPtr& camera)
+	void BaseNode::__get_visible_entities(Containers::Vector<RenderableAPI*>& out_list, const CameraPtr& camera)
 	{
 		for (unsigned int i = 0; i < m_entities.size(); i++)
 		{
@@ -52,7 +52,7 @@ namespace Ness
 		}
 	}
 
-	void BaseNode::__get_all_entities(Vector<RenderableAPI*>& out_list, bool breakGroups)
+	void BaseNode::__get_all_entities(Containers::Vector<RenderableAPI*>& out_list, bool breakGroups)
 	{
 		for (unsigned int i = 0; i < m_entities.size(); i++)
 		{

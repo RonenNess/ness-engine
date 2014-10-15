@@ -62,8 +62,10 @@
     <ClInclude Include="..\source\NessEngine\basic_types\math.h" />
     <ClInclude Include="..\source\NessEngine\basic_types\point.h" />
     <ClInclude Include="..\source\NessEngine\basic_types\all_basic_types.h" />
+    <ClInclude Include="..\source\NessEngine\basic_types\pointers.h" />
     <ClInclude Include="..\source\NessEngine\basic_types\rectangle.h" />
     <ClInclude Include="..\source\NessEngine\basic_types\size.h" />
+    <ClInclude Include="..\source\NessEngine\basic_types\string.h" />
     <ClInclude Include="..\source\NessEngine\exceptions\exceptions.h" />
     <ClInclude Include="..\source\NessEngine\exceptions\log.h" />
     <ClInclude Include="..\source\NessEngine\exports.h" />
