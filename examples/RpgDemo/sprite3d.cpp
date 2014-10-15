@@ -24,7 +24,7 @@ void Sprite3d::do_render(const Ness::Rectangle& target, const Ness::SRenderTrans
 	m_renderer->blit(m_texture, &m_source_rect, target, Ness::BLEND_MODE_BLEND, m_light_node->get_ambient_color(), transformations.rotation, m_anchor);
 
 	// get some params we need: list of lights in screen, factor, and absolute position
-	Ness::Vector<Ness::LightPtr> lights;
+	Ness::Containers::Vector<Ness::LightPtr> lights;
 	m_light_node->get_lights_in_screen(lights, m_last_camera);
 	const float VectorFactor = 1.75f;
 

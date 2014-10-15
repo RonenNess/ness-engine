@@ -50,7 +50,7 @@ int _tmain(int argc, _TCHAR* argv[])
 	player->set_position((Ness::Point)(renderer.get_screen_size()) * Ness::Point(0.5f, 0.9f));
 
 	// create meteors list
-	Ness::List<Ness::SpritePtr> meteors;
+	Ness::Containers::List<Ness::SpritePtr> meteors;
 
 	// create player animator
 	Ness::Animators::AnimatorSpritePtr playerAnim = ness_make_ptr<Ness::Animators::AnimatorSprite>
