@@ -141,7 +141,9 @@ namespace Ness
 	void BaseNode::set_render_target(const CanvasPtr& NewTarget) 
 	{
 		if (NewTarget->parent() == this)
+		{
 			throw IllegalAction("Cannot set node render target that is a direct son of the node!");
+		}
 		m_render_target = NewTarget->get_texture();
 	}
 

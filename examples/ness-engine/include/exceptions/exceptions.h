@@ -131,5 +131,21 @@ namespace Ness
 		~IllegalAction() throw() {};
 		const char *what() const throw() { return m_full_string.c_str(); };
 	};
+
+	// raised when something unexpected happens
+	class UnexpectedError : public std::exception {
+	  private:
+		String m_reason;
+		String m_full_string;
+
+	  public:
+		UnexpectedError(const char* reason = "unknown") : m_reason(reason) 
+		{
+			m_full_string = (String("Unexpected error: '") + m_reason);
+			NESS_ERROR(what());
+		}
+		~UnexpectedError() throw() {};
+		const char *what() const throw() { return m_full_string.c_str(); };
+	};
 	
 }
