@@ -97,6 +97,7 @@ namespace Ness
 			NESSENGINE_API inline void reset()
 			{
 				m_currStep = (float)m_starting;
+				set_source_rect();
 			}
 
 			// change animation + reset
@@ -106,6 +107,7 @@ namespace Ness
 				m_starting = startingStep;
 				m_speed = AnimationSpeed;
 				m_currStep = (float)m_starting;
+				set_source_rect();
 			}
 
 			// change animation + reset
@@ -115,14 +117,20 @@ namespace Ness
 				m_starting = startingStep.x + (startingStep.y * m_spritesheet_total_steps.x);
 				m_speed = AnimationSpeed;
 				m_currStep = (float)m_starting;
+				set_source_rect();
 			}
 
-			NESSENGINE_API virtual void do_animation(Renderer* renderer)
+			NESSENGINE_API inline void set_source_rect()
 			{
 				Pointi currStep;
 				currStep.x = (int)m_currStep % m_spritesheet_total_steps.x;
 				currStep.y = (int)(m_currStep / m_spritesheet_total_steps.x);
 				m_sprite->set_source_from_sprite_sheet(currStep, m_spritesheet_total_steps);
+			}
+
+			NESSENGINE_API virtual void do_animation(Renderer* renderer)
+			{
+				set_source_rect();
 				m_currStep += renderer->time_factor() * m_speed;
 
 				if ((unsigned int)m_currStep >= m_starting + m_count)

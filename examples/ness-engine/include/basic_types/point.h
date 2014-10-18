@@ -181,10 +181,6 @@ namespace Ness
 		// static function: create point from angle
 		NESSENGINE_API static __Point<type> from_angle(float angle, float velocity = 1.0f) 
 		{
-			return __Point<type>::from_angle((int)angle, velocity);
-		}
-		NESSENGINE_API static __Point<type> from_angle(int angle, float velocity = 1.0f) 
-		{
 			__Point<type> ret;
 			ret.x = (type)(cos(DEGREE_TO_RADIAN(angle)) * velocity);
 			ret.y = (type)(sin(DEGREE_TO_RADIAN(angle)) * velocity);
