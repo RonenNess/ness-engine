@@ -30,6 +30,7 @@
 #include "../exports.h"
 #include "../basic_types/containers.h"
 #include "managed_texture.h"
+#include "managed_mask_texture.h"
 #include "managed_font.h"
 
 namespace Ness
@@ -47,6 +48,13 @@ namespace Ness
 			ManagedTexture* texture;
 		};
 
+		// Mask Texture as it stored in the resources manager with reference count
+		struct __SMaskTextureInManager
+		{
+			unsigned int		ref_count;
+			ManagedMaskTexture* texture;
+		};
+
 		// Font as it stored in the resources manager with reference count
 		struct __SFontInManager
 		{
@@ -62,6 +70,7 @@ namespace Ness
 		{
 		private:
 			Containers::UnorderedMap<String, __STextureInManager>		m_textures;			// map that holds all loaded textures
+			Containers::UnorderedMap<String, __SMaskTextureInManager>	m_mask_textures;	// map that holds all loaded mask textures
 			Containers::UnorderedMap<String, __SFontInManager>			m_fonts;			// map that holds all loaded fonts
 			String														m_base_path;		// basic path to search resources under
 			Colorb														m_color_key;		// transparency color key
@@ -79,6 +88,9 @@ namespace Ness
 
 			// get/load a texture
 			NESSENGINE_API ManagedTexturePtr get_texture(const String& textureName);
+
+			// get/load a masked texture
+			NESSENGINE_API ManagedMaskTexturePtr get_mask_texture(const String& textureName);
 
 			// get/load a font
 			NESSENGINE_API ManagedFontPtr get_font(const String& fontName, int fontSize = 12);
@@ -102,6 +114,10 @@ namespace Ness
 
 			// set basic path to search for resources under
 			NESSENGINE_API inline void set_resources_path(const String& path) {m_base_path = path;}
+
+			// when a mask texture is removed (no longer referenced and deleted), it calls this function to be removed from the textures map as well
+			// DONT USE THIS ON YOUR OWN, it supposed to happen automatically when texture has no more references.
+			void __delete_mask_texture(const String& textureName);
 
 			// when a texture is removed (no longer referenced and deleted), it calls this function to be removed from the textures map as well
 			// DONT USE THIS ON YOUR OWN, it supposed to happen automatically when texture has no more references.

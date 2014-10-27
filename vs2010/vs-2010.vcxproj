@@ -36,6 +36,7 @@
     <ClCompile Include="..\source\NessEngine\renderable\renderable_api.cpp" />
     <ClCompile Include="..\source\NessEngine\renderer\renderer.cpp" />
     <ClCompile Include="..\source\NessEngine\resources\font.cpp" />
+    <ClCompile Include="..\source\NessEngine\resources\MaskTextureSheet.cpp" />
     <ClCompile Include="..\source\NessEngine\resources\TextureSheet.cpp" />
     <ClCompile Include="..\source\NessEngine\scene\camera.cpp" />
     <ClCompile Include="..\source\NessEngine\scene\scene.cpp" />
@@ -70,6 +71,7 @@
     <ClInclude Include="..\source\NessEngine\exceptions\log.h" />
     <ClInclude Include="..\source\NessEngine\exports.h" />
     <ClInclude Include="..\source\NessEngine\managed_resources\managed_font.h" />
+    <ClInclude Include="..\source\NessEngine\managed_resources\managed_mask_texture.h" />
     <ClInclude Include="..\source\NessEngine\managed_resources\managed_resource.h" />
     <ClInclude Include="..\source\NessEngine\managed_resources\managed_texture.h" />
     <ClInclude Include="..\source\NessEngine\managed_resources\resources_manager.h" />
@@ -99,6 +101,7 @@
     <ClInclude Include="..\source\NessEngine\renderable\transformations.h" />
     <ClInclude Include="..\source\NessEngine\renderer\renderer.h" />
     <ClInclude Include="..\source\NessEngine\resources\font.h" />
+    <ClInclude Include="..\source\NessEngine\resources\MaskTextureSheet.h" />
     <ClInclude Include="..\source\NessEngine\resources\TextureSheet.h" />
     <ClInclude Include="..\source\NessEngine\scene\camera.h" />
     <ClInclude Include="..\source\NessEngine\scene\scene.h" />

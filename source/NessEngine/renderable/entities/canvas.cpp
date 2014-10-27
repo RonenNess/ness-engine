@@ -46,8 +46,29 @@ namespace Ness
 		}
 	}
 
+	void Canvas::set_mask(const String& textureFile)
+	{
+		m_mask = m_renderer->resources().get_mask_texture(textureFile);
+	}
+
 	void Canvas::render(const CameraPtr& camera)
 	{
+		// if have mask:
+		if (m_mask)
+		{
+			// first render the white silhouette of the mask on the target
+			m_renderer->blit(m_mask->invert_texture(), &m_source_rect, m_target_rect, BLEND_MODE_ADD, m_absolute_transformations.color, m_absolute_transformations.rotation, m_anchor);
+
+			// now render the white background from the mask original texture on the canvas
+			m_renderer->push_render_target(m_texture);
+			Rectangle target_rect(0, 0, m_texture->get_size().x, m_texture->get_size().y);
+			m_renderer->blit(m_mask->texture(), nullptr, target_rect, BLEND_MODE_ADD, Color::WHITE, 0);
+			m_renderer->pop_render_target();
+
+			// force blend mode to be modulate before rendering the canvas itself
+			m_absolute_transformations.blend = BLEND_MODE_MOD;
+		}
+
 		// call the basic sprite render function
 		Sprite::render(camera);
 

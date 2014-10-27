@@ -35,6 +35,12 @@ namespace Ness
 			texture->rc_mng_manager->__delete_texture(texture->rc_mng_name);
 		}
 
+		// function to call when a mask texture shared ptr deletes
+		void MaskTextureResourceDeleter(ManagedMaskTexture* texture)
+		{
+			texture->rc_mng_manager->__delete_mask_texture(texture->rc_mng_name);
+		}
+
 		// function to call when a font shared ptr deletes
 		void FontResourceDeleter(ManagedFont* font)
 		{
@@ -54,6 +60,23 @@ namespace Ness
 				NESS_LOG(("rc_manager: delete no longer used texture: " + textureName).c_str());
 				ManagedTexture* text = m_textures[textureName].texture;
 				m_textures.erase(textureName);
+				delete text;
+			}
+		}
+
+		void ResourcesManager::__delete_mask_texture(const String& textureName)
+		{
+			// if already destroyed skip
+			if (m_destroyed)
+				return;
+
+			// decrease ref count by 1, and if no more refs delete the resource
+			m_mask_textures[textureName].ref_count--;
+			if (m_mask_textures[textureName].ref_count == 0)
+			{
+				NESS_LOG(("rc_manager: delete no longer used mask texture: " + textureName).c_str());
+				ManagedMaskTexture* text = m_mask_textures[textureName].texture;
+				m_mask_textures.erase(textureName);
 				delete text;
 			}
 		}
@@ -97,6 +120,30 @@ namespace Ness
 			// return the texture
 			m_textures[textureName].ref_count++;
 			return ManagedTexturePtr(m_textures[textureName].texture, TextureResourceDeleter);
+		}
+
+		ManagedMaskTexturePtr ResourcesManager::get_mask_texture(const String& textureName)
+		{
+			// make sure not destroyed
+			if (m_destroyed)
+			{
+				throw IllegalAction("Tried to get mask texture but the reousrces manager is already destroyed!");
+			}
+
+			// if not loaded, load it
+			if (m_mask_textures.find(textureName) == m_mask_textures.end())
+			{
+				NESS_LOG(("rc_manager: load mask texture: " + textureName).c_str());
+				__SMaskTextureInManager& NewEntry = m_mask_textures[textureName];
+				NewEntry.texture = new ManagedMaskTexture(m_base_path + textureName, m_renderer->__sdl_renderer());
+				NewEntry.texture->rc_mng_manager = this;
+				NewEntry.texture->rc_mng_name = textureName;
+				NewEntry.ref_count = 0;
+			}
+
+			// return the texture
+			m_mask_textures[textureName].ref_count++;
+			return ManagedMaskTexturePtr(m_mask_textures[textureName].texture, MaskTextureResourceDeleter);
 		}
 
 		NESSENGINE_API ManagedFontPtr ResourcesManager::get_font(const String& fontName, int fontSize)

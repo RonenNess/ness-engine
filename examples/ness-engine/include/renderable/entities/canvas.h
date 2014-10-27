@@ -28,6 +28,7 @@
 
 #pragma once
 #include "sprite.h"
+#include "../../managed_resources/managed_mask_texture.h"
 
 namespace Ness
 {
@@ -39,9 +40,10 @@ namespace Ness
 	class Canvas : public Sprite
 	{
 	private:
-		bool				m_auto_clear;			// should we clear the canvas texture after every render automatically?
-		unsigned int		m_last_clear_time;		// last time we cleaned the canvas texture
-		Color				m_clean_color;			// color to clean canvas texture to
+		bool										m_auto_clear;			// should we clear the canvas texture after every render automatically?
+		unsigned int								m_last_clear_time;		// last time we cleaned the canvas texture
+		Color										m_clean_color;			// color to clean canvas texture to
+		ManagedResources::ManagedMaskTexturePtr		m_mask;					// optional mask texture to apply on this canvas
 	public:
 
 		// create the canvas.
@@ -61,6 +63,14 @@ namespace Ness
 
 		// render the canvas
 		NESSENGINE_API virtual void render(const CameraPtr& camera = NullCamera);
+
+		// set/remove mask texture
+		// mask is a texture file with black silhouette and white background. when setting a mask to a canvas
+		// no matter what you render on the canvas the parts that are white in the mask will remain invisible.
+		// this allows you to create a "shape" to the canvas.
+		// NOTE! when mask is applied canvas does not support blending modes - the mask replace the blending operations.
+		NESSENGINE_API void set_mask(const String& textureFile);
+		NESSENGINE_API inline void remove_mask() {m_mask.reset();}
 	};
 
 	typedef SharedPtr<Canvas> CanvasPtr;
