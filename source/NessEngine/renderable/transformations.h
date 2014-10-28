@@ -60,7 +60,7 @@ namespace Ness
 		// combine other transformations into this transformations
 		NESSENGINE_API void add_transformations(const SRenderTransformations& parent)
 		{
-			position += (position * parent.scale) + parent.position;
+			position = (position * parent.scale) + parent.position;
 			scale *= parent.scale;
 			rotation += parent.rotation;
 			if ((int)parent.blend > (int)blend) blend = parent.blend;

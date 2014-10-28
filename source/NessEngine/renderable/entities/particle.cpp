@@ -53,7 +53,7 @@ namespace Ness
 		// if not moving with node need to disable parent position
 		if (m_move_with_node == false)
 		{
-			m_absolute_transformations.position -= m_parent->get_absolute_position();
+			m_absolute_transformations.position = get_position() * m_parent->get_absolute_transformations().scale;
 		}
 
 		// no longer need transformation update
