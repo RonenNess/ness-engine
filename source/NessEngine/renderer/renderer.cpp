@@ -301,8 +301,8 @@ namespace Ness
 
 			// set rotation anchor
 			SDL_Point center;
-			center.x = (int)(rotation_anchor.x * target.w);
-			center.y = (int)(rotation_anchor.y * target.h);
+			center.x = (int)floor(rotation_anchor.x * target.w);
+			center.y = (int)floor(rotation_anchor.y * target.h);
 
 			// render with full settings!
 			SDL_RenderCopyEx(m_renderer, texture, SrcRect, &target, rotation, &center, (SDL_RendererFlip)flip);

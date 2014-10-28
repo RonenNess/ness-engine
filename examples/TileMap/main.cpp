@@ -55,9 +55,10 @@ int _tmain(int argc, _TCHAR* argv[])
 	Ness::Pointi SelectedTileType(0, 0);
 
 	// create instructions text
-	Ness::TextPtr instructions = scene->create_text("../ness-engine/resources/fonts/courier.ttf", 
-		"use arrows to move. pick tile type from the left bar and click anywhere to set.", 16);
-	instructions->set_position(Ness::Point(0.0f, (float)render.get_screen_size().y));
+	Ness::MultiTextPtr instructions = scene->create_multitext("../ness-engine/resources/fonts/courier.ttf", 
+		"use arrows or wasd to move around the map.\npick tile type from the left bar & click anywhere to set.\nz to zoom-in, x to zoom-out, c to reset zoom.", 18);
+	instructions->set_static(true);
+	instructions->set_position(Ness::Point(0.0f, (float)render.get_screen_size().y - 50));
 	instructions->set_anchor(Ness::Point(0.0f, 1.0f));
 
 	// create a camera
@@ -73,6 +74,9 @@ int _tmain(int argc, _TCHAR* argv[])
 	EventsPoller.add_handler(keyboard);
 	EventsPoller.add_handler(app);
 
+	// current zoomin
+	float zoom = 1.0f;
+
 	// show logo screen
 	Ness::Utils::make_logo_screen(scene, "../ness-engine/resources/gfx/logo.png");
 
@@ -86,21 +90,36 @@ int _tmain(int argc, _TCHAR* argv[])
 		render.start_frame();
 
 		// do keyboard control
-		if (keyboard.key_state(SDLK_DOWN))
+		if (keyboard.key_state(SDLK_DOWN) || keyboard.key_state(SDLK_s))
 		{
 			camera->position.y += render.time_factor() * CameraSpeed;
 		}
-		if (keyboard.key_state(SDLK_UP))
+		if (keyboard.key_state(SDLK_UP) || keyboard.key_state(SDLK_w))
 		{
 			camera->position.y -= render.time_factor() * CameraSpeed;
 		}
-		if (keyboard.key_state(SDLK_LEFT))
+		if (keyboard.key_state(SDLK_LEFT) || keyboard.key_state(SDLK_a))
 		{
 			camera->position.x -= render.time_factor() * CameraSpeed;
 		}
-		if (keyboard.key_state(SDLK_RIGHT))
+		if (keyboard.key_state(SDLK_RIGHT) || keyboard.key_state(SDLK_d))
 		{
 			camera->position.x += render.time_factor() * CameraSpeed;
+		}
+		if (keyboard.key_state(SDLK_z))
+		{
+			zoom += 0.005f;
+			map->set_scale(zoom);
+		}
+		if (keyboard.key_state(SDLK_x))
+		{
+			zoom -= 0.005f;
+			map->set_scale(zoom);
+		}
+		if (keyboard.key_state(SDLK_c))
+		{
+			zoom = 1.0f;
+			map->set_scale(zoom);
 		}
 
 		// pick the tile we currently point on with the mouse
@@ -109,7 +128,8 @@ int _tmain(int argc, _TCHAR* argv[])
 		// if a tile is picked set the visual on it
 		if (tile)
 		{
-			selectedTile->set_position(tile->get_position());
+			selectedTile->set_position(tile->get_absolute_position());
+			selectedTile->set_scale(zoom);
 			selectedTile->set_visible(true);
 		}
 		else

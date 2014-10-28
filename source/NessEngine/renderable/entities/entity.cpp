@@ -80,10 +80,10 @@ namespace Ness
 
 	void Entity::calc_target_rect()
 	{
-		m_target_rect.w = (int)(m_size.x * m_absolute_transformations.scale.x);
-		m_target_rect.h = (int)(m_size.y * m_absolute_transformations.scale.y);
-		m_target_rect.x = (int)((m_absolute_transformations.position.x) - (abs(m_target_rect.w) * m_anchor.x));
-		m_target_rect.y = (int)((m_absolute_transformations.position.y) - (abs(m_target_rect.h) * m_anchor.y));
+		m_target_rect.w = (int)ceil(m_size.x * m_absolute_transformations.scale.x);
+		m_target_rect.h = (int)ceil(m_size.y * m_absolute_transformations.scale.y);
+		m_target_rect.x = (int)floor((m_absolute_transformations.position.x) - (abs(m_target_rect.w) * m_anchor.x));
+		m_target_rect.y = (int)floor((m_absolute_transformations.position.y) - (abs(m_target_rect.h) * m_anchor.y));
 	}
 
 

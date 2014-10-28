@@ -58,14 +58,14 @@ namespace Ness
 		}
 
 		// combine other transformations into this transformations
-		NESSENGINE_API void add_transformations(const SRenderTransformations& other)
+		NESSENGINE_API void add_transformations(const SRenderTransformations& parent)
 		{
-			position += other.position;
-			scale *= other.scale;
-			rotation += other.rotation;
-			if ((int)other.blend > (int)blend) blend = other.blend;
-			color *= other.color;
-			zorder += other.zorder;
+			position += (position * parent.scale) + parent.position;
+			scale *= parent.scale;
+			rotation += parent.rotation;
+			if ((int)parent.blend > (int)blend) blend = parent.blend;
+			color *= parent.color;
+			zorder += parent.zorder;
 		}
 	};
 };

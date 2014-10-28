@@ -118,22 +118,26 @@ namespace Ness
 
 	int NodesMap::get_first_tile_in_screen_x(const Ness::Point& cameraPos)
 	{
-		return cameraPos.x < 0 ? (int)(((-cameraPos.x - m_node_size.x) / m_nodes_distance.x)) - m_extra_tiles_factor.x : 0;
+		float scale = get_absolute_transformations().scale.x;
+		return cameraPos.x < 0 ? (int)(((-cameraPos.x - (m_node_size.x * scale)) / (m_nodes_distance.x * scale))) - m_extra_tiles_factor.x : 0;
 	}
 
 	int NodesMap::get_first_tile_in_screen_y(const Ness::Point& cameraPos)
 	{
-		return cameraPos.y < 0 ? (int)(((-cameraPos.y - m_node_size.y) / m_nodes_distance.y)) - m_extra_tiles_factor.y : 0;
+		float scale = get_absolute_transformations().scale.y;
+		return cameraPos.y < 0 ? (int)(((-cameraPos.y - (m_node_size.y * scale)) / (m_nodes_distance.y * scale))) - m_extra_tiles_factor.y : 0;
 	}
 
 	int NodesMap::get_tiles_in_screen_x()
 	{
-		return (int)((m_renderer->get_target_size().x + m_node_size.x) / m_nodes_distance.x) + 1 + m_extra_tiles_factor.x * 2;
+		float scale = get_absolute_transformations().scale.x;
+		return (int)((m_renderer->get_target_size().x + (m_node_size.x * scale)) / (m_nodes_distance.x * scale)) + 2 + m_extra_tiles_factor.x * 2;
 	}
 
 	int NodesMap::get_tiles_in_screen_y()
 	{
-		return (int)((m_renderer->get_target_size().y + m_node_size.y) / m_nodes_distance.y) + 1 + m_extra_tiles_factor.y * 2;
+		float scale = get_absolute_transformations().scale.y;
+		return (int)((m_renderer->get_target_size().y + (m_node_size.y * scale)) / (m_nodes_distance.y * scale)) + 1 + m_extra_tiles_factor.y * 2;
 	}
 
 	void NodesMap::__get_visible_entities(Containers::Vector<RenderableAPI*>& out_list, const CameraPtr& camera)
@@ -185,8 +189,9 @@ namespace Ness
 	Pointi NodesMap::get_index_from_position(const Point& position)
 	{
 		Pointi index;
-		index.x = (int)((position.x + m_node_size.x * 0.5f) / m_nodes_distance.x);
-		index.y = (int)((position.y + m_node_size.y) / m_nodes_distance.y);
+		Point scale = get_absolute_transformations().scale;
+		index.x = (int)((position.x + (m_node_size.x * scale.x * 0.5f)) / (m_nodes_distance.x * scale.x));
+		index.y = (int)((position.y + (m_node_size.y * scale.y)) / (m_nodes_distance.y * scale.y));
 		return index;
 	}
 
