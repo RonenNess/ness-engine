@@ -48,11 +48,15 @@ namespace Ness
 
 		// calculate this transformations with parent transformations
 		m_absolute_transformations = m_transformations;
-		m_absolute_transformations.add_transformations(m_parent->get_absolute_transformations());
-		
-		// if not moving with node need to disable parent position
-		if (m_move_with_node == false)
+		const SRenderTransformations& parentTrans = m_parent->get_absolute_transformations();
+
+		if (m_move_with_node)
 		{
+			m_absolute_transformations.add_transformations(parentTrans);
+		}
+		else
+		{
+			m_absolute_transformations.add_transformations_without_position(parentTrans);
 			m_absolute_transformations.position = get_position() * m_parent->get_absolute_transformations().scale;
 		}
 
