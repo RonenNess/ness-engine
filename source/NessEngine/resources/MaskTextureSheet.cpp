@@ -69,6 +69,13 @@ namespace Ness
 			// now invert the surface pixels and create the inverted texture
 			for (int i = 0; i < loadedSurface->w * loadedSurface->h * loadedSurface->format->BytesPerPixel; i++)
 			{
+				// if has alpha channel and this is the alpha value skip it
+				if ((loadedSurface->format->BytesPerPixel == 4) && ((i + 1) % 4 == 0))
+				{
+					continue;
+				}
+
+				// invert the channel
 				Uint8* currPixel = ((Uint8*)loadedSurface->pixels) + i;
 				*currPixel = ~(*currPixel);	
 			}
