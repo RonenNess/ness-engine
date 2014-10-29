@@ -44,11 +44,11 @@ namespace Ness
 
 	void ParticlesNode::remove_from_parent()
 	{
+		remove_from_animation_queue();
 		if (m_parent)
 		{
 			m_parent->__remove_unsafe(this);
 		}
-		remove_from_animation_queue();
 	}
 	
 	void ParticlesNode::do_animation(Renderer* renderer)
@@ -192,7 +192,9 @@ namespace Ness
 		// check if we don't have too much already
 		int QuotaLimit = (int)m_settings.max_particles_count - (int)get_particles_count();
 		if (QuotaLimit <= 0)
+		{
 			return;
+		}
 
 		// calculate how many particles to emit
 		unsigned int particlesToEmit;

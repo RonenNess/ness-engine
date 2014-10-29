@@ -94,8 +94,8 @@ namespace Ness
 	void BaseNode::remove(const RenderablePtr& object)
 	{
 		object->transformations_update();
-		m_entities.erase(std::remove(m_entities.begin(), m_entities.end(), object), m_entities.end());
 		object->__change_parent(nullptr);
+		m_entities.erase(std::remove(m_entities.begin(), m_entities.end(), object), m_entities.end());
 	}
 
 	bool BaseNode::is_really_visible(const CameraPtr& camera)
