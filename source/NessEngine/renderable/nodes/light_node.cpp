@@ -57,6 +57,10 @@ namespace Ness
 
 	void LightNode::add(const RenderablePtr& object)
 	{
+		if (ness_ptr_cast<Light>(object) == nullptr)
+		{
+			throw IllegalAction("Can only add lights to a light node!");
+		}
 		BaseNode::add(object);
 		object->set_blend_mode(BLEND_MODE_ADD);
 		m_need_update = true;
@@ -104,10 +108,7 @@ namespace Ness
 		// stop the loop when looping all objects or once need update is true.
 		for (unsigned int i = 0; ((i < m_entities.size()) && !m_need_update); i++)
 		{
-			if (ness_ptr_cast<Light>(m_entities[i])->need_redraw())
-			{
-				m_need_update = m_entities[i]->is_really_visible(camera);
-			}
+			m_need_update = ness_ptr_cast<Light>(m_entities[i])->need_redraw();
 		}
 		
 		// if got here and don't need update, only render the canvas and return

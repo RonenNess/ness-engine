@@ -63,7 +63,7 @@ namespace Ness
 			// stepsCount - how many steps this animation has (including first step)
 			// animationSpeed - how fast to play this animation
 			// endAction - what to do when animation ends cycle
-			AnimatorSprite(const SpritePtr& target, const Sizei& spritesheet_total_steps, unsigned int startingStep, 
+			NESSENGINE_API AnimatorSprite(const SpritePtr& target, const Sizei& spritesheet_total_steps, unsigned int startingStep, 
 				unsigned int stepsCount, float AnimationSpeed = 1.0f, ESpriteAnimatorEnd endAction = SPRITE_ANIM_END_DO_NOTHING) : 
 				TargetAnimatorAPI(target),
 				m_spritesheet_total_steps(spritesheet_total_steps), 
@@ -79,7 +79,7 @@ namespace Ness
 			// stepsCount - how many steps this animation has (including first step)
 			// animationSpeed - how fast to play this animation
 			// endAction - what to do when animation ends cycle
-			AnimatorSprite(const SpritePtr& target, const Sizei& spritesheet_total_steps, const Sizei& startingStep, 
+			NESSENGINE_API AnimatorSprite(const SpritePtr& target, const Sizei& spritesheet_total_steps, const Sizei& startingStep, 
 				unsigned int stepsCount, float AnimationSpeed = 1.0f, ESpriteAnimatorEnd endAction = SPRITE_ANIM_END_DO_NOTHING) : 
 				TargetAnimatorAPI(target),
 				m_spritesheet_total_steps(spritesheet_total_steps), 
@@ -88,6 +88,10 @@ namespace Ness
 			{
 				reset(startingStep, stepsCount, AnimationSpeed);
 			}
+
+			// set/get animator speed
+			NESSENGINE_API inline void set_speed(float speed) {m_speed = speed;}
+			NESSENGINE_API inline float get_speed() {return m_speed;}
 
 			// return animation starting step
 			NESSENGINE_API inline unsigned int get_starting_step() {return m_starting;}

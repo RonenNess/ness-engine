@@ -51,7 +51,8 @@ namespace Ness
 		// set need transformations update + redraw
 		NESSENGINE_API virtual void transformations_update()
 		{
-			m_need_transformations_update = m_need_redraw = true;
+			m_need_transformations_update = true;
+			m_need_redraw = true;
 		}
 
 		// return if this light needs redraw
@@ -63,7 +64,10 @@ namespace Ness
 		// need to update transformations when changing visible so that the light node will re-render
 		NESSENGINE_API inline void set_visible(bool Visible) 
 		{
-			transformations_update();
+			if (m_visible == Visible)
+				return;
+			m_need_transformations_update = true;
+			m_need_redraw = true;
 			m_visible = Visible;
 		}
 	};

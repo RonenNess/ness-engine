@@ -50,9 +50,9 @@ namespace Ness
 			// target is the renderable to move
 			// MovingSpeed is the speed and direction to move the entity
 			// TimeToMove is for how long to keep the mover running (0.0f for infinite movement)
-			// timeUntilRotate is how long in seconds to wait before starting to rotate
-			AnimatorMover(const RenderablePtr& target, Ness::Point MovingSpeed, float TimeToMove = 1.0f, float timeUntilRotate = 0.0f) 
-				: TargetAnimatorAPI(target),  m_speed(MovingSpeed), m_time_to_move(TimeToMove), m_time_until(timeUntilRotate), m_infinite(TimeToMove == 0.0f)
+			// timeUntilMove is how long in seconds to wait before starting to move
+			AnimatorMover(const RenderablePtr& target, Ness::Point MovingSpeed, float TimeToMove = 1.0f, float timeUntilMove = 0.0f) 
+				: TargetAnimatorAPI(target),  m_speed(MovingSpeed), m_time_to_move(TimeToMove), m_time_until(timeUntilMove), m_infinite(TimeToMove == 0.0f)
 			{
 			}
 
