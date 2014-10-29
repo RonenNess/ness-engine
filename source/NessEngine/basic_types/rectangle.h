@@ -49,6 +49,11 @@ namespace Ness
 			x = X; y = Y; w = W; h = H;
 		}
 
+		Rectangle(float X, float Y, float W, float H)
+		{ 
+			x = (int)X; y = (int)Y; w = (int)W; h = (int)H;
+		}
+
 		Rectangle(const Pointi& pos, const Sizei& size)
 		{ 
 			x = pos.x; y = pos.y; w = size.x; h = size.y;

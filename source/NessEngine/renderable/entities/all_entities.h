@@ -27,3 +27,4 @@
 #include "animated_sprite.h"
 #include "text.h"
 #include "multiline_text.h"
+#include "texture_scroller.h"

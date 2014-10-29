@@ -71,6 +71,13 @@ namespace Ness
 		return NewSprite;
 	}
 
+	TextureScrollerPtr Node::create_texture_scroller(const String& textureName, bool add_immediatly)
+	{
+		TextureScrollerPtr NewSprite = ness_make_ptr<TextureScroller>(this->m_renderer, textureName);
+		if (add_immediatly) add(NewSprite);
+		return NewSprite;
+	}
+
 	AnimatedSpritePtr Node::create_animated_sprite(const String& textureName, bool add_immediatly)
 	{
 		// get the animator queue to add this animated sprite to (either this or the renderer):

@@ -37,6 +37,7 @@ namespace Ness
 	class Canvas;
 	class Text;
 	class MultiText;
+	class TextureScroller;
 	class Node;
 	class ZNode;
 	class StaticNode;
@@ -57,6 +58,7 @@ namespace Ness
 	NESSENGINE_API typedef SharedPtr<Canvas>			CanvasPtr;
 	NESSENGINE_API typedef SharedPtr<Text>				TextPtr;
 	NESSENGINE_API typedef SharedPtr<MultiText>			MultiTextPtr;
+	NESSENGINE_API typedef SharedPtr<TextureScroller>	TextureScrollerPtr;
 	NESSENGINE_API typedef SharedPtr<RectangleShape>	RectangleShapePtr;
 	NESSENGINE_API typedef SharedPtr<TileMap>			TileMapPtr;
 	NESSENGINE_API typedef SharedPtr<NodesMap>			NodesMapPtr;
@@ -77,6 +79,7 @@ namespace Ness
 		NESSENGINE_API virtual LightNodePtr create_light_node(bool add_immediatly=true);
 		NESSENGINE_API virtual RectangleShapePtr create_rectangle(bool add_immediatly=true);
 		NESSENGINE_API virtual SpritePtr create_sprite(const String& textureName, bool add_immediatly=true);
+		NESSENGINE_API virtual TextureScrollerPtr create_texture_scroller(const String& textureName, bool add_immediatly=true);
 		NESSENGINE_API virtual AnimatedSpritePtr create_animated_sprite(const String& textureName, bool add_immediatly=true);
 		NESSENGINE_API virtual ParticlesNodePtr create_particles_node(const Size& EstimatedSize, bool add_immediatly=true);
 		NESSENGINE_API virtual CanvasPtr create_canvas(const String& textureName, const Sizei& size = Sizei::ZERO, bool add_immediatly=true);

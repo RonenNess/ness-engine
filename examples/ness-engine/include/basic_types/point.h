@@ -56,10 +56,12 @@ namespace Ness
 		NESSENGINE_API inline __Point<type>& operator-=(const __Point<type>& other) {x -= other.x; y -= other.y; return *this;}
 		NESSENGINE_API inline __Point<type>& operator*=(const __Point<type>& other) {x *= other.x; y *= other.y; return *this;}
 		NESSENGINE_API inline __Point<type>& operator/=(const __Point<type>& other) {x /= other.x; y /= other.y; return *this;}
+		NESSENGINE_API inline __Point<type>& operator%=(const __Point<type>& other) {x = (type)((int)x % (int)other.x); y = (type)((int)y % (int)other.y); return *this;}
 		NESSENGINE_API inline __Point<type> operator*(const __Point<type>& other) const {return __Point<type>(x * other.x, y * other.y);}
 		NESSENGINE_API inline __Point<type> operator/(const __Point<type>& other) const {return __Point<type>(x / other.x, y / other.y);}
 		NESSENGINE_API inline __Point<type> operator+(const __Point<type>& other) const {return __Point<type>(x + other.x, y + other.y);}
 		NESSENGINE_API inline __Point<type> operator-(const __Point<type>& other) const {return __Point<type>(x - other.x, y - other.y);}
+		NESSENGINE_API inline __Point<type> operator%(const __Point<type>& other) const {return __Point<type>((type)((int)x % (int)other.x), (type)((int)y % (int)other.y));}
 
 		// operators with scalars
 		NESSENGINE_API inline __Point<type> operator-() const {return __Point<type>(-x, -y);}
@@ -67,10 +69,12 @@ namespace Ness
 		NESSENGINE_API inline __Point<type>& operator-=(const type& scalar) {x -= scalar; y -= scalar; return *this;}
 		NESSENGINE_API inline __Point<type>& operator*=(const type& scalar) {x *= scalar; y *= scalar; return *this;}
 		NESSENGINE_API inline __Point<type>& operator/=(const type& scalar) {x /= scalar; y /= scalar; return *this;}
+		NESSENGINE_API inline __Point<type>& operator%=(const type& scalar) {x = (type)((int)x % (int)scalar); y = (type)((int)y % (int)scalar); return *this;}
 		NESSENGINE_API inline __Point<type> operator*(const type& scalar) const {return __Point<type>(x * scalar, y * scalar);}
 		NESSENGINE_API inline __Point<type> operator/(const type& scalar) const {return __Point<type>(x / scalar, y / scalar);}
 		NESSENGINE_API inline __Point<type> operator+(const type& scalar) const {return __Point<type>(x + scalar, y + scalar);}
 		NESSENGINE_API inline __Point<type> operator-(const type& scalar) const {return __Point<type>(x - scalar, y - scalar);}
+		NESSENGINE_API inline __Point<type> operator%(const type& scalar) const {return __Point<type>((type)((int)x % (int)scalar), (type)((int)y % (int)scalar));}
 
 		// casting
 		NESSENGINE_API inline operator __Point<float>() const	 {return __Point<float>((float)x, (float)y);}
