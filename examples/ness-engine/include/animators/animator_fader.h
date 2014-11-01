@@ -110,7 +110,7 @@ namespace Ness
 				{
 					m_target->set_opacity(0.0f);
 					this->remove_from_animation_queue();
-					if (m_remove_when_done)
+					if (m_remove_when_done && m_target->parent())
 					{
 						m_target->parent()->remove(m_target);
 					}
