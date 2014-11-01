@@ -232,7 +232,7 @@ namespace Ness
 			{
 				if (NewParticle->get_move_with_node() == false)
 				{
-					NewParticle->add_position(get_position());
+					NewParticle->add_position(get_absolute_position());
 				}
 				add(NewParticle);
 				m_total_particles_generated += 1;
