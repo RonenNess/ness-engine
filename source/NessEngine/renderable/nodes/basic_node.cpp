@@ -165,6 +165,16 @@ namespace Ness
 		}
 	}
 
+	RenderablePtr BaseNode::get_son(const String& name)
+	{
+		for (unsigned int i = 0; i < m_entities.size(); i++)
+		{
+			if (m_entities[i]->get_name() == name)
+				return m_entities[i];
+		}
+		return RenderablePtr();
+	}
+
 	void BaseNode::render(const CameraPtr& camera)
 	{
 		// if invisible skip

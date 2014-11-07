@@ -1,0 +1,68 @@
+<!--- Don't mess with this line! --->{{Unreviewed|date={{subst:CURRENTMONTHNAME}} {{subst:CURRENTYEAR}}}}
+<!--- Write your article below this line --->
+{{Infobox Software
+| name = Ness-Engine
+| logo = 
+| screenshot = 
+| caption = 
+| developer = Ronen Ness
+| latest_release_version = '''1.4.3'''
+| latest_release_date = November 01, 2014
+| latest_preview_version = 
+| latest_preview_date =
+| operating_system = [[Cross-platform]]
+| genre = [[Video game]]
+| license = [[zlib License|zlib]]
+| website = [http://www.ness-engine.com/|ness-engine.com]
+}}
+
+
+'''Ness-Engine''' is an [[open source]] 2D rendering engine written in [[C++|C++]] under the [[zlib License|zlib]] license.<ref name="ness-engine.com">http://www.ness-engine.com/</ref> It uses [[Simple DirectMedia Layer|SDL2.0]] for rendering and event handling.
+
+== Design ==
+The engine is primarily designed for an [[object-oriented]] approach to scene rendering; Every renderable object in the engine is either an entity or a scene node arranged in a [[Scene graph]] structure, transformations and other rendering effects are inherited from parent nodes to their sons.
+
+== Languages ==
+The engine is written in [[C++]] and currently have no bindings to other languages.
+
+== Features ==
+
+Ness-Engine provides the following graphic functions:
+* [[Sprite (computer graphics) | Sprites]]:
+** Support scaling, rotation, flipping, alpha blending, mod and additive blending, color tinting and opacity.
+** Render on sprites, masking using external texture.
+** Sprite sheet animation.
+** Extendable sprite class.
+* Rendering utilities:
+** Built-in [[Z-order | z-ordering]].
+** 2D lighting effects.
+** [[Particle system | 2D Particles system]].
+** 2D Camera object with limits and auto-focusing on given target.
+** Built-in [[Tile engine | tile engine]], extendable into [[Isometric graphics in video games and pixel art | Isometric tile engine]].
+** Built-in background scrolling / [[Parallax scrolling | Parallax scrolling]].
+** Rendering targets that allows to render an entire scene or node onto a texture or sprite.
+** Static nodes to render massive amount of static entities with low cost.
+* Text:
+** Built in text object with multi-lines support.
+** Text supports all Sprite transformations and effects.
+** Replaceable fonts, support any ttf format.
+* File Types:
+** Support textures from file types: [[Graphics Interchange Format | GIF]], [[BMP file format | BMP]], [[Portable Network Graphics | PNG]], [[JPEG | JPEG]].
+* Input:
+** Keyboard/mouse input manager.
+* Shapes:
+** Render shapes.
+** filled/outlined. 
+
+==References==
+<references />
+<!--- After listing your sources please cite them using inline citations and place them after the information they cite. Please see http://en.wikipedia.org/wiki/Wikipedia:REFB for instructions on how to add citations. --->
+*
+*
+*
+*
+
+==External links==
+* [http://www.ness-engine.com/ Official website]
+
+<!--- STOP! Be warned that by using this process instead of Articles for Creation, this article is subject to scrutiny. As an article in "mainspace", it will be DELETED if there are problems, not just declined. If you wish to use AfC, please return to the Wizard and continue from there. --->
