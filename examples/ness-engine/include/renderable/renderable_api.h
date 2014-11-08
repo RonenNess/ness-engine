@@ -58,6 +58,7 @@ namespace Ness
 		bool					m_visible;						// should this renderable be displayed or not
 		int						m_flags;						// flags you can set on this renderable for any purpose
 		void*					m_user_data;					// optional user data you can attach to this object
+		String					m_name;							// optional name to assign to this renderable
 
 	public:
 		NESSENGINE_API RenderableAPI(Renderer* renderer) : 
@@ -71,6 +72,10 @@ namespace Ness
 		// enable/disable rendering of this object
 		NESSENGINE_API inline void set_visible(bool Visible) {m_visible = Visible;}
 		NESSENGINE_API inline bool is_visible() const {return m_visible;}
+
+		// set/get this entity name
+		NESSENGINE_API inline void set_name(const String& name) {m_name = name;}
+		NESSENGINE_API inline const String& get_name() const {return m_name;}
 
 		// set/get flags
 		NESSENGINE_API inline int get_flags() const {return m_flags;}

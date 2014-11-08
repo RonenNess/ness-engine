@@ -63,6 +63,10 @@ namespace Ness
 		NESSENGINE_API virtual unsigned int get_sons_count() const {return (unsigned int)m_entities.size();}
 		NESSENGINE_API virtual RenderablePtr get_son(unsigned int index) {return m_entities[index];}
 
+		// get son from name. will return empty ptr if not found.
+		// if there are multiple sons with the same name, will return the first one found.
+		NESSENGINE_API virtual RenderablePtr get_son(const String& name);
+
 		// called whenever transformations are updated
 		NESSENGINE_API virtual void transformations_update();
 

@@ -48,8 +48,11 @@ namespace Ness
 	Sprite::Sprite(Renderer* renderer, const String& TextureFile) : Entity(renderer)
 	{
 		set_defaults();
-		ManagedResources::ManagedTexturePtr texture = m_renderer->resources().get_texture(TextureFile);
-		init_from_texture(texture);
+		if (TextureFile.length() > 0)
+		{
+			ManagedResources::ManagedTexturePtr texture = m_renderer->resources().get_texture(TextureFile);
+			init_from_texture(texture);
+		}
 	}
 
 	void Sprite::set_defaults()
