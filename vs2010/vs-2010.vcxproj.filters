@@ -350,5 +350,8 @@
     <ClInclude Include="..\source\NessEngine\renderable\entities\texture_scroller.h">
       <Filter>Source Files\renderables\entities</Filter>
     </ClInclude>
+    <ClInclude Include="..\source\NessEngine\animators\animator_sprite_character.h">
+      <Filter>Source Files\animators</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>
