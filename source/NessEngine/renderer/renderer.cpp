@@ -31,9 +31,9 @@
 namespace Ness
 {
 	// create the renderer
-	Renderer::Renderer(const char* windowName, const Sizei& screenSize, int windowFlags, int rendererFlags) :
+	Renderer::Renderer(const char* windowName, const Sizei& windowSize, int windowFlags, int rendererFlags) :
 		Animators::AnimatorsQueue(this),
-		m_second_timer(0), m_total_time(0), m_curr_fps_count(0), m_fps(0), m_timefactor(0), m_screen_size(screenSize), 
+		m_second_timer(0), m_total_time(0), m_curr_fps_count(0), m_fps(0), m_timefactor(0), m_screen_size(windowSize), 
 		m_frameid(0), m_background_color(75, 0, 255, 255), m_flags(rendererFlags), m_auto_animate(true)
 	{
 
@@ -59,6 +59,12 @@ namespace Ness
 
 		// to set target size etc..
 		reset_render_target();
+	}
+
+	void Renderer::set_renderer_size(const Ness::Sizei& newSize)
+	{
+		m_screen_size = newSize;
+		SDL_RenderSetLogicalSize(m_renderer, newSize.x, newSize.y);
 	}
 
 	// set the window title

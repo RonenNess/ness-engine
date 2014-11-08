@@ -98,15 +98,21 @@ namespace Ness
 	public:
 		// create the renderer instance!
 		// windowName - name to give to the main application window (and caption)
-		// screenSize - window size, or resolution if in fullscreen mode (if fullscreen and screenSize is 0, will use current resolution)
+		// windowSize - window size, or resolution if in fullscreen mode (if fullscreen and screenSize is 0, will use current resolution)
 		// windowFlags - window creation flags, determine how the window will be created and weather or not it will be fullscreen. check out EWindowsFlags for more information.
 		// rendererFlags - renderer-related flags, determine some of the renderer capabilities. check out ERendererFlags for more information
-		NESSENGINE_API Renderer(const char* windowName, const Sizei& screenSize, 
-			int windowFlags = SDL_WINDOW_SHOWN | SDL_WINDOW_OPENGL, 
+		NESSENGINE_API Renderer(const char* windowName, const Sizei& windowSize,
+			int windowFlags = WINDOW_FLAG_SHOWN | WINDOW_FLAG_OPENGL, 
 			int rendererFlags = RENDERER_FLAG_ACCELERATED | RENDERER_FLAG_LIGHTING_NODE);
 
 		// delete the renderer
 		NESSENGINE_API ~Renderer();
+
+		// set the logical size of the renderer
+		// for example if you have full resolution of 1600x1200 and renderer size of 640x480, it will automatically scale the
+		// rendering to be 640x480-like resolution while really working on 1600x1200 resolution.
+		// this is useful if your game is in pixel art and you want low resolution - use this!
+		NESSENGINE_API void set_renderer_size(const Ness::Sizei& newSize);
 
 		// return the init flags
 		NESSENGINE_API inline int get_flags() const {return m_flags;}
