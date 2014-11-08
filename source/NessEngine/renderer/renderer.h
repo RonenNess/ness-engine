@@ -37,7 +37,7 @@
 
 namespace Ness
 {
-	// all possible renderer flags
+	// all possible renderer flags (flags about what the rendering device will support)
 	// this just wraps SDL original flags, so the user won't be confused by mixing names
 	enum ERendererFlags
 	{
@@ -46,6 +46,26 @@ namespace Ness
 		RENDERER_FLAG_VSYNC = SDL_RENDERER_PRESENTVSYNC,
 		RENDERER_FLAG_TARGET_TEXTURE = SDL_RENDERER_TARGETTEXTURE,
 		RENDERER_FLAG_LIGHTING_NODE = SDL_RENDERER_TARGETTEXTURE,
+	};
+
+	// all possible window creation flags (flags about creating the window)
+	// this just wraps SDL original flags, so the user won't be confused by mixing names
+	enum EWindowsFlags
+	{
+		WINDOW_FLAG_FULLSCREEN = SDL_WINDOW_FULLSCREEN,
+		WINDOW_FLAG_OPENGL = SDL_WINDOW_OPENGL,
+		WINDOW_FLAG_SHOWN = SDL_WINDOW_SHOWN,
+		WINDOW_FLAG_HIDDEN = SDL_WINDOW_HIDDEN,
+		WINDOW_FLAG_BORDERLESS = SDL_WINDOW_BORDERLESS,
+		WINDOW_FLAG_RESIZABLE = SDL_WINDOW_RESIZABLE,
+		WINDOW_FLAG_MINIMIZED = SDL_WINDOW_MINIMIZED,
+		WINDOW_FLAG_MAXIMIZED = SDL_WINDOW_MAXIMIZED,
+		WINDOW_FLAG_INPUT_GRABBED = SDL_WINDOW_INPUT_GRABBED,
+		WINDOW_FLAG_INPUT_FOCUS = SDL_WINDOW_INPUT_FOCUS,
+		WINDOW_FLAG_MOUSE_FOCUS = SDL_WINDOW_MOUSE_FOCUS,
+		WINDOW_FLAG_FULLSCREEN_DESKTOP = SDL_WINDOW_FULLSCREEN_DESKTOP,
+		WINDOW_FLAG_FOREIGN = SDL_WINDOW_FOREIGN,
+		WINDOW_FLAG_ALLOW_HIGHDPI = SDL_WINDOW_ALLOW_HIGHDPI
 	};
 
 	/**
@@ -78,10 +98,12 @@ namespace Ness
 	public:
 		// create the renderer instance!
 		// windowName - name to give to the main application window (and caption)
-		// screenSize - resolution / window size
-		// fullScreen - if true will run ness-engine at fullscreen mode
-		// rendererFlags - creation flags. check out ERendererFlags for more information
-		NESSENGINE_API Renderer(const char* windowName, const Sizei& screenSize, bool fullScreen = false, int rendererFlags = RENDERER_FLAG_ACCELERATED | RENDERER_FLAG_LIGHTING_NODE);
+		// screenSize - window size, or resolution if in fullscreen mode (if fullscreen and screenSize is 0, will use current resolution)
+		// windowFlags - window creation flags, determine how the window will be created and weather or not it will be fullscreen. check out EWindowsFlags for more information.
+		// rendererFlags - renderer-related flags, determine some of the renderer capabilities. check out ERendererFlags for more information
+		NESSENGINE_API Renderer(const char* windowName, const Sizei& screenSize, 
+			int windowFlags = SDL_WINDOW_SHOWN | SDL_WINDOW_OPENGL, 
+			int rendererFlags = RENDERER_FLAG_ACCELERATED | RENDERER_FLAG_LIGHTING_NODE);
 
 		// delete the renderer
 		NESSENGINE_API ~Renderer();
