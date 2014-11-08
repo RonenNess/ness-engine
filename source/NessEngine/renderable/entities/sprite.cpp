@@ -31,17 +31,29 @@ namespace Ness
 	Sprite::Sprite(Renderer* renderer) : Entity(renderer)
 	{
 		set_defaults();
+		set_position(Ness::Point::ZERO);
 	}
 
 	Sprite::Sprite(Renderer* renderer, ManagedResources::ManagedTexturePtr texture) : Entity(renderer)
 	{
 		set_defaults();
-		init_from_texture(texture);
+		set_position(Ness::Point::ZERO);
+		change_texture(texture, true);
 	}
 
-	void Sprite::change_texture(const String& NewTextureFile)
+	void Sprite::change_texture(ManagedResources::ManagedTexturePtr NewTexture, bool resetSizeAndSource)
 	{
-		m_texture = m_renderer->resources().get_texture(NewTextureFile);
+		m_texture = NewTexture;
+		if (resetSizeAndSource)
+		{
+			set_size(Size((float)m_texture->get_size().x, (float)m_texture->get_size().y));
+			reset_source_rect();
+		}
+	}
+
+	void Sprite::change_texture(const String& NewTextureFile, bool resetSizeAndSource)
+	{
+		change_texture(m_renderer->resources().get_texture(NewTextureFile), resetSizeAndSource);
 	}
 
 
@@ -51,7 +63,8 @@ namespace Ness
 		if (TextureFile.length() > 0)
 		{
 			ManagedResources::ManagedTexturePtr texture = m_renderer->resources().get_texture(TextureFile);
-			init_from_texture(texture);
+			set_position(Point(0, 0));
+			change_texture(texture, true);
 		}
 	}
 
@@ -63,14 +76,6 @@ namespace Ness
 			m_transformations.blend = BLEND_MODE_BLEND;
 		}
 		m_anchor = Sprite::Defaults.anchor;
-	}
-
-	void Sprite::init_from_texture(ManagedResources::ManagedTexturePtr texture)
-	{
-		set_size(Size((float)texture->get_size().x, (float)texture->get_size().y));
-		set_position(Point(0, 0));
-		change_texture(texture);
-		reset_source_rect();
 	}
 
 	void Sprite::reset_source_rect()

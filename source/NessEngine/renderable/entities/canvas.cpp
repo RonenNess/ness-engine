@@ -30,7 +30,7 @@ namespace Ness
 	{
 		// create the canvas empty texture and use it
 		ManagedResources::ManagedTexturePtr texture = m_renderer->resources().create_blank_texture(NewTextureName, size);
-		init_from_texture(texture);
+		change_texture(texture, true);
 		m_last_clear_time = m_renderer->get_frameid();
 	}
 
