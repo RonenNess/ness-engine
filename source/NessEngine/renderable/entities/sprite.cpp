@@ -31,13 +31,11 @@ namespace Ness
 	Sprite::Sprite(Renderer* renderer) : Entity(renderer)
 	{
 		set_defaults();
-		set_position(Ness::Point::ZERO);
 	}
 
 	Sprite::Sprite(Renderer* renderer, ManagedResources::ManagedTexturePtr texture) : Entity(renderer)
 	{
 		set_defaults();
-		set_position(Ness::Point::ZERO);
 		change_texture(texture, true);
 	}
 
@@ -63,7 +61,6 @@ namespace Ness
 		if (TextureFile.length() > 0)
 		{
 			ManagedResources::ManagedTexturePtr texture = m_renderer->resources().get_texture(TextureFile);
-			set_position(Point(0, 0));
 			change_texture(texture, true);
 		}
 	}
