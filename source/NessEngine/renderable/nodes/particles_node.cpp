@@ -29,7 +29,8 @@ namespace Ness
 {
 
 	ParticlesNode::ParticlesNode(Renderer* renderer, const Size& BounderiesSize) 
-		: BaseNode(renderer), m_emit_while_not_visible(false), m_bounderies_size(BounderiesSize), m_time_since_last_emit(0.0f), m_is_currently_visible(true)
+		: BaseNode(renderer), m_emit_while_not_visible(false), m_bounderies_size(BounderiesSize), m_time_since_last_emit(0.0f), 
+		m_is_currently_visible(true), m_is_emitting(true)
 	{
 		renderer->__register_animator_unsafe(this);
 	}
@@ -77,6 +78,12 @@ namespace Ness
 			return;
 		}
 
+		// if currently not emitting return
+		if (m_is_emitting == false)
+		{
+			return;
+		}
+
 		// increase time passed since last time we emitted
 		m_time_since_last_emit += renderer->time_factor();
 		m_time_actived += renderer->time_factor();
@@ -84,7 +91,11 @@ namespace Ness
 		// check if its time to emit
 		if (m_time_since_last_emit >= m_settings.emitting_interval)
 		{
-			invoke_emit();
+			// if not visible and not allowed to emit when not visible, skip
+			if (m_is_currently_visible || m_emit_while_not_visible)
+			{
+				invoke_emit();
+			}
 		}
 	}
 
@@ -181,12 +192,6 @@ namespace Ness
 			{
 				return;
 			}
-		}
-
-		// if not visible and not allowed to emit when not visible, skip
-		if ((m_is_currently_visible == false) && (m_emit_while_not_visible == false))
-		{
-			return;
 		}
 
 		// check if we don't have too much already

@@ -23,6 +23,7 @@
 /**
 * Animator that animates sprite from a spritesheet with advanced options.
 * here you can actually define complex animation squences with different speed for every step and play animations by name.
+* NOTE THIS CLASS IS NOT TESTED YET AND MAY NOT WORK!!!! TBD!!!
 * 
 * Author: Ronen Ness
 * Since: 11/1014
@@ -58,6 +59,7 @@ namespace Ness
 		typedef Containers::UnorderedMap<String, SpriteAnimationSequence> AnimatorSpritesheetAnimations;
 
 		// sprite from spritesheet animation
+		// NOTE THIS CLASS IS NOT TESTED YET AND MAY NOT WORK!!!! TBD!!!
 		class AnimatorSpriteCharacter : public TargetAnimatorAPI
 		{
 		private:
