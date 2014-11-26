@@ -84,6 +84,7 @@ namespace Ness
 	{
 	private:
 		SParticlesNodeEmitSettings		m_settings;
+		bool							m_is_emitting;
 		bool							m_emit_while_not_visible;
 		Size							m_bounderies_size;
 		float							m_time_since_last_emit;
@@ -124,6 +125,9 @@ namespace Ness
 
 		// get current emit settings
 		NESSENGINE_API inline const SParticlesNodeEmitSettings& get_emit_settings() const {return m_settings;}
+
+		// pause/unpause emittion
+		NESSENGINE_API inline void pause_emitting(bool DoPause) {m_is_emitting = !DoPause;}
 
 		// restart the particles system (zero counters and time to live)
 		// if RemoveExistingParticles is true, will also remove all existing particles

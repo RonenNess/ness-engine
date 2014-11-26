@@ -45,9 +45,12 @@ namespace Ness
 		type y;
 
 	public:
+
+		// getters
 		NESSENGINE_API inline type get_x() const {return x;}
 		NESSENGINE_API inline type get_y() const {return y;}
 
+		// add to x or y
 		NESSENGINE_API inline void add_x(type val) {x += val;}
 		NESSENGINE_API inline void add_y(type val) {y += val;}
 
@@ -171,10 +174,8 @@ namespace Ness
 			(*this) = __Point<type>::from_angle(this->get_angle() + angle, this->get_length());
 		}
 
-		// ctors
-		NESSENGINE_API inline __Point<type>(type X, type Y) : x(X), y(Y)
-		{}
-		NESSENGINE_API inline __Point<type>()
+		// ctor
+		NESSENGINE_API inline __Point<type>(type X = 0, type Y = 0) : x(X), y(Y)
 		{}
 
 		// const useful points

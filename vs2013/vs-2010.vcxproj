@@ -65,6 +65,7 @@
     <ClInclude Include="..\source\NessEngine\animators\animator_rotator.h" />
     <ClInclude Include="..\source\NessEngine\animators\animator_scaler.h" />
     <ClInclude Include="..\source\NessEngine\animators\animator_sprite.h" />
+    <ClInclude Include="..\source\NessEngine\animators\animator_sprite_character.h" />
     <ClInclude Include="..\source\NessEngine\basic_types\color.h" />
     <ClInclude Include="..\source\NessEngine\basic_types\containers.h" />
     <ClInclude Include="..\source\NessEngine\basic_types\events.h" />
