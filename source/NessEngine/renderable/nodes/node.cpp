@@ -60,7 +60,14 @@ namespace Ness
 	LightNodePtr Node::create_light_node(bool add_immediatly)
 	{
 		LightNodePtr NewNode = ness_make_ptr<LightNode>(this->m_renderer);
-		add(NewNode);
+		if (add_immediatly) add(NewNode);
+		return NewNode;
+	}
+
+	ShadowNodePtr Node::create_shadow_node(bool add_immediatly)
+	{
+		ShadowNodePtr NewNode = ness_make_ptr<ShadowNode>(this->m_renderer);
+		if (add_immediatly) add(NewNode);
 		return NewNode;
 	}
 
