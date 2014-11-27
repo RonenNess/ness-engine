@@ -52,7 +52,7 @@ namespace Ness
 			set_color(color);
 			set_anchor(Point::HALF);
 			set_blend_mode(BLEND_MODE_ADD);
-			m_need_redraw = false;
+			m_need_redraw = true;
 		}
 
 		// set need transformations update + redraw
@@ -103,6 +103,9 @@ namespace Ness
 		// set / get ambient color (ambient == the lighting where there is no light (default is black)
 		NESSENGINE_API inline void set_ambient_color(const Color& color) {m_canvas->set_clean_color(color); m_need_update = true;}
 		NESSENGINE_API inline const Color& get_ambient_color() const {return m_canvas->get_clean_color();}
+
+		// change the light node blending mode effect the way we render everything on the screen (the final marge)
+		NESSENGINE_API virtual void set_blend_mode(EBlendModes NewMode) {m_canvas->set_blend_mode(NewMode);}
 
 		// when the lightnode updates, we need to re-render
 		NESSENGINE_API virtual void transformations_update();

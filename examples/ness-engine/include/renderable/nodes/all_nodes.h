@@ -26,5 +26,6 @@
 #include "tile_map.h"
 #include "nodes_map.h"
 #include "light_node.h"
+#include "shadow_node.h"
 #include "static_node.h"
 #include "particles_node.h"
