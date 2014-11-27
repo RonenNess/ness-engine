@@ -62,7 +62,6 @@ namespace Ness
 			throw IllegalAction("Can only add lights to a light node!");
 		}
 		BaseNode::add(object);
-		object->set_blend_mode(BLEND_MODE_ADD);
 		m_need_update = true;
 	}
 

@@ -30,6 +30,7 @@
     <ClCompile Include="..\source\NessEngine\renderable\nodes\node.cpp" />
     <ClCompile Include="..\source\NessEngine\renderable\nodes\nodes_map.cpp" />
     <ClCompile Include="..\source\NessEngine\renderable\nodes\particles_node.cpp" />
+    <ClCompile Include="..\source\NessEngine\renderable\nodes\shadow_node.cpp" />
     <ClCompile Include="..\source\NessEngine\renderable\nodes\static_node.cpp" />
     <ClCompile Include="..\source\NessEngine\renderable\nodes\tile_map.cpp" />
     <ClCompile Include="..\source\NessEngine\renderable\nodes\znode.cpp" />
@@ -95,6 +96,7 @@
     <ClInclude Include="..\source\NessEngine\renderable\nodes\node.h" />
     <ClInclude Include="..\source\NessEngine\renderable\nodes\nodes_map.h" />
     <ClInclude Include="..\source\NessEngine\renderable\nodes\particles_node.h" />
+    <ClInclude Include="..\source\NessEngine\renderable\nodes\shadow_node.h" />
     <ClInclude Include="..\source\NessEngine\renderable\nodes\static_node.h" />
     <ClInclude Include="..\source\NessEngine\renderable\nodes\tile_map.h" />
     <ClInclude Include="..\source\NessEngine\renderable\nodes\znode.h" />

@@ -33,6 +33,12 @@
 
 namespace Ness
 {
+
+	/*
+	* A Light is a type of sprite useable for the lights node.
+	* its like a regular sprite only with default blending mode of ADDITIVE and with some internal mechanism used by the
+	* lights node. its API is almost the same as the regular sprite API.
+	*/
 	class Light : public Sprite
 	{
 	private:
@@ -45,6 +51,7 @@ namespace Ness
 		{
 			set_color(color);
 			set_anchor(Point::HALF);
+			set_blend_mode(BLEND_MODE_ADD);
 			m_need_redraw = false;
 		}
 
@@ -76,9 +83,9 @@ namespace Ness
 
 	// a special node that creates lighting effects.
 	// how this works:
-	// this node creates a canvas, and fill it with 'ambient light color' (default to black). 
+	// this node creates a canvas the size of the screen, and fill it with the current ambient light color (default to black, change with set_ambient_color()).
 	// every 'light' you add to this node is a sprite rendered with additive effect over the canvas.
-	// when this node is rendered, the canvas is rendered all over the screen with modulus effect (so lights make it less dark).
+	// when this node is rendered, the canvas is rendered all over the screen with additive effect (so the lit areas can only make the screen brighter).
 	// note: the light node has optimization that the canvas is re-rendered only when one of the lights or the lightnode itself changes.
 	// note2: the light node acts like a regular renderable node, with rendering order and even z-value. so make sure to add it last to affect all objects that should be below it.
 	class LightNode : public BaseNode

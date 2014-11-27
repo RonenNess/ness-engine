@@ -156,6 +156,9 @@
     <ClCompile Include="..\source\NessEngine\renderable\entities\texture_scroller.cpp">
       <Filter>Source Files\renderables\entities</Filter>
     </ClCompile>
+    <ClCompile Include="..\source\NessEngine\renderable\nodes\shadow_node.cpp">
+      <Filter>Source Files\renderables\nodes</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\source\NessEngine\NessEngine.h">
@@ -352,6 +355,9 @@
     </ClInclude>
     <ClInclude Include="..\source\NessEngine\animators\animator_sprite_character.h">
       <Filter>Source Files\animators</Filter>
+    </ClInclude>
+    <ClInclude Include="..\source\NessEngine\renderable\nodes\shadow_node.h">
+      <Filter>Source Files\renderables\nodes</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>
