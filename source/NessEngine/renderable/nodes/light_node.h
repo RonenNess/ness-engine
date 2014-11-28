@@ -83,10 +83,11 @@ namespace Ness
 
 	// a special node that creates lighting effects.
 	// how this works:
-	// this node creates a canvas the size of the screen, and fill it with the current ambient light color (default to black, change with set_ambient_color()).
-	// every 'light' you add to this node is a sprite rendered with additive effect over the canvas.
-	// when this node is rendered, the canvas is rendered all over the screen with additive effect (so the lit areas can only make the screen brighter).
-	// note: the light node has optimization that the canvas is re-rendered only when one of the lights or the lightnode itself changes.
+	// 1. this node creates a canvas the size of the screen, and fill it with the current ambient light color (default to black, change with set_ambient_color()).
+	// 2. every 'light' you add to this node is a sprite rendered with additive effect over the canvas, meaning it makes it brighter.
+	// 3. when this node is rendered, the canvas is rendered all over the screen with mod effect, so the dark parts turn darker and lit parts remain the same
+	// 4. if you want to create additive lighting effect (lights that actually make things brighter) use "set_blend_mode(BLEND_MODE_ADD)"
+	// note: the light node has optimization that the canvas is re-rendered only when one of the lights or the lightnode itself changes. it will also redraw when camera moves.
 	// note2: the light node acts like a regular renderable node, with rendering order and even z-value. so make sure to add it last to affect all objects that should be below it.
 	class LightNode : public BaseNode
 	{
@@ -106,6 +107,12 @@ namespace Ness
 
 		// change the light node blending mode effect the way we render everything on the screen (the final marge)
 		NESSENGINE_API virtual void set_blend_mode(EBlendModes NewMode) {m_canvas->set_blend_mode(NewMode);}
+		NESSENGINE_API virtual const EBlendModes get_blend_mode() const {return m_canvas->get_blend_mode();}
+
+		// change the light node color affect the color of the canvas we render (will tilt the entire lighting color)
+		NESSENGINE_API virtual const Color& get_color() const {return m_canvas->get_color();}
+		NESSENGINE_API virtual void set_opacity(float opacity) {m_canvas->set_opacity(opacity);}
+		NESSENGINE_API virtual void set_color(const Color& NewColor) {m_canvas->set_color(NewColor);}
 
 		// when the lightnode updates, we need to re-render
 		NESSENGINE_API virtual void transformations_update();

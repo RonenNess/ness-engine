@@ -47,11 +47,11 @@ namespace Ness
 
 	public:
 		// create the shadow object
-		NESSENGINE_API Shadow(Renderer* renderer, const String& TextureFile, const Color& color = Ness::Color::BLACK) 
+		NESSENGINE_API Shadow(Renderer* renderer, const String& TextureFile, const Color& color = Ness::Color::BLACK * Ness::Color::HALF_INVISIBLE) 
 			: Sprite(renderer, TextureFile) 
 		{
 			set_color(color);
-			set_blend_mode(BLEND_MODE_MOD);
+			set_blend_mode(BLEND_MODE_BLEND);
 			m_need_redraw = true;
 		}
 
@@ -81,12 +81,13 @@ namespace Ness
 
 	NESSENGINE_API typedef SharedPtr<Shadow> ShadowPtr;
 
+	
 	// a special node that creates shadow effects.
 	// how this works:
-	// this node creates a canvas the size of the screen, and fill it with the ambient shadow color (default is white, meaning no shadow color. use set_ambient_shadow() to change)).
-	// every 'shadow' you add to this node is a sprite rendered with modulate effect over the canvas, meaning it makes the canvas darker.
-	// when this node is rendered, the canvas is rendered all over the screen with mod effect, so the shadows make the screen darker.
-	// note: the shadow node has optimization that the canvas is re-rendered only when one of the shadows or the shadownode itself changes.
+	// 1. this node creates a canvas the size of the screen, and fill it with the current ambient shadow color (default to white [no shadow], change with set_ambient_shadow()).
+	// 2. every 'shadow' you add to this node is a sprite rendered with blend effect and default color of black over the canvas, meaning it makes it darker.
+	// 3. when this node is rendered, the canvas is rendered all over the screen with mod effect, so the shadow parts (where there are shadow sprites) turn the screen darker
+	// note: the shadow node has optimization that the canvas is re-rendered only when one of the shadows or the node itself changes. it will also redraw when camera moves.
 	// note2: the shadow node acts like a regular renderable node, with rendering order and even z-value. so make sure to add it last to affect all objects that should be below it.
 	class ShadowNode : public BaseNode
 	{
@@ -100,18 +101,19 @@ namespace Ness
 		// create the znode
 		NESSENGINE_API ShadowNode(Renderer* renderer);
 
-		// set / get ambient color (ambient == the shadow color that will be used on empty areas with no shadows)
+		// set / get ambient color (ambient == the shadow color that will be used on areas with no shadows)
 		NESSENGINE_API inline void set_ambient_shadow(const Color& color) {m_canvas->set_clean_color(color); m_need_update = true;}
 		NESSENGINE_API inline const Color& get_ambient_shadow() const {return m_canvas->get_clean_color();}
 
 		// change the shadow node blending mode effect the way we render everything on the screen (the final marge)
 		NESSENGINE_API virtual void set_blend_mode(EBlendModes NewMode) {m_canvas->set_blend_mode(NewMode);}
+		NESSENGINE_API virtual const EBlendModes get_blend_mode() const {return m_canvas->get_blend_mode();}
 
 		// when the shadownode updates, we need to re-render
 		NESSENGINE_API virtual void transformations_update();
 
 		// create a shadow
-		NESSENGINE_API ShadowPtr create_shadow(const String& shadowTexture, const Color& color = Color::BLACK);
+		NESSENGINE_API ShadowPtr create_shadow(const String& shadowTexture, const Color& color = Ness::Color::BLACK * Ness::Color::HALF_INVISIBLE);
 
 		// return all shadows currently in screen
 		NESSENGINE_API void get_shadows_in_screen(Containers::Vector<ShadowPtr>& out_list, const CameraPtr& camera = NullCamera) const;

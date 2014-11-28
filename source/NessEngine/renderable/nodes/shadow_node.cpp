@@ -34,7 +34,6 @@ namespace Ness
 		static unsigned int uniqueId = 0;
 		m_canvas = ness_make_ptr<Canvas>(this->m_renderer, String("shadow_node_") + ness_to_string((long long)uniqueId));
 		uniqueId++;
-		set_blend_mode(BLEND_MODE_MOD);
 		m_render_target = m_canvas->get_texture();
 		m_canvas->set_auto_clean(false);
 		m_canvas->set_static(true);

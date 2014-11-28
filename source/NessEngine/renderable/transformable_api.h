@@ -57,11 +57,11 @@ namespace Ness
 		NESSENGINE_API virtual void add_rotation(float NewRotation) {m_transformations.rotation += NewRotation; transformations_update();}
 		NESSENGINE_API virtual void multiply_rotation(float NewRotation) {m_transformations.rotation *= NewRotation; transformations_update();}
 		NESSENGINE_API virtual void set_color(const Color& NewColor) {if (NewColor == m_transformations.color) return; m_transformations.color = NewColor; transformations_update();}
-		NESSENGINE_API virtual void add_color(const Color& NewColor) {m_transformations.color += NewColor; transformations_update();}
-		NESSENGINE_API virtual void multiply_color(const Color& NewColor) {m_transformations.color *= NewColor; transformations_update();}
+		NESSENGINE_API virtual void add_color(const Color& NewColor) {set_color(get_color() + NewColor);}
+		NESSENGINE_API virtual void multiply_color(const Color& NewColor) {set_color(get_color() * NewColor);}
 		NESSENGINE_API virtual void set_opacity(float opacity) {if (opacity == m_transformations.color.a) return; m_transformations.color.a = opacity; transformations_update();}
-		NESSENGINE_API virtual void add_opacity(float opacity) {m_transformations.color.a += opacity; transformations_update();}
-		NESSENGINE_API virtual void multiply_opacity(float opacity) {m_transformations.color.a *= opacity; transformations_update();}
+		NESSENGINE_API virtual void add_opacity(float opacity) {set_opacity(get_opacity() + opacity);}
+		NESSENGINE_API virtual void multiply_opacity(float opacity) {set_opacity(get_opacity() * opacity);}
 		NESSENGINE_API virtual void set_blend_mode(EBlendModes NewMode) {if (m_transformations.blend == NewMode) return; m_transformations.blend = NewMode; transformations_update();}
 		NESSENGINE_API virtual void set_zindex(float newZ) {if (m_transformations.zorder == newZ) return; m_transformations.zorder = newZ; transformations_update();}
 		NESSENGINE_API virtual void flip_x() {m_transformations.scale.x *= -1; transformations_update();}
@@ -70,7 +70,7 @@ namespace Ness
 		NESSENGINE_API virtual const Size& get_scale() const {return m_transformations.scale;}
 		NESSENGINE_API virtual const float get_rotation() const {return m_transformations.rotation;}
 		NESSENGINE_API virtual const Color& get_color() const {return m_transformations.color;}
-		NESSENGINE_API virtual const float get_opacity() const {return m_transformations.color.a;}
+		NESSENGINE_API virtual const float get_opacity() const {return get_color().a;}
 		NESSENGINE_API virtual const EBlendModes get_blend_mode() const {return m_transformations.blend;}
 		NESSENGINE_API virtual float get_zindex() const {return m_transformations.zorder;}
 		NESSENGINE_API virtual Ness::Point get_direction_vector() const {return Ness::Point::from_angle(get_rotation());}

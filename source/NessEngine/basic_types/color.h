@@ -116,6 +116,7 @@ namespace Ness
 		NESSENGINE_API static __Color<type> GREEN;
 		NESSENGINE_API static __Color<type> BLUE;
 		NESSENGINE_API static __Color<type> INVISIBLE;
+		NESSENGINE_API static __Color<type> HALF_INVISIBLE;
 
 		// get random color from 0 to 255
 		static NESSENGINE_API __Color<type> get_random_255() {return __Color<type>((type)(rand() % 256), (type)(rand() % 256), (type)(rand() % 256));}
