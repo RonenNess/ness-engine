@@ -29,6 +29,7 @@
 #pragma once
 #include "../exports.h"
 #include "math.h"
+#include <cmath>
 
 namespace Ness
 {
@@ -51,8 +52,8 @@ namespace Ness
 		NESSENGINE_API inline type get_y() const {return y;}
 
 		// add to x or y
-		NESSENGINE_API inline void add_x(type val) {x += val;}
-		NESSENGINE_API inline void add_y(type val) {y += val;}
+		NESSENGINE_API inline __Point<type>& add_x(type val) {x += val; return (*this);}
+		NESSENGINE_API inline __Point<type>& add_y(type val) {y += val; return (*this);}
 
 		// operators with another point
 		NESSENGINE_API inline __Point<type>& operator+=(const __Point<type>& other) {x += other.x; y += other.y; return *this;}
@@ -94,22 +95,33 @@ namespace Ness
 		NESSENGINE_API inline float get_radian() const {return (float)atan2((float)y, (float)x);}
 
 		// put point within limit
-		NESSENGINE_API inline void limit(type min, type max)
+		NESSENGINE_API inline __Point<type>& limit(type min, type max)
 		{
 			limitx(min, max);
 			limity(min, max);
+			return (*this);
 		}
 
-		NESSENGINE_API inline void limitx(type min, type max)
+		// put x value within given limit
+		NESSENGINE_API inline __Point<type>& limitx(type min, type max)
 		{
 			if (x < min) x = min;
 			if (x > max) x = max;
+			return (*this);
 		}
 
-		NESSENGINE_API inline void limity(type min, type max)
+		// put y value within given limit
+		NESSENGINE_API inline __Point<type>& limity(type min, type max)
 		{
 			if (y < min) y = min;
 			if (y > max) y = max;
+			return (*this);
+		}
+
+		// copy/duplicate this point
+		NESSENGINE_API inline __Point<type> copy() const
+		{
+			return *this;
 		}
 
 		// get point copy within limit
@@ -129,7 +141,7 @@ namespace Ness
 		// return normalized point
 		NESSENGINE_API inline __Point<type> get_normalized() const 
 		{
-			type div = abs(x) + abs(y);
+			type div = std::abs(x) + std::abs(y);
 			if (div == 0) return __Point<type>::ZERO;
 			return __Point<type>(x / div, y / div);
 		}
@@ -137,23 +149,25 @@ namespace Ness
 		// return absolute values
 		NESSENGINE_API inline __Point<type> get_abs() const 
 		{
-			return __Point<type>(abs(x), abs(y));
+			return __Point<type>(std::abs(x), std::abs(y));
 		}
 
 		// turn to absolute value
-		NESSENGINE_API inline void make_abs() 
+		NESSENGINE_API inline __Point<type>& abs() 
 		{
-			x = abs(x);
-			y = abs(y);
+			x = std::abs(x);
+			y = std::abs(y);
+			return (*this);
 		}
 
 		// normalize this point
-		NESSENGINE_API inline void normalize()
+		NESSENGINE_API inline __Point<type>& normalize()
 		{
-			type div = abs(x) + abs(y);
-			if (div == 0) return;
+			type div = std::abs(x) + std::abs(y);
+			if (div == 0) return (*this);
 			x /= div; 
 			y /= div;
+			return (*this);
 		}
 
 		// return the length of this vector
@@ -169,14 +183,45 @@ namespace Ness
 		}
 
 		// rotate this vector
-		NESSENGINE_API inline void rotate(float angle)
+		NESSENGINE_API inline __Point<type>& rotate(float angle)
 		{
 			(*this) = __Point<type>::from_angle(this->get_angle() + angle, this->get_length());
+			return (*this);
 		}
 
 		// ctor
 		NESSENGINE_API inline __Point<type>(type X = 0, type Y = 0) : x(X), y(Y)
 		{}
+
+		// floor the values of this point
+		NESSENGINE_API inline __Point<type>& floor()
+		{
+			this->x = (type)std::floor((float)this->x);
+			this->y = (type)std::floor((float)this->y);
+			return (*this);
+		}
+
+		// ceil the values of this point
+		NESSENGINE_API inline __Point<type>& ceil()
+		{
+			this->x = (type)std::ceil((float)this->x);
+			this->y = (type)std::ceil((float)this->y);
+			return (*this);
+		}
+
+		// limit the number of digits after the dot
+		// for example, if the point is (x=2.5232, y=0.2511244) and you call .get_round_by(2),
+		// the return value will be this point: (x=2.52, y=0.25).
+		NESSENGINE_API inline __Point<type> get_round_by(int num_of_zeroes_after_dot = 2)
+		{
+			int factor = (int)pow((double)10.0, num_of_zeroes_after_dot);
+			return (__Point<type>((*this) * (type)factor).floor()) / (type)factor;
+		}
+		NESSENGINE_API inline __Point<type>& round_by(int num_of_zeroes_after_dot = 2)
+		{
+			*this = this->get_round_by(num_of_zeroes_after_dot);
+			return (*this);
+		}
 
 		// const useful points
 		NESSENGINE_API static __Point<type> ZERO;
