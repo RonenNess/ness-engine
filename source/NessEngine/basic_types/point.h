@@ -200,6 +200,10 @@ namespace Ness
 			this->y = (type)std::floor((float)this->y);
 			return (*this);
 		}
+		NESSENGINE_API inline __Point<type> get_floor() const
+		{
+			return __Point<type>((*this)).floor();
+		}
 
 		// ceil the values of this point
 		NESSENGINE_API inline __Point<type>& ceil()
@@ -208,14 +212,19 @@ namespace Ness
 			this->y = (type)std::ceil((float)this->y);
 			return (*this);
 		}
+		NESSENGINE_API inline __Point<type> get_ceil() const
+		{
+			return __Point<type>((*this)).ceil();
+		}
 
-		// limit the number of digits after the dot
+		// limit the number of digits after the decimal point
 		// for example, if the point is (x=2.5232, y=0.2511244) and you call .get_round_by(2),
 		// the return value will be this point: (x=2.52, y=0.25).
-		NESSENGINE_API inline __Point<type> get_round_by(int num_of_zeroes_after_dot = 2)
+		// Note: obviously useable only for types with floating point (float, double...)
+		NESSENGINE_API inline __Point<type> get_round_by(int num_of_zeroes_after_dot = 2) const
 		{
 			int factor = (int)pow((double)10.0, num_of_zeroes_after_dot);
-			return (__Point<type>((*this) * (type)factor).floor()) / (type)factor;
+			return ((__Point<type>((*this) * (type)factor).floor()) / (type)factor);
 		}
 		NESSENGINE_API inline __Point<type>& round_by(int num_of_zeroes_after_dot = 2)
 		{
