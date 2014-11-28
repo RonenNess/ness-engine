@@ -177,8 +177,8 @@ namespace Ness
 
 		ret.x = get_first_tile_in_screen_x(pos);
 		ret.y = get_first_tile_in_screen_y(pos);
-		ret.w = ret.x + get_tiles_in_screen_x() + 1;
-		ret.h = ret.y + get_tiles_in_screen_y() + 2;
+		ret.w = ret.x + get_tiles_in_screen_x();
+		ret.h = ret.y + get_tiles_in_screen_y();
 		
 		put_in_range(ret.x, ret.y);
 		put_in_range(ret.w, ret.h);
