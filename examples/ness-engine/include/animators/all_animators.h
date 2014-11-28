@@ -27,3 +27,4 @@
 #include "animator_scaler.h"
 #include "animator_rotator.h"
 #include "animator_mover.h"
+#include "animator_sprite_character.h"
