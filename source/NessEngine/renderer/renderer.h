@@ -99,6 +99,7 @@ namespace Ness
 		Colorb														m_background_color;			// background clear color
 		const int													m_flags;					// init flags (passed in constructor)
 		bool														m_auto_animate;				// do animations automatically (default to true)
+		bool														m_diff_renderer_size;		// are we using different renderer size? (set_renderer_size)
 
 	public:
 		// create the renderer instance!
@@ -118,6 +119,9 @@ namespace Ness
 		// delete the renderer
 		NESSENGINE_API ~Renderer();
 
+		// update window size (call this if window size changes!)
+		NESSENGINE_API void refresh_window_size();
+
 		// return the multiply factor between the window size and the renderer size.
 		// if you didn't use set_renderer_size() this should always be (1,1)
 		// if you set alternative renderer size this function will return 
@@ -129,6 +133,7 @@ namespace Ness
 		// this is useful if your game is in pixel art and you want low resolution - use this!
 		// IMPORTANT!!!! if you want to use mouse position relative to the renderer size (what you would usually want)
 		// always multiply the mouse position with get_renderer_to_window_ratio();
+		// note: provide ZERO size to cancel renderer size and just use the window size
 		NESSENGINE_API void set_renderer_size(const Ness::Sizei& newSize);
 
 		// return the init flags

@@ -53,8 +53,7 @@ namespace Ness
 		m_resources->set_renderer(this);
 
 		// get the actual window size (if maximized or fullscreen its different then windowSize
-		SDL_GetWindowSize(m_window, &m_window_size.x, &m_window_size.y);
-		m_renderer_size = m_window_size;
+		refresh_window_size();
 
 		// to set target size etc..
 		reset_render_target();
@@ -77,9 +76,8 @@ namespace Ness
 		// create our renderer
 		m_renderer = SDL_CreateRenderer(m_window, -1, rendererFlags);
 
-		// set window and renderer size
-		SDL_GetWindowSize(m_window, &m_window_size.x, &m_window_size.y);
-		m_renderer_size = m_window_size;
+		// get the window size
+		refresh_window_size();
 
 		// give the renderer to the resources manager
 		m_resources->set_renderer(this);
@@ -88,9 +86,18 @@ namespace Ness
 		reset_render_target();
 	}
 
+	// update window size (call this if window size changes!)
+	void Renderer::refresh_window_size()
+	{
+		SDL_GetWindowSize(m_window, &m_window_size.x, &m_window_size.y);
+		if (!m_diff_renderer_size)
+			m_renderer_size = m_window_size;
+	}
+
 	void Renderer::base_init()
 	{
 		// set defaults
+		m_diff_renderer_size = false;
 		m_second_timer = 0;
 		m_total_time = 0;
 		m_curr_fps_count = 0;
@@ -109,8 +116,16 @@ namespace Ness
 
 	void Renderer::set_renderer_size(const Ness::Sizei& newSize)
 	{
-		m_renderer_size = newSize;
-		SDL_RenderSetLogicalSize(m_renderer, newSize.x, newSize.y);
+		if (newSize != Sizei::ZERO)
+		{
+			m_renderer_size = newSize;
+			SDL_RenderSetLogicalSize(m_renderer, newSize.x, newSize.y);
+		}
+		else
+		{
+			m_diff_renderer_size = false;
+			refresh_window_size();
+		}
 	}
 
 	// set the window title
