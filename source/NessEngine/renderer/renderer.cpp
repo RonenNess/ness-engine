@@ -36,9 +36,7 @@ namespace Ness
 		m_renderer_size(windowSize), m_window_size(windowSize), m_frameid(0), m_background_color(75, 0, 255, 255), m_flags(rendererFlags), 
 		m_auto_animate(true)
 	{
-
-		// create resources manager
-		m_resources = new ManagedResources::ResourcesManager();
+		base_init();
 
 		// create window
 		m_window = SDL_CreateWindow( windowName, SDL_WINDOWPOS_UNDEFINED, SDL_WINDOWPOS_UNDEFINED, 
@@ -48,28 +46,65 @@ namespace Ness
 			throw FailedToInitRenderer(SDL_GetError());
 		}
 
-		// set render to texture flag
-		m_can_render_to_texture = ((rendererFlags & RENDERER_FLAG_TARGET_TEXTURE) != 0);
-
 		// create our renderer
 		m_renderer = SDL_CreateRenderer(m_window, -1, rendererFlags);
 
 		// give the renderer to the resources manager
 		m_resources->set_renderer(this);
 
-		// if using desktop fullscreen resolution need to fix the window size definition
-		if (windowFlags & WINDOW_FLAG_FULLSCREEN_DESKTOP)
-		{
-			SDL_DisplayMode current;
-			int ret = SDL_GetCurrentDisplayMode(0, &current);
-			if (ret != 0) throw FailedToInitRenderer("Failed to get main monitor display mode!");
-			m_window_size.x = current.w;
-			m_window_size.y = current.h;
-			m_renderer_size = m_window_size;
-		}
+		// get the actual window size (if maximized or fullscreen its different then windowSize
+		SDL_GetWindowSize(m_window, &m_window_size.x, &m_window_size.y);
+		m_renderer_size = m_window_size;
 
 		// to set target size etc..
 		reset_render_target();
+	}
+
+	// create the renderer from existing window
+	Renderer::Renderer(Uint32 window_id, int rendererFlags) :
+		Animators::AnimatorsQueue(this), m_flags(rendererFlags)
+	{
+
+		base_init();
+
+		// create window
+		m_window = SDL_GetWindowFromID(window_id);
+		if (m_window == nullptr)
+		{
+			throw FailedToInitRenderer(SDL_GetError());
+		}
+
+		// create our renderer
+		m_renderer = SDL_CreateRenderer(m_window, -1, rendererFlags);
+
+		// set window and renderer size
+		SDL_GetWindowSize(m_window, &m_window_size.x, &m_window_size.y);
+		m_renderer_size = m_window_size;
+
+		// give the renderer to the resources manager
+		m_resources->set_renderer(this);
+
+		// to set target size etc..
+		reset_render_target();
+	}
+
+	void Renderer::base_init()
+	{
+		// set defaults
+		m_second_timer = 0;
+		m_total_time = 0;
+		m_curr_fps_count = 0;
+		m_fps = 0;
+		m_timefactor = 0;
+		m_frameid = 0;
+		m_background_color = Ness::Colorb(75, 0, 255, 255);
+		m_auto_animate = true;
+
+		// set render to texture flag
+		m_can_render_to_texture = ((m_flags & RENDERER_FLAG_TARGET_TEXTURE) != 0);
+
+		// create resources manager
+		m_resources = new ManagedResources::ResourcesManager();
 	}
 
 	void Renderer::set_renderer_size(const Ness::Sizei& newSize)

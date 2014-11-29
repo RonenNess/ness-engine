@@ -68,6 +68,10 @@ namespace Ness
 		WINDOW_FLAG_ALLOW_HIGHDPI = SDL_WINDOW_ALLOW_HIGHDPI
 	};
 
+	// default init flags
+	#define DEFAULT_WINDOW_FLAGS (WINDOW_FLAG_SHOWN | WINDOW_FLAG_OPENGL)
+	#define DEFAULT_RENDERER_FLAGS (RENDERER_FLAG_ACCELERATED | RENDERER_FLAG_LIGHTING_NODE)
+
 	/**
 	* our main renderer class! manage all the rendering and frames functionality.
 	* usually you only create 1 renderer class, but you can also create multiple renderers.
@@ -103,8 +107,13 @@ namespace Ness
 		// windowFlags - window creation flags, determine how the window will be created and weather or not it will be fullscreen. check out EWindowsFlags for more information.
 		// rendererFlags - renderer-related flags, determine some of the renderer capabilities. check out ERendererFlags for more information
 		NESSENGINE_API Renderer(const char* windowName, const Sizei& windowSize,
-			int windowFlags = WINDOW_FLAG_SHOWN | WINDOW_FLAG_OPENGL, 
-			int rendererFlags = RENDERER_FLAG_ACCELERATED | RENDERER_FLAG_LIGHTING_NODE);
+			int windowFlags = DEFAULT_WINDOW_FLAGS, 
+			int rendererFlags = DEFAULT_RENDERER_FLAGS);
+
+		// create the renderer instance from an existing window/form!
+		// window_id - the id of the window/form to use
+		// rendererFlags - renderer-related flags, determine some of the renderer capabilities. check out ERendererFlags for more information
+		NESSENGINE_API Renderer(Uint32 id_window, int rendererFlags = DEFAULT_RENDERER_FLAGS);
 
 		// delete the renderer
 		NESSENGINE_API ~Renderer();
@@ -213,6 +222,10 @@ namespace Ness
 		// set/remove the current rendering target. note: this does not effect the rendering targets queue, it only set or reset the current target
 		NESSENGINE_API void set_render_target(const ManagedResources::ManagedTexturePtr& texture);
 		NESSENGINE_API void reset_render_target();
+
+	private:
+		// set some starting default values
+		NESSENGINE_API void base_init();
 
 	};
 };
