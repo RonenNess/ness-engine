@@ -65,6 +65,7 @@ namespace Ness
 			if (ret != 0) throw FailedToInitRenderer("Failed to get main monitor display mode!");
 			m_window_size.x = current.w;
 			m_window_size.y = current.h;
+			m_renderer_size = m_window_size;
 		}
 
 		// to set target size etc..
