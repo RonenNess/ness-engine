@@ -88,6 +88,9 @@ namespace Ness
 			{
 				throw FailedToLoadTextureFile(fileName, IMG_GetError());
 			}
+
+			// set filename
+			m_file_name = fileName;
 		}
 	};
 };

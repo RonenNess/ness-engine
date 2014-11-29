@@ -46,6 +46,7 @@ namespace Ness
 		private:
 			SDL_Texture*	m_texture;
 			Sizei			m_size;
+			String			m_file_name;
 
 		public:
 			// create the texture sheet from file
@@ -54,6 +55,9 @@ namespace Ness
 
 			// create the texture sheet as blank texture you can render on
 			NESSENGINE_API TextureSheet(SDL_Renderer* renderer, const Sizei& size);
+
+			// return texture filename (if not loaded from file will be empty string)
+			NESSENGINE_API inline const String& get_file_name() const {return m_file_name;}
 
 			// destroy the texture
 			NESSENGINE_API ~TextureSheet();

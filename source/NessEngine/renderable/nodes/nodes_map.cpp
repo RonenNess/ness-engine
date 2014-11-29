@@ -137,7 +137,7 @@ namespace Ness
 	int NodesMap::get_tiles_in_screen_y()
 	{
 		float scale = get_absolute_transformations().scale.y;
-		return (int)((m_renderer->get_target_size().y + (m_node_size.y * scale)) / (m_nodes_distance.y * scale)) + 1 + m_extra_tiles_factor.y * 2;
+		return (int)((m_renderer->get_target_size().y + (m_node_size.y * scale)) / (m_nodes_distance.y * scale)) + 2 + m_extra_tiles_factor.y * 2;
 	}
 
 	void NodesMap::__get_visible_entities(Containers::Vector<RenderableAPI*>& out_list, const CameraPtr& camera)
