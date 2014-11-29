@@ -85,7 +85,8 @@ namespace Ness
 		float														m_total_time;				// total time passed (1.0f = second)
 		int															m_curr_fps_count;			// count fps
 		int															m_fps;						// final fps, updates every second
-		Sizei														m_screen_size;				// screen size/ resolution
+		Sizei														m_renderer_size;			// the actual renderer size (and resolution if fullscreen)
+		Sizei														m_window_size;				// the size of the window itself. usually this is the same as m_renderer_size, unless you use set_renderer_size()
 		bool														m_can_render_to_texture;	// does our renderer support render to texture target?
 		ManagedResources::ManagedTexturePtr							m_render_target;			// current texture we render on (or null if we render on screen)
 		Containers::List<ManagedResources::ManagedTexturePtr>		m_render_targets_queue;		// queue of render targets waiting in line
@@ -108,10 +109,17 @@ namespace Ness
 		// delete the renderer
 		NESSENGINE_API ~Renderer();
 
+		// return the multiply factor between the window size and the renderer size.
+		// if you didn't use set_renderer_size() this should always be (1,1)
+		// if you set alternative renderer size this function will return 
+		NESSENGINE_API Ness::Size get_renderer_to_window_ratio() const {return (Ness::Size(m_renderer_size) / Ness::Size(m_window_size));}
+
 		// set the logical size of the renderer
 		// for example if you have full resolution of 1600x1200 and renderer size of 640x480, it will automatically scale the
 		// rendering to be 640x480-like resolution while really working on 1600x1200 resolution.
 		// this is useful if your game is in pixel art and you want low resolution - use this!
+		// IMPORTANT!!!! if you want to use mouse position relative to the renderer size (what you would usually want)
+		// always multiply the mouse position with get_renderer_to_window_ratio();
 		NESSENGINE_API void set_renderer_size(const Ness::Sizei& newSize);
 
 		// return the init flags
@@ -133,7 +141,7 @@ namespace Ness
 		NESSENGINE_API void set_window_title(const String& NewTitle);
 
 		// get target/screen size (we are currently rendering to)
-		NESSENGINE_API const Sizei& get_screen_size() const {return m_screen_size;}
+		NESSENGINE_API const Sizei& get_screen_size() const {return m_renderer_size;}
 		NESSENGINE_API const Sizei& get_target_size() const {return *m_target_size;}
 
 		// get the center of the target/screen you currently render to

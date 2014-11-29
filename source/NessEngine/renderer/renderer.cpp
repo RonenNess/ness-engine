@@ -32,9 +32,9 @@ namespace Ness
 {
 	// create the renderer
 	Renderer::Renderer(const char* windowName, const Sizei& windowSize, int windowFlags, int rendererFlags) :
-		Animators::AnimatorsQueue(this),
-		m_second_timer(0), m_total_time(0), m_curr_fps_count(0), m_fps(0), m_timefactor(0), m_screen_size(windowSize), 
-		m_frameid(0), m_background_color(75, 0, 255, 255), m_flags(rendererFlags), m_auto_animate(true)
+		Animators::AnimatorsQueue(this), m_second_timer(0), m_total_time(0), m_curr_fps_count(0), m_fps(0), m_timefactor(0), 
+		m_renderer_size(windowSize), m_window_size(windowSize), m_frameid(0), m_background_color(75, 0, 255, 255), m_flags(rendererFlags), 
+		m_auto_animate(true)
 	{
 
 		// create resources manager
@@ -42,7 +42,7 @@ namespace Ness
 
 		// create window
 		m_window = SDL_CreateWindow( windowName, SDL_WINDOWPOS_UNDEFINED, SDL_WINDOWPOS_UNDEFINED, 
-									(int)m_screen_size.x, (int)m_screen_size.y, windowFlags);
+									(int)m_renderer_size.x, (int)m_renderer_size.y, windowFlags);
 		if (m_window == nullptr)
 		{
 			throw FailedToInitRenderer(SDL_GetError());
@@ -57,13 +57,23 @@ namespace Ness
 		// give the renderer to the resources manager
 		m_resources->set_renderer(this);
 
+		// if using desktop fullscreen resolution need to fix the window size definition
+		if (windowFlags & WINDOW_FLAG_FULLSCREEN_DESKTOP)
+		{
+			SDL_DisplayMode current;
+			int ret = SDL_GetCurrentDisplayMode(0, &current);
+			if (ret != 0) throw FailedToInitRenderer("Failed to get main monitor display mode!");
+			m_window_size.x = current.w;
+			m_window_size.y = current.h;
+		}
+
 		// to set target size etc..
 		reset_render_target();
 	}
 
 	void Renderer::set_renderer_size(const Ness::Sizei& newSize)
 	{
-		m_screen_size = newSize;
+		m_renderer_size = newSize;
 		SDL_RenderSetLogicalSize(m_renderer, newSize.x, newSize.y);
 	}
 
@@ -82,7 +92,7 @@ namespace Ness
 	// get center of screen
 	Sizei Renderer::get_screen_center() const
 	{
-		return Sizei((int)(m_screen_size.x * 0.5f), (int)(m_screen_size.y * 0.5f));
+		return Sizei((int)(m_renderer_size.x * 0.5f), (int)(m_renderer_size.y * 0.5f));
 	}
 
 	// create the camera object
@@ -187,7 +197,7 @@ namespace Ness
 	{
 		SDL_SetRenderTarget(m_renderer, nullptr); 
 		m_render_target.reset(); 
-		m_target_size = &m_screen_size;
+		m_target_size = &m_renderer_size;
 	}
 
 	void Renderer::push_render_target(const ManagedResources::ManagedTexturePtr& texture)

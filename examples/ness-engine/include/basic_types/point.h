@@ -101,6 +101,12 @@ namespace Ness
 			limity(min, max);
 			return (*this);
 		}
+		NESSENGINE_API inline __Point<type>& limit(const __Point<type>& min, const __Point<type>& max)
+		{
+			limitx(min.x, max.x);
+			limity(min.y, max.y);
+			return (*this);
+		}
 
 		// put x value within given limit
 		NESSENGINE_API inline __Point<type>& limitx(type min, type max)
@@ -126,6 +132,12 @@ namespace Ness
 
 		// get point copy within limit
 		NESSENGINE_API inline __Point<type> get_limit(type min, type max) const
+		{
+			__Point<type> ret = *this;
+			ret.limit(min, max);
+			return ret;
+		}
+		NESSENGINE_API inline __Point<type> get_limit(const __Point<type>& min, const __Point<type>& max) const
 		{
 			__Point<type> ret = *this;
 			ret.limit(min, max);
