@@ -62,8 +62,11 @@ namespace Ness
 		//				if you put entities outside the given node size, they might be culled out when rendered.
 		// nodesDistance - the distance between nodes. if zero, will just use nodes size
 		// createNodesFunction - if provided, a function that creates the node objects for this nodesmap. you can use it to create nodemap with
-		//							special type of nodes which are not the basic scene node.
-		NESSENGINE_API NodesMap(Renderer* renderer, const Sizei& mapSize, const Size& nodesSize, const Size& nodesDistance = Size::ZERO, TCreateNodes createNodesFunction = nullptr);
+		//							special type of nodes which are not the basic scene node. 
+		// overridePositionAndZ - if true, will set position and z-index automatically for the nodes. this will override the position
+		//							and z-index you set inside 'createNodesFunction', if you used it
+		NESSENGINE_API NodesMap(Renderer* renderer, const Sizei& mapSize, const Size& nodesSize, 
+			const Size& nodesDistance = Size::ZERO, TCreateNodes createNodesFunction = nullptr, bool overridePositionAndZ = true);
 
 		// return the absolute transformations of this tilemap
 		NESSENGINE_API virtual const SRenderTransformations& get_absolute_transformations();

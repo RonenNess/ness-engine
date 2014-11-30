@@ -37,8 +37,10 @@ namespace Ness
 		return m_absolute_transformations;
 	}
 
-	NodesMap::NodesMap(Renderer* renderer, const Sizei& mapSize, const Size& nodesSize, const Size& nodesDistance, TCreateNodes createNodesFunction)
-		: NodeAPI(renderer), m_size(mapSize), m_nodes_distance(nodesDistance),  m_node_size(nodesSize), m_extra_tiles_factor(0, 0)
+	NodesMap::NodesMap(Renderer* renderer, const Sizei& mapSize, const Size& nodesSize, const Size& nodesDistance, 
+		TCreateNodes createNodesFunction, bool overridePositionAndZ)
+		: NodeAPI(renderer), m_size(mapSize), m_nodes_distance(nodesDistance),  
+		m_node_size(nodesSize), m_extra_tiles_factor(0, 0)
 	{
 		if (m_nodes_distance == Size::ZERO)
 			m_nodes_distance = m_node_size;
@@ -64,7 +66,10 @@ namespace Ness
 				NewNode->__change_parent(this);
 				
 				// arrange current tile in the grid
-				arrange_node(NewNode, index);
+				if (overridePositionAndZ || createNodesFunction == nullptr)
+				{
+					arrange_node(NewNode, index);
+				}
 
 				// add to matrix of tiles
 				m_nodes[index.x][index.y] = NewNode;
