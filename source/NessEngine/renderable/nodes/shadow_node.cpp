@@ -40,6 +40,9 @@ namespace Ness
 		m_canvas->set_anchor(Ness::Point::ZERO);
 		m_canvas->set_blend_mode(BLEND_MODE_MOD);
 		set_ambient_shadow(Ness::Color::WHITE);
+
+		// set default flag in case this node be put inside a z-node
+		set_flag(Ness::RNF_NEVER_BREAK);
 	}
 
 	void ShadowNode::get_shadows_in_screen(Containers::Vector<ShadowPtr>& out_list, const CameraPtr& camera) const

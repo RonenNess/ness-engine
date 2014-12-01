@@ -41,6 +41,9 @@ namespace Ness
 		m_canvas->set_anchor(Ness::Point::ZERO);
 		m_canvas->set_blend_mode(BLEND_MODE_MOD);
 		set_ambient_color(Ness::Color::BLACK);
+
+		// set default flag in case this node be put inside a z-node
+		set_flag(Ness::RNF_NEVER_BREAK);
 	}
 
 	void LightNode::get_lights_in_screen(Containers::Vector<LightPtr>& out_list, const CameraPtr& camera) const
