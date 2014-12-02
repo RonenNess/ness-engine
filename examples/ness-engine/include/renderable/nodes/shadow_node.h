@@ -43,24 +43,20 @@ namespace Ness
 	class Shadow : public Sprite
 	{
 	private:
-		bool m_need_redraw;
+		bool				m_need_redraw;
+		RenderablePtr		m_target;
+		Point				m_offset_from_target;
 
 	public:
 		// create the shadow object
-		NESSENGINE_API Shadow(Renderer* renderer, const String& TextureFile, const Color& color = Ness::Color::BLACK * Ness::Color::HALF_INVISIBLE) 
-			: Sprite(renderer, TextureFile) 
-		{
-			set_color(color);
-			set_blend_mode(BLEND_MODE_BLEND);
-			m_need_redraw = true;
-		}
+		NESSENGINE_API Shadow(Renderer* renderer, const String& TextureFile, const Color& color = Color::BLACK * Color::HALF_INVISIBLE);
+
+		// attach this shadow to a given target. the shadow will follow the position of this target
+		NESSENGINE_API inline void attach_to(const RenderablePtr& target, const Point& offset = Point::ZERO) { m_target = target; m_offset_from_target = offset; }
+		NESSENGINE_API inline void detach_from_target() { m_target.reset(); }
 
 		// set need transformations update + redraw
-		NESSENGINE_API virtual void transformations_update()
-		{
-			m_need_transformations_update = true;
-			m_need_redraw = true;
-		}
+		NESSENGINE_API virtual void transformations_update();
 
 		// return if this shadow needs redraw
 		NESSENGINE_API inline bool need_redraw() const {return m_need_redraw;}
@@ -69,14 +65,10 @@ namespace Ness
 		NESSENGINE_API inline void set_need_redraw(bool need) {m_need_redraw = need;}
 
 		// need to update transformations when changing visible so that the shadow node will re-render
-		NESSENGINE_API inline void set_visible(bool Visible) 
-		{
-			if (m_visible == Visible)
-				return;
-			m_need_transformations_update = true;
-			m_need_redraw = true;
-			m_visible = Visible;
-		}
+		NESSENGINE_API inline void set_visible(bool Visible);
+
+		// override the render function to follow target
+		NESSENGINE_API virtual void render(const CameraPtr& camera);
 	};
 
 	NESSENGINE_API typedef SharedPtr<Shadow> ShadowPtr;

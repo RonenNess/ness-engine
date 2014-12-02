@@ -202,7 +202,9 @@ namespace Ness
 		}
 
 		// ctor
-		NESSENGINE_API inline __Point<type>(type X = 0, type Y = 0) : x(X), y(Y)
+		NESSENGINE_API inline __Point<type>(type X, type Y) : x(X), y(Y)
+		{}
+		NESSENGINE_API inline __Point<type>() : x(0), y(0)
 		{}
 
 		// floor the values of this point
