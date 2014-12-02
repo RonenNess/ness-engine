@@ -26,6 +26,40 @@
 
 namespace Ness
 {
+
+	Light::Light(Renderer* renderer, const String& TextureFile, const Color& color)
+		: Sprite(renderer, TextureFile)
+	{
+		set_color(color);
+		set_anchor(Point::HALF);
+		set_blend_mode(BLEND_MODE_ADD);
+		m_need_redraw = true;
+	}
+
+	void Light::transformations_update()
+	{
+		m_need_transformations_update = true;
+		m_need_redraw = true;
+	}
+
+	void Light::render(const CameraPtr& camera)
+	{
+		if (m_target)
+		{
+			set_position(m_target->get_absolute_position() + m_offset_from_target);
+		}
+		Entity::render(camera);
+	}
+
+	void Light::set_visible(bool Visible)
+	{
+		if (m_visible == Visible)
+			return;
+		m_need_transformations_update = true;
+		m_need_redraw = true;
+		m_visible = Visible;
+	}
+
 	LightNode::LightNode(Renderer* renderer) : BaseNode(renderer), m_need_update(true), m_always_update(false)
 	{
 		// create the canvas.

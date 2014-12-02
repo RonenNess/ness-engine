@@ -42,25 +42,20 @@ namespace Ness
 	class Light : public Sprite
 	{
 	private:
-		bool m_need_redraw;
+		bool				m_need_redraw;
+		RenderablePtr		m_target;
+		Point				m_offset_from_target;
 
 	public:
 		// create the light object
-		NESSENGINE_API Light(Renderer* renderer, const String& TextureFile, const Color& color) 
-			: Sprite(renderer, TextureFile) 
-		{
-			set_color(color);
-			set_anchor(Point::HALF);
-			set_blend_mode(BLEND_MODE_ADD);
-			m_need_redraw = true;
-		}
+		NESSENGINE_API Light(Renderer* renderer, const String& TextureFile, const Color& color);
+
+		// attach this light to a given target. the light will follow the position of this target
+		NESSENGINE_API inline void attach_to(const RenderablePtr& target, const Point& offset = Point::ZERO) { m_target = target; m_offset_from_target = offset; }
+		NESSENGINE_API inline void detach_from_target() { m_target.reset(); }
 
 		// set need transformations update + redraw
-		NESSENGINE_API virtual void transformations_update()
-		{
-			m_need_transformations_update = true;
-			m_need_redraw = true;
-		}
+		NESSENGINE_API virtual void transformations_update();
 
 		// return if this light needs redraw
 		NESSENGINE_API inline bool need_redraw() const {return m_need_redraw;}
@@ -68,15 +63,11 @@ namespace Ness
 		// set no longer need redraw
 		NESSENGINE_API inline void set_need_redraw(bool need) {m_need_redraw = need;}
 
+		// override the render function to follow target
+		NESSENGINE_API virtual void render(const CameraPtr& camera);
+
 		// need to update transformations when changing visible so that the light node will re-render
-		NESSENGINE_API inline void set_visible(bool Visible) 
-		{
-			if (m_visible == Visible)
-				return;
-			m_need_transformations_update = true;
-			m_need_redraw = true;
-			m_visible = Visible;
-		}
+		NESSENGINE_API void set_visible(bool Visible);
 	};
 
 	NESSENGINE_API typedef SharedPtr<Light> LightPtr;
