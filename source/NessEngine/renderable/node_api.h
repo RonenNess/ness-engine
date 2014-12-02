@@ -73,7 +73,14 @@ namespace Ness
 		NESSENGINE_API virtual void render(const CameraPtr& camera = NullCamera) = 0;
 
 		// get a list with ALL the son entities that are currently visible in screen
-		NESSENGINE_API virtual void __get_visible_entities(Containers::Vector<RenderableAPI*>& out_list, const CameraPtr& camera = NullCamera) = 0;
+		// camera is to check visibility (which objects are in screen)
+		// break_son_nodes if true will break the son nodes as well, else, will just put
+		// son nodes as whole. NOTE: the NEVER_BREAK flag should not be tested inside this function,
+		// it should be checked and handled by the caller. when this function is called with break_son_nodes = true,
+		// it should ALWAYS break son-nodes (except for the son-nodes that have never-break flag which we need to 
+		// check here as the callers)
+		NESSENGINE_API virtual void __get_visible_entities(Containers::Vector<RenderableAPI*>& out_list, 
+			const CameraPtr& camera = NullCamera, bool break_son_nodes = true) = 0;
 
 		// get a list with ALL entities in node
 		// if breakGroups is true, will break down son nodes as well. else, will add son nodes to the list as whole

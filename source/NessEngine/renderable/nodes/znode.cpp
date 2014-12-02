@@ -54,7 +54,7 @@ namespace Ness
 				NodeAPI* currentNode = dynamic_cast<NodeAPI*>(m_entities[i].get());
 				if (currentNode && (!currentNode->get_flag(Ness::RNF_NEVER_BREAK)))
 				{
-					currentNode->__get_visible_entities(render_list, camera);
+					currentNode->__get_visible_entities(render_list, camera, true);
 					continue;
 				}
 			}

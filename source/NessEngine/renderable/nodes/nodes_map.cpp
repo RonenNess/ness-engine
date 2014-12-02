@@ -145,14 +145,22 @@ namespace Ness
 		return (int)((m_renderer->get_target_size().y + (m_node_size.y * scale)) / (m_nodes_distance.y * scale)) + 2 + m_extra_tiles_factor.y * 2;
 	}
 
-	void NodesMap::__get_visible_entities(Containers::Vector<RenderableAPI*>& out_list, const CameraPtr& camera)
+	void NodesMap::__get_visible_entities(Containers::Vector<RenderableAPI*>& out_list, const CameraPtr& camera, bool break_son_nodes)
 	{
 		Rectangle range = get_nodes_in_screen(camera);
 		for (int i = range.x; i < range.w; i++)
 		{
 			for (int j = range.y; j < range.h; j++)
 			{
-				out_list.push_back(m_nodes[i][j].get());
+				NodeAPIPtr& curr = m_nodes[i][j];
+				if (break_son_nodes && !curr->get_flag(RNF_NEVER_BREAK))
+				{
+					curr->__get_visible_entities(out_list, camera, break_son_nodes);
+				}
+				else
+				{
+					out_list.push_back(curr.get());
+				}
 			}
 		}
 	}

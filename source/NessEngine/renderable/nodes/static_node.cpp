@@ -51,7 +51,7 @@ namespace Ness
 	}
 
 	// get all visible batches (canvases)
-	void StaticNode::__get_visible_entities(Containers::Vector<RenderableAPI*>& out_list, const CameraPtr& camera)
+	void StaticNode::__get_visible_entities(Containers::Vector<RenderableAPI*>& out_list, const CameraPtr& camera, bool break_son_nodes)
 	{
 		// get visible batches range and add to out list
 		Rectangle batches = get_batches_range(camera);

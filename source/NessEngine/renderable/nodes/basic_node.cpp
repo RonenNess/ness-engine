@@ -29,7 +29,7 @@
 namespace Ness
 {
 
-	void BaseNode::__get_visible_entities(Containers::Vector<RenderableAPI*>& out_list, const CameraPtr& camera)
+	void BaseNode::__get_visible_entities(Containers::Vector<RenderableAPI*>& out_list, const CameraPtr& camera, bool break_son_nodes)
 	{
 		for (unsigned int i = 0; i < m_entities.size(); i++)
 		{
@@ -37,7 +37,14 @@ namespace Ness
 			NodeAPI* currentNode = dynamic_cast<NodeAPI*>(m_entities[i].get());
 			if (currentNode)
 			{
-				currentNode->__get_visible_entities(out_list, camera);
+				if (break_son_nodes && !currentNode->get_flag(RNF_NEVER_BREAK))
+				{
+					currentNode->__get_visible_entities(out_list, camera, break_son_nodes);
+				}
+				else
+				{
+					out_list.push_back(currentNode);
+				}
 			}
 			// if not a node, check if in screen and if so add it
 			else
