@@ -61,7 +61,8 @@ namespace Ness
 		// set entity base size
 		// note: this is the basic size that is multiplied by scale. size should be the basic sprite size and remain pretty much const,
 		// scale is something you want to play with more often to enlare or shrink the sprite
-		NESSENGINE_API void set_size(const Size& NewSize) {m_size = NewSize; transformations_update();}
+		NESSENGINE_API inline void set_size(const Size& NewSize) { m_size = NewSize; transformations_update(); }
+		NESSENGINE_API inline void set_size(float size) { set_size(Point::ONE * size); }
 		NESSENGINE_API inline const Size& get_size() const {return m_size;}
 
 		// return absolute size
