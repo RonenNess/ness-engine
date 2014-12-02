@@ -78,7 +78,11 @@ namespace Ness
 		NESSENGINE_API inline Point get_absolute_position_const() const {return m_absolute_trans.position;}
 
 		// get all visible son entities
-		NESSENGINE_API virtual void __get_visible_entities(Containers::Vector<RenderableAPI*>& out_list, const CameraPtr& camera = NullCamera);
+		// camera is the camera object to check visibility
+		// break_son_nodes if true (default) will break son nodes and take their entities. else, will
+		// just put the whole nodes into the out list.
+		NESSENGINE_API virtual void __get_visible_entities(Containers::Vector<RenderableAPI*>& out_list, 
+			const CameraPtr& camera = NullCamera, bool break_son_nodes = true);
 
 		// get a list with ALL entities in node
 		// if breakGroups is true, will break down son nodes as well. else, will add son nodes to the list as whole

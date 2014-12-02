@@ -194,7 +194,7 @@ namespace Ness
 					}
 					else
 					{
-						m_step_in_anim = (m_curr_animation->steps.size() - 1);
+						m_step_in_anim = (unsigned int)(m_curr_animation->steps.size() - 1);
 					}
 				}
 			}

@@ -78,11 +78,11 @@ namespace Ness
 		NESSENGINE_API inline const String& get_name() const {return m_name;}
 
 		// set/get flags
-		NESSENGINE_API inline int get_flags() const {return m_flags;}
-		NESSENGINE_API inline void set_flags(int flags) {m_flags = flags;}
-		NESSENGINE_API inline bool get_flag(int flag) const {return ((m_flags >> flag) & 0x1);}
-		NESSENGINE_API inline void set_flag(int flag) {(m_flags |= (0x1 << flag));}
-		NESSENGINE_API inline void reset_flag(int flag) {(m_flags &= ~(0x1 << flag));}
+		NESSENGINE_API inline int	get_flags() const {return m_flags;}
+		NESSENGINE_API inline void	set_flags(int flags) {m_flags = flags;}
+		NESSENGINE_API inline bool	get_flag(int flag) const {return ((m_flags >> flag) & 0x1);}
+		NESSENGINE_API inline void	set_flag(int flag) {(m_flags |= (0x1 << flag));}
+		NESSENGINE_API inline void	unset_flag(int flag) {(m_flags &= ~(0x1 << flag));}
 
 		// is it node or entity?
 		NESSENGINE_API virtual bool is_node() const = 0;
