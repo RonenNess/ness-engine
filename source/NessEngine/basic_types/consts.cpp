@@ -44,15 +44,19 @@ namespace Ness
 	template class __Point<unsigned char>;
 
 	// all the static consts for all color types
-	#define COLOR_CONSTS(__CType, __Factor)	\
-	__CType __CType::WHITE			((1.0f * __Factor),	(1.0f * __Factor),	(1.0f * __Factor),	(1.0f * __Factor));	\
-	__CType __CType::GREY			((0.5f * __Factor),	(0.5f * __Factor),	(0.5f * __Factor),	(1.0f * __Factor));	\
-	__CType __CType::BLACK			(0,		0,		0,		(1.0f * __Factor));	\
-	__CType __CType::RED			((1.0f * __Factor),	0,		0,		(1.0f * __Factor));	\
-	__CType __CType::GREEN			(0,		(1.0f * __Factor),	0,		(1.0f * __Factor));	\
-	__CType __CType::BLUE			(0,		0,		(1.0f * __Factor),	(1.0f * __Factor));	\
-	__CType __CType::INVISIBLE		(0,		0,		0,		0);	\
-	__CType __CType::HALF_INVISIBLE	(0,		0,		0,		0.5f)
+#define COLOR_CONSTS(__CType, __Factor)	\
+	__CType __CType::WHITE((1.0f * __Factor), (1.0f * __Factor), (1.0f * __Factor), (1.0f * __Factor));	\
+	__CType __CType::GREY((0.5f * __Factor), (0.5f * __Factor), (0.5f * __Factor), (1.0f * __Factor));	\
+	__CType __CType::BLACK(0, 0, 0, (1.0f * __Factor));	\
+	__CType __CType::RED((1.0f * __Factor), 0, 0, (1.0f * __Factor));	\
+	__CType __CType::GREEN(0, (1.0f * __Factor), 0, (1.0f * __Factor));	\
+	__CType __CType::BLUE(0, 0, (1.0f * __Factor), (1.0f * __Factor));	\
+	__CType __CType::INVISIBLE(0, 0, 0, 0);	\
+	__CType __CType::HALF_INVISIBLE(0, 0, 0, 0.5f); \
+	__CType __CType::YELLOW(1.0f, 1.0f, 0, 1.0f); \
+	__CType __CType::CYAN(0.0f, 1.0f, 1.0f, 1.0f); \
+	__CType __CType::MAGENTA(1.0f, 0.0f, 1.0f, 1.0f)
+
 
 	COLOR_CONSTS(Colorf, 1.0f);
 	COLOR_CONSTS(Colorb, 255);

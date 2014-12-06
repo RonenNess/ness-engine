@@ -47,6 +47,7 @@ namespace Ness
 		bool									m_need_transformations_update;		// do we need to update the transforlmations cache?
 		SRenderTransformations					m_absolute_transformations;			// transformations cache, calculated with parents
 		unsigned int							m_last_render_frame_id;				// return the frame id of the last time this entity was really rendered
+		unsigned char							m_highlight;						// how many highlight passes to do on this object
 
 	public:
 
@@ -67,6 +68,9 @@ namespace Ness
 		// this is useful to check if something is really visible without any cpu overhead.
 		NESSENGINE_API inline unsigned int get_last_rendered_frame_id() const { return m_last_render_frame_id; }
 		NESSENGINE_API bool was_rendered_this_frame() const;
+
+		// enable/disable highlight
+		NESSENGINE_API inline void set_highlight(unsigned char number_of_passes) { m_highlight = number_of_passes; }
 
 		// set entity base size
 		// note: this is the basic size that is multiplied by scale. size should be the basic sprite size and remain pretty much const,

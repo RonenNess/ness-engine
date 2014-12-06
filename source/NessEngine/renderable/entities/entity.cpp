@@ -27,10 +27,9 @@
 namespace Ness
 {
 
-	Entity::Entity(Renderer* renderer) : EntityAPI(renderer), m_static(false), m_need_transformations_update(true), m_last_render_frame_id(0)
+	Entity::Entity(Renderer* renderer) : EntityAPI(renderer), m_static(false), 
+		m_need_transformations_update(true), m_last_render_frame_id(0), m_highlight(false)
 	{
-		set_position(Point(0, 0));
-		set_anchor(Point::ZERO);
 	}
 
 	void Entity::transformations_update() 
@@ -204,5 +203,14 @@ namespace Ness
 
 		// render!
 		do_render(target, trans);
+
+		// do highlight effect
+		if (m_highlight)
+		{
+			SRenderTransformations trans_with_add = trans;
+			trans_with_add.blend = Ness::BLEND_MODE_ADD;
+			for (int i = 0; i < m_highlight; ++i)
+				do_render(target, trans_with_add);
+		}
 	}
 };
