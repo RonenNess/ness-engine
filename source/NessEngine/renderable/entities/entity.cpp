@@ -27,7 +27,7 @@
 namespace Ness
 {
 
-	Entity::Entity(Renderer* renderer) : EntityAPI(renderer), m_static(false), m_need_transformations_update(true)
+	Entity::Entity(Renderer* renderer) : EntityAPI(renderer), m_static(false), m_need_transformations_update(true), m_last_render_frame_id(0)
 	{
 		set_position(Point(0, 0));
 		set_anchor(Point::ZERO);
@@ -163,18 +163,27 @@ namespace Ness
 		return true;
 	}
 
+	bool Entity::was_rendered_this_frame() const
+	{ 
+		return m_renderer->get_frameid() == m_last_render_frame_id; 
+	}
+
 	void Entity::render(const CameraPtr& camera)
 	{
 		// if invisible skip
 		if (!m_visible)
+		{
 			return;
+		}
 
 		// get absolute transformations
 		const SRenderTransformations& trans = get_absolute_transformations();
 
 		// invisible?
 		if (trans.color.a <= 0)
+		{
 			return;
+		}
 
 		// set camera position
 		Rectangle target = m_target_rect;
@@ -186,7 +195,12 @@ namespace Ness
 
 		// check if in screen.
 		if (!is_in_screen(target, trans.rotation))
+		{
 			return;
+		}
+
+		// lastly visible
+		m_last_render_frame_id = m_renderer->get_frameid();
 
 		// render!
 		do_render(target, trans);

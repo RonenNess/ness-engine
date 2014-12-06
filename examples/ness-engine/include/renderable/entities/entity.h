@@ -46,6 +46,7 @@ namespace Ness
 		Rectangle								m_target_rect;						// target rectagnle we render this entity on screen
 		bool									m_need_transformations_update;		// do we need to update the transforlmations cache?
 		SRenderTransformations					m_absolute_transformations;			// transformations cache, calculated with parents
+		unsigned int							m_last_render_frame_id;				// return the frame id of the last time this entity was really rendered
 
 	public:
 
@@ -57,6 +58,15 @@ namespace Ness
 
 		// return if need transformations udpate
 		NESSENGINE_API virtual bool need_transformations_update() {return m_need_transformations_update;}
+
+		// return the last frame this entity was really rendered
+		// this is a quick way to check if this object was visible in the last frame, and by visible it means:
+		// 1. inside screen bounderies with camera
+		// 2. with absolute opacity > 0.0f
+		// 3. with absolute visible flag = true
+		// this is useful to check if something is really visible without any cpu overhead.
+		NESSENGINE_API inline unsigned int get_last_rendered_frame_id() const { return m_last_render_frame_id; }
+		NESSENGINE_API bool was_rendered_this_frame() const;
 
 		// set entity base size
 		// note: this is the basic size that is multiplied by scale. size should be the basic sprite size and remain pretty much const,
