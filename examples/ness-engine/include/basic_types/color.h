@@ -115,6 +115,9 @@ namespace Ness
 		NESSENGINE_API static __Color<type> RED;
 		NESSENGINE_API static __Color<type> GREEN;
 		NESSENGINE_API static __Color<type> BLUE;
+		NESSENGINE_API static __Color<type> YELLOW;
+		NESSENGINE_API static __Color<type> CYAN;
+		NESSENGINE_API static __Color<type> MAGENTA;
 		NESSENGINE_API static __Color<type> INVISIBLE;
 		NESSENGINE_API static __Color<type> HALF_INVISIBLE;
 
