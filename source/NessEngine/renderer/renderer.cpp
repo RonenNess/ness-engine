@@ -187,6 +187,10 @@ namespace Ness
 	// end a rendering frame
 	void Renderer::end_frame()
 	{
+		// do animations
+		if (m_auto_animate)
+			do_animations();
+
 		// render everything and set time factor
 		SDL_RenderPresent(m_renderer);
 		m_timefactor = (SDL_GetTicks() - m_start_frame_time) / 1000.0f;
@@ -202,10 +206,6 @@ namespace Ness
 		{
 			m_curr_fps_count++;
 		}
-
-		// do animations
-		if (m_auto_animate)
-			do_animations();
 
 		// increase frame unique id
 		m_frameid++;
