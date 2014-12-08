@@ -86,7 +86,7 @@ namespace Ness
 			(float)(index.y * m_nodes_distance.y)));
 
 		// set z-index
-		node->set_zindex(node->get_position().y - m_nodes_distance.y);
+		node->set_zindex(node->get_position().y);
 	}
 
 	void NodesMap::apply_to_all(TExecuteOnNodes func)
