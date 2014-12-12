@@ -37,4 +37,14 @@ namespace Ness
 
 	// ness-engine keyboard codes (just SDL codes)
 	NESSENGINE_API typedef SDL_Keycode Keycode;
+
+	// different mouse buttons
+	enum EMouseButtons
+	{
+		MOUSE_LEFT = 0,
+		MOUSE_RIGHT = 1,
+		MOUSE_MIDDLE = 2,
+		_MOUSE_BUTTONS_COUNT,
+	};
+
 }

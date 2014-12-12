@@ -36,15 +36,6 @@ namespace Ness
 	namespace Utils
 	{
 
-		// different mouse buttons
-		enum EMouseButtons
-		{
-			MOUSE_LEFT = 0,
-			MOUSE_RIGHT = 1,
-			MOUSE_MIDDLE = 2,
-			_MOUSE_BUTTONS_COUNT,
-		};
-
 		// wrap mouse functionality for easy mouse controls
 		class Mouse : public EventsHandler
 		{
