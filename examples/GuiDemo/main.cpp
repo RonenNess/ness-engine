@@ -13,7 +13,7 @@ int _tmain(int argc, _TCHAR* argv[])
 {
 	// init and create a renderer
 	Ness::init();
-	Ness::Renderer renderer("Hello World!", Ness::Sizei(512, 512));
+	Ness::Renderer renderer("NOT READY YET DON'T LOOK AT THIS EXAMPLE!!!!", Ness::Sizei(512, 512));
 	renderer.set_background_color(Ness::Color::BLACK);
 
 	// create a new gui manager

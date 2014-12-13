@@ -68,6 +68,14 @@ int _tmain(int argc, _TCHAR* argv[])
 	fpsShow->set_size(Ness::Size(100, 100));
 	fpsShow->set_position(Ness::Point(0, 22));
 
+	// create the corner logo
+	Ness::SpritePtr corner_logo = scene->create_sprite("../ness-engine/resources/gfx/Ness-Engine-Small.png");
+	corner_logo->set_blend_mode(Ness::BLEND_MODE_BLEND);
+	corner_logo->set_anchor(Ness::Point::ONE);
+	corner_logo->set_opacity(0.5f);
+	corner_logo->set_static(true);
+	corner_logo->set_position(renderer.get_screen_size());
+
 	// create the events handler
 	Ness::Utils::EventsPoller EventsPoller;
 	Ness::Utils::Mouse mouse;
@@ -93,7 +101,7 @@ int _tmain(int argc, _TCHAR* argv[])
 			int MeteorDirection = rand() % 360;
 			float MeteorSize = 50.0f + (rand() % 100);
 			float MeteorSpeed = 0.5f + (float)(rand() % 10) / 15.0f;
-			Ness::Point MeteorSpeedVector = Ness::Point::from_angle(MeteorDirection, MeteorSpeed);
+			Ness::Point MeteorSpeedVector = Ness::Point::from_angle((float)MeteorDirection, MeteorSpeed);
 			Meteor* meteor = new Meteor(meteorsNode, MeteorSpeedVector, MeteorSize);
 			Ness::Point position;
 			if (rand() % 10 < 5)

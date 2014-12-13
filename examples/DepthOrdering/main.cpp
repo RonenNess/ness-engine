@@ -20,10 +20,10 @@ int _tmain(int argc, _TCHAR* argv[])
 {
 	// init and create a renderer
 	Ness::init();
-	Ness::Renderer render("Depth ordering demo!", Ness::Sizei(SCREEN_WIDTH, SCREEN_HEIGHT));
+	Ness::Renderer renderer("Depth ordering demo!", Ness::Sizei(SCREEN_WIDTH, SCREEN_HEIGHT));
 
 	// create a new scene
-	Ness::ScenePtr scene = render.create_scene();
+	Ness::ScenePtr scene = renderer.create_scene();
 
 	// create the tilemap
 	const int TileSize = 64;
@@ -35,7 +35,7 @@ int _tmain(int argc, _TCHAR* argv[])
 	Ness::NodePtr znode = scene->create_znode();
 
 	// create a camera
-	Ness::CameraPtr camera = render.create_camera();
+	Ness::CameraPtr camera = renderer.create_camera();
 	float PlayerSpeed = 250.0f;
 
 	// create random trees and rocks
@@ -62,6 +62,14 @@ int _tmain(int argc, _TCHAR* argv[])
 	Ness::TextPtr instructions = scene->create_text("../ness-engine/resources/fonts/courier.ttf", "use arrows to move around and see z-ordering in action.", 20);
 	instructions->set_position(Ness::Point(0, 24));
 
+	// create the corner logo
+	Ness::SpritePtr corner_logo = scene->create_sprite("../ness-engine/resources/gfx/Ness-Engine-Small.png");
+	corner_logo->set_blend_mode(Ness::BLEND_MODE_BLEND);
+	corner_logo->set_anchor(Ness::Point::ONE);
+	corner_logo->set_opacity(0.5f);
+	corner_logo->set_static(true);
+	corner_logo->set_position(renderer.get_screen_size());
+
 	// create the events handler
 	Ness::Utils::EventsPoller EventsPoller;
 	Ness::Utils::Mouse mouse;
@@ -81,25 +89,25 @@ int _tmain(int argc, _TCHAR* argv[])
 		EventsPoller.poll_events();
 
 		// render the scene
-		render.start_frame();
+		renderer.start_frame();
 
 		// do keyboard control - move player around
 		Ness::Point playerPos = player->get_position();
 		if (keyboard.key_state(SDLK_DOWN))
 		{
-			playerPos.y += render.time_factor() * PlayerSpeed;
+			playerPos.y += renderer.time_factor() * PlayerSpeed;
 		}
 		if (keyboard.key_state(SDLK_UP))
 		{
-			playerPos.y -= render.time_factor() * PlayerSpeed;
+			playerPos.y -= renderer.time_factor() * PlayerSpeed;
 		}
 		if (keyboard.key_state(SDLK_LEFT))
 		{
-			playerPos.x -= render.time_factor() * PlayerSpeed;
+			playerPos.x -= renderer.time_factor() * PlayerSpeed;
 		}
 		if (keyboard.key_state(SDLK_RIGHT))
 		{
-			playerPos.x += render.time_factor() * PlayerSpeed;
+			playerPos.x += renderer.time_factor() * PlayerSpeed;
 		}
 		player->set_position(playerPos);
 
@@ -107,16 +115,16 @@ int _tmain(int argc, _TCHAR* argv[])
 		player->set_zindex(playerPos.y);
 
 		// set camera to focus on player
-		camera->position.x = player->get_position().x - (render.get_screen_size().x * 0.5f);
-		camera->position.y = player->get_position().y - (render.get_screen_size().y * 0.5f);
+		camera->position.x = player->get_position().x - (renderer.get_screen_size().x * 0.5f);
+		camera->position.y = player->get_position().y - (renderer.get_screen_size().y * 0.5f);
 
 		// render and end the scene
 		scene->render(camera);
-		render.end_frame();
+		renderer.end_frame();
 
 		// update fps show
-		Ness::String FpsShow = Ness::String("fps ") + (render.get_flags() & Ness::RENDERER_FLAG_VSYNC ? "(vsync): " : ": ");
-		fpsShow->change_text(FpsShow + ness_int_to_string(render.fps()));
+		Ness::String FpsShow = Ness::String("fps ") + (renderer.get_flags() & Ness::RENDERER_FLAG_VSYNC ? "(vsync): " : ": ");
+		fpsShow->change_text(FpsShow + ness_int_to_string(renderer.fps()));
 	}
 
 	// cleanup. 

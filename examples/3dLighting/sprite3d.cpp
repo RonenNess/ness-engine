@@ -39,7 +39,7 @@ void Sprite3d::do_render(const Ness::Rectangle& target, const Ness::SRenderTrans
 		float distance = Position.distance(curr->get_position());
 		Ness::Point vector = (Position - curr->get_position());
 		vector.normalize();
-		vector.make_abs();
+		vector.abs();
 
 		// if this light is above this object bottom, check lighting from above
 		if (curr->get_position().y < Position.y)

@@ -58,6 +58,14 @@ int _tmain(int argc, _TCHAR* argv[])
 	Ness::CameraPtr camera = render.create_camera();
 	float CameraSpeed = 500.0f;
 
+	// create the corner logo
+	Ness::SpritePtr corner_logo = scene->create_sprite("../ness-engine/resources/gfx/Ness-Engine-Small.png");
+	corner_logo->set_blend_mode(Ness::BLEND_MODE_BLEND);
+	corner_logo->set_anchor(Ness::Point::ONE);
+	corner_logo->set_opacity(0.5f);
+	corner_logo->set_static(true);
+	corner_logo->set_position(render.get_screen_size());
+
 	// create the events handler
 	Ness::Utils::EventsPoller EventsPoller;
 	Ness::Utils::Mouse mouse;

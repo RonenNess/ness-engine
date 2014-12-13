@@ -14,16 +14,16 @@ int _tmain(int argc, _TCHAR* argv[])
 {
 	// init and create a renderer
 	Ness::init();
-	Ness::Renderer render("Isometric tilemap demo!", Ness::Sizei(800, 600));
+	Ness::Renderer renderer("Isometric tilemap demo!", Ness::Sizei(800, 600));
 
 	// create a new scene
-	Ness::ScenePtr scene = render.create_scene();
+	Ness::ScenePtr scene = renderer.create_scene();
 
 	// create the tilemap
 	const Ness::Sizei TileSize(128, 75);				// <-- 128x75 is the size of a single tile in the spritesheet
 	const Ness::Pointi TilesInSpritesheet(2, 4);		// <-- 2 is how many tile types we got in the spritesheet on X axis, 4 is how many we got on Y axis
 
-	SharedPtr<IsoTilemap> map = ness_make_ptr<IsoTilemap>(&render, "tilemap.png", Ness::Sizei(100, 100), TileSize);
+	SharedPtr<IsoTilemap> map = ness_make_ptr<IsoTilemap>(&renderer, "tilemap.png", Ness::Sizei(100, 100), TileSize);
 	scene->add(map);
 	map->set_all_tiles_type(Ness::Pointi(0, 0), TilesInSpritesheet);
 
@@ -62,17 +62,24 @@ int _tmain(int argc, _TCHAR* argv[])
 	Ness::Pointi SelectedTileType(0, 0);
 
 	// create instructions text
-	// create instructions text
 	Ness::MultiTextPtr instructions = scene->create_multitext("../ness-engine/resources/fonts/courier.ttf", 
 		"use arrows or wasd to move around the map.\npick tile type from the left bar & click anywhere to set.\nz to zoom-in, x to zoom-out, c to reset zoom.", 18);
 	instructions->set_static(true);
-	instructions->set_position(Ness::Point(0.0f, (float)render.get_screen_size().y - 50));
+	instructions->set_position(Ness::Point(0.0f, (float)renderer.get_screen_size().y - 50));
 	instructions->set_anchor(Ness::Point(0.0f, 1.0f));
 	instructions->set_color(Ness::Color::BLACK);
 
 	// create a camera
-	Ness::CameraPtr camera = render.create_camera();
+	Ness::CameraPtr camera = renderer.create_camera();
 	float CameraSpeed = 500.0f;
+
+	// create the corner logo
+	Ness::SpritePtr corner_logo = scene->create_sprite("../ness-engine/resources/gfx/Ness-Engine-Small.png");
+	corner_logo->set_blend_mode(Ness::BLEND_MODE_BLEND);
+	corner_logo->set_anchor(Ness::Point::ONE);
+	corner_logo->set_opacity(0.5f);
+	corner_logo->set_static(true);
+	corner_logo->set_position(renderer.get_screen_size());
 
 	// create the events handler
 	Ness::Utils::EventsPoller EventsPoller;
@@ -96,24 +103,24 @@ int _tmain(int argc, _TCHAR* argv[])
 		EventsPoller.poll_events();
 
 		// render the scene
-		render.start_frame();
+		renderer.start_frame();
 
 		// do keyboard control
 		if (keyboard.key_state(SDLK_DOWN) || keyboard.key_state(SDLK_s))
 		{
-			camera->position.y += render.time_factor() * CameraSpeed;
+			camera->position.y += renderer.time_factor() * CameraSpeed;
 		}
 		if (keyboard.key_state(SDLK_UP) || keyboard.key_state(SDLK_w))
 		{
-			camera->position.y -= render.time_factor() * CameraSpeed;
+			camera->position.y -= renderer.time_factor() * CameraSpeed;
 		}
 		if (keyboard.key_state(SDLK_LEFT) || keyboard.key_state(SDLK_a))
 		{
-			camera->position.x -= render.time_factor() * CameraSpeed;
+			camera->position.x -= renderer.time_factor() * CameraSpeed;
 		}
 		if (keyboard.key_state(SDLK_RIGHT) || keyboard.key_state(SDLK_d))
 		{
-			camera->position.x += render.time_factor() * CameraSpeed;
+			camera->position.x += renderer.time_factor() * CameraSpeed;
 		}
 		if (keyboard.key_state(SDLK_z))
 		{
@@ -167,7 +174,7 @@ int _tmain(int argc, _TCHAR* argv[])
 
 		// render and end the scene
 		scene->render(camera);
-		render.end_frame();
+		renderer.end_frame();
 	}
 
 	// cleanup. 

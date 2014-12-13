@@ -57,6 +57,14 @@ int _tmain(int argc, _TCHAR* argv[])
 		(player, Ness::Sizei(3, 3), Ness::Sizei(0, 0), 3, ANIMATION_SPEED, Ness::Animators::SPRITE_ANIM_END_REPEAT);
 	renderer.register_animator(playerAnim);
 
+	// create the corner logo
+	Ness::SpritePtr corner_logo = scene->create_sprite("../ness-engine/resources/gfx/Ness-Engine-Small.png");
+	corner_logo->set_blend_mode(Ness::BLEND_MODE_BLEND);
+	corner_logo->set_anchor(Ness::Point::ONE);
+	corner_logo->set_opacity(0.5f);
+	corner_logo->set_static(true);
+	corner_logo->set_position(renderer.get_screen_size());
+
 	// create events handlers
     Ness::Utils::EventsPoller EventsPoller;
     Ness::Utils::ApplicationEvents app;

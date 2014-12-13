@@ -33,6 +33,8 @@
 #include "../utils/event_handler.h"
 #include "../utils/mouse.h"
 #include "../utils/keyboard.h"
+#include "../managed_resources/managed_font.h"
+#include "../managed_resources/managed_texture.h"
 
 namespace Ness
 {
@@ -50,6 +52,7 @@ namespace Ness
 			Utils::Mouse											m_mouse;				// mouse events handler
 			Utils::Keyboard											m_keyboard;				// keyboard events handler
 			Containers::Vector<ManagedResources::ManagedTexturePtr>	m_textures;				// preload all gui-related texture
+			ManagedResources::ManagedFontPtr						m_font;					// preload gui font
 
 		public:
 			// create the gui manager
