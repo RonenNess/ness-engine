@@ -17,7 +17,7 @@ int _tmain(int argc, _TCHAR* argv[])
 
 	// create a new gui manager
 	Ness::Gui::GuiManagerPtr gui = renderer.create_gui_manager("../ness-engine/resources/gui/");
-	gui->create_container(Ness::Point(10, 10));
+	gui->create_container(Ness::Point(10, 5));
 
 	// create the events handler
 	Ness::Utils::EventsPoller EventsPoller;

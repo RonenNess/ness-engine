@@ -18,6 +18,7 @@ public:
 				m_sprites[i][j]->set_blend_mode(Ness::BLEND_MODE_BLEND);
 			}
 		}
+		set_tiles_anchor(Ness::Point(0.5f, 1.0f));
 	}
 
 protected:

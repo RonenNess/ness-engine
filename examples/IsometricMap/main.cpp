@@ -31,7 +31,7 @@ int _tmain(int argc, _TCHAR* argv[])
 	Ness::RectangleShapePtr selectedTile = scene->create_rectangle();
 	selectedTile->set_size(TileSize);
 	selectedTile->set_color(Ness::Color::GREEN);
-	selectedTile->set_anchor(Ness::Point(0.0f, 0.0f));
+	selectedTile->set_anchor(Ness::Point(0.5f, 1.0f));
 	selectedTile->set_filled(false);
 
 	// create the toolbar node
