@@ -41,7 +41,7 @@ namespace Ness
 	// all ness-engine flags you can use with renderable node flags
 	enum ERenderableNodeFlags
 	{
-		RNF_NEVER_BREAK = 0,		// never break this node when z-ordering inside a z-node
+		RNF_NEVER_BREAK = 1,		// never break this node when z-ordering inside a z-node
 	};
 
 	// all ness-engine flags you can use with renderable entity flags

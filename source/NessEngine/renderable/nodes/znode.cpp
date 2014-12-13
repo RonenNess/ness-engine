@@ -34,7 +34,7 @@ namespace Ness
 	}
 	bool sort_by_z_absolute(RenderableAPI* a, RenderableAPI* b)
 	{
-		return  a->get_absolute_transformations().zorder < b->get_absolute_transformations().zorder;
+		return  a->get_absolute_zindex() < b->get_absolute_zindex();
 	}
 
 	// render everything, with z order!
