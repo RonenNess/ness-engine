@@ -22,6 +22,11 @@
     <ClCompile Include="..\source\NessEngine\animators\animators_queue.cpp" />
     <ClCompile Include="..\source\NessEngine\animators\animator_api.cpp" />
     <ClCompile Include="..\source\NessEngine\basic_types\consts.cpp" />
+    <ClCompile Include="..\source\NessEngine\gui\containers\container.cpp" />
+    <ClCompile Include="..\source\NessEngine\gui\containers\gui_container_api.cpp" />
+    <ClCompile Include="..\source\NessEngine\gui\containers\root_container.cpp" />
+    <ClCompile Include="..\source\NessEngine\gui\gui_element_api.cpp" />
+    <ClCompile Include="..\source\NessEngine\gui\gui_manager.cpp" />
     <ClCompile Include="..\source\NessEngine\managed_resources\resources_manager.cpp" />
     <ClCompile Include="..\source\NessEngine\NessEngine.cpp" />
     <ClCompile Include="..\source\NessEngine\renderable\entities\animated_sprite.cpp" />
@@ -78,6 +83,15 @@
     <ClInclude Include="..\source\NessEngine\basic_types\size.h" />
     <ClInclude Include="..\source\NessEngine\exceptions\exceptions.h" />
     <ClInclude Include="..\source\NessEngine\exports.h" />
+    <ClInclude Include="..\source\NessEngine\gui\containers\all_containers.h" />
+    <ClInclude Include="..\source\NessEngine\gui\containers\container.h" />
+    <ClInclude Include="..\source\NessEngine\gui\containers\gui_container_api.h" />
+    <ClInclude Include="..\source\NessEngine\gui\containers\root_container.h" />
+    <ClInclude Include="..\source\NessEngine\gui\gui_element_api.h" />
+    <ClInclude Include="..\source\NessEngine\gui\gui_manager.h" />
+    <ClInclude Include="..\source\NessEngine\gui\widgets\all_widgets.h" />
+    <ClInclude Include="..\source\NessEngine\gui\widgets\gui_widget_api.h" />
+    <ClInclude Include="..\source\NessEngine\gui\widgets\label.h" />
     <ClInclude Include="..\source\NessEngine\managed_resources\managed_font.h" />
     <ClInclude Include="..\source\NessEngine\managed_resources\managed_mask_texture.h" />
     <ClInclude Include="..\source\NessEngine\managed_resources\managed_resource.h" />

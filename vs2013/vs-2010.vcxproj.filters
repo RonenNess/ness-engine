@@ -46,6 +46,15 @@
     <Filter Include="Source Files\basic_types">
       <UniqueIdentifier>{da3e0efa-281c-48ed-9a36-8478bc721581}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Source Files\gui">
+      <UniqueIdentifier>{e8185767-d30c-424b-9e76-498115148dc8}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\gui\containers">
+      <UniqueIdentifier>{3bae0090-b78a-44c0-8952-dd2fcf72ecf7}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\gui\widgets">
+      <UniqueIdentifier>{8ac1db60-8138-4c51-a37c-3ceae679c2e6}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\source\NessEngine\NessEngine.cpp">
@@ -158,6 +167,21 @@
     </ClCompile>
     <ClCompile Include="..\source\NessEngine\renderable\nodes\shadow_node.cpp">
       <Filter>Source Files\renderables\nodes</Filter>
+    </ClCompile>
+    <ClCompile Include="..\source\NessEngine\gui\gui_element_api.cpp">
+      <Filter>Source Files\gui</Filter>
+    </ClCompile>
+    <ClCompile Include="..\source\NessEngine\gui\gui_manager.cpp">
+      <Filter>Source Files\gui</Filter>
+    </ClCompile>
+    <ClCompile Include="..\source\NessEngine\gui\containers\container.cpp">
+      <Filter>Source Files\gui\containers</Filter>
+    </ClCompile>
+    <ClCompile Include="..\source\NessEngine\gui\containers\gui_container_api.cpp">
+      <Filter>Source Files\gui\containers</Filter>
+    </ClCompile>
+    <ClCompile Include="..\source\NessEngine\gui\containers\root_container.cpp">
+      <Filter>Source Files\gui\containers</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -349,6 +373,33 @@
     </ClInclude>
     <ClInclude Include="..\source\NessEngine\renderable\nodes\shadow_node.h">
       <Filter>Source Files\renderables\nodes</Filter>
+    </ClInclude>
+    <ClInclude Include="..\source\NessEngine\gui\gui_element_api.h">
+      <Filter>Source Files\gui</Filter>
+    </ClInclude>
+    <ClInclude Include="..\source\NessEngine\gui\gui_manager.h">
+      <Filter>Source Files\gui</Filter>
+    </ClInclude>
+    <ClInclude Include="..\source\NessEngine\gui\containers\all_containers.h">
+      <Filter>Source Files\gui\containers</Filter>
+    </ClInclude>
+    <ClInclude Include="..\source\NessEngine\gui\containers\container.h">
+      <Filter>Source Files\gui\containers</Filter>
+    </ClInclude>
+    <ClInclude Include="..\source\NessEngine\gui\containers\gui_container_api.h">
+      <Filter>Source Files\gui\containers</Filter>
+    </ClInclude>
+    <ClInclude Include="..\source\NessEngine\gui\containers\root_container.h">
+      <Filter>Source Files\gui\containers</Filter>
+    </ClInclude>
+    <ClInclude Include="..\source\NessEngine\gui\widgets\all_widgets.h">
+      <Filter>Source Files\gui\widgets</Filter>
+    </ClInclude>
+    <ClInclude Include="..\source\NessEngine\gui\widgets\gui_widget_api.h">
+      <Filter>Source Files\gui\widgets</Filter>
+    </ClInclude>
+    <ClInclude Include="..\source\NessEngine\gui\widgets\label.h">
+      <Filter>Source Files\gui\widgets</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>
