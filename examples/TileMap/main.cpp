@@ -29,7 +29,7 @@ int _tmain(int argc, _TCHAR* argv[])
 	Ness::RectangleShapePtr selectedTile = scene->create_rectangle();
 	selectedTile->set_size(Ness::Sizei(TileSize, TileSize));
 	selectedTile->set_color(Ness::Color::GREEN);
-	selectedTile->set_anchor(Ness::Point(0.5f, 1.0f));
+	selectedTile->set_anchor(Ness::Point(0.0f, 0.0f));
 	selectedTile->set_filled(false);
 
 	// create the tile selection box
@@ -139,7 +139,7 @@ int _tmain(int argc, _TCHAR* argv[])
 		
 
 		// if left mouse click is down:
-		if (mouse.is_down(Ness::Utils::MOUSE_LEFT))
+		if (mouse.is_down(Ness::MOUSE_LEFT))
 		{
 			// if mouse position is inside the tile selection, we pick a new tile type:
 			if (mouse.position().x <= tilesToolbar->get_size().x && mouse.position().y <= tilesToolbar->get_size().y)

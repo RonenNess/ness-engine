@@ -34,8 +34,7 @@ namespace Ness
 {
 
 	/*
-	* represent a single particle in a particles node.
-	* note: inherit from AnimatedSprite meaning a particle is basically a sprite, but with the ability to hold and manage animators
+	* a tiled texture that scroll based on camera position and factor (useable for repeating backgrounds)
 	*/
 	class TextureScroller : public Entity
 	{

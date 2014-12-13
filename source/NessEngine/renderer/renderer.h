@@ -34,6 +34,7 @@
 #include "../basic_types/all_basic_types.h"
 #include "../animators/animators_queue.h"
 #include "../scene/scene.h"
+#include "../gui/gui_manager.h"
 
 namespace Ness
 {
@@ -171,6 +172,14 @@ namespace Ness
 		// create/remove a scene
 		NESSENGINE_API ScenePtr create_scene();
 		NESSENGINE_API void remove_scene(const ScenePtr& scene);
+
+		// create a gui manager
+		// resources_path: the path to the folder that will contain all the gui textures. 
+		//					there is default gui skin provided within ness-engine resources.
+		// grid_unit_size: all sizes and units in gui elements are based on the grid. this 
+		//					param determine the size of a single grid unit.
+		NESSENGINE_API Gui::GuiManagerPtr create_gui_manager(const String& resources_path = "ness-engine/resources/gui/", 
+				const Point& grid_unit_size = Point(32, 32));
 
 		// change the background color
 		NESSENGINE_API void set_background_color(const Color& NewColor);

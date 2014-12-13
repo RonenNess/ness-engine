@@ -34,6 +34,7 @@
 
 namespace Ness
 {
+	// predeclare the canvas entity
 	class Canvas;
 	NESSENGINE_API typedef SharedPtr<Canvas> CanvasPtr;
 

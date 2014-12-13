@@ -74,7 +74,8 @@ namespace Ness
 		NESSENGINE_API void change_texture(ManagedResources::ManagedTexturePtr NewTexture, bool resetSizeAndSource = true);
 		NESSENGINE_API void change_texture(const String& NewTextureFile, bool resetSizeAndSource = true);
 
-		// set texture source rect (to render entire texture give (0, 0, textureSize.x, textureSize.y)
+		// set texture source rect, i.e. the parts we want to render from the texture.
+		// to render the entire texture call (0, 0, textureSize.x, textureSize.y), or reset_source_rect()
 		NESSENGINE_API void set_source_rect(const Rectangle& srcRect);
 		NESSENGINE_API inline const Rectangle& get_source_rect() const {return m_source_rect;}
 
@@ -85,7 +86,7 @@ namespace Ness
 		// set source rect from sprite sheet
 		// for example, if your sprite sheet contains 4x8 animation steps, and you want to set sprite to step (3,2), use it like so:
 		//		set_source_from_sprite_sheet(Pointi(3,2), Sizei(4,8));
-		// step: the index of the animation step inside the sprite sheet (x, y)
+		// step: the index of the animation step inside the sprite sheet (x, y) (zero based)
 		// stepsCount: how many total animation steps the sheet has (x, y)
 		// if setSize == true, it will also set the size of the sprite to fit a single step of the sprite sheet
 		NESSENGINE_API void set_source_from_sprite_sheet(const Pointi& step, const Sizei stepsCount, bool setSize = false);

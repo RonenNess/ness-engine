@@ -20,41 +20,4 @@
 
 */
 
-/**
-* A scene node for gui elements
-* Author: Ronen Ness
-* Since: 12/1014
-*/
-
 #pragma once
-#include "../managed_resources/managed_texture.h"
-#include "../renderable/nodes/basic_node.h"
-#include "../renderable/transformable_api.h"
-#include "../basic_types/containers.h"
-
-namespace Ness
-{
-	namespace Gui
-	{
-		// a special scene node to hold and manage gui elements
-		class GuiNode : public BaseNode
-		{
-		protected:
-
-		public:
-			NESSENGINE_API GuiNode(Renderer* renderer) : 
-				BaseNode(renderer) {}
-
-			// add/remove sub entity or node
-			NESSENGINE_API virtual void add(const RenderablePtr& object);
-			NESSENGINE_API virtual void add_first(const RenderablePtr& object);
-
-		protected:
-			// return true if given pointer is a gui element
-			NESSENGINE_API bool is_gui_element(const RenderablePtr& object);
-		};
-
-		// a pointer to a gui node
-		NESSENGINE_API typedef SharedPtr<GuiNode> GuiNodePtr;
-	}
-}

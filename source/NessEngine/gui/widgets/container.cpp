@@ -20,52 +20,62 @@
 
 */
 
-#include "frame.h"
+#include "../gui_manager.h"
+#include "container.h"
 
 namespace Ness
 {
 	namespace Gui
 	{
-		Frame::Frame(Renderer* renderer, const Pointi& size) : GuiNode(renderer), m_size(size)
+		Container::Container(GuiManager* manager, GuiContainerAPI* parent, const Pointi& size_in_units) 
+			: GuiContainerAPI(manager, parent), m_size(size_in_units)
 		{
 			// create the border parts
-			m_graphics = ness_make_ptr<TileMap>(this->m_renderer, "frame_unfocused.png", mapSize, singleTileSize, tilesDistance);
+			//m_graphics = ness_make_ptr<TileMap>(this->m_renderer, "frame_unfocused.png", mapSize, singleTileSize, tilesDistance);
 		}
 
 
-		void Frame::invoke_event_get_focus()
+		void Container::invoke_event_get_focus()
 		{
 		}
 
-		void Frame::invoke_event_lose_focus()
+		void Container::invoke_event_lose_focus()
 		{
 		}
 
-		bool Frame::is_point_on(const Ness::Pointi& pos)
+		void Container::invoke_event_mouse_enter()
+		{
+		}
+
+		void Container::invoke_event_mouse_leave()
+		{
+		}
+
+		bool Container::is_point_on(const Ness::Pointi& pos)
 		{
 			// get absolute position and size
-			const SRenderTransformations& trans = get_absolute_transformations();
+			const BoundingBox& box = get_bounding_box();
 
 			// check position against bounderies
-			if (pos.x >= trans.position.x && pos.y >= trans.position.y &&
-				pos.x <= trans.position.x + (m_size.x * trans.scale.x) && pos.y <= trans.position.y + (m_size.y * trans.scale.y))
+			if (pos.x >= box.x && pos.y >= box.y &&
+				pos.x <= box.x + box.w && pos.y <= box.y + box.h)
 				return true;
 
 			return false;
 		}
 
-		void Frame::invoke_event_click(EMouseButtons mouse_button, const Ness::Pointi& mouse_pos)
+		void Container::invoke_event_click(EMouseButtons mouse_button, const Ness::Pointi& mouse_pos)
 		{
 			
 			// new focused widget
-			WidgetPtr new_focused;
+			GuiElementPtr new_focused;
 
 			// loop over son elements and check if we clicked on an element
 			// note: go from last to first so that latter widgets will have priority
-			for (unsigned int i = m_entities.size(); i > 0; --i)
+			for (unsigned int i = m_sons.size(); i > 0; --i)
 			{
-				WidgetPtr widget = ness_ptr_cast<WidgetAPI>(m_entities[i]);
-				if (widget && widget->is_point_on(mouse_pos))
+				GuiElementPtr& widget = m_sons[i];
+				if (widget->is_point_on(mouse_pos))
 				{
 					widget->invoke_event_click(mouse_button, mouse_pos);
 					new_focused = widget;
@@ -83,13 +93,13 @@ namespace Ness
 			m_focused_widget = new_focused;
 		}
 
-		void Frame::invoke_event_key_down(EMouseButtons key)
+		void Container::invoke_event_key_down(EMouseButtons key)
 		{
 			if (m_focused_widget)
 				m_focused_widget->invoke_event_key_down(key);
 		}
 
-		void Frame::invoke_event_key_up(EMouseButtons key)
+		void Container::invoke_event_key_up(EMouseButtons key)
 		{
 			if (m_focused_widget)
 				m_focused_widget->invoke_event_key_up(key);

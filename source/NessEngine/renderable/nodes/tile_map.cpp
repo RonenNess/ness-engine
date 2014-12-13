@@ -83,7 +83,7 @@ namespace Ness
 
 		// set size, anchor and default blend mode
 		sprite->set_size(m_tile_size);
-		sprite->set_anchor(Point(0.5f, 1.0f));
+		sprite->set_anchor(Point(0.0f, 0.0f));
 		sprite->set_blend_mode(BLEND_MODE_NONE);
 
 		// set z-index
@@ -218,8 +218,8 @@ namespace Ness
 	{
 		Pointi index;
 		Point scale = get_absolute_transformations().scale;
-		index.x = (int)((position.x + (m_tile_size.x * scale.x * 0.5f)) / (m_sprites_distance.x * scale.x));
-		index.y = (int)((position.y + (m_tile_size.y * scale.y)) / (m_sprites_distance.y * scale.y));
+		index.x = (int)((position.x) / (m_sprites_distance.x * scale.x));
+		index.y = (int)((position.y) / (m_sprites_distance.y * scale.y));
 		return index;
 	}
 

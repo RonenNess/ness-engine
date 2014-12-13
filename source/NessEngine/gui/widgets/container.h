@@ -31,9 +31,8 @@
 
 #pragma once
 
-#include "../../basic_types/rectangle.h"
-#include "../gui_node.h"
-#include "widget_api.h"
+#include "gui_container_api.h"
+#include "gui_element_api.h"
 #include "../../renderable/nodes/tile_map.h"
 namespace Ness
 {
@@ -41,16 +40,19 @@ namespace Ness
 	{
 
 		// a gui frame that contain other widgets
-		class Frame : public GuiNode, public WidgetAPI
+		class Container : public GuiContainerAPI
 		{
 		private:
-			WidgetPtr			m_focused_widget;		// the son widget currently under focus (or null if have no widget focused)
-			Pointf				m_size;					// frame size
+			GuiElementPtr		m_focused_widget;		// the son widget currently under focus (or null if have no widget focused)
+			Pointi				m_size;					// frame size in gui grid units
 			TileMapPtr			m_graphics;				// the graphical part of the frame
+			BoundingBox			m_bounding_box;			// the bounding box of this container
 
 		public:
+
 			// create the frame widget
-			Frame(Renderer* renderer, const Pointi& size);
+			// size_in_units is the container size in gui grid units (defined in the gui manager)
+			NESSENGINE_API Container(GuiManager* manager, GuiContainerAPI* parent, const Pointi& size_in_units);
 
 			// handle basic events
 			NESSENGINE_API virtual void invoke_event_get_focus();
@@ -59,10 +61,15 @@ namespace Ness
 			NESSENGINE_API virtual void invoke_event_click(EMouseButtons mouse_button, const Ness::Pointi& mouse_pos);
 			NESSENGINE_API virtual void invoke_event_key_down(EMouseButtons key);
 			NESSENGINE_API virtual void invoke_event_key_up(EMouseButtons key);
+			NESSENGINE_API virtual void invoke_event_mouse_enter();
+			NESSENGINE_API virtual void invoke_event_mouse_leave();
+
+			// return the element's bounding box
+			NESSENGINE_API virtual const BoundingBox& get_bounding_box() {return m_bounding_box;}
 			
 		};
 
 		// a pointer to a gui widget
-		NESSENGINE_API typedef SharedPtr<Frame> FramePtr;
+		NESSENGINE_API typedef SharedPtr<Container> ContainerPtr;
 	}
 }

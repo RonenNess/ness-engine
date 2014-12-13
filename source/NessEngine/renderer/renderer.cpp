@@ -211,14 +211,20 @@ namespace Ness
 		m_frameid++;
 	}
 
+	// create a new gui manager
+	Gui::GuiManagerPtr Renderer::create_gui_manager(const String& resources_path, const Point& grid_unit_size)
+	{
+		return ness_make_ptr<Gui::GuiManager>(this, resources_path, grid_unit_size);
+	}
+
 	// remove a scene
-	NESSENGINE_API void Renderer::remove_scene(const ScenePtr& scene)
+	void Renderer::remove_scene(const ScenePtr& scene)
 	{
 		m_scenes.erase(std::remove(m_scenes.begin(), m_scenes.end(), scene), m_scenes.end());
 	}
 
 	// create a new scene
-	NESSENGINE_API ScenePtr Renderer::create_scene()
+	ScenePtr Renderer::create_scene()
 	{
 		ScenePtr ret = ScenePtr(new Scene(this));
 		m_scenes.push_back(ret);

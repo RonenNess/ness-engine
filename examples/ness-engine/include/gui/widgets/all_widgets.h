@@ -20,37 +20,4 @@
 
 */
 
-#include "gui_node.h"
-#include "widgets/widget_api.h"
-
-namespace Ness
-{
-	namespace Gui
-	{
-		// add/remove sub entity or node
-		void GuiNode::add(const RenderablePtr& object)
-		{
-			// make sure element is a gui element
-			if (!is_gui_element(object))
-				throw IllegalAction("Cannot add element that is not a gui element to a GuiNode!");
-
-			// add it
-			BaseNode::add(object);
-		}
-
-		void GuiNode::add_first(const RenderablePtr& object)
-		{
-			// make sure element is a gui element
-			if (!is_gui_element(object))
-				throw IllegalAction("Cannot add element that is not a gui element to a GuiNode!");
-
-			// add it
-			BaseNode::add_first(object);
-		}
-
-		bool GuiNode::is_gui_element(const RenderablePtr& object)
-		{
-			return ness_ptr_cast<GuiNode>(object).get() != nullptr || ness_ptr_cast<WidgetAPI>(object).get() != nullptr;
-		}
-	}
-}
+#pragma once
