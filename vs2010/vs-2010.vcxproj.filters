@@ -180,6 +180,9 @@
     <ClCompile Include="..\source\NessEngine\gui\containers\gui_container_api.cpp">
       <Filter>Source Files\gui\containers</Filter>
     </ClCompile>
+    <ClCompile Include="..\source\NessEngine\gui\containers\root_container.cpp">
+      <Filter>Source Files\gui\containers</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\source\NessEngine\NessEngine.h">
@@ -400,6 +403,12 @@
     </ClInclude>
     <ClInclude Include="..\source\NessEngine\gui\containers\all_containers.h">
       <Filter>Source Files\gui\containers</Filter>
+    </ClInclude>
+    <ClInclude Include="..\source\NessEngine\gui\containers\root_container.h">
+      <Filter>Source Files\gui\containers</Filter>
+    </ClInclude>
+    <ClInclude Include="..\source\NessEngine\gui\widgets\label.h">
+      <Filter>Source Files\gui\widgets</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

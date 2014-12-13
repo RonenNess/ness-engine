@@ -37,5 +37,14 @@ namespace Ness
 				m_parent->__remove_unsafe(this);
 			}
 		}
+
+		void GuiElementAPI::dock_to(EDockingOptions dock)
+		{
+			BoundingBox box;
+			if (m_parent)
+			{
+
+			}
+		}
 	}
 }

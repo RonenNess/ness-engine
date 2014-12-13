@@ -42,6 +42,19 @@ namespace Ness
 		class GuiManager;
 		class GuiContainerAPI;
 
+		// docking options (attach element to position relative to parent)
+		enum EDockingOptions
+		{
+			DOCK_TOP_CENTER,
+			DOCK_TOP_LEFT,
+			DOCK_TOP_RIGHT,
+			DOCK_BOTTOM_CENTER,
+			DOCK_BOTTOM_LEFT,
+			DOCK_BOTTOM_RIGHT,
+			DOCK_LEFT_CENTER,
+			DOCK_RIGHT_CENTER,
+		};
+
 		// gui element bounding box
 		NESSENGINE_API typedef Rectangle BoundingBox;
 
@@ -61,18 +74,22 @@ namespace Ness
 			{}
 
 			// set/get enabled
-			NESSENGINE_API inline void set_enabled(bool enabled) {if (m_enabled == enabled) return; m_enabled = enabled; need_update();}
+			NESSENGINE_API inline void set_enabled(bool enabled) {if (m_enabled == enabled) return; m_enabled = enabled; invoke_event_enabled_changed(enabled);}
 			NESSENGINE_API inline bool is_enabled() const {return m_enabled;}
 
 			// set/get visible
-			NESSENGINE_API inline void set_visible(bool visible) {if (m_visible == visible) return; m_visible = visible; need_update();}
+			NESSENGINE_API inline void set_visible(bool visible) {if (m_visible == visible) return; m_visible = visible; invoke_event_visibility_changed(visible);}
 			NESSENGINE_API inline bool is_visible() const {return m_visible;}
 
 			// remove this gui element
 			NESSENGINE_API virtual void remove_from_parent();
 
-			// called when this element needs to be updated (when state changes)
-			NESSENGINE_API virtual void need_update() = 0;
+			// set position of this widget to dock given position (relative to parent)
+			NESSENGINE_API virtual void dock_to(EDockingOptions dock);
+
+			// IMPORTANT NOTICE!!!
+			// ALL OF THE invoke_event_x FUNCTIONS SHOULD BE CALLED FROM THE OUTSIDE BY THE PARENT!
+			// do not call them internally.
 
 			// called when this element get focus
 			NESSENGINE_API virtual void invoke_event_get_focus() = 0;
@@ -81,29 +98,41 @@ namespace Ness
 			NESSENGINE_API virtual void invoke_event_lose_focus() = 0;
 
 			// called when mouse enter the element bounderies
-			NESSENGINE_API virtual void invoke_event_mouse_enter() = 0;
+			NESSENGINE_API virtual void invoke_event_mouse_enter(const Pointi& mouse_pos) = 0;
 
 			// called when mouse leave the element bounderies
-			NESSENGINE_API virtual void invoke_event_mouse_leave() = 0;
+			NESSENGINE_API virtual void invoke_event_mouse_leave(const Pointi& mouse_pos) = 0;
+
+			// called when mouse hover (move) over this element
+			NESSENGINE_API virtual void invoke_event_mouse_hover(const Pointi& mouse_pos) = 0;
+
+			// invoke mouse click event on this element (call only when certain this element was clicked on)
+			// mouse_button is the button pressed (left / right / middle mouse click)
+			// mouse_pos is absolute mouse position
+			NESSENGINE_API virtual void invoke_event_click(EMouseButtons mouse_button, const Ness::Pointi& mouse_pos) = 0;
+
+			// invoke key-down event (this event should be called only when this element is focused)
+			NESSENGINE_API virtual void invoke_event_key_down(EMouseButtons key) = 0;
+
+			// invoke key-down event (this event should be called only when this element is focused)
+			NESSENGINE_API virtual void invoke_event_key_up(EMouseButtons key) = 0;
+
+			// invoke visibility changed event
+			NESSENGINE_API virtual void invoke_event_visibility_changed(bool newState) = 0;
+
+			// invoke enabled changed event
+			NESSENGINE_API virtual void invoke_event_enabled_changed(bool newState) = 0;
 
 			// return the element's bounding box
 			// NOTE: the returned bounding box needs to be absolute, i.e. absolute position
 			// in pixels with absolute height/width in pixels.
 			NESSENGINE_API virtual const BoundingBox& get_bounding_box() = 0;
 
-			// invoke mouse click event on this element
-			// mouse_button is the button pressed (left / right / middle mouse click)
-			// mouse_pos is absolute mouse position
-			NESSENGINE_API virtual void invoke_event_click(EMouseButtons mouse_button, const Ness::Pointi& mouse_pos) = 0;
-
-			// invoke key-down event (this event should be called when this element is focused)
-			NESSENGINE_API virtual void invoke_event_key_down(EMouseButtons key) = 0;
-
-			// invoke key-down event (this event should be called when this element is focused)
-			NESSENGINE_API virtual void invoke_event_key_up(EMouseButtons key) = 0;
-
 			// is given absolute position within the bounderies of this widget?
 			NESSENGINE_API virtual bool is_point_on(const Ness::Pointi& pos) = 0;
+
+			// should return true if mouse is on this gui element
+			NESSENGINE_API virtual bool is_mouse_on() = 0;
 
 			// render the element!
 			NESSENGINE_API virtual void render() = 0;

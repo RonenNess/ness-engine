@@ -47,7 +47,7 @@ void Sprite3d::do_render(const Ness::Rectangle& target, const Ness::SRenderTrans
 		float distance = Position.distance(LightPos);
 		Ness::Point vector = (Position - LightPos);
 		vector.normalize();
-		vector.make_abs();
+		vector.abs();
 
 		// if this light is left to this object most right side, check lighting from left side:
 		if (LightPos.x < Position.x)

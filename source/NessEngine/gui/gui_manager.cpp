@@ -1,22 +1,55 @@
 #include "gui_manager.h"
+#include "../renderer/renderer.h"
 
 namespace Ness
 {
 	namespace Gui
 	{
+			GuiManager::GuiManager(Renderer* renderer, const String& resources_path,	const Pointi& grid_unit_size)
+		: m_renderer(renderer), m_unit_size(grid_unit_size), m_resources_path(resources_path + "/") 
+		{
+			// create the root container
+			m_root_container = ness_make_ptr<RootContainer>(this);
+
+			// pre-load gui font
+			m_font = m_renderer->resources().get_font(m_resources_path + "font.ttf");
+
+			// pre-load all gui textures
+			m_textures.push_back(m_renderer->resources().get_texture(m_resources_path + "frame_disabled.png"));
+			m_textures.push_back(m_renderer->resources().get_texture(m_resources_path + "frame_focused.png"));
+			m_textures.push_back(m_renderer->resources().get_texture(m_resources_path + "frame_unfocused.png"));
+			m_textures.push_back(m_renderer->resources().get_texture(m_resources_path + "frame_mouse_hover.png"));
+		}
+
 		ContainerPtr GuiManager::create_container(const Pointi& size_in_units)
 		{
-			ContainerPtr ret = ness_make_ptr<Container>(this, nullptr, size_in_units);
-			m_containers.push_back(ret);
-			return ret;
+			return m_root_container->create_container(size_in_units);
 		}
 
 		void GuiManager::render()
 		{
-			for (unsigned int i = 0; i < m_containers.size(); ++i)
+			m_root_container->render();
+		}
+
+		bool GuiManager::inject_event(const Event& event)
+		{
+			// update mouse and keyboard
+			m_mouse.inject_event(event);
+			m_keyboard.inject_event(event);
+
+			// check the type of event called
+			switch (event.type)
 			{
-				m_containers[i]->render();
+				// do mouse movement
+				case SDL_MOUSEMOTION:
+					return m_root_container->handle_mouse_move(m_mouse.position());
+
+				case SDL_MOUSEBUTTONDOWN:
+					//change_button_state(event.button.button, true);
+					break;
 			}
+
+			return false;
 		}
 	}
 }

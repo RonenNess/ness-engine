@@ -53,6 +53,7 @@ namespace Ness
 			NESSENGINE_API virtual void remove(const GuiElementPtr& element);
 			NESSENGINE_API virtual void __add(GuiElementAPI* element);
 			NESSENGINE_API virtual void __remove_unsafe(GuiElementAPI* element);
+
 		};
 
 		// a pointer to a gui widget

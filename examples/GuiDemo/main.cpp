@@ -14,6 +14,7 @@ int _tmain(int argc, _TCHAR* argv[])
 	// init and create a renderer
 	Ness::init();
 	Ness::Renderer renderer("Hello World!", Ness::Sizei(512, 512));
+	renderer.set_background_color(Ness::Color::BLACK);
 
 	// create a new gui manager
 	Ness::Gui::GuiManagerPtr gui = renderer.create_gui_manager("../ness-engine/resources/gui/");
@@ -22,6 +23,7 @@ int _tmain(int argc, _TCHAR* argv[])
 	// create the events handler
 	Ness::Utils::EventsPoller EventsPoller;
 	Ness::Utils::ApplicationEvents app;
+	EventsPoller.add_handler(*gui.get());
 	EventsPoller.add_handler(app);
 
 	// loop until exit button is pressed

@@ -28,21 +28,28 @@
 */
 
 #pragma once
-#include "widgets\all_widgets.h"
-#include "containers\all_containers.h"
+#include "widgets/all_widgets.h"
+#include "containers/all_containers.h"
+#include "../utils/event_handler.h"
+#include "../utils/mouse.h"
+#include "../utils/keyboard.h"
 
 namespace Ness
 {
 	namespace Gui
 	{
-		// a special scene node to hold and manage gui elements
-		class GuiManager
+		// manage a gui system
+		// note: you must register it to an event poller to make it react with keyboard and mouse!
+		class GuiManager : public Utils::EventsHandler
 		{
 		protected:
-			Containers::Vector<ContainerPtr>	m_containers;			// the gui containers in this manager
-			Renderer*							m_renderer;				// pointer to the renderer object
-			Point								m_unit_size;			// all widgets size and position are based on unit size (like a grid)
-			String								m_resources_path;		// the path of the folder in which we have the gui textures
+			RootContainerPtr										m_root_container;		// the gui root container that contains all sub containers and elements
+			Renderer*												m_renderer;				// pointer to the renderer object
+			Pointi													m_unit_size;			// all widgets size and position are based on unit size (like a grid)
+			String													m_resources_path;		// the path of the folder in which we have the gui textures
+			Utils::Mouse											m_mouse;				// mouse events handler
+			Utils::Keyboard											m_keyboard;				// keyboard events handler
+			Containers::Vector<ManagedResources::ManagedTexturePtr>	m_textures;				// preload all gui-related texture
 
 		public:
 			// create the gui manager
@@ -51,10 +58,10 @@ namespace Ness
 			//					there is default gui skin provided within ness-engine resources.
 			// grid_unit_size: all sizes and units in gui elements are based on the grid. this 
 			//					param determine the size of a single grid unit.
-			NESSENGINE_API GuiManager(Renderer* renderer, 
-				const String& resources_path = "ness-engine/resources/gui/", 
-				const Point& grid_unit_size = Point(32, 32)) 
-				: m_renderer(renderer), m_unit_size(grid_unit_size), m_resources_path(resources_path + "/") {}
+			NESSENGINE_API GuiManager(Renderer* renderer, const String& resources_path = "ness-engine/resources/gui/", const Pointi& grid_unit_size = Point(32, 32));
+
+			// handle events
+			NESSENGINE_API virtual bool inject_event(const Event& event);
 
 			// create a gui container
 			// size_in_units is the size of the container in grid_unit_size (as defined when you created the gui manager)
@@ -64,7 +71,7 @@ namespace Ness
 			NESSENGINE_API inline Renderer* renderer() const {return m_renderer;}
 
 			// get the unit size
-			NESSENGINE_API inline const Point& get_unit_size() const {return m_unit_size;}
+			NESSENGINE_API inline const Pointi& get_unit_size() const {return m_unit_size;}
 
 			// get the resources path
 			NESSENGINE_API inline const String& get_resources_path() const {return m_resources_path;}
