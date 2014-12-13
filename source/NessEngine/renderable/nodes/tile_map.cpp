@@ -83,7 +83,7 @@ namespace Ness
 
 		// set size, anchor and default blend mode
 		sprite->set_size(m_tile_size);
-		sprite->set_anchor(Point(0.0f, 0.0f));
+		sprite->set_anchor(m_tiles_anchor);
 		sprite->set_blend_mode(BLEND_MODE_NONE);
 
 		// set z-index
@@ -159,6 +159,18 @@ namespace Ness
 		}
 	}
 
+	void TileMap::set_tiles_anchor(const Point& anchor)
+	{
+		m_tiles_anchor = anchor;
+		for (int i = 0; i < m_size.x; i++)
+		{
+			for (int j = 0; j < m_size.y; j++)
+			{
+				m_sprites[i][j]->set_anchor(m_tiles_anchor);
+			}
+		}
+	}
+
 	Rectangle TileMap::get_tiles_in_screen(const CameraPtr& camera) 
 	{
 		Rectangle ret;
@@ -218,8 +230,8 @@ namespace Ness
 	{
 		Pointi index;
 		Point scale = get_absolute_transformations().scale;
-		index.x = (int)((position.x) / (m_sprites_distance.x * scale.x));
-		index.y = (int)((position.y) / (m_sprites_distance.y * scale.y));
+		index.x = (int)((position.x + (m_tile_size.x * scale.x * m_tiles_anchor.x)) / (m_sprites_distance.x * scale.x));
+		index.y = (int)((position.y + (m_tile_size.y * scale.y * m_tiles_anchor.y)) / (m_sprites_distance.y * scale.y));
 		return index;
 	}
 

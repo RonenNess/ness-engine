@@ -16,7 +16,6 @@ public:
 				if (j % 2) m_sprites[i][j]->set_position(m_sprites[i][j]->get_position() - Ness::Point(m_tile_size.x * 0.5f, 0.0f));
 				m_sprites[i][j]->set_position(Ness::Point(m_sprites[i][j]->get_position().x, j * m_sprites_distance.y));
 				m_sprites[i][j]->set_blend_mode(Ness::BLEND_MODE_BLEND);
-				
 			}
 		}
 	}

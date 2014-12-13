@@ -54,6 +54,7 @@ namespace Ness
 		Containers::Vector< Containers::Vector<SpritePtr> >		m_sprites;					// the sprites matrix
 		SRenderTransformations									m_absolute_transformations;	// absolute transformations of this tilemap
 		Sizei													m_extra_tiles_factor;		// extra tiles to render (count in screen) on eatch side of x and y axis
+		Point													m_tiles_anchor;				// the tiles default anchor
 
 	public:
 
@@ -75,6 +76,11 @@ namespace Ness
 		// what is it for? if your normal tiles size is 32x32 but sometimes you have tiles of 32x64, you can set it to (0, 1), meaning you
 		// will count additional tile from top and bottom when rendering the tiles in screen
 		NESSENGINE_API inline void set_extra_tiles_in_screen(const Ness::Sizei& extra) {m_extra_tiles_factor = extra;}
+
+		// set the anchor of all the tiles.
+		// its important to use this function and not do it manually, because this function also effect the 
+		// function to pick tile from position.
+		NESSENGINE_API void set_tiles_anchor(const Point& anchor);
 
 		// return tilemap params
 		NESSENGINE_API inline const Sizei& get_map_size() const {return m_size;}
