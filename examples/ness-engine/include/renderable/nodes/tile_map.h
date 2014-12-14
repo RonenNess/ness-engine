@@ -113,11 +113,11 @@ namespace Ness
 		NESSENGINE_API virtual Point get_position_from_index(const Pointi& index) const;
 
 		// get all visible son entities
-		NESSENGINE_API virtual void __get_visible_entities(Containers::Vector<RenderableAPI*>& out_list,
+		NESSENGINE_API virtual void __get_visible_entities(RenderablesList& out_list,
 			const CameraPtr& camera = NullCamera, bool break_son_nodes = true);
 
 		// get all son entities (all the tiles)
-		NESSENGINE_API virtual void __get_all_entities(Containers::Vector<RenderableAPI*>& out_list, bool breakGroups);
+		NESSENGINE_API virtual void __get_all_entities(RenderablesList& out_list, bool breakGroups);
 
 		// update that the tilemap needs update
 		NESSENGINE_API virtual void transformations_update();

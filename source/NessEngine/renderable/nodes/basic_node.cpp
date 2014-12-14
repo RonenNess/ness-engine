@@ -29,57 +29,58 @@
 namespace Ness
 {
 
-	void BaseNode::__get_visible_entities(Containers::Vector<RenderableAPI*>& out_list, const CameraPtr& camera, bool break_son_nodes)
+	void BaseNode::__get_visible_entities(RenderablesList& out_list, const CameraPtr& camera, bool break_son_nodes)
 	{
 		for (unsigned int i = 0; i < m_entities.size(); i++)
 		{
+			SharedPtr<RenderableAPI>& curr = m_entities[i];
+
 			// check if current entity is a node
-			NodeAPI* currentNode = dynamic_cast<NodeAPI*>(m_entities[i].get());
-			if (currentNode)
+			if (curr->is_node())
 			{
-				if (break_son_nodes && !currentNode->get_flag(RNF_NEVER_BREAK))
+				if (break_son_nodes && !curr->get_flag(RNF_NEVER_BREAK))
 				{
+					SharedPtr<NodeAPI>& currentNode = ness_ptr_cast<NodeAPI>(curr);
 					currentNode->__get_visible_entities(out_list, camera, break_son_nodes);
 				}
 				else
 				{
-					out_list.push_back(currentNode);
+					out_list.push_back(curr);
 				}
 			}
 			// if not a node, check if in screen and if so add it
 			else
 			{
-				RenderableAPI* current = m_entities[i].get();
-				if (!current->is_really_visible(camera))
+				if (!curr->is_really_visible(camera))
 					continue;
 
 				// add to rendering list
-				out_list.push_back(current);
+				out_list.push_back(curr);
 			}
 		}
 	}
 
-	void BaseNode::__get_all_entities(Containers::Vector<RenderableAPI*>& out_list, bool breakGroups)
+	void BaseNode::__get_all_entities(RenderablesList& out_list, bool breakGroups)
 	{
 		for (unsigned int i = 0; i < m_entities.size(); i++)
 		{
 			// if need to break son nodes:
 			if (breakGroups)
 			{
-				NodeAPI* currentNode = dynamic_cast<NodeAPI*>(m_entities[i].get());
-				if (currentNode)
+				if (m_entities[i]->is_node())
 				{
+					SharedPtr<NodeAPI> currentNode = ness_ptr_cast<NodeAPI>(m_entities[i]);
 					currentNode->__get_all_entities(out_list, breakGroups);
 				}
 				else
 				{
-					out_list.push_back(m_entities[i].get());
+					out_list.push_back(m_entities[i]);
 				}
 			}
 			// if not a node, check if in screen and if so add it
 			else
 			{
-				out_list.push_back(m_entities[i].get());
+				out_list.push_back(m_entities[i]);
 			}
 		}
 	}

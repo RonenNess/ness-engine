@@ -192,7 +192,7 @@ namespace Ness
 			target.y -= (int)camera->position.y;
 		}
 
-		// check if in screen.
+		// check if in screen
 		if (!is_in_screen(target, trans.rotation))
 		{
 			return;

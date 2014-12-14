@@ -34,6 +34,9 @@
 namespace Ness
 {
 
+	// define a list of renderables
+	typedef Containers::Vector<SharedPtr<RenderableAPI> > RenderablesList;
+
 	// the API of a node class (containing other nodes and entities)
 	class NodeAPI : public RenderableAPI
 	{
@@ -79,12 +82,12 @@ namespace Ness
 		// it should be checked and handled by the caller. when this function is called with break_son_nodes = true,
 		// it should ALWAYS break son-nodes (except for the son-nodes that have never-break flag which we need to 
 		// check here as the callers)
-		NESSENGINE_API virtual void __get_visible_entities(Containers::Vector<RenderableAPI*>& out_list,
+		NESSENGINE_API virtual void __get_visible_entities(RenderablesList& out_list,
 			const CameraPtr& camera = NullCamera, bool break_son_nodes = true) = 0;
 
 		// get a list with ALL entities in node
 		// if breakGroups is true, will break down son nodes as well. else, will add son nodes to the list as whole
-		NESSENGINE_API virtual void __get_all_entities(Containers::Vector<RenderableAPI*>& out_list, bool breakGroups) = 0;
+		NESSENGINE_API virtual void __get_all_entities(RenderablesList& out_list, bool breakGroups) = 0;
 	};
 
 	// renderable parent pointer

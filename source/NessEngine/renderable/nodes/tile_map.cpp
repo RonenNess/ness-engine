@@ -136,25 +136,25 @@ namespace Ness
 		}
 	}
 
-	void TileMap::__get_visible_entities(Containers::Vector<RenderableAPI*>& out_list, const CameraPtr& camera, bool break_son_nodes)
+	void TileMap::__get_visible_entities(RenderablesList& out_list, const CameraPtr& camera, bool break_son_nodes)
 	{
 		Rectangle range = get_tiles_in_screen(camera);
 		for (int i = range.x; i < range.w; i++)
 		{
 			for (int j = range.y; j < range.h; j++)
 			{
-				out_list.push_back(m_sprites[i][j].get());
+				out_list.push_back(m_sprites[i][j]);
 			}
 		}
 	}
 	
-	void TileMap::__get_all_entities(Containers::Vector<RenderableAPI*>& out_list, bool breakGroups)
+	void TileMap::__get_all_entities(RenderablesList& out_list, bool breakGroups)
 	{
 		for (int i = 0; i < m_size.x; i++)
 		{
 			for (int j = 0; j < m_size.y; j++)
 			{
-				out_list.push_back(m_sprites[i][j].get());
+				out_list.push_back(m_sprites[i][j]);
 			}
 		}
 	}

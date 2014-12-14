@@ -51,7 +51,7 @@ namespace Ness
 	}
 
 	// get all visible batches (canvases)
-	void StaticNode::__get_visible_entities(Containers::Vector<RenderableAPI*>& out_list, const CameraPtr& camera, bool break_son_nodes)
+	void StaticNode::__get_visible_entities(RenderablesList& out_list, const CameraPtr& camera, bool break_son_nodes)
 	{
 		// get visible batches range and add to out list
 		Rectangle batches = get_batches_range(camera);
@@ -61,7 +61,7 @@ namespace Ness
 			{
 				if (m_batches[i][j])
 				{
-					out_list.push_back(m_batches[i][j].get());
+					out_list.push_back(m_batches[i][j]);
 				}
 			}
 		}
@@ -71,7 +71,7 @@ namespace Ness
 	void StaticNode::build(bool removeEntities)
 	{
 		// first get one big list with all the entities to render (break down son nodes)
-		Containers::Vector<RenderableAPI*> render_list;
+		RenderablesList render_list;
 		for (unsigned int i = 0; i < m_entities.size(); i++)
 		{
 			// check if current entity is a node, and if so, break it
@@ -83,14 +83,14 @@ namespace Ness
 			}
 
 			// if got here it means its an entity, not a node
-			render_list.push_back(m_entities[i].get());
+			render_list.push_back(m_entities[i]);
 		}
 
 		// now render all the entities on the batches
 		for (unsigned int i = 0; i < render_list.size(); ++i)
 		{
 			// get current renderable and make sure it's really an entity
-			Entity* curr = dynamic_cast<Entity*>(render_list[i]);
+			SharedPtr<Entity> curr = ness_ptr_cast<Entity>(render_list[i]);
 			if (curr == nullptr)
 			{
 				throw IllegalAction("Static node only support renderables that inherit from 'Entity' base class!");

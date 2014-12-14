@@ -28,11 +28,11 @@ namespace Ness
 {
 	// function to sort by z index
 	// algoritm: go by z index. if same z index, go by position.y. if same position.y, go by position.x.
-	bool sort_by_z(RenderableAPI* a, RenderableAPI* b)
+	bool sort_by_z(SharedPtr<RenderableAPI>& a, SharedPtr<RenderableAPI>& b)
 	{
 		return a->get_zindex() < b->get_zindex();
 	}
-	bool sort_by_z_absolute(RenderableAPI* a, RenderableAPI* b)
+	bool sort_by_z_absolute(SharedPtr<RenderableAPI>& a, SharedPtr<RenderableAPI>& b)
 	{
 		return  a->get_absolute_zindex() < b->get_absolute_zindex();
 	}
@@ -41,7 +41,7 @@ namespace Ness
 	void ZNode::render(const CameraPtr& camera)
 	{
 		// create the ordered render list
-		static Containers::Vector<RenderableAPI*> render_list;
+		static RenderablesList render_list;
 
 		// if its time to reorder, reset the render list and repopulate it
 		if (m_time_until_next_zorder <= 0.0f)
@@ -53,11 +53,11 @@ namespace Ness
 			for (unsigned int i = 0; i < m_entities.size(); i++)
 			{
 				// if need to break entities of son nodes:
-				if (m_break_groups)
+				if (m_break_groups && m_entities[i]->is_node())
 				{
 					// check if current entity is indeed a node, and if so, break it
-					NodeAPI* currentNode = dynamic_cast<NodeAPI*>(m_entities[i].get());
-					if (currentNode && (!currentNode->get_flag(Ness::RNF_NEVER_BREAK)))
+					SharedPtr<NodeAPI> currentNode = ness_ptr_cast<NodeAPI>(m_entities[i]);
+					if (!currentNode->get_flag(Ness::RNF_NEVER_BREAK))
 					{
 						currentNode->__get_visible_entities(render_list, camera, true);
 						continue;
@@ -65,7 +65,7 @@ namespace Ness
 				}
 
 				// if got here it's either a sprite entity or a node but we want to keep groups. add it to rendering list if visible
-				RenderableAPI* current = m_entities[i].get();
+				SharedPtr<RenderableAPI>& current = m_entities[i];
 				if (!current->is_really_visible(camera))
 					continue;
 				render_list.push_back(current);

@@ -145,7 +145,7 @@ namespace Ness
 		return (int)((m_renderer->get_target_size().y + (m_node_size.y * scale)) / (m_nodes_distance.y * scale)) + 2 + m_extra_tiles_factor.y * 2;
 	}
 
-	void NodesMap::__get_visible_entities(Containers::Vector<RenderableAPI*>& out_list, const CameraPtr& camera, bool break_son_nodes)
+	void NodesMap::__get_visible_entities(RenderablesList& out_list, const CameraPtr& camera, bool break_son_nodes)
 	{
 		Rectangle range = get_nodes_in_screen(camera);
 		for (int i = range.x; i < range.w; i++)
@@ -159,19 +159,19 @@ namespace Ness
 				}
 				else
 				{
-					out_list.push_back(curr.get());
+					out_list.push_back(curr);
 				}
 			}
 		}
 	}
 	
-	void NodesMap::__get_all_entities(Containers::Vector<RenderableAPI*>& out_list, bool breakGroups)
+	void NodesMap::__get_all_entities(RenderablesList& out_list, bool breakGroups)
 	{
 		for (int i = 0; i < m_size.x; i++)
 		{
 			for (int j = 0; j < m_size.y; j++)
 			{
-				out_list.push_back(m_nodes[i][j].get());
+				out_list.push_back(m_nodes[i][j]);
 			}
 		}
 	}
