@@ -115,7 +115,7 @@ namespace Ness
 		NESSENGINE_API virtual Pointi get_index_from_position(const Point& position);
 
 		// get all visible son nodes and entities
-		NESSENGINE_API virtual void __get_visible_entities(Containers::Vector<RenderableAPI*>& out_list, 
+		NESSENGINE_API virtual void __get_visible_entities(Containers::Vector<RenderableAPI*>& out_list,
 			const CameraPtr& camera = NullCamera, bool break_son_nodes = true);
 
 		// get all son entities (all the tiles)

@@ -38,17 +38,25 @@ namespace Ness
 	class ZNode : public Node
 	{
 	private:
-		bool m_break_groups;
+		bool	m_break_groups;				// should we break son nodes when z-ordering or treat them as a single entity?
+		float	m_update_list_intervals;	// time in miliseconds between z-ordering refresh
+		float	m_time_until_next_zorder;	// time left until next time we need to z-order
 
 	public:
 		// create the znode
-		NESSENGINE_API ZNode(Renderer* renderer) : Node(renderer), m_break_groups(false) {}
+		NESSENGINE_API ZNode(Renderer* renderer) : Node(renderer), m_break_groups(false), m_update_list_intervals(0.1f), m_time_until_next_zorder(0.0f) {}
+
+		// this determine how often, in miliseconds, should this z-node update its rendering list,
+		// i.e. recalculate all visible entities and reorder them.
+		// a good balance would be quick enough not to notice z-ordering delays or object appearance delay,
+		// but still not ordering every frame.
+		NESSENGINE_API inline void set_reorder_interval(float interval) {m_update_list_intervals = interval;}
 
 		// set if this znode should break groups or not
 		// if break groups is true, this znode will take ALL entities from all son nodes and arrange them based on zorder.
 		// if break groups is false, the znode will arrange son nodes as son entities, meaning every son node shares the same z-order.
 		// NOTE: if you want a node that never will be broken, set it's flag with: node->set_flag(Ness::RNF_NEVER_BREAK);
-		inline void set_break_groups(bool BreakGroups) {m_break_groups = BreakGroups;}
+		NESSENGINE_API inline void set_break_groups(bool BreakGroups) {m_break_groups = BreakGroups;}
 
 		// render everything, with z order!
 		NESSENGINE_API virtual void render(const CameraPtr& camera = NullCamera);

@@ -82,7 +82,7 @@ namespace Ness
 		// camera is the camera object to check visibility
 		// break_son_nodes if true (default) will break son nodes and take their entities. else, will
 		// just put the whole nodes into the out list.
-		NESSENGINE_API virtual void __get_visible_entities(Containers::Vector<RenderableAPI*>& out_list, 
+		NESSENGINE_API virtual void __get_visible_entities(Containers::Vector<RenderableAPI*>& out_list,
 			const CameraPtr& camera = NullCamera, bool break_son_nodes = true);
 
 		// get a list with ALL entities in node
