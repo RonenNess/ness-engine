@@ -131,7 +131,7 @@ namespace Ness
 		{
 			// begin with this node basic transformations and add parent's transformations
 			m_absolute_trans = m_transformations;
-			m_absolute_trans.add_transformations(m_parent->get_absolute_transformations());
+			if (m_parent) m_absolute_trans.add_transformations(m_parent->get_absolute_transformations());
 
 			// set no longer need update
 			m_need_trans_update = false;
