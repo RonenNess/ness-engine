@@ -37,6 +37,10 @@ namespace Ness
 	// define a list of renderables
 	typedef Containers::Vector<SharedPtr<RenderableAPI> > RenderablesList;
 
+	// define a list of entities
+	class EntityAPI;
+	typedef Containers::Vector<SharedPtr<EntityAPI> > EntitiesList;
+
 	// the API of a node class (containing other nodes and entities)
 	class NodeAPI : public RenderableAPI
 	{
@@ -74,6 +78,13 @@ namespace Ness
 
 		// render this scene node (all nodes must also be renderable)
 		NESSENGINE_API virtual void render(const CameraPtr& camera = NullCamera) = 0;
+
+		// select son entities from position (note: entities only!)
+		// out_list is the list to fill with the selected entities
+		// pos is the position to pick entities from (will return all entities that "touch" that position)
+		// recursive if true, will break and scan son nodes. if false, will ignore son nodes
+		// note: this will return only entities that have the RNF_SELECTABLE flag enabled (default state)
+		NESSENGINE_API virtual void select_entities_from_position(EntitiesList& out_list, const Pointf& pos, bool recursive) const = 0;
 
 		// get a list with ALL the son entities that are currently visible in screen
 		// camera is to check visibility (which objects are in screen)

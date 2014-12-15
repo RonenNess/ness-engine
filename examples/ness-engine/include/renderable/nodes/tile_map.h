@@ -100,14 +100,19 @@ namespace Ness
 		NESSENGINE_API virtual bool need_transformations_update() {return false;}
 
 		// get a specific sprite by index
+		NESSENGINE_API inline SpritePtr get_sprite(const Pointi& index) const {return m_sprites[index.x][index.y];}
 		NESSENGINE_API inline SpritePtr& get_sprite(const Pointi& index) {return m_sprites[index.x][index.y];}
 
 		// get a specific sprite by position
 		// return empty if out of range
 		NESSENGINE_API virtual SpritePtr& get_sprite_by_position(const Point& position);
 
+		// get entities from position (same as get_sprite_by_position but must be implemented because part
+		// of node api). read NodeAPI comments for more info.
+		NESSENGINE_API virtual void select_entities_from_position(EntitiesList& out_list, const Pointf& pos, bool recursive) const;
+
 		// return index of tile from position
-		NESSENGINE_API virtual Pointi get_index_from_position(const Point& position);
+		NESSENGINE_API virtual Pointi get_index_from_position(const Point& position) const;
 
 		// return position of tile from index
 		NESSENGINE_API virtual Point get_position_from_index(const Pointi& index) const;
@@ -165,7 +170,7 @@ namespace Ness
 		NESSENGINE_API virtual int get_tiles_in_screen_y();
 		// make sure given index are within the tilemap size. 
 		// note: i and j may be equal to size.x and size.y, its still count in range
-		NESSENGINE_API void put_in_range(int& i, int& j);
+		NESSENGINE_API void put_in_range(int& i, int& j) const;
 
 	private:
 		// arrange a single tile sprite during creation

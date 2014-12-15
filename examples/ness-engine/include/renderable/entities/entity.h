@@ -116,7 +116,7 @@ namespace Ness
 		NESSENGINE_API inline const Point& get_anchor() const {return m_anchor;}
 
 		// return the target rectangle this sprite will be rendered on, not including camera position
-		NESSENGINE_API const Rectangle& get_last_target_rect() const {return m_target_rect;}
+		NESSENGINE_API virtual const Rectangle& get_last_target_rect() const {return m_target_rect;}
 
 		// get absolute transformations for this renderable sprite
 		NESSENGINE_API virtual const SRenderTransformations& get_absolute_transformations();

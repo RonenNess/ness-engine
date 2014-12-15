@@ -97,6 +97,10 @@ namespace Ness
 		NESSENGINE_API void set_render_target(const CanvasPtr& NewTarget);
 		NESSENGINE_API void remove_render_target();
 
+		// select son entities from position (note: entities only!)
+		// see NodeAPI doc for more info.
+		NESSENGINE_API virtual void select_entities_from_position(EntitiesList& out_list, const Pointf& pos, bool recursive) const;
+
 		// return if need transformations udpate
 		NESSENGINE_API virtual bool need_transformations_update() {return m_need_trans_update;}
 
