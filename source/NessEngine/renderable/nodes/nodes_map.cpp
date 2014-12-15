@@ -215,8 +215,8 @@ namespace Ness
 	{
 		Pointi index;
 		Point scale = get_absolute_transformations().scale;
-		index.x = (int)((position.x + (m_node_size.x * scale.x * 0.5f)) / (m_nodes_distance.x * scale.x));
-		index.y = (int)((position.y + (m_node_size.y * scale.y)) / (m_nodes_distance.y * scale.y));
+		index.x = (int)std::floor((position.x) / (m_nodes_distance.x * scale.x));
+		index.y = (int)std::floor((position.y) / (m_nodes_distance.y * scale.y));
 		return index;
 	}
 
@@ -224,8 +224,8 @@ namespace Ness
 	{
 		Pointi index;
 		Point scale = m_transformations.scale;
-		index.x = (int)((position.x + (m_node_size.x * scale.x * 0.5f)) / (m_nodes_distance.x * scale.x));
-		index.y = (int)((position.y + (m_node_size.y * scale.y)) / (m_nodes_distance.y * scale.y));
+		index.x = (int)std::floor((position.x) / (m_nodes_distance.x * scale.x));
+		index.y = (int)std::floor((position.y) / (m_nodes_distance.y * scale.y));
 		return index;
 	}
 
