@@ -73,6 +73,15 @@ namespace Ness
 		}
 	}
 
+	void TileMap::select_entities_from_position(EntitiesList& out_list, const Pointf& pos, bool recursive) const
+	{
+		const SpritePtr& tile = ((TileMap*)(this))->get_sprite_by_position(pos);
+		if (tile && tile->get_flag(RNF_SELECTABLE))
+		{
+			out_list.push_back(tile);
+		}
+	}
+
 	// arrange a single tile sprite during creation
 	void TileMap::arrange_sprite(const SpritePtr& sprite, const Ness::Pointi& index)
 	{				
@@ -194,7 +203,7 @@ namespace Ness
 		return ret;
 	}
 
-	void TileMap::put_in_range(int& i, int& j)
+	void TileMap::put_in_range(int& i, int& j) const
 	{
 		if (i < 0) i = 0;
 		if (i > m_size.x) i = m_size.x;
@@ -226,10 +235,10 @@ namespace Ness
 		return (int)((m_renderer->get_target_size().y + (m_tile_size.y * scale)) / (m_sprites_distance.y * scale)) + 1 + m_extra_tiles_factor.y * 2;
 	}
 
-	Pointi TileMap::get_index_from_position(const Point& position)
+	Pointi TileMap::get_index_from_position(const Point& position) const
 	{
 		Pointi index;
-		Point scale = get_absolute_transformations().scale;
+		Point scale = m_absolute_transformations.scale;
 		index.x = (int)((position.x + (m_tile_size.x * scale.x * m_tiles_anchor.x)) / (m_sprites_distance.x * scale.x));
 		index.y = (int)((position.y + (m_tile_size.y * scale.y * m_tiles_anchor.y)) / (m_sprites_distance.y * scale.y));
 		return index;

@@ -42,6 +42,7 @@ namespace Ness
 	enum ERenderableNodeFlags
 	{
 		RNF_NEVER_BREAK = 0x1 << 0,		// never break this node when z-ordering inside a z-node
+		RNF_SELECTABLE = 0x1 << 1,		// is this entity/node selectable by select_entity_* functions?
 	};
 
 	// all ness-engine flags you can use with renderable entity flags
@@ -62,7 +63,7 @@ namespace Ness
 
 	public:
 		NESSENGINE_API RenderableAPI(Renderer* renderer) : 
-		  m_renderer(renderer), m_parent(nullptr), m_visible(true), m_flags(0), m_user_data(nullptr) {}
+		  m_renderer(renderer), m_parent(nullptr), m_visible(true), m_flags(RNF_SELECTABLE), m_user_data(nullptr) {}
 
 		// attached customized user data to this object
 		inline void set_user_data(void* user_data) {m_user_data = user_data;}

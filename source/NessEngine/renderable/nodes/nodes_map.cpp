@@ -164,6 +164,18 @@ namespace Ness
 			}
 		}
 	}
+
+	void NodesMap::select_entities_from_position(EntitiesList& out_list, const Pointf& pos, bool recursive) const
+	{
+		if (!recursive)
+			return;
+
+		const NodeAPIPtr& node = ((NodesMap*)(this))->get_node_by_position_any(pos);
+		if (node && node->get_flag(RNF_SELECTABLE))
+		{
+			node->select_entities_from_position(out_list, pos, recursive);
+		}
+	}
 	
 	void NodesMap::__get_all_entities(RenderablesList& out_list, bool breakGroups)
 	{
@@ -208,6 +220,15 @@ namespace Ness
 		return index;
 	}
 
+	Pointi NodesMap::get_index_from_position(const Point& position) const
+	{
+		Pointi index;
+		Point scale = m_transformations.scale;
+		index.x = (int)((position.x + (m_node_size.x * scale.x * 0.5f)) / (m_nodes_distance.x * scale.x));
+		index.y = (int)((position.y + (m_node_size.y * scale.y)) / (m_nodes_distance.y * scale.y));
+		return index;
+	}
+
 	Point NodesMap::get_position_from_index(const Pointi& index) const
 	{
 		return m_nodes[index.x][index.y]->get_position();
@@ -223,7 +244,18 @@ namespace Ness
 		return ret;
 	}
 
-	NodeAPIPtr& NodesMap::get_node_by_position_any(const Point& position)
+	NodeAPIPtr NodesMap::get_node_by_position_any(const Point& position)
+	{
+		static NodeAPIPtr empty;
+		Pointi index = get_index_from_position(position);
+		if (index.x < 0 || index.y < 0 || index.x >= m_size.x || index.y >= m_size.y)
+		{
+			return empty;
+		}
+		return get_node_any(index);
+	}
+
+	NodeAPIPtr NodesMap::get_node_by_position_any(const Point& position) const
 	{
 		static NodeAPIPtr empty;
 		Pointi index = get_index_from_position(position);

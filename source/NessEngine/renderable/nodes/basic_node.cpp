@@ -60,6 +60,36 @@ namespace Ness
 		}
 	}
 
+	void BaseNode::select_entities_from_position(EntitiesList& out_list, const Pointf& pos, bool recursive) const
+	{
+		for (unsigned int i = 0; i < m_entities.size(); i++)
+		{
+			// get current son
+			const SharedPtr<RenderableAPI>& curr = m_entities[i];
+
+			// if not selectable skip
+			if (!curr->get_flag(RNF_SELECTABLE))
+				continue;
+
+			// check if current entity is a node and should scan it
+			if (curr->is_node())
+			{
+				if (recursive)
+				{
+					SharedPtr<NodeAPI>& currentNode = ness_ptr_cast<NodeAPI>(curr);
+					currentNode->select_entities_from_position(out_list, pos, recursive);
+				}
+			}
+			// if not a node, check if touches position and if so add it to the list
+			else
+			{
+				const SharedPtr<EntityAPI>& curr_entity = ness_ptr_cast<EntityAPI>(m_entities[i]);
+				if (curr_entity->touch_point(pos))
+					out_list.push_back(curr_entity);
+			}
+		}
+	}
+
 	void BaseNode::__get_all_entities(RenderablesList& out_list, bool breakGroups)
 	{
 		for (unsigned int i = 0; i < m_entities.size(); i++)
