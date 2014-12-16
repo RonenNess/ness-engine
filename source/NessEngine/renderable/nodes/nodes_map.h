@@ -53,6 +53,8 @@ namespace Ness
 		Containers::Vector< Containers::Vector<NodeAPIPtr> >	m_nodes;					// the nodes matrix
 		SRenderTransformations									m_absolute_transformations;	// absolute transformations of this nodes tilemap
 		Sizei													m_extra_tiles_factor;		// extra tiles to render (count in screen) on eatch side of x and y axis
+		unsigned int											m_last_render_frame_id;		// return the frame id of the last time this entity was really rendered
+		unsigned int											m_last_update_frame_id;		// return the frame id of the last time this entity was updated
 
 	public:
 
@@ -69,6 +71,14 @@ namespace Ness
 			const Size& nodesDistance = Size::ZERO, TCreateNodes createNodesFunction = nullptr, bool overridePositionAndZ = true);
 
 		NESSENGINE_API ~NodesMap() { destroy(); }
+
+		// return the last frame this entity was really rendered
+		NESSENGINE_API virtual unsigned int get_last_rendered_frame_id() const { return m_last_render_frame_id; }
+		NESSENGINE_API virtual bool was_rendered_this_frame() const;
+
+		// get the last frame in which this entity was updated
+		NESSENGINE_API virtual inline unsigned int get_last_update_frame_id() const { return m_last_update_frame_id; }
+		NESSENGINE_API virtual bool was_updated_this_frame() const;
 
 		// return the absolute transformations of this tilemap
 		NESSENGINE_API virtual const SRenderTransformations& get_absolute_transformations();

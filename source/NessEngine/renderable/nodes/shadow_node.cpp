@@ -52,7 +52,7 @@ namespace Ness
 
 	bool Shadow::need_redraw() const
 	{
-		return m_need_redraw || (m_target && m_target->need_transformations_update());
+		return m_need_redraw || (m_target && m_target->was_updated_this_frame());
 	}
 
 	void Shadow::attach_to(const RenderablePtr& target, const Point& offset, bool remove_if_target_removed)

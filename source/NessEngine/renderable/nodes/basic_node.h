@@ -47,10 +47,12 @@ namespace Ness
 		SRenderTransformations					m_absolute_trans;				// cache of last absolute transformations
 		bool									m_need_trans_update;			// do we need to update the cached transformations (called if parent changed)
 		ManagedResources::ManagedTexturePtr		m_render_target;				// if not null, will render to this target instead of to the screen
+		unsigned int							m_last_render_frame_id;			// return the frame id of the last time this entity was really rendered
+		unsigned int							m_last_update_frame_id;			// return the frame id of the last time this entity was updated
 
 	public:
 		NESSENGINE_API BaseNode(Renderer* renderer) : 
-			NodeAPI(renderer), m_need_trans_update(true) {}
+			NodeAPI(renderer), m_need_trans_update(true), m_last_render_frame_id(0), m_last_update_frame_id(0) {}
 
 		NESSENGINE_API ~BaseNode() { destroy(); }
 
@@ -58,6 +60,14 @@ namespace Ness
 		NESSENGINE_API virtual void add(const RenderablePtr& object);
 		NESSENGINE_API virtual void add_first(const RenderablePtr& object);
 		NESSENGINE_API virtual void remove(const RenderablePtr& object);
+
+		// return the last frame this entity was really rendered
+		NESSENGINE_API virtual unsigned int get_last_rendered_frame_id() const { return m_last_render_frame_id; }
+		NESSENGINE_API virtual bool was_rendered_this_frame() const;
+
+		// get the last frame in which this entity was updated
+		NESSENGINE_API virtual inline unsigned int get_last_update_frame_id() const { return m_last_update_frame_id; }
+		NESSENGINE_API virtual bool was_updated_this_frame() const;
 
 		// clear all son entities and nodes from this node
 		NESSENGINE_API virtual void destroy();

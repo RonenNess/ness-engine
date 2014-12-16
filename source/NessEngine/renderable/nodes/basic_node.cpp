@@ -60,6 +60,16 @@ namespace Ness
 		}
 	}
 
+	bool BaseNode::was_rendered_this_frame() const
+	{
+		return m_renderer->get_frameid() == m_last_render_frame_id;
+	}
+
+	bool BaseNode::was_updated_this_frame() const
+	{
+		return m_renderer->get_frameid() == m_last_update_frame_id;
+	}
+
 	void BaseNode::destroy()
 	{
 		clear();
@@ -207,6 +217,7 @@ namespace Ness
 	void BaseNode::transformations_update()
 	{
 		m_need_trans_update = true;
+		m_last_update_frame_id = m_renderer->get_frameid();
 		for (unsigned int i = 0; i < m_entities.size(); i++)
 		{
 			Transformable* current = dynamic_cast<Transformable*>(m_entities[i].get());
@@ -238,6 +249,9 @@ namespace Ness
 		{
 			m_renderer->push_render_target(m_render_target);
 		}
+
+		// lastly rendered
+		m_last_render_frame_id = m_renderer->get_frameid();
 
 		// render all sprites
 		for (unsigned int i = 0; i < m_entities.size(); i++)

@@ -46,11 +46,7 @@ namespace Ness
 		NESSENGINE_API virtual const Rectangle& get_last_target_rect() const = 0;
 
 		// return if this entity touches the given point (based on last target rect)
-		NESSENGINE_API virtual bool touch_point(const Pointf& pos) const
-		{
-			 const Rectangle& rect = get_last_target_rect();
-			 return (pos.x >= rect.x && pos.y >= rect.y && pos.x <= rect.x + rect.w && pos.y <= rect.y + rect.h);
-		}
+		NESSENGINE_API virtual bool touch_point(const Pointf& pos) const;
 
 		// is it node or entity?
 		NESSENGINE_API virtual bool is_node() const {return false;}

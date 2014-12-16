@@ -78,6 +78,20 @@ namespace Ness
 		NESSENGINE_API inline void set_name(const String& name) {m_name = name;}
 		NESSENGINE_API inline const String& get_name() const {return m_name;}
 
+		// return the last frame this entity was really rendered
+		// this is a quick way to check if this object was visible in the last frame, and by visible it means:
+		// 1. inside screen bounderies with camera
+		// 2. with absolute opacity > 0.0f
+		// 3. with absolute visible flag = true
+		// this is useful to check if something is really visible without any cpu overhead.
+		NESSENGINE_API virtual unsigned int get_last_rendered_frame_id() const = 0;
+		NESSENGINE_API virtual bool was_rendered_this_frame() const = 0;
+
+		// get the last frame in which this entity was updated (moved, color changed, scaled, etc..)
+		// this is a quick method to check if the renderable was changed during the current frame.
+		NESSENGINE_API virtual inline unsigned int get_last_update_frame_id() const = 0;
+		NESSENGINE_API virtual bool was_updated_this_frame() const = 0;
+
 		// set/get flags
 		NESSENGINE_API inline int	get_all_flags() const {return m_flags;}
 		NESSENGINE_API inline void	set_all_flags(int flags) {m_flags = flags;}

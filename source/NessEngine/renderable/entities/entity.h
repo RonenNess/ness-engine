@@ -62,17 +62,12 @@ namespace Ness
 		NESSENGINE_API virtual bool need_transformations_update() {return m_need_transformations_update;}
 
 		// return the last frame this entity was really rendered
-		// this is a quick way to check if this object was visible in the last frame, and by visible it means:
-		// 1. inside screen bounderies with camera
-		// 2. with absolute opacity > 0.0f
-		// 3. with absolute visible flag = true
-		// this is useful to check if something is really visible without any cpu overhead.
-		NESSENGINE_API inline unsigned int get_last_rendered_frame_id() const { return m_last_render_frame_id; }
-		NESSENGINE_API bool was_rendered_this_frame() const;
+		NESSENGINE_API virtual unsigned int get_last_rendered_frame_id() const { return m_last_render_frame_id; }
+		NESSENGINE_API virtual bool was_rendered_this_frame() const;
 
-		// get the last frame in which this entity was updated (moved, color changed, scaled, etc..)
-		NESSENGINE_API inline unsigned int get_last_update_frame_id() const { return m_last_update_frame_id; };
-		NESSENGINE_API bool was_updated_this_frame() const;
+		// get the last frame in which this entity was updated
+		NESSENGINE_API virtual inline unsigned int get_last_update_frame_id() const { return m_last_update_frame_id; };
+		NESSENGINE_API virtual bool was_updated_this_frame() const;
 
 		// enable/disable highlight
 		NESSENGINE_API inline void set_highlight(unsigned char number_of_passes) { m_highlight = number_of_passes; }

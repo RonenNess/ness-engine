@@ -46,7 +46,7 @@ namespace Ness
 
 	bool Light::need_redraw() const 
 	{ 
-		return m_need_redraw || (m_target && m_target->need_transformations_update() ); 
+		return m_need_redraw || (m_target && m_target->was_updated_this_frame());
 	}
 
 	void Light::transformations_update()

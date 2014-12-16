@@ -40,7 +40,7 @@ namespace Ness
 	NodesMap::NodesMap(Renderer* renderer, const Sizei& mapSize, const Size& nodesSize, const Size& nodesDistance, 
 		TCreateNodes createNodesFunction, bool overridePositionAndZ)
 		: NodeAPI(renderer), m_size(mapSize), m_nodes_distance(nodesDistance),  
-		m_node_size(nodesSize), m_extra_tiles_factor(0, 0)
+		m_node_size(nodesSize), m_extra_tiles_factor(0, 0), m_last_render_frame_id(0), m_last_update_frame_id(0)
 	{
 		if (m_nodes_distance == Size::ZERO)
 			m_nodes_distance = m_node_size;
@@ -77,6 +77,16 @@ namespace Ness
 		}
 	}
 
+	bool NodesMap::was_rendered_this_frame() const
+	{
+		return m_renderer->get_frameid() == m_last_render_frame_id;
+	}
+
+	bool NodesMap::was_updated_this_frame() const
+	{
+		return m_renderer->get_frameid() == m_last_update_frame_id;
+	}
+
 	// arrange a single tile sprite during creation
 	void NodesMap::arrange_node(const NodeAPIPtr& node, const Ness::Pointi& index)
 	{				
@@ -103,6 +113,7 @@ namespace Ness
 
 	void NodesMap::transformations_update()
 	{
+		m_last_update_frame_id = m_renderer->get_frameid();
 		Sizei index;
 		for (index.x = 0; index.x < m_size.x; index.x++)
 		{
@@ -302,6 +313,11 @@ namespace Ness
 			return;
 
 		Rectangle range = get_nodes_in_screen(camera);
+		if (range.x == range.w || range.y == range.h)
+			return;
+
+		// lastly rendered
+		m_last_render_frame_id = m_renderer->get_frameid();
 
 		// render all visible tiles
 		for (int i = range.x; i < range.w; i++)

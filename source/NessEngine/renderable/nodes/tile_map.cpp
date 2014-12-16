@@ -39,7 +39,8 @@ namespace Ness
 
 	TileMap::TileMap(Renderer* renderer, const String& spriteFile, const Sizei& mapSize, 
 		const Size& singleTileSize, const Size& tilesDistance, TCreateTileSprites createSpriteFunction) 
-		: NodeAPI(renderer), m_size(mapSize), m_tile_size(singleTileSize), m_extra_tiles_factor(0, 0)
+		: NodeAPI(renderer), m_size(mapSize), m_tile_size(singleTileSize), m_extra_tiles_factor(0, 0),
+			m_last_render_frame_id(0), m_last_update_frame_id(0)
 	{
 		// set distance between sprites (either sprite size or provided distance)
 		m_sprites_distance = (tilesDistance == Ness::Size::ZERO ? singleTileSize : tilesDistance);
@@ -80,6 +81,16 @@ namespace Ness
 		{
 			out_list.push_back(tile);
 		}
+	}
+
+	bool TileMap::was_rendered_this_frame() const
+	{
+		return m_renderer->get_frameid() == m_last_render_frame_id;
+	}
+
+	bool TileMap::was_updated_this_frame() const
+	{
+		return m_renderer->get_frameid() == m_last_update_frame_id;
 	}
 
 	// arrange a single tile sprite during creation
@@ -135,6 +146,7 @@ namespace Ness
 
 	void TileMap::transformations_update()
 	{
+		m_last_update_frame_id = m_renderer->get_frameid();
 		Sizei index;
 		for (index.x = 0; index.x < m_size.x; index.x++)
 		{
@@ -305,6 +317,11 @@ namespace Ness
 			return;
 
 		Rectangle range = get_tiles_in_screen(camera);
+		if (range.x == range.w || range.y == range.h)
+			return;
+
+		// lastly rendered
+		m_last_render_frame_id = m_renderer->get_frameid();
 
 		// render all visible tiles
 		for (int i = range.x; i < range.w; i++)
