@@ -54,6 +54,9 @@ namespace Ness
 		// is this node actually visible and inside screen?
 		NESSENGINE_API virtual bool is_really_visible(const CameraPtr& camera = NullCamera) = 0;
 
+		// clear should remove all the sons of this node and clean it up nicely.
+		NESSENGINE_API virtual void destroy() = 0;
+
 		// get absolute transformations of this node
 		virtual const SRenderTransformations& get_absolute_transformations() = 0;
 

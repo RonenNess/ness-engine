@@ -145,6 +145,19 @@ namespace Ness
 		}
 	}
 
+	void TileMap::destroy()
+	{
+		Sizei index;
+		for (index.x = 0; index.x < m_size.x; index.x++)
+		{
+			for (index.y = 0; index.y < m_size.y; index.y++)
+			{
+				m_sprites[index.x][index.y]->__change_parent(nullptr);
+			}
+		}
+		m_sprites.clear();
+	}
+
 	void TileMap::__get_visible_entities(RenderablesList& out_list, const CameraPtr& camera, bool break_son_nodes)
 	{
 		Rectangle range = get_tiles_in_screen(camera);

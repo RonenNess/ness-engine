@@ -68,6 +68,8 @@ namespace Ness
 		NESSENGINE_API NodesMap(Renderer* renderer, const Sizei& mapSize, const Size& nodesSize, 
 			const Size& nodesDistance = Size::ZERO, TCreateNodes createNodesFunction = nullptr, bool overridePositionAndZ = true);
 
+		NESSENGINE_API ~NodesMap() { destroy(); }
+
 		// return the absolute transformations of this tilemap
 		NESSENGINE_API virtual const SRenderTransformations& get_absolute_transformations();
 
@@ -105,6 +107,9 @@ namespace Ness
 		// return empty if out of range
 		NESSENGINE_API virtual NodeAPIPtr get_node_by_position_any(const Point& position) const;
 		NESSENGINE_API virtual NodeAPIPtr get_node_by_position_any(const Point& position);
+
+		// clear this nodesmap
+		NESSENGINE_API virtual void destroy();
 
 		// return node position from a given index
 		NESSENGINE_API virtual Point get_position_from_index(const Pointi& index) const;

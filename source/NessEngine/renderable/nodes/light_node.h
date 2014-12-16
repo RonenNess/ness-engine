@@ -45,13 +45,14 @@ namespace Ness
 		bool				m_need_redraw;
 		RenderablePtr		m_target;
 		Point				m_offset_from_target;
+		bool				m_remove_with_target;
 
 	public:
 		// create the light object
 		NESSENGINE_API Light(Renderer* renderer, const String& TextureFile, const Color& color);
 
 		// attach this light to a given target. the light will follow the position of this target
-		NESSENGINE_API inline void attach_to(const RenderablePtr& target, const Point& offset = Point::ZERO) { m_target = target; m_offset_from_target = offset; }
+		NESSENGINE_API void attach_to(const RenderablePtr& target, const Point& offset = Point::ZERO, bool remove_if_target_removed = true);
 		NESSENGINE_API inline void detach_from_target() { m_target.reset(); }
 
 		// set need transformations update + redraw

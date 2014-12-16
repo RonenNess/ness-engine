@@ -36,6 +36,13 @@ namespace Ness
 		m_need_redraw = true;
 	}
 
+	void Light::attach_to(const RenderablePtr& target, const Point& offset, bool remove_if_target_removed)
+	{
+		m_target = target; 
+		m_offset_from_target = offset; 
+		m_remove_with_target = remove_if_target_removed;
+	}
+
 	void Light::transformations_update()
 	{
 		m_need_transformations_update = true;
@@ -44,9 +51,19 @@ namespace Ness
 
 	void Light::render(const CameraPtr& camera)
 	{
+		// if attached to target...
 		if (m_target)
 		{
+			// set position based on target
 			set_position(m_target->get_absolute_position() + m_offset_from_target);
+
+			// if target is removed from parent and need to remove this light:
+			if (m_remove_with_target && m_target->parent() == nullptr)
+			{
+				m_target.reset();
+				remove_from_parent();
+				return;
+			}
 		}
 		Entity::render(camera);
 	}

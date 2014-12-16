@@ -25,6 +25,7 @@
 
 namespace Ness
 {
+
 	// empty deleter that does nothing. 
 	// this is for the unsafe add/remove functions
 	static void EmptyEntityDeleter(RenderableAPI* obj)

@@ -188,6 +188,19 @@ namespace Ness
 		}
 	}
 
+	void NodesMap::destroy()
+	{
+		Sizei index;
+		for (index.x = 0; index.x < m_size.x; index.x++)
+		{
+			for (index.y = 0; index.y < m_size.y; index.y++)
+			{
+				m_nodes[index.x][index.y]->__change_parent(nullptr);
+			}
+		}
+		m_nodes.clear();
+	}
+
 	Rectangle NodesMap::get_nodes_in_screen(const CameraPtr& camera) 
 	{
 		Rectangle ret;

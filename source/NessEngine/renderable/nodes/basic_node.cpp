@@ -60,6 +60,20 @@ namespace Ness
 		}
 	}
 
+	void BaseNode::destroy()
+	{
+		clear();
+	}
+
+	void BaseNode::clear()
+	{
+		for (unsigned int i = 0; i < m_entities.size(); i++)
+		{
+			m_entities[i]->__change_parent(nullptr);
+		}
+		m_entities.clear();
+	}
+
 	void BaseNode::select_entities_from_position(EntitiesList& out_list, const Pointf& pos, bool recursive) const
 	{
 		for (unsigned int i = 0; i < m_entities.size(); i++)

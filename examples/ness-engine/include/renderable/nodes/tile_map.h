@@ -69,6 +69,8 @@ namespace Ness
 		NESSENGINE_API TileMap(Renderer* renderer, const String& spriteFile, const Sizei& mapSize, const Size& singleTileSize = Size(36, 36), 
 			const Size& tilesDistance = Size::ZERO, TCreateTileSprites createSpriteFunction = nullptr);
 
+		NESSENGINE_API ~TileMap() { destroy(); }
+
 		// return the absolute transformations of this tilemap
 		NESSENGINE_API virtual const SRenderTransformations& get_absolute_transformations();
 
@@ -76,6 +78,9 @@ namespace Ness
 		// what is it for? if your normal tiles size is 32x32 but sometimes you have tiles of 32x64, you can set it to (0, 1), meaning you
 		// will count additional tile from top and bottom when rendering the tiles in screen
 		NESSENGINE_API inline void set_extra_tiles_in_screen(const Ness::Sizei& extra) {m_extra_tiles_factor = extra;}
+
+		// clear this tilesmap
+		NESSENGINE_API virtual void destroy();
 
 		// set the anchor of all the tiles.
 		// its important to use this function and not do it manually, because this function also effect the 

@@ -52,13 +52,18 @@ namespace Ness
 		NESSENGINE_API BaseNode(Renderer* renderer) : 
 			NodeAPI(renderer), m_need_trans_update(true) {}
 
+		NESSENGINE_API ~BaseNode() { destroy(); }
+
 		// add/remove sub entity or node
 		NESSENGINE_API virtual void add(const RenderablePtr& object);
 		NESSENGINE_API virtual void add_first(const RenderablePtr& object);
 		NESSENGINE_API virtual void remove(const RenderablePtr& object);
 
 		// clear all son entities and nodes from this node
-		NESSENGINE_API void clear() {m_entities.clear();}
+		NESSENGINE_API virtual void destroy();
+
+		// clear this node and all its son entities
+		NESSENGINE_API void clear();
 
 		// direct access to son entities (note: son entities are in vector so efficiecny is alright here)
 		NESSENGINE_API virtual unsigned int get_sons_count() const {return (unsigned int)m_entities.size();}
