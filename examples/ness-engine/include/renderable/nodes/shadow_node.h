@@ -60,7 +60,7 @@ namespace Ness
 		NESSENGINE_API virtual void transformations_update();
 
 		// return if this shadow needs redraw
-		NESSENGINE_API inline bool need_redraw() const {return m_need_redraw;}
+		NESSENGINE_API bool need_redraw() const;
 
 		// set no longer need redraw
 		NESSENGINE_API inline void set_need_redraw(bool need) {m_need_redraw = need;}

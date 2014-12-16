@@ -38,6 +38,7 @@
     <ClCompile Include="..\source\NessEngine\renderable\entities\sprite.cpp" />
     <ClCompile Include="..\source\NessEngine\renderable\entities\text.cpp" />
     <ClCompile Include="..\source\NessEngine\renderable\entities\texture_scroller.cpp" />
+    <ClCompile Include="..\source\NessEngine\renderable\entity_api.cpp" />
     <ClCompile Include="..\source\NessEngine\renderable\nodes\basic_node.cpp" />
     <ClCompile Include="..\source\NessEngine\renderable\nodes\light_node.cpp" />
     <ClCompile Include="..\source\NessEngine\renderable\nodes\node.cpp" />

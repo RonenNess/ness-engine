@@ -50,6 +50,11 @@ namespace Ness
 		m_visible = Visible;
 	}
 
+	bool Shadow::need_redraw() const
+	{
+		return m_need_redraw || (m_target && m_target->need_transformations_update());
+	}
+
 	void Shadow::attach_to(const RenderablePtr& target, const Point& offset, bool remove_if_target_removed)
 	{
 		m_target = target;

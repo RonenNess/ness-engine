@@ -28,12 +28,13 @@ namespace Ness
 {
 
 	Entity::Entity(Renderer* renderer) : EntityAPI(renderer), m_static(false), 
-		m_need_transformations_update(true), m_last_render_frame_id(0), m_highlight(false)
+		m_need_transformations_update(true), m_last_render_frame_id(0), m_last_update_frame_id(0), m_highlight(false)
 	{
 	}
 
 	void Entity::transformations_update() 
 	{
+		m_last_update_frame_id = m_renderer->get_frameid();
 		m_need_transformations_update = true;
 	}
 
@@ -88,6 +89,10 @@ namespace Ness
 
 	bool Entity::is_really_visible(const CameraPtr& camera)
 	{
+		// if was rendered during this frame, it's safe enough to assume it is visible
+		if ((m_need_transformations_update == false) && was_rendered_this_frame())
+			return true;
+
 		// first check if even enabled
 		if (!m_visible)
 		{
@@ -116,6 +121,10 @@ namespace Ness
 
 	bool Entity::is_really_visible_const(const CameraPtr& camera) const
 	{
+		// if was rendered during this frame, it's safe enough to assume it is visible
+		if (was_rendered_this_frame())
+			return true;
+
 		// first check if even enabled
 		if (!m_visible)
 			return false;
@@ -165,6 +174,11 @@ namespace Ness
 	bool Entity::was_rendered_this_frame() const
 	{ 
 		return m_renderer->get_frameid() == m_last_render_frame_id; 
+	}
+
+	bool Entity::was_updated_this_frame() const
+	{
+		return m_renderer->get_frameid() == m_last_render_frame_id;
 	}
 
 	void Entity::render(const CameraPtr& camera)

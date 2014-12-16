@@ -41,6 +41,12 @@ namespace Ness
 		m_target = target; 
 		m_offset_from_target = offset; 
 		m_remove_with_target = remove_if_target_removed;
+		transformations_update();
+	}
+
+	bool Light::need_redraw() const 
+	{ 
+		return m_need_redraw || (m_target && m_target->need_transformations_update() ); 
 	}
 
 	void Light::transformations_update()
