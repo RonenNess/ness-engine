@@ -41,5 +41,6 @@ namespace Ness
 	{
 		if (m_parent && parent && m_parent != parent) throw IllegalAction("Cannot change object parent without removing from previous parent first!");
 		m_parent = parent;
+		transformations_update();
 	}
 };

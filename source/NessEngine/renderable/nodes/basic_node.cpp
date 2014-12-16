@@ -141,21 +141,18 @@ namespace Ness
 
 	void BaseNode::add(const RenderablePtr& object)
 	{
-		object->transformations_update();
 		m_entities.push_back(object);
 		object->__change_parent(this);
 	}
 
 	void BaseNode::add_first(const RenderablePtr& object)
 	{
-		object->transformations_update();
 		m_entities.insert(m_entities.begin(), object);
 		object->__change_parent(this);
 	}
 
 	void BaseNode::remove(const RenderablePtr& object)
 	{
-		object->transformations_update();
 		object->__change_parent(nullptr);
 		m_entities.erase(std::remove(m_entities.begin(), m_entities.end(), object), m_entities.end());
 	}
