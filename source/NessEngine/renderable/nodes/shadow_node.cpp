@@ -178,19 +178,20 @@ namespace Ness
 		// clear canvas
 		m_canvas->clear();
 
+		// no longer need update
+		// note: this should come before the rendering in case shadows will be removed while they are rendered.
+		m_need_update = false;
+
 		// render all shadows
 		m_renderer->push_render_target(m_canvas->get_texture());
 		for (unsigned int i = 0; i < m_entities.size(); i++)
 		{
-			m_entities[i]->render(camera);
 			ness_ptr_cast<Shadow>(m_entities[i])->set_need_redraw(false);
+			m_entities[i]->render(camera);
 		}
 		m_renderer->pop_render_target();
 
 		// render the canvas layer
 		m_canvas->render();
-
-		// no longer need update
-		m_need_update = false;
 	}
 };
