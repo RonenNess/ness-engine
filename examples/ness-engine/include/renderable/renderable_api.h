@@ -41,8 +41,7 @@ namespace Ness
 	// all ness-engine flags you can use with renderable node flags
 	enum ERenderableNodeFlags
 	{
-		RNF_NEVER_BREAK = 0x1 << 0,		// never break this node when z-ordering inside a z-node
-		RNF_SELECTABLE = 0x1 << 1,		// is this entity/node selectable by select_entity_* functions?
+		RNF_NEVER_BREAK = 0,		// never break this node when z-ordering inside a z-node
 	};
 
 	// all ness-engine flags you can use with renderable entity flags
@@ -63,7 +62,7 @@ namespace Ness
 
 	public:
 		NESSENGINE_API RenderableAPI(Renderer* renderer) : 
-		  m_renderer(renderer), m_parent(nullptr), m_visible(true), m_flags(RNF_SELECTABLE), m_user_data(nullptr) {}
+		  m_renderer(renderer), m_parent(nullptr), m_visible(true), m_flags(0), m_user_data(nullptr) {}
 
 		// attached customized user data to this object
 		inline void set_user_data(void* user_data) {m_user_data = user_data;}
@@ -78,26 +77,12 @@ namespace Ness
 		NESSENGINE_API inline void set_name(const String& name) {m_name = name;}
 		NESSENGINE_API inline const String& get_name() const {return m_name;}
 
-		// return the last frame this entity was really rendered
-		// this is a quick way to check if this object was visible in the last frame, and by visible it means:
-		// 1. inside screen bounderies with camera
-		// 2. with absolute opacity > 0.0f
-		// 3. with absolute visible flag = true
-		// this is useful to check if something is really visible without any cpu overhead.
-		NESSENGINE_API virtual unsigned int get_last_rendered_frame_id() const = 0;
-		NESSENGINE_API virtual bool was_rendered_this_frame() const = 0;
-
-		// get the last frame in which this entity was updated (moved, color changed, scaled, etc..)
-		// this is a quick method to check if the renderable was changed during the current frame.
-		NESSENGINE_API virtual inline unsigned int get_last_update_frame_id() const = 0;
-		NESSENGINE_API virtual bool was_updated_this_frame() const = 0;
-
 		// set/get flags
-		NESSENGINE_API inline int	get_all_flags() const {return m_flags;}
-		NESSENGINE_API inline void	set_all_flags(int flags) {m_flags = flags;}
-		NESSENGINE_API inline bool	get_flag(int flag) const {return (m_flags & flag) != 0;}
-		NESSENGINE_API inline void	set_flag(int flag) {(m_flags |= flag);}
-		NESSENGINE_API inline void	unset_flag(int flag) {(m_flags &= ~(flag));}
+		NESSENGINE_API inline int	get_flags() const {return m_flags;}
+		NESSENGINE_API inline void	set_flags(int flags) {m_flags = flags;}
+		NESSENGINE_API inline bool	get_flag(int flag) const {return ((m_flags >> flag) & 0x1);}
+		NESSENGINE_API inline void	set_flag(int flag) {(m_flags |= (0x1 << flag));}
+		NESSENGINE_API inline void	unset_flag(int flag) {(m_flags &= ~(0x1 << flag));}
 
 		// is it node or entity?
 		NESSENGINE_API virtual bool is_node() const = 0;

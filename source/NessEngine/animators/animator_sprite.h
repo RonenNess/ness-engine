@@ -167,7 +167,11 @@ namespace Ness
 					return;
 				}
 
+				// advance current step and update source rect
+				set_source_rect();
+
 				// check if we need to set delay timer
+				// note: this has to come after "set_source_rect" or else it get delayed on last frame as well
 				if (m_delay_on_start > 0.0f && !m_waited_on_start)
 				{
 					m_curr_delay = m_delay_on_start;
@@ -175,8 +179,7 @@ namespace Ness
 					return;
 				}
 
-				// advance current step and update source rect
-				set_source_rect();
+				// advance current step
 				m_currStep += renderer->time_factor() * m_speed;
 
 				// check if ended animation

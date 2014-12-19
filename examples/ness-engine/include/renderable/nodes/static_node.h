@@ -57,7 +57,7 @@ namespace Ness
 		NESSENGINE_API virtual void render(const CameraPtr& camera = NullCamera);
 
 		// get a list with ALL the son entities that are currently visible in screen
-		NESSENGINE_API virtual void __get_visible_entities(RenderablesList& out_list,
+		NESSENGINE_API virtual void __get_visible_entities(Containers::Vector<RenderableAPI*>& out_list, 
 			const CameraPtr& camera = NullCamera, bool break_son_nodes = true);
 
 	protected:

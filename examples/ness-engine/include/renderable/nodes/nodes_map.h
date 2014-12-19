@@ -53,8 +53,6 @@ namespace Ness
 		Containers::Vector< Containers::Vector<NodeAPIPtr> >	m_nodes;					// the nodes matrix
 		SRenderTransformations									m_absolute_transformations;	// absolute transformations of this nodes tilemap
 		Sizei													m_extra_tiles_factor;		// extra tiles to render (count in screen) on eatch side of x and y axis
-		unsigned int											m_last_render_frame_id;		// return the frame id of the last time this entity was really rendered
-		unsigned int											m_last_update_frame_id;		// return the frame id of the last time this entity was updated
 
 	public:
 
@@ -69,16 +67,6 @@ namespace Ness
 		//							and z-index you set inside 'createNodesFunction', if you used it
 		NESSENGINE_API NodesMap(Renderer* renderer, const Sizei& mapSize, const Size& nodesSize, 
 			const Size& nodesDistance = Size::ZERO, TCreateNodes createNodesFunction = nullptr, bool overridePositionAndZ = true);
-
-		NESSENGINE_API ~NodesMap() { destroy(); }
-
-		// return the last frame this entity was really rendered
-		NESSENGINE_API virtual unsigned int get_last_rendered_frame_id() const { return m_last_render_frame_id; }
-		NESSENGINE_API virtual bool was_rendered_this_frame() const;
-
-		// get the last frame in which this entity was updated
-		NESSENGINE_API virtual inline unsigned int get_last_update_frame_id() const { return m_last_update_frame_id; }
-		NESSENGINE_API virtual bool was_updated_this_frame() const;
 
 		// return the absolute transformations of this tilemap
 		NESSENGINE_API virtual const SRenderTransformations& get_absolute_transformations();
@@ -101,12 +89,10 @@ namespace Ness
 		NESSENGINE_API virtual bool need_transformations_update() {return false;}
 
 		// get a specific node by index, for any type of node (up to you to make the casting)
-		NESSENGINE_API inline NodeAPIPtr get_node_any(const Pointi& index) const {return m_nodes[index.x][index.y];}
 		NESSENGINE_API inline NodeAPIPtr& get_node_any(const Pointi& index) {return m_nodes[index.x][index.y];}
 
 		// get a specific node, assuming it's a basic scene node type.
 		// If your nodes map does not use regular scenes node don't use this, you'll get null
-		NESSENGINE_API inline NodePtr get_node(const Pointi& index) const {return ness_ptr_cast<Node>(m_nodes[index.x][index.y]);}
 		NESSENGINE_API inline NodePtr get_node(const Pointi& index) {return ness_ptr_cast<Node>(m_nodes[index.x][index.y]);}
 
 		// direct access to son entities (note: son entities are in vector so efficiecny is alright here)
@@ -115,11 +101,7 @@ namespace Ness
 
 		// get a specific node by position
 		// return empty if out of range
-		NESSENGINE_API virtual NodeAPIPtr get_node_by_position_any(const Point& position) const;
-		NESSENGINE_API virtual NodeAPIPtr get_node_by_position_any(const Point& position);
-
-		// clear this nodesmap
-		NESSENGINE_API virtual void destroy();
+		NESSENGINE_API virtual NodeAPIPtr& get_node_by_position_any(const Point& position);
 
 		// return node position from a given index
 		NESSENGINE_API virtual Point get_position_from_index(const Pointi& index) const;
@@ -127,22 +109,17 @@ namespace Ness
 		// get a specific node by position
 		// If your nodes map does not use regular scenes node don't use this, you'll get null
 		// return empty if out of range or if your nodes map does not use regular scene nodes
-		NESSENGINE_API inline NodePtr get_node_by_position(const Point& position) const {return ness_ptr_cast<Node>(get_node_by_position_any(position));}
 		NESSENGINE_API inline NodePtr get_node_by_position(const Point& position) {return ness_ptr_cast<Node>(get_node_by_position_any(position));}
 
 		// return index of tile from position
-		NESSENGINE_API virtual Pointi get_index_from_position(const Point& position) const;
 		NESSENGINE_API virtual Pointi get_index_from_position(const Point& position);
 
-		// get entities from position. read NodeAPI comments for more info.
-		NESSENGINE_API virtual void select_entities_from_position(EntitiesList& out_list, const Pointf& pos, bool recursive) const;
-
 		// get all visible son nodes and entities
-		NESSENGINE_API virtual void __get_visible_entities(RenderablesList& out_list,
+		NESSENGINE_API virtual void __get_visible_entities(Containers::Vector<RenderableAPI*>& out_list, 
 			const CameraPtr& camera = NullCamera, bool break_son_nodes = true);
 
 		// get all son entities (all the tiles)
-		NESSENGINE_API virtual void __get_all_entities(RenderablesList& out_list, bool breakGroups);
+		NESSENGINE_API virtual void __get_all_entities(Containers::Vector<RenderableAPI*>& out_list, bool breakGroups);
 
 		// update that the tilemap needs update
 		NESSENGINE_API virtual void transformations_update();

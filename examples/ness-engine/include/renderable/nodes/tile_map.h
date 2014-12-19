@@ -55,8 +55,6 @@ namespace Ness
 		SRenderTransformations									m_absolute_transformations;	// absolute transformations of this tilemap
 		Sizei													m_extra_tiles_factor;		// extra tiles to render (count in screen) on eatch side of x and y axis
 		Point													m_tiles_anchor;				// the tiles default anchor
-		unsigned int											m_last_render_frame_id;		// return the frame id of the last time this entity was really rendered
-		unsigned int											m_last_update_frame_id;		// return the frame id of the last time this entity was updated
 
 	public:
 
@@ -71,17 +69,6 @@ namespace Ness
 		NESSENGINE_API TileMap(Renderer* renderer, const String& spriteFile, const Sizei& mapSize, const Size& singleTileSize = Size(36, 36), 
 			const Size& tilesDistance = Size::ZERO, TCreateTileSprites createSpriteFunction = nullptr);
 
-		NESSENGINE_API ~TileMap() { destroy(); }
-
-
-		// return the last frame this entity was really rendered
-		NESSENGINE_API virtual unsigned int get_last_rendered_frame_id() const { return m_last_render_frame_id; }
-		NESSENGINE_API virtual bool was_rendered_this_frame() const;
-
-		// get the last frame in which this entity was updated
-		NESSENGINE_API virtual inline unsigned int get_last_update_frame_id() const { return m_last_update_frame_id; }
-		NESSENGINE_API virtual bool was_updated_this_frame() const;
-
 		// return the absolute transformations of this tilemap
 		NESSENGINE_API virtual const SRenderTransformations& get_absolute_transformations();
 
@@ -89,9 +76,6 @@ namespace Ness
 		// what is it for? if your normal tiles size is 32x32 but sometimes you have tiles of 32x64, you can set it to (0, 1), meaning you
 		// will count additional tile from top and bottom when rendering the tiles in screen
 		NESSENGINE_API inline void set_extra_tiles_in_screen(const Ness::Sizei& extra) {m_extra_tiles_factor = extra;}
-
-		// clear this tilesmap
-		NESSENGINE_API virtual void destroy();
 
 		// set the anchor of all the tiles.
 		// its important to use this function and not do it manually, because this function also effect the 
@@ -116,29 +100,24 @@ namespace Ness
 		NESSENGINE_API virtual bool need_transformations_update() {return false;}
 
 		// get a specific sprite by index
-		NESSENGINE_API inline SpritePtr get_sprite(const Pointi& index) const {return m_sprites[index.x][index.y];}
 		NESSENGINE_API inline SpritePtr& get_sprite(const Pointi& index) {return m_sprites[index.x][index.y];}
 
 		// get a specific sprite by position
 		// return empty if out of range
 		NESSENGINE_API virtual SpritePtr& get_sprite_by_position(const Point& position);
 
-		// get entities from position (same as get_sprite_by_position but must be implemented because part
-		// of node api). read NodeAPI comments for more info.
-		NESSENGINE_API virtual void select_entities_from_position(EntitiesList& out_list, const Pointf& pos, bool recursive) const;
-
 		// return index of tile from position
-		NESSENGINE_API virtual Pointi get_index_from_position(const Point& position) const;
+		NESSENGINE_API virtual Pointi get_index_from_position(const Point& position);
 
 		// return position of tile from index
 		NESSENGINE_API virtual Point get_position_from_index(const Pointi& index) const;
 
 		// get all visible son entities
-		NESSENGINE_API virtual void __get_visible_entities(RenderablesList& out_list,
+		NESSENGINE_API virtual void __get_visible_entities(Containers::Vector<RenderableAPI*>& out_list, 
 			const CameraPtr& camera = NullCamera, bool break_son_nodes = true);
 
 		// get all son entities (all the tiles)
-		NESSENGINE_API virtual void __get_all_entities(RenderablesList& out_list, bool breakGroups);
+		NESSENGINE_API virtual void __get_all_entities(Containers::Vector<RenderableAPI*>& out_list, bool breakGroups);
 
 		// update that the tilemap needs update
 		NESSENGINE_API virtual void transformations_update();
@@ -186,7 +165,7 @@ namespace Ness
 		NESSENGINE_API virtual int get_tiles_in_screen_y();
 		// make sure given index are within the tilemap size. 
 		// note: i and j may be equal to size.x and size.y, its still count in range
-		NESSENGINE_API void put_in_range(int& i, int& j) const;
+		NESSENGINE_API void put_in_range(int& i, int& j);
 
 	private:
 		// arrange a single tile sprite during creation
