@@ -41,6 +41,13 @@ namespace Ness
 		NESSENGINE_API EntityAPI(Renderer* renderer) : 
 			RenderableAPI(renderer) {}
 
+		// return the last target rectanble (region this entity was rendered upon) without
+		// changing the internal state of the entity
+		NESSENGINE_API virtual const Rectangle& get_last_target_rect() const = 0;
+
+		// return if this entity touches the given point (based on last target rect)
+		NESSENGINE_API virtual bool touch_point(const Pointf& pos) const;
+
 		// is it node or entity?
 		NESSENGINE_API virtual bool is_node() const {return false;}
 		NESSENGINE_API virtual bool is_entity() const {return true;}

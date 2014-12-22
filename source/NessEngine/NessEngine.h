@@ -60,8 +60,8 @@ namespace Ness
 {
 	// current ness-engine version
 	#define NESS_VERSION 1.4
-	#define NESS_SUB_VERSION 7
-	#define NESS_VERSION_STR "1.4.7"
+	#define NESS_SUB_VERSION 8
+	#define NESS_VERSION_STR "1.4.8"
 
 	// MUST BE CALLED BEFORE USING THE ENGINE.
 	// imgFlags - image formats to support in addition to BMP.

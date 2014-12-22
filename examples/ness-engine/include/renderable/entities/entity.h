@@ -47,6 +47,7 @@ namespace Ness
 		bool									m_need_transformations_update;		// do we need to update the transforlmations cache?
 		SRenderTransformations					m_absolute_transformations;			// transformations cache, calculated with parents
 		unsigned int							m_last_render_frame_id;				// return the frame id of the last time this entity was really rendered
+		unsigned int							m_last_update_frame_id;				// return the frame id of the last time this entity was updated
 		unsigned char							m_highlight;						// how many highlight passes to do on this object
 
 	public:
@@ -61,13 +62,12 @@ namespace Ness
 		NESSENGINE_API virtual bool need_transformations_update() {return m_need_transformations_update;}
 
 		// return the last frame this entity was really rendered
-		// this is a quick way to check if this object was visible in the last frame, and by visible it means:
-		// 1. inside screen bounderies with camera
-		// 2. with absolute opacity > 0.0f
-		// 3. with absolute visible flag = true
-		// this is useful to check if something is really visible without any cpu overhead.
-		NESSENGINE_API inline unsigned int get_last_rendered_frame_id() const { return m_last_render_frame_id; }
-		NESSENGINE_API bool was_rendered_this_frame() const;
+		NESSENGINE_API virtual unsigned int get_last_rendered_frame_id() const { return m_last_render_frame_id; }
+		NESSENGINE_API virtual bool was_rendered_this_frame() const;
+
+		// get the last frame in which this entity was updated
+		NESSENGINE_API virtual inline unsigned int get_last_update_frame_id() const { return m_last_update_frame_id; };
+		NESSENGINE_API virtual bool was_updated_this_frame() const;
 
 		// enable/disable highlight
 		NESSENGINE_API inline void set_highlight(unsigned char number_of_passes) { m_highlight = number_of_passes; }
@@ -116,7 +116,7 @@ namespace Ness
 		NESSENGINE_API inline const Point& get_anchor() const {return m_anchor;}
 
 		// return the target rectangle this sprite will be rendered on, not including camera position
-		NESSENGINE_API const Rectangle& get_last_target_rect() const {return m_target_rect;}
+		NESSENGINE_API virtual const Rectangle& get_last_target_rect() const {return m_target_rect;}
 
 		// get absolute transformations for this renderable sprite
 		NESSENGINE_API virtual const SRenderTransformations& get_absolute_transformations();

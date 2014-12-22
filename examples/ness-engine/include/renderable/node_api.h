@@ -34,6 +34,13 @@
 namespace Ness
 {
 
+	// define a list of renderables
+	typedef Containers::Vector<SharedPtr<RenderableAPI> > RenderablesList;
+
+	// define a list of entities
+	class EntityAPI;
+	typedef Containers::Vector<SharedPtr<EntityAPI> > EntitiesList;
+
 	// the API of a node class (containing other nodes and entities)
 	class NodeAPI : public RenderableAPI
 	{
@@ -46,6 +53,9 @@ namespace Ness
 
 		// is this node actually visible and inside screen?
 		NESSENGINE_API virtual bool is_really_visible(const CameraPtr& camera = NullCamera) = 0;
+
+		// clear should remove all the sons of this node and clean it up nicely.
+		NESSENGINE_API virtual void destroy() = 0;
 
 		// get absolute transformations of this node
 		virtual const SRenderTransformations& get_absolute_transformations() = 0;
@@ -72,6 +82,13 @@ namespace Ness
 		// render this scene node (all nodes must also be renderable)
 		NESSENGINE_API virtual void render(const CameraPtr& camera = NullCamera) = 0;
 
+		// select son entities from position (note: entities only!)
+		// out_list is the list to fill with the selected entities
+		// pos is the position to pick entities from (will return all entities that "touch" that position)
+		// recursive if true, will break and scan son nodes. if false, will ignore son nodes
+		// note: this will return only entities that have the RNF_SELECTABLE flag enabled (default state)
+		NESSENGINE_API virtual void select_entities_from_position(EntitiesList& out_list, const Pointf& pos, bool recursive) const = 0;
+
 		// get a list with ALL the son entities that are currently visible in screen
 		// camera is to check visibility (which objects are in screen)
 		// break_son_nodes if true will break the son nodes as well, else, will just put
@@ -79,12 +96,12 @@ namespace Ness
 		// it should be checked and handled by the caller. when this function is called with break_son_nodes = true,
 		// it should ALWAYS break son-nodes (except for the son-nodes that have never-break flag which we need to 
 		// check here as the callers)
-		NESSENGINE_API virtual void __get_visible_entities(Containers::Vector<RenderableAPI*>& out_list, 
+		NESSENGINE_API virtual void __get_visible_entities(RenderablesList& out_list,
 			const CameraPtr& camera = NullCamera, bool break_son_nodes = true) = 0;
 
 		// get a list with ALL entities in node
 		// if breakGroups is true, will break down son nodes as well. else, will add son nodes to the list as whole
-		NESSENGINE_API virtual void __get_all_entities(Containers::Vector<RenderableAPI*>& out_list, bool breakGroups) = 0;
+		NESSENGINE_API virtual void __get_all_entities(RenderablesList& out_list, bool breakGroups) = 0;
 	};
 
 	// renderable parent pointer

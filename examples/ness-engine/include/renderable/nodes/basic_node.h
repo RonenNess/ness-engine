@@ -47,18 +47,33 @@ namespace Ness
 		SRenderTransformations					m_absolute_trans;				// cache of last absolute transformations
 		bool									m_need_trans_update;			// do we need to update the cached transformations (called if parent changed)
 		ManagedResources::ManagedTexturePtr		m_render_target;				// if not null, will render to this target instead of to the screen
+		unsigned int							m_last_render_frame_id;			// return the frame id of the last time this entity was really rendered
+		unsigned int							m_last_update_frame_id;			// return the frame id of the last time this entity was updated
 
 	public:
 		NESSENGINE_API BaseNode(Renderer* renderer) : 
-			NodeAPI(renderer), m_need_trans_update(true) {}
+			NodeAPI(renderer), m_need_trans_update(true), m_last_render_frame_id(0), m_last_update_frame_id(0) {}
+
+		NESSENGINE_API ~BaseNode() { destroy(); }
 
 		// add/remove sub entity or node
 		NESSENGINE_API virtual void add(const RenderablePtr& object);
 		NESSENGINE_API virtual void add_first(const RenderablePtr& object);
 		NESSENGINE_API virtual void remove(const RenderablePtr& object);
 
+		// return the last frame this entity was really rendered
+		NESSENGINE_API virtual unsigned int get_last_rendered_frame_id() const { return m_last_render_frame_id; }
+		NESSENGINE_API virtual bool was_rendered_this_frame() const;
+
+		// get the last frame in which this entity was updated
+		NESSENGINE_API virtual inline unsigned int get_last_update_frame_id() const { return m_last_update_frame_id; }
+		NESSENGINE_API virtual bool was_updated_this_frame() const;
+
 		// clear all son entities and nodes from this node
-		NESSENGINE_API void clear() {m_entities.clear();}
+		NESSENGINE_API virtual void destroy();
+
+		// clear this node and all its son entities
+		NESSENGINE_API void clear();
 
 		// direct access to son entities (note: son entities are in vector so efficiecny is alright here)
 		NESSENGINE_API virtual unsigned int get_sons_count() const {return (unsigned int)m_entities.size();}
@@ -82,12 +97,12 @@ namespace Ness
 		// camera is the camera object to check visibility
 		// break_son_nodes if true (default) will break son nodes and take their entities. else, will
 		// just put the whole nodes into the out list.
-		NESSENGINE_API virtual void __get_visible_entities(Containers::Vector<RenderableAPI*>& out_list, 
+		NESSENGINE_API virtual void __get_visible_entities(RenderablesList& out_list,
 			const CameraPtr& camera = NullCamera, bool break_son_nodes = true);
 
 		// get a list with ALL entities in node
 		// if breakGroups is true, will break down son nodes as well. else, will add son nodes to the list as whole
-		NESSENGINE_API virtual void __get_all_entities(Containers::Vector<RenderableAPI*>& out_list, bool breakGroups);
+		NESSENGINE_API virtual void __get_all_entities(RenderablesList& out_list, bool breakGroups);
 
 		// check if this node is really visible by checking all its sub nodes and sprites (until hitting yes)
 		NESSENGINE_API virtual bool is_really_visible(const CameraPtr& camera = NullCamera);
@@ -96,6 +111,10 @@ namespace Ness
 		NESSENGINE_API void set_render_target(const ManagedResources::ManagedTexturePtr& NewTarget);
 		NESSENGINE_API void set_render_target(const CanvasPtr& NewTarget);
 		NESSENGINE_API void remove_render_target();
+
+		// select son entities from position (note: entities only!)
+		// see NodeAPI doc for more info.
+		NESSENGINE_API virtual void select_entities_from_position(EntitiesList& out_list, const Pointf& pos, bool recursive) const;
 
 		// return if need transformations udpate
 		NESSENGINE_API virtual bool need_transformations_update() {return m_need_trans_update;}

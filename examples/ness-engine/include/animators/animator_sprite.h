@@ -55,6 +55,11 @@ namespace Ness
 			unsigned int		m_starting;						// starting step
 			ESpriteAnimatorEnd	m_end_action;					// what to do when animation cycle ends
 			unsigned int		m_count;						// how many steps in animation
+			float				m_curr_delay;					// current timer when waiting on something
+			float				m_delay_on_end;					// wait this seconds after animation ends (on last step)
+			bool				m_waited_on_end;				// did we already wait on end?
+			float				m_delay_on_start;				// wait this seconds before animation begins (on first step)
+			bool				m_waited_on_start;				// did we already wait on start?
 
 		public:
 			// target - target sprite to animate
@@ -68,7 +73,9 @@ namespace Ness
 				TargetAnimatorAPI(target),
 				m_spritesheet_total_steps(spritesheet_total_steps), 
 				m_sprite(target),
-				m_end_action(endAction)
+				m_end_action(endAction),
+				m_delay_on_end(0.0f),
+				m_delay_on_start(0.0f)
 			{
 				reset(startingStep, stepsCount, AnimationSpeed);
 			}
@@ -84,10 +91,20 @@ namespace Ness
 				TargetAnimatorAPI(target),
 				m_spritesheet_total_steps(spritesheet_total_steps), 
 				m_sprite(target),
-				m_end_action(endAction)
+				m_end_action(endAction),
+				m_delay_on_end(0.0f),
+				m_delay_on_start(0.0f)
 			{
 				reset(startingStep, stepsCount, AnimationSpeed);
 			}
+
+			// set/get delay on end
+			NESSENGINE_API inline void set_delay_on_last_frame(float delay_in_seconds) { m_delay_on_end = delay_in_seconds; }
+			NESSENGINE_API inline float get_delay_on_last_frame() { return m_delay_on_end; }
+
+			// set/get delay on start
+			NESSENGINE_API inline void set_delay_on_first_frame(float delay_in_seconds) { m_delay_on_start = delay_in_seconds; }
+			NESSENGINE_API inline float get_delay_on_first_frame() { return m_delay_on_start; }
 
 			// set/get animator speed
 			NESSENGINE_API inline void set_speed(float speed) {m_speed = speed;}
@@ -101,6 +118,9 @@ namespace Ness
 			NESSENGINE_API inline void reset()
 			{
 				m_currStep = (float)m_starting;
+				m_curr_delay = 0.0f;
+				m_waited_on_end = false;
+				m_waited_on_start = false;
 				set_source_rect();
 			}
 
@@ -111,6 +131,9 @@ namespace Ness
 				m_starting = startingStep;
 				m_speed = AnimationSpeed;
 				m_currStep = (float)m_starting;
+				m_curr_delay = 0.0f;
+				m_waited_on_end = false;
+				m_waited_on_start = false;
 				set_source_rect();
 			}
 
@@ -121,6 +144,9 @@ namespace Ness
 				m_starting = startingStep.x + (startingStep.y * m_spritesheet_total_steps.x);
 				m_speed = AnimationSpeed;
 				m_currStep = (float)m_starting;
+				m_curr_delay = 0.0f;
+				m_waited_on_end = false;
+				m_waited_on_start = false;
 				set_source_rect();
 			}
 
@@ -134,11 +160,42 @@ namespace Ness
 
 			NESSENGINE_API virtual void do_animation(Renderer* renderer)
 			{
+				// if have delay timer decrease it
+				if (m_curr_delay > 0.0f)
+				{
+					m_curr_delay -= renderer->time_factor();
+					return;
+				}
+
+				// advance current step and update source rect
 				set_source_rect();
+
+				// check if we need to set delay timer
+				// note: this has to come after "set_source_rect" or else it get delayed on last frame as well
+				if (m_delay_on_start > 0.0f && !m_waited_on_start)
+				{
+					m_curr_delay = m_delay_on_start;
+					m_waited_on_start = true;
+					return;
+				}
+
+				// advance current step
 				m_currStep += renderer->time_factor() * m_speed;
 
+				// check if ended animation
 				if ((unsigned int)m_currStep >= m_starting + m_count)
 				{
+					// check if we need to set delay timer
+					if (m_delay_on_end > 0.0f && !m_waited_on_end)
+					{
+						m_curr_delay = m_delay_on_end;
+						m_waited_on_end = true;
+						return;
+					}
+
+					m_waited_on_end = false;
+					m_waited_on_start = false;
+
 					switch (m_end_action)
 					{
 					case SPRITE_ANIM_END_REPEAT:
