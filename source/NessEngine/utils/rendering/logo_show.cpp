@@ -1,7 +1,7 @@
 #include "logo_show.h"
-#include "../renderable/entities/all_entities.h"
-#include "../renderer/renderer.h"
-#include "../animators/animator_fader.h"
+#include "../../renderable/entities/all_entities.h"
+#include "../../renderer/renderer.h"
+#include "../../animators/animator_fader.h"
 
 namespace Ness
 {

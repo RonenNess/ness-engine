@@ -21,25 +21,36 @@
 */
 
 /**
-* Implement function to show logo screen on a given scene.
-* Logo screen is basically a node that covers the entire screen with a given color and puts a texture (logo in the middle), then fades out.
-* this function only wraps the creation of such object for you
+* keyboard wrapper
 * Author: Ronen Ness
-* Since: 08/1014
+* Since: 07/1014
 */
 
 #pragma once
-#include "../renderable/nodes/node.h"
-#include "../exports.h"
+#include <SDL.h>
+#include "../../exports.h"
+#include "event_handler.h"
+#include "../../basic_types/containers.h"
 
 namespace Ness
 {
 	namespace Utils
 	{
-		NESSENGINE_API void make_logo_screen(const Ness::NodePtr& parentNode, 
-			const String& textureName = "ness-engine/resources/gfx/logo.png", 
-			const Ness::Color& backColor = Ness::Color::BLACK, 
-			float timeUntilFadeout = 1.5f, 
-			float fadeOutSpeed = 0.75f);
-	}
-}
+
+		// wrap keyboard functionality for easy keyboard controls
+		class Keyboard : public EventsHandler
+		{
+		private:
+			Containers::UnorderedMap<Keycode, bool> m_key_codes;
+
+		public:
+
+			// update the keyboard with incoming event
+			NESSENGINE_API virtual bool inject_event(const Event& event);
+
+			// get key state
+			NESSENGINE_API inline bool key_state(Keycode key) {return m_key_codes[key];}
+		};
+
+	};
+};

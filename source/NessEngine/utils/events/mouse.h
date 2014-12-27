@@ -21,14 +21,14 @@
 */
 
 /**
-* wrap application events, like minimize, maximize, quit, etc..
+* mouse wrapper
 * Author: Ronen Ness
 * Since: 07/1014
 */
 
 #pragma once
+#include "../../basic_types/point.h"
 #include <SDL.h>
-#include "../exports.h"
 #include "event_handler.h"
 
 namespace Ness
@@ -36,24 +36,34 @@ namespace Ness
 	namespace Utils
 	{
 
-		// wrap general application events
-		class ApplicationEvents : public EventsHandler
+		// wrap mouse functionality for easy mouse controls
+		class Mouse : public EventsHandler
 		{
 		private:
-			bool m_quit;
-			bool m_focused;
+			Pointi m_last_mouse_pos;
+			bool m_down[_MOUSE_BUTTONS_COUNT];
+			bool m_in_screen;
 
 		public:
 
-			NESSENGINE_API ApplicationEvents() : m_quit(false), m_focused(true) 
-			{}
+			// init the mouse wrapper
+			NESSENGINE_API Mouse();
 
 			// update the keyboard with incoming event
 			NESSENGINE_API virtual bool inject_event(const Event& event);
 
-			// get if we got certain events
-			NESSENGINE_API inline bool got_quit() const {return m_quit;}
-			NESSENGINE_API inline bool is_focused() const {return m_focused;}
+			// get mouse position
+			NESSENGINE_API const Pointi& position();
+
+			// return if mouse is in screen
+			NESSENGINE_API inline bool in_screen() const {return m_in_screen;}
+
+			// get mouse button state
+			NESSENGINE_API inline bool is_down(EMouseButtons button) const {return m_down[button];}
+
+		private:
+
+			void change_button_state(int button, bool isDown);
 		};
 
 	};

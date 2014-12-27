@@ -33,20 +33,20 @@
 #include <tchar.h>
 
 // include scene and camera
-#include "scene\scene.h"
-#include "scene\camera.h"
+#include "scene/scene.h"
+#include "scene/camera.h"
 
 // include renderer and basic stuff
-#include "renderer\renderer.h"
-#include "exceptions\exceptions.h"
-#include "basic_types\all_basic_types.h"
+#include "renderer/renderer.h"
+#include "exceptions/exceptions.h"
+#include "basic_types/all_basic_types.h"
 
 // include utils
-#include "utils\keyboard.h"
-#include "utils\mouse.h"
-#include "utils\application_events.h"
-#include "utils\events_poller.h"
-#include "utils\logo_show.h"
+#include "utils/events/keyboard.h"
+#include "utils/events/mouse.h"
+#include "utils/events/application_events.h"
+#include "utils/events/events_poller.h"
+#include "utils/rendering/logo_show.h"
 
 // include all renderables
 #include "renderable/renderable_api.h"
