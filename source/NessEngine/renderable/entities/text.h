@@ -59,6 +59,9 @@ namespace Ness
 		NESSENGINE_API Text(Renderer* renderer, ManagedResources::ManagedFontPtr font, const String& text);
 		NESSENGINE_API Text(Renderer* renderer, const String& FontFile, const String& text, int fontSize = 12);
 
+		// clear the text
+		NESSENGINE_API ~Text();
+
 		// change font
 		NESSENGINE_API inline void change_font(ManagedResources::ManagedFontPtr NewFont) {m_font = NewFont; m_need_text_update = true;}
 
