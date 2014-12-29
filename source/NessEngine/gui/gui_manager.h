@@ -30,9 +30,9 @@
 #pragma once
 #include "widgets/all_widgets.h"
 #include "containers/all_containers.h"
-#include "../utils/event_handler.h"
-#include "../utils/mouse.h"
-#include "../utils/keyboard.h"
+#include "../utils/events/event_handler.h"
+#include "../utils/events/mouse.h"
+#include "../utils/events/keyboard.h"
 #include "../managed_resources/managed_font.h"
 #include "../managed_resources/managed_texture.h"
 

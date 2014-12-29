@@ -56,11 +56,11 @@
     <ClCompile Include="..\source\NessEngine\resources\TextureSheet.cpp" />
     <ClCompile Include="..\source\NessEngine\scene\camera.cpp" />
     <ClCompile Include="..\source\NessEngine\scene\scene.cpp" />
-    <ClCompile Include="..\source\NessEngine\utils\application_events.cpp" />
-    <ClCompile Include="..\source\NessEngine\utils\events_poller.cpp" />
-    <ClCompile Include="..\source\NessEngine\utils\keyboard.cpp" />
-    <ClCompile Include="..\source\NessEngine\utils\logo_show.cpp" />
-    <ClCompile Include="..\source\NessEngine\utils\mouse.cpp" />
+    <ClCompile Include="..\source\NessEngine\utils\events\application_events.cpp" />
+    <ClCompile Include="..\source\NessEngine\utils\events\events_poller.cpp" />
+    <ClCompile Include="..\source\NessEngine\utils\events\keyboard.cpp" />
+    <ClCompile Include="..\source\NessEngine\utils\events\mouse.cpp" />
+    <ClCompile Include="..\source\NessEngine\utils\rendering\logo_show.cpp" />
     <ClCompile Include="dllmain.cpp" />
   </ItemGroup>
   <ItemGroup>
@@ -130,12 +130,12 @@
     <ClInclude Include="..\source\NessEngine\resources\TextureSheet.h" />
     <ClInclude Include="..\source\NessEngine\scene\camera.h" />
     <ClInclude Include="..\source\NessEngine\scene\scene.h" />
-    <ClInclude Include="..\source\NessEngine\utils\application_events.h" />
-    <ClInclude Include="..\source\NessEngine\utils\events_poller.h" />
-    <ClInclude Include="..\source\NessEngine\utils\event_handler.h" />
-    <ClInclude Include="..\source\NessEngine\utils\keyboard.h" />
-    <ClInclude Include="..\source\NessEngine\utils\logo_show.h" />
-    <ClInclude Include="..\source\NessEngine\utils\mouse.h" />
+    <ClInclude Include="..\source\NessEngine\utils\events\application_events.h" />
+    <ClInclude Include="..\source\NessEngine\utils\events\events_poller.h" />
+    <ClInclude Include="..\source\NessEngine\utils\events\event_handler.h" />
+    <ClInclude Include="..\source\NessEngine\utils\events\keyboard.h" />
+    <ClInclude Include="..\source\NessEngine\utils\events\mouse.h" />
+    <ClInclude Include="..\source\NessEngine\utils\rendering\logo_show.h" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <ProjectGuid>{1ACB68CF-3390-4177-A6A8-3E6757BF9954}</ProjectGuid>

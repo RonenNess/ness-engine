@@ -55,6 +55,12 @@
     <Filter Include="Source Files\gui\containers">
       <UniqueIdentifier>{de58b850-3d3f-4a04-b7ab-04cb1bce5b7b}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Source Files\utils\events">
+      <UniqueIdentifier>{37b4186a-ab14-4bcb-9e6a-bdcff383da57}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\utils\rendering">
+      <UniqueIdentifier>{ad844354-998a-47d1-a7b7-c1e99f7fc499}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\source\NessEngine\NessEngine.cpp">
@@ -71,15 +77,6 @@
     </ClCompile>
     <ClCompile Include="dllmain.cpp">
       <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="..\source\NessEngine\utils\keyboard.cpp">
-      <Filter>Source Files\utils</Filter>
-    </ClCompile>
-    <ClCompile Include="..\source\NessEngine\utils\mouse.cpp">
-      <Filter>Source Files\utils</Filter>
-    </ClCompile>
-    <ClCompile Include="..\source\NessEngine\utils\events_poller.cpp">
-      <Filter>Source Files\utils</Filter>
     </ClCompile>
     <ClCompile Include="..\source\NessEngine\renderable\nodes\node.cpp">
       <Filter>Source Files\renderables\nodes</Filter>
@@ -126,14 +123,8 @@
     <ClCompile Include="..\source\NessEngine\renderable\entities\multiline_text.cpp">
       <Filter>Source Files\renderables\entities</Filter>
     </ClCompile>
-    <ClCompile Include="..\source\NessEngine\utils\application_events.cpp">
-      <Filter>Source Files\utils</Filter>
-    </ClCompile>
     <ClCompile Include="..\source\NessEngine\renderable\nodes\static_node.cpp">
       <Filter>Source Files\renderables\nodes</Filter>
-    </ClCompile>
-    <ClCompile Include="..\source\NessEngine\utils\logo_show.cpp">
-      <Filter>Source Files\utils</Filter>
     </ClCompile>
     <ClCompile Include="..\source\NessEngine\renderable\nodes\nodes_map.cpp">
       <Filter>Source Files\renderables\nodes</Filter>
@@ -186,13 +177,25 @@
     <ClCompile Include="..\source\NessEngine\renderable\entity_api.cpp">
       <Filter>Source Files\renderables</Filter>
     </ClCompile>
+    <ClCompile Include="..\source\NessEngine\utils\events\application_events.cpp">
+      <Filter>Source Files\utils\events</Filter>
+    </ClCompile>
+    <ClCompile Include="..\source\NessEngine\utils\events\events_poller.cpp">
+      <Filter>Source Files\utils\events</Filter>
+    </ClCompile>
+    <ClCompile Include="..\source\NessEngine\utils\events\keyboard.cpp">
+      <Filter>Source Files\utils\events</Filter>
+    </ClCompile>
+    <ClCompile Include="..\source\NessEngine\utils\events\mouse.cpp">
+      <Filter>Source Files\utils\events</Filter>
+    </ClCompile>
+    <ClCompile Include="..\source\NessEngine\utils\rendering\logo_show.cpp">
+      <Filter>Source Files\utils\rendering</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\source\NessEngine\NessEngine.h">
       <Filter>Source Files</Filter>
-    </ClInclude>
-    <ClInclude Include="..\source\NessEngine\utils\keyboard.h">
-      <Filter>Source Files\utils</Filter>
     </ClInclude>
     <ClInclude Include="..\source\NessEngine\scene\camera.h">
       <Filter>Source Files\scene</Filter>
@@ -208,15 +211,6 @@
     </ClInclude>
     <ClInclude Include="..\source\NessEngine\exports.h">
       <Filter>Source Files</Filter>
-    </ClInclude>
-    <ClInclude Include="..\source\NessEngine\utils\mouse.h">
-      <Filter>Source Files\utils</Filter>
-    </ClInclude>
-    <ClInclude Include="..\source\NessEngine\utils\events_poller.h">
-      <Filter>Source Files\utils</Filter>
-    </ClInclude>
-    <ClInclude Include="..\source\NessEngine\utils\event_handler.h">
-      <Filter>Source Files\utils</Filter>
     </ClInclude>
     <ClInclude Include="..\source\NessEngine\renderable\nodes\node.h">
       <Filter>Source Files\renderables\nodes</Filter>
@@ -329,14 +323,8 @@
     <ClInclude Include="..\source\NessEngine\basic_types\events.h">
       <Filter>Source Files\basic_types</Filter>
     </ClInclude>
-    <ClInclude Include="..\source\NessEngine\utils\application_events.h">
-      <Filter>Source Files\utils</Filter>
-    </ClInclude>
     <ClInclude Include="..\source\NessEngine\renderable\nodes\static_node.h">
       <Filter>Source Files\renderables\nodes</Filter>
-    </ClInclude>
-    <ClInclude Include="..\source\NessEngine\utils\logo_show.h">
-      <Filter>Source Files\utils</Filter>
     </ClInclude>
     <ClInclude Include="..\source\NessEngine\renderable\nodes\nodes_map.h">
       <Filter>Source Files\renderables\nodes</Filter>
@@ -412,6 +400,24 @@
     </ClInclude>
     <ClInclude Include="..\source\NessEngine\gui\widgets\label.h">
       <Filter>Source Files\gui\widgets</Filter>
+    </ClInclude>
+    <ClInclude Include="..\source\NessEngine\utils\events\application_events.h">
+      <Filter>Source Files\utils\events</Filter>
+    </ClInclude>
+    <ClInclude Include="..\source\NessEngine\utils\events\event_handler.h">
+      <Filter>Source Files\utils\events</Filter>
+    </ClInclude>
+    <ClInclude Include="..\source\NessEngine\utils\events\events_poller.h">
+      <Filter>Source Files\utils\events</Filter>
+    </ClInclude>
+    <ClInclude Include="..\source\NessEngine\utils\events\keyboard.h">
+      <Filter>Source Files\utils\events</Filter>
+    </ClInclude>
+    <ClInclude Include="..\source\NessEngine\utils\events\mouse.h">
+      <Filter>Source Files\utils\events</Filter>
+    </ClInclude>
+    <ClInclude Include="..\source\NessEngine\utils\rendering\logo_show.h">
+      <Filter>Source Files\utils\rendering</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

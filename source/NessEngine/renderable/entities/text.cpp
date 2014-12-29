@@ -46,6 +46,14 @@ namespace Ness
 		set_blend_mode(BLEND_MODE_BLEND);
 	}
 
+	Text::~Text()
+	{
+		if (m_texture)
+		{
+			SDL_DestroyTexture(m_texture);
+		}
+	}
+
 	void Text::set_alignment(ETextAlignment align)
 	{
 		switch (align)

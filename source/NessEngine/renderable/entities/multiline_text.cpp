@@ -40,12 +40,21 @@ namespace Ness
 
 	void MultiText::set_text(const String& text)
 	{
+		// hold temporary pointer to the used font
+		// this is so we won't get unnecessary font reloads when changing text
+		ManagedResources::ManagedFontPtr font;
+		if (m_lines.size() > 0)
+		{
+			font = m_lines[0]->get_font();
+		}
+
 		// clear previous lines
 		for (unsigned int i = 0; i < m_lines.size(); ++i)
 		{
 			m_lines[i]->__change_parent(nullptr);
 		}
 		m_lines.clear();
+		m_node->clear();
 
 		// loop over the string split by \n character
 		std::istringstream f(text);
