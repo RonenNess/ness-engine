@@ -1,0 +1,1 @@
+this example just create a renderer, a rendering loop, and add a single sprite to the scene.

@@ -1,0 +1,1 @@
+this example shows how to use the animators to create basic sprites animation.

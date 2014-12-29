@@ -1,0 +1,2 @@
+this example uses box2d to create basic physics emulation. 
+this is just a simple case with a bouncing ball (ness-engine's mascot crab) but it can easily be extended to a full functioning physics engine for a 2d game.

@@ -1,0 +1,1 @@
+this example shows how to use the z-node to create automatic z-based ordering (creates similar effect to a z-buffer).

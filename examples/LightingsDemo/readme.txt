@@ -1,0 +1,1 @@
+this example shows basic lighting effects using ness-engine built-in lighting node.

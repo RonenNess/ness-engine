@@ -1,0 +1,1 @@
+This example project shows how to create a custom sprite with 3d-lighting effect.

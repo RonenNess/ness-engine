@@ -1,0 +1,1 @@
+this example shows how to use multi-line text entities that comes with ness-engine.
