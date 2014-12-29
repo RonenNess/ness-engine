@@ -1,0 +1,1 @@
+this example shows how to use the static node optimization to render lots of static sprites extremely fast.

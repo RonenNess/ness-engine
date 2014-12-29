@@ -1,0 +1,1 @@
+a spaceships fighting game example. two players, you can move around and shoot at each other.
