@@ -27,6 +27,14 @@
 
 namespace Ness
 {
+	RenderableAPI::~RenderableAPI()
+	{
+		if (m_user_data && m_delete_user_data)
+		{
+			delete m_user_data;
+		}
+	}
+
 	// remove this entity from parent
 	void RenderableAPI::remove_from_parent()
 	{
