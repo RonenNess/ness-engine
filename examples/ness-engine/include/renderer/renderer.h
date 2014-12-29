@@ -211,7 +211,7 @@ namespace Ness
 		NESSENGINE_API void fill_texture(ManagedResources::ManagedTexturePtr texture, const Color& fillColor);
 
 		// return a unique frame id number (increased by 1 every end of frame)
-		NESSENGINE_API unsigned int get_frameid() const {return m_frameid;}
+		NESSENGINE_API inline unsigned int get_frameid() const {return m_frameid;}
 
 		// render managed texture
 		NESSENGINE_API inline void blit(ManagedResources::ManagedTexturePtr texture, const Rectangle* SrcRect, 

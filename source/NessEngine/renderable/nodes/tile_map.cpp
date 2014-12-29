@@ -58,6 +58,7 @@ namespace Ness
 				if (createSpriteFunction == nullptr)
 				{
 					NewSprite = ness_make_ptr<Sprite>(this->m_renderer, spriteFile);
+					NewSprite->set_blend_mode(BLEND_MODE_NONE);
 				}
 				else
 				{
@@ -104,7 +105,6 @@ namespace Ness
 		// set size, anchor and default blend mode
 		sprite->set_size(m_tile_size);
 		sprite->set_anchor(m_tiles_anchor);
-		sprite->set_blend_mode(BLEND_MODE_NONE);
 
 		// set z-index
 		sprite->set_zindex(sprite->get_position().y - m_sprites_distance.y);

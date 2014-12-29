@@ -30,6 +30,7 @@
 #pragma once
 #include "../exports.h"
 #include <vector>
+#include <deque>
 #include <list>
 #include <memory>
 #include <string>
@@ -42,6 +43,10 @@ namespace Ness
 		// ness-engine vector
 		template <typename T>
 		class Vector : public std::vector<T> {};
+
+		// ness-engine deque
+		template <typename T>
+		class Deque : public std::deque<T> {};
 
 		// ness-engine list
 		template <typename T>
