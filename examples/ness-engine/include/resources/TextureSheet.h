@@ -51,12 +51,12 @@ namespace Ness
 		public:
 			// create the texture sheet from file
 			// if ColorKey is provided, this color will turn invisible
-			NESSENGINE_API TextureSheet(const String& fileName, SDL_Renderer* renderer, const Colorb* ColorKey = nullptr);
+			NESSENGINE_API TextureSheet(const String& file_name, SDL_Renderer* renderer, const Colorb* ColorKey = nullptr);
 
 			// create the texture sheet as blank texture you can render on
 			NESSENGINE_API TextureSheet(SDL_Renderer* renderer, const Sizei& size);
 
-			// return texture filename (if not loaded from file will be empty string)
+			// return texture file_name (if not loaded from file will be empty string)
 			NESSENGINE_API inline const String& get_file_name() const {return m_file_name;}
 
 			// destroy the texture
@@ -70,7 +70,7 @@ namespace Ness
 
 		private:
 			// load and init this texture from file. this should be called only once!
-			void load_file(const char* fileName, SDL_Renderer* renderer, const Colorb* ColorKey = nullptr);
+			void load_file(const char* file_name, SDL_Renderer* renderer, const Colorb* ColorKey = nullptr);
 
 			// create this texture as empty texture you can render on
 			void create_blank(SDL_Renderer* renderer, const Sizei& size);

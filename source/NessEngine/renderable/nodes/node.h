@@ -28,6 +28,7 @@
 
 #pragma once
 #include "basic_node.h"
+#include "../../managed_resources/managed_font.h"
 
 namespace Ness
 {
@@ -88,8 +89,9 @@ namespace Ness
 		NESSENGINE_API virtual CanvasPtr create_canvas(const String& textureName, const Sizei& size = Sizei::ZERO, bool add_immediatly=true);
 		NESSENGINE_API virtual TileMapPtr create_tilemap(const String& spriteFile, const Sizei& mapSize, const Size& singleTileSize=Size(36, 36), const Size& tilesDistance=Size::ZERO, bool add_immediatly=true);
 		NESSENGINE_API virtual NodesMapPtr create_nodesmap(const Sizei& mapSize, const Size& singleNodeSize=Size(36, 36), const Size& nodesDistance=Size::ZERO, bool add_immediatly=true);
-		NESSENGINE_API virtual TextPtr create_text(const String& fontFile, const String& text, int fontSize = 12, bool add_immediatly=true);
-		NESSENGINE_API virtual MultiTextPtr create_multitext(const String& fontFile, const String& text, int fontSize = 12, bool add_immediatly=true);
-
+		NESSENGINE_API virtual TextPtr create_text(const String& fontFile, const String& text, unsigned int font_size = 12, bool add_immediatly=true);
+		NESSENGINE_API virtual MultiTextPtr create_multitext(const String& fontFile, const String& text, unsigned int font_size = 12, bool add_immediatly=true);
+		NESSENGINE_API virtual TextPtr create_text(const ManagedResources::ManagedFontPtr& font, const String& text, bool add_immediatly=true);
+		NESSENGINE_API virtual MultiTextPtr create_multitext(const ManagedResources::ManagedFontPtr& font, const String& text, bool add_immediatly=true);
 	};
 };

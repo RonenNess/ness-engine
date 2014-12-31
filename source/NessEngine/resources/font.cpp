@@ -28,12 +28,12 @@ namespace Ness
 	namespace Resources
 	{
 
-		LoadedFont::LoadedFont(const String& fileName, int fontSize) : m_font(nullptr)
+		LoadedFont::LoadedFont(const String& file_name, unsigned int font_size) : m_font(nullptr), m_file_name(file_name), m_font_size(font_size)
 		{
-			m_font = TTF_OpenFont( fileName.c_str(), fontSize );
+			m_font = TTF_OpenFont( file_name.c_str(), font_size );
 			if (!m_font)
 			{
-				throw FailedToLoadFont(fileName.c_str(), TTF_GetError());
+				throw FailedToLoadFont(file_name.c_str(), TTF_GetError());
 			}
 		}
 

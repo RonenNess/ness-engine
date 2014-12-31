@@ -57,7 +57,7 @@ namespace Ness
 
 		// create the text object
 		NESSENGINE_API Text(Renderer* renderer, ManagedResources::ManagedFontPtr font, const String& text);
-		NESSENGINE_API Text(Renderer* renderer, const String& FontFile, const String& text, int fontSize = 12);
+		NESSENGINE_API Text(Renderer* renderer, const String& FontFile, const String& text, unsigned int font_size = 12);
 
 		// clear the text
 		NESSENGINE_API ~Text();

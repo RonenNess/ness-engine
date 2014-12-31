@@ -41,7 +41,7 @@ namespace Ness
 		class AnimatorMover : public TargetAnimatorAPI
 		{
 		private:
-			Ness::Point		m_speed;			// moving speed and direction
+			Point		m_speed;			// moving speed and direction
 			float			m_time_to_move;		// for how long we will move the object
 			bool			m_infinite;			// does this animator runs forever?
 			float			m_time_until;		// time until starting animation
@@ -51,7 +51,7 @@ namespace Ness
 			// MovingSpeed is the speed and direction to move the entity
 			// TimeToMove is for how long to keep the mover running (0.0f for infinite movement)
 			// timeUntilMove is how long in seconds to wait before starting to move
-			AnimatorMover(const RenderablePtr& target, Ness::Point MovingSpeed, float TimeToMove = 1.0f, float timeUntilMove = 0.0f) 
+			AnimatorMover(const RenderablePtr& target, Point MovingSpeed, float TimeToMove = 1.0f, float timeUntilMove = 0.0f) 
 				: TargetAnimatorAPI(target),  m_speed(MovingSpeed), m_time_to_move(TimeToMove), m_time_until(timeUntilMove), m_infinite(TimeToMove == 0.0f)
 			{
 			}

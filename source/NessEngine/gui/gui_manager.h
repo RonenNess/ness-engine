@@ -57,11 +57,15 @@ namespace Ness
 		public:
 			// create the gui manager
 			// renderer: pointer to the owner renderer
-			// resources_path: the path to the folder that will contain all the gui textures. 
+			// resources_path:	the path to the folder that will contain all the gui textures. 
 			//					there is default gui skin provided within ness-engine resources.
-			// grid_unit_size: all sizes and units in gui elements are based on the grid. this 
+			// grid_unit_size:	all sizes and units in gui elements are based on the grid. this 
 			//					param determine the size of a single grid unit.
-			NESSENGINE_API GuiManager(Renderer* renderer, const String& resources_path = "ness-engine/resources/gui/", const Pointi& grid_unit_size = Point(32, 32));
+			// font_size:		the size of the gui font. if you choose a font too small and force
+			//					gui text to be larger by scaling the gui text elements, the font will
+			//					turn out blurry.
+			NESSENGINE_API GuiManager(Renderer* renderer, const String& resources_path = "ness-engine/resources/gui/", 
+										const Pointi& grid_unit_size = Point(32, 32), const int font_size = 16);
 
 			// handle events
 			NESSENGINE_API virtual bool inject_event(const Event& event);
@@ -72,6 +76,9 @@ namespace Ness
 
 			// get the renderer
 			NESSENGINE_API inline Renderer* renderer() const {return m_renderer;}
+
+			// return the loaded gui font
+			NESSENGINE_API inline ManagedResources::ManagedFontPtr get_font() {return m_font;}
 
 			// get the unit size
 			NESSENGINE_API inline const Pointi& get_unit_size() const {return m_unit_size;}

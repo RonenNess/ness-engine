@@ -29,7 +29,7 @@
 
 #pragma once
 
-#include "gui_element_api.h"
+#include "../gui_element_api.h"
 
 namespace Ness
 {
@@ -40,9 +40,28 @@ namespace Ness
 		class WidgetAPI : public GuiElementAPI
 		{
 		protected:
+			bool			m_mouse_inside;		// is mouse currently inside this widget
 
 		public:
+			NESSENGINE_API WidgetAPI(GuiManager* manager, GuiContainerAPI* parent) 
+				: GuiElementAPI(manager, parent)
+			{ }
 
+			// return if mouse is inside the widget
+			NESSENGINE_API virtual bool is_mouse_on() {return m_mouse_inside;}
+
+			// default event handling
+			NESSENGINE_API virtual void __invoke_event_mouse_enter(const Pointi& mouse_pos) {m_mouse_inside = true;}
+			NESSENGINE_API virtual void __invoke_event_mouse_leave(const Pointi& mouse_pos) {m_mouse_inside = false;}
+			NESSENGINE_API virtual void __invoke_event_mouse_hover(const Pointi& mouse_pos) {}
+			NESSENGINE_API virtual void __invoke_event_update_position() {}
+			NESSENGINE_API virtual void __invoke_event_click(EMouseButtons mouse_button, const Pointi& mouse_pos) {}
+			NESSENGINE_API virtual void __invoke_event_key_down(EMouseButtons key) {}
+			NESSENGINE_API virtual void __invoke_event_key_up(EMouseButtons key) {}
+			NESSENGINE_API virtual void __invoke_event_visibility_changed(bool new_state, bool by_parent) {}
+			NESSENGINE_API virtual void __invoke_event_enabled_changed(bool new_state, bool by_parent) {}
+			NESSENGINE_API virtual void __invoke_event_get_focus() {}
+			NESSENGINE_API virtual void __invoke_event_lose_focus() {}
 		};
 
 		// a pointer to a gui widget

@@ -57,7 +57,7 @@ namespace Ness
 				{
 					// check if current entity is indeed a node, and if so, break it
 					SharedPtr<NodeAPI> currentNode = ness_ptr_cast<NodeAPI>(m_entities[i]);
-					if (!currentNode->get_flag(Ness::RNF_NEVER_BREAK))
+					if (!currentNode->get_flag(RNF_NEVER_BREAK))
 					{
 						currentNode->__get_visible_entities(render_list, camera, true);
 						continue;

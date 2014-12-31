@@ -93,7 +93,7 @@ namespace Ness
 			NESSENGINE_API ManagedMaskTexturePtr get_mask_texture(const String& textureName);
 
 			// get/load a font
-			NESSENGINE_API ManagedFontPtr get_font(const String& fontName, int fontSize = 12);
+			NESSENGINE_API ManagedFontPtr get_font(const String& fontName, unsigned int font_size = 12);
 
 			// destroy the resources manager and anything in it
 			// once called, this instance is no longer useable!

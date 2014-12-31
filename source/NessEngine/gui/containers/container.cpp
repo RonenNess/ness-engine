@@ -20,7 +20,9 @@
 
 */
 
+#include "../widgets/all_widgets.h"
 #include "../gui_manager.h"
+#include "../../renderer/renderer.h"
 #include "container.h"
 
 namespace Ness
@@ -28,19 +30,28 @@ namespace Ness
 	namespace Gui
 	{
 		Container::Container(GuiManager* manager, GuiContainerAPI* parent, const Pointi& size_in_units, bool visual) 
-			: GuiContainerAPI(manager, parent), m_size(size_in_units), m_mouse_inside(false), m_is_focused(false)
+			: GuiContainerAPI(manager, parent), m_size(size_in_units), m_mouse_inside(false), m_is_focused(false), m_docking(DOCK_DISABLED)
 		{
-			// set the bounding box
-			m_bounding_box.w = m_size.x * m_manager->get_unit_size().x;
-			m_bounding_box.h = m_size.y * m_manager->get_unit_size().y;
+			// calculate bounding box
+			calculate_bounding_box();
+
+			// create the node for this container
+			// special case for root container
+			if (parent == nullptr)
+			{
+				m_node = ness_make_ptr<Node>(manager->renderer());
+			}
+			// else create node normally
+			else
+			{
+				m_node = m_parent->get_node()->create_node();
+			}
 
 			// create the container graphics
 			if (visual)
 			{
 				// create the graphical part
-				m_graphics = ness_make_ptr<TileMap>(this->m_manager->renderer(), 
-					this->m_manager->get_resources_path() + "frame_unfocused.png", 
-					size_in_units, m_manager->get_unit_size());
+				m_graphics = m_node->create_tilemap(this->m_manager->get_resources_path() + "frame_unfocused.png", size_in_units, m_manager->get_unit_size());
 
 				// set parts
 				Sizei parts_count(3, 3);
@@ -101,6 +112,17 @@ namespace Ness
 			}
 		}
 
+		void Container::calculate_bounding_box()
+		{
+			if (m_parent)
+			{
+				m_bounding_box.x = m_parent->get_absolute_position().x + (int)m_position.x;
+				m_bounding_box.y = m_parent->get_absolute_position().y + (int)m_position.y;
+			}
+			m_bounding_box.w = m_size.x * m_manager->get_unit_size().x;
+			m_bounding_box.h = m_size.y * m_manager->get_unit_size().y;
+		}
+
 		SharedPtr<Container> Container::create_container(const Pointi& size_in_units)
 		{
 			ContainerPtr ret = ness_make_ptr<Container>(this->m_manager, this, size_in_units);
@@ -108,24 +130,95 @@ namespace Ness
 			return ret;
 		}
 
-		void Container::render()
+		void Container::fix_docking()
 		{
-			// if not visible skip
-			if (!m_visible)
-				return;
 
-			// render this container
-			if (m_graphics)
-				m_graphics->render();
-
-			// render son elements
-			for (unsigned int i = 0; i < m_sons.size(); ++i)
+			// check if need to update position based on docking
+			if (m_docking != DOCK_DISABLED)
 			{
-				m_sons[i]->render();
+				const BoundingBox& parent_box = m_parent->get_bounding_box();
+				const Pointi parent_box_center(parent_box.x + (int)(parent_box.w * 0.5f), parent_box.y + (int)(parent_box.h * 0.5f));
+				const Pointi parent_box_bottom_right(parent_box.x + parent_box.w, parent_box.y + parent_box.h);
+				const Pointi half_size_in_pixels((int)(m_bounding_box.w * 0.5f), (int)(m_bounding_box.h * 0.5f));
+				switch (m_docking)
+				{
+					case DOCK_TOP_CENTER:
+						set_position(Pointi(parent_box_center.x - half_size_in_pixels.x, parent_box.y));
+						break;
+
+					case DOCK_TOP_LEFT:
+						set_position(Pointi(parent_box.x, parent_box.y));
+						break;
+
+					case DOCK_TOP_RIGHT:
+						set_position(Pointi(parent_box_bottom_right.x - m_bounding_box.w, parent_box.y));
+						break;
+
+					case DOCK_BOTTOM_CENTER:
+						set_position(Pointi(parent_box_center.x - half_size_in_pixels.x, parent_box_bottom_right.y - m_bounding_box.h));
+						break;
+
+					case DOCK_BOTTOM_LEFT:
+						set_position(Pointi(parent_box.x, parent_box_bottom_right.y - m_bounding_box.h));
+						break;
+
+					case DOCK_BOTTOM_RIGHT:
+						set_position(Pointi(parent_box_bottom_right.x - m_bounding_box.w, parent_box_bottom_right.y - m_bounding_box.h));
+						break;
+
+					case DOCK_LEFT_CENTER:
+						set_position(Pointi(parent_box.x, parent_box_center.y - half_size_in_pixels.y));
+						break;
+
+					case DOCK_RIGHT_CENTER:
+						set_position(Pointi(parent_box_bottom_right.x - m_bounding_box.w, parent_box_center.y - half_size_in_pixels.y));
+						break;
+
+					case DOCK_CENTER:
+						set_position(parent_box_center - half_size_in_pixels);
+						break;
+				}
 			}
 		}
 
-		void Container::invoke_event_get_focus()
+		LabelPtr Container::create_label(const String& text)
+		{
+			LabelPtr ret = ness_make_ptr<Label>(this->m_manager, this, text);
+			add(ret);
+			return ret;
+		}
+
+		void Container::__invoke_event_update_position()
+		{
+			// update docking
+			fix_docking();
+
+			// recalculate bounding box
+			calculate_bounding_box();
+
+			// update node position
+			m_node->set_position(m_parent->get_absolute_position() + m_position);
+
+			// notify all son entities
+			for (unsigned int i = 0; i < m_sons.size(); ++i)
+			{
+				m_sons[i]->__invoke_event_parent_moved();
+			}
+		}
+
+		void Container::set_position(const Point& new_pos, const Point& anchor)
+		{
+			// get absolute ew position and if not changed skip
+			Ness::Point new_pos_abs = new_pos - Point(m_bounding_box.w * anchor.x, m_bounding_box.h * anchor.y);
+			if (m_position == new_pos_abs)
+				return;
+
+			// set position and invoke position update
+			m_position = new_pos_abs;
+			__invoke_event_update_position();
+		}
+
+		void Container::__invoke_event_get_focus()
 		{
 			m_is_focused = true;
 			if (m_graphics)
@@ -142,7 +235,7 @@ namespace Ness
 			}
 		}
 
-		void Container::invoke_event_lose_focus()
+		void Container::__invoke_event_lose_focus()
 		{
 			m_is_focused = false;
 			if (m_graphics)
@@ -159,7 +252,7 @@ namespace Ness
 			}
 		}
 
-		void Container::invoke_event_mouse_enter(const Pointi& mouse_pos)
+		void Container::__invoke_event_mouse_enter(const Pointi& mouse_pos)
 		{
 			m_mouse_inside = true;
 			if (m_graphics)
@@ -176,7 +269,7 @@ namespace Ness
 			}
 		}
 
-		void Container::invoke_event_mouse_leave(const Pointi& mouse_pos)
+		void Container::__invoke_event_mouse_leave(const Pointi& mouse_pos)
 		{
 			m_mouse_inside = false;
 			if (m_graphics)
@@ -196,7 +289,7 @@ namespace Ness
 			}
 		}
 
-		void Container::invoke_event_mouse_hover(const Pointi& mouse_pos)
+		void Container::__invoke_event_mouse_hover(const Pointi& mouse_pos)
 		{
 			m_mouse_inside = true;
 
@@ -218,11 +311,11 @@ namespace Ness
 					// invoke mouse enter event
 					if (!curr->is_mouse_on())
 					{
-						curr->invoke_event_mouse_enter(mouse_pos);
+						curr->__invoke_event_mouse_enter(mouse_pos);
 					}
 
 					// invoke mouse hover event
-					curr->invoke_event_mouse_hover(mouse_pos);
+					curr->__invoke_event_mouse_hover(mouse_pos);
 				}
 				// if mouse is not on this element
 				else
@@ -230,17 +323,28 @@ namespace Ness
 					// invoke mouse leave event
 					if (curr->is_mouse_on())
 					{
-						curr->invoke_event_mouse_leave(mouse_pos);
+						curr->__invoke_event_mouse_leave(mouse_pos);
 					}
 				}
 			}
 		}
 
-		void Container::invoke_event_visibility_changed(bool newState)
+		void Container::__invoke_event_visibility_changed(bool new_state, bool by_parent)
 		{
+			// set the node visibility
+			if (!by_parent)
+			{
+				m_node->set_visible(new_state);
+			}
+
+			// invoke event for all sub entities
+			for (unsigned int i = 0; i < m_sons.size(); ++i)
+			{
+				m_sons[i]->__invoke_event_visibility_changed(new_state, true);
+			}
 		}
 
-		void Container::invoke_event_enabled_changed(bool newState)
+		void Container::__invoke_event_enabled_changed(bool new_state, bool by_parent)
 		{
 			if (m_graphics)
 			{
@@ -250,7 +354,7 @@ namespace Ness
 					for (index.y = 0; index.y < m_size.y; ++index.y)
 					{
 						SpritePtr& tile = m_graphics->get_sprite(index);
-						if (newState)
+						if (new_state)
 						{
 							tile->change_texture(this->m_manager->get_resources_path() + "frame_unfocused.png", false);
 						}
@@ -261,22 +365,13 @@ namespace Ness
 					}
 				}
 			}
+			for (unsigned int i = 0; i < m_sons.size(); ++i)
+			{
+				m_sons[i]->__invoke_event_enabled_changed(new_state, true);
+			}
 		}
 
-		bool Container::is_point_on(const Ness::Pointi& pos)
-		{
-			// get absolute position and size
-			const BoundingBox& box = get_bounding_box();
-
-			// check position against bounderies
-			if (pos.x >= box.x && pos.y >= box.y &&
-				pos.x <= box.x + box.w && pos.y <= box.y + box.h)
-				return true;
-
-			return false;
-		}
-
-		void Container::invoke_event_click(EMouseButtons mouse_button, const Ness::Pointi& mouse_pos)
+		void Container::__invoke_event_click(EMouseButtons mouse_button, const Pointi& mouse_pos)
 		{
 			
 			// new focused widget
@@ -288,7 +383,7 @@ namespace Ness
 				GuiElementPtr& widget = m_sons[i];
 				if (widget->is_point_on(mouse_pos))
 				{
-					widget->invoke_event_click(mouse_button, mouse_pos);
+					widget->__invoke_event_click(mouse_button, mouse_pos);
 					new_focused = widget;
 					break;
 				}
@@ -296,25 +391,25 @@ namespace Ness
 
 			// change focus
 			if (m_focused_widget)
-				m_focused_widget->invoke_event_lose_focus();
+				m_focused_widget->__invoke_event_lose_focus();
 			if (new_focused)
-				new_focused->invoke_event_get_focus();
+				new_focused->__invoke_event_get_focus();
 
 			// store the newly focused widget
 			m_focused_widget = new_focused;
 		}
 
 
-		void Container::invoke_event_key_down(EMouseButtons key)
+		void Container::__invoke_event_key_down(EMouseButtons key)
 		{
 			if (m_focused_widget)
-				m_focused_widget->invoke_event_key_down(key);
+				m_focused_widget->__invoke_event_key_down(key);
 		}
 
-		void Container::invoke_event_key_up(EMouseButtons key)
+		void Container::__invoke_event_key_up(EMouseButtons key)
 		{
 			if (m_focused_widget)
-				m_focused_widget->invoke_event_key_up(key);
+				m_focused_widget->__invoke_event_key_up(key);
 		}
 	}
   }

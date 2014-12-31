@@ -33,21 +33,45 @@
 
 #include "gui_container_api.h"
 #include "../../renderable/nodes/tile_map.h"
+
 namespace Ness
 {
 	namespace Gui
 	{
+		// docking options for a container
+		enum EDockingOptions
+		{
+			DOCK_DISABLED,
+			DOCK_TOP_CENTER,
+			DOCK_TOP_LEFT,
+			DOCK_TOP_RIGHT,
+			DOCK_BOTTOM_CENTER,
+			DOCK_BOTTOM_LEFT,
+			DOCK_BOTTOM_RIGHT,
+			DOCK_LEFT_CENTER,
+			DOCK_RIGHT_CENTER,
+			DOCK_CENTER,
+		};
+
+		
+		// predeclare all the entities this container can create
+		class Label;
+		NESSENGINE_API typedef SharedPtr<Label> LabelPtr;
+
 
 		// a gui frame that contain other widgets
 		class Container : public GuiContainerAPI
 		{
 		private:
+			NodePtr				m_node;					// the node used by this container
+			Point				m_position;				// the container position relative to its parent, in pixels
 			GuiElementPtr		m_focused_widget;		// the son widget currently under focus (or null if have no widget focused)
 			Pointi				m_size;					// frame size in gui grid units
 			TileMapPtr			m_graphics;				// the graphical part of the frame
 			BoundingBox			m_bounding_box;			// the bounding box of this container
 			bool				m_mouse_inside;			// is mouse currently inside this container
 			bool				m_is_focused;			// does this container currently have focus?
+			EDockingOptions		m_docking;				// if not DOCK_DISABLED will dock this container to a given anchor
 
 		public:
 
@@ -58,29 +82,45 @@ namespace Ness
 			NESSENGINE_API Container(GuiManager* manager, GuiContainerAPI* parent, const Pointi& size_in_units, bool visual=true);
 
 			// handle basic events
-			NESSENGINE_API virtual void invoke_event_get_focus();
-			NESSENGINE_API virtual void invoke_event_lose_focus();
-			NESSENGINE_API virtual bool is_point_on(const Ness::Pointi& pos);
-			NESSENGINE_API virtual void invoke_event_click(EMouseButtons mouse_button, const Ness::Pointi& mouse_pos);
-			NESSENGINE_API virtual void invoke_event_key_down(EMouseButtons key);
-			NESSENGINE_API virtual void invoke_event_key_up(EMouseButtons key);
-			NESSENGINE_API virtual void invoke_event_mouse_enter(const Pointi& mouse_pos);
-			NESSENGINE_API virtual void invoke_event_mouse_leave(const Pointi& mouse_pos);
-			NESSENGINE_API virtual void invoke_event_mouse_hover(const Pointi& mouse_pos);
-			NESSENGINE_API virtual void invoke_event_visibility_changed(bool newState);
-			NESSENGINE_API virtual void invoke_event_enabled_changed(bool newState);
+			NESSENGINE_API virtual void __invoke_event_get_focus();
+			NESSENGINE_API virtual void __invoke_event_lose_focus();
+			NESSENGINE_API virtual void __invoke_event_click(EMouseButtons mouse_button, const Pointi& mouse_pos);
+			NESSENGINE_API virtual void __invoke_event_key_down(EMouseButtons key);
+			NESSENGINE_API virtual void __invoke_event_key_up(EMouseButtons key);
+			NESSENGINE_API virtual void __invoke_event_mouse_enter(const Pointi& mouse_pos);
+			NESSENGINE_API virtual void __invoke_event_mouse_leave(const Pointi& mouse_pos);
+			NESSENGINE_API virtual void __invoke_event_mouse_hover(const Pointi& mouse_pos);
+			NESSENGINE_API virtual void __invoke_event_visibility_changed(bool new_state, bool by_parent);
+			NESSENGINE_API virtual void __invoke_event_enabled_changed(bool new_state, bool by_parent);
+			NESSENGINE_API virtual void __invoke_event_update_position();
+
+			// return the node
+			NESSENGINE_API virtual NodePtr get_node() {return m_node;}
+
+			// set container position, relative to parent, in pixels
+			NESSENGINE_API virtual void set_position(const Point& new_pos, const Point& anchor = Point::ZERO);
+
+			// set position of this widget to dock given position (relative to parent)
+			NESSENGINE_API inline void dock_to(EDockingOptions dock_to) {m_docking = dock_to; __invoke_event_update_position();}
 
 			// should return true if mouse is on this gui element
 			NESSENGINE_API virtual bool is_mouse_on() {return m_mouse_inside;}
 
 			// create a son container inside this container
-			SharedPtr<Container> create_container(const Pointi& size_in_units);
+			NESSENGINE_API SharedPtr<Container> create_container(const Pointi& size_in_units);
 
-			// render the container
-			NESSENGINE_API virtual void render();
+			// create and return a label
+			NESSENGINE_API LabelPtr create_label(const String& text);
+
+			// recalculate container bounding box (you should not call it on your own it happens automatically)
+			NESSENGINE_API virtual void calculate_bounding_box();
 
 			// return the element's bounding box
-			NESSENGINE_API virtual const BoundingBox& get_bounding_box() {return m_bounding_box;}
+			NESSENGINE_API virtual const BoundingBox& get_bounding_box() const {return m_bounding_box;}
+
+		private:
+			// fix container docking (use dock_to() to set docking mode)
+			NESSENGINE_API void fix_docking();
 			
 		};
 

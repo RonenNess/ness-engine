@@ -95,16 +95,30 @@ namespace Ness
 		return NewSprite;
 	}
 
-	TextPtr Node::create_text(const String& fontFile, const String& text, int fontSize, bool add_immediatly)
+	TextPtr Node::create_text(const String& fontFile, const String& text, unsigned int font_size, bool add_immediatly)
 	{
-		TextPtr NewSprite = ness_make_ptr<Text>(this->m_renderer, fontFile, text, fontSize);
+		TextPtr NewSprite = ness_make_ptr<Text>(this->m_renderer, fontFile, text, font_size);
 		if (add_immediatly) add(NewSprite);
 		return NewSprite;
 	}
 
-	MultiTextPtr Node::create_multitext(const String& fontFile, const String& text, int fontSize, bool add_immediatly)
+	MultiTextPtr Node::create_multitext(const String& fontFile, const String& text, unsigned int font_size, bool add_immediatly)
 	{
-		MultiTextPtr NewSprite = ness_make_ptr<MultiText>(this->m_renderer, fontFile, text, fontSize);
+		MultiTextPtr NewSprite = ness_make_ptr<MultiText>(this->m_renderer, fontFile, text, font_size);
+		if (add_immediatly) add(NewSprite);
+		return NewSprite;
+	}
+
+	TextPtr Node::create_text(const ManagedResources::ManagedFontPtr& font, const String& text, bool add_immediatly)
+	{
+		TextPtr NewSprite = ness_make_ptr<Text>(this->m_renderer, font, text);
+		if (add_immediatly) add(NewSprite);
+		return NewSprite;
+	}
+
+	MultiTextPtr Node::create_multitext(const ManagedResources::ManagedFontPtr& font, const String& text, bool add_immediatly)
+	{
+		MultiTextPtr NewSprite = ness_make_ptr<MultiText>(this->m_renderer, font->get_file_name(), text, font->get_font_size());
 		if (add_immediatly) add(NewSprite);
 		return NewSprite;
 	}

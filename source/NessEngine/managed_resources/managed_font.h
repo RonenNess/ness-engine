@@ -42,7 +42,7 @@ namespace Ness
 		class ManagedFont : public Resources::LoadedFont, public ManagedResource
 		{
 		public:
-			ManagedFont(const String& fileName, int fontSize = 12) : LoadedFont(fileName, fontSize) {}
+			ManagedFont(const String& file_name, unsigned int font_size = 12) : LoadedFont(file_name, font_size) {}
 		};
 
 		// a manager font pointer

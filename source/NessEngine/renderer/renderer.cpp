@@ -104,7 +104,7 @@ namespace Ness
 		m_fps = 0;
 		m_timefactor = 0;
 		m_frameid = 0;
-		m_background_color = Ness::Colorb(75, 0, 255, 255);
+		m_background_color = Colorb(75, 0, 255, 255);
 		m_auto_animate = true;
 
 		// set render to texture flag
@@ -114,7 +114,7 @@ namespace Ness
 		m_resources = new ManagedResources::ResourcesManager();
 	}
 
-	void Renderer::set_renderer_size(const Ness::Sizei& newSize)
+	void Renderer::set_renderer_size(const Sizei& newSize)
 	{
 		if (newSize != Sizei::ZERO)
 		{

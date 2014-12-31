@@ -70,8 +70,12 @@ namespace Ness
 	};
 
 	// default init flags
-	#define DEFAULT_WINDOW_FLAGS (WINDOW_FLAG_SHOWN | WINDOW_FLAG_OPENGL)
-	#define DEFAULT_RENDERER_FLAGS (RENDERER_FLAG_ACCELERATED | RENDERER_FLAG_LIGHTING_NODE)
+	enum EDefaultCreationFlags
+	{
+		DEFAULT_WINDOW_FLAGS =				(WINDOW_FLAG_SHOWN | WINDOW_FLAG_OPENGL),
+		DEFAULT_WINDOW_FLAGS_FULLSCREEN =	(DEFAULT_WINDOW_FLAGS | WINDOW_FLAG_FULLSCREEN),
+		DEFAULT_RENDERER_FLAGS =			(RENDERER_FLAG_ACCELERATED | RENDERER_FLAG_LIGHTING_NODE)
+	};
 
 	/**
 	* our main renderer class! manage all the rendering and frames functionality.
@@ -126,7 +130,7 @@ namespace Ness
 		// return the multiply factor between the window size and the renderer size.
 		// if you didn't use set_renderer_size() this should always be (1,1)
 		// if you set alternative renderer size this function will return 
-		NESSENGINE_API Ness::Size get_renderer_to_window_ratio() const {return (Ness::Size(m_renderer_size) / Ness::Size(m_window_size));}
+		NESSENGINE_API Size get_renderer_to_window_ratio() const {return (Size(m_renderer_size) / Size(m_window_size));}
 
 		// set the logical size of the renderer
 		// for example if you have full resolution of 1600x1200 and renderer size of 640x480, it will automatically scale the
@@ -135,7 +139,7 @@ namespace Ness
 		// IMPORTANT!!!! if you want to use mouse position relative to the renderer size (what you would usually want)
 		// always multiply the mouse position with get_renderer_to_window_ratio();
 		// note: provide ZERO size to cancel renderer size and just use the window size
-		NESSENGINE_API void set_renderer_size(const Ness::Sizei& newSize);
+		NESSENGINE_API void set_renderer_size(const Sizei& newSize);
 
 		// return the init flags
 		NESSENGINE_API inline int get_flags() const {return m_flags;}

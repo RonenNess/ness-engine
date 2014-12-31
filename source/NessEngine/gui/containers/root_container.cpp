@@ -28,12 +28,16 @@ namespace Ness
 {
 	namespace Gui
 	{
-		const BoundingBox& RootContainer::get_bounding_box() 
+		const BoundingBox& RootContainer::get_bounding_box() const
 		{
 			static BoundingBox ret(Pointi::ZERO, Pointi::ZERO);
 			ret.w = m_manager->renderer()->get_screen_size().x;
 			ret.h = m_manager->renderer()->get_screen_size().y;
 			return ret;
+		}
+
+		void RootContainer::calculate_bounding_box()
+		{
 		}
 
 		bool RootContainer::handle_mouse_move(const Pointi& mouse_pos)
@@ -60,11 +64,11 @@ namespace Ness
 					// invoke mouse enter event
 					if (!curr->is_mouse_on())
 					{
-						curr->invoke_event_mouse_enter(mouse_pos);
+						curr->__invoke_event_mouse_enter(mouse_pos);
 					}
 
 					// invoke mouse hover event
-					curr->invoke_event_mouse_hover(mouse_pos);
+					curr->__invoke_event_mouse_hover(mouse_pos);
 				}
 				// if mouse is not on this element
 				else
@@ -72,7 +76,7 @@ namespace Ness
 					// invoke mouse leave event
 					if (curr->is_mouse_on())
 					{
-						curr->invoke_event_mouse_leave(mouse_pos);
+						curr->__invoke_event_mouse_leave(mouse_pos);
 					}
 				}
 			}

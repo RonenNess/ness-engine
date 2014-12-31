@@ -146,7 +146,7 @@ namespace Ness
 			return ManagedMaskTexturePtr(m_mask_textures[textureName].texture, MaskTextureResourceDeleter);
 		}
 
-		NESSENGINE_API ManagedFontPtr ResourcesManager::get_font(const String& fontName, int fontSize)
+		NESSENGINE_API ManagedFontPtr ResourcesManager::get_font(const String& fontName, unsigned int font_size)
 		{
 			// make sure not destroyed
 			if (m_destroyed)
@@ -155,14 +155,14 @@ namespace Ness
 			}
 
 			// get name in hash
-			String fullName = fontName + ness_to_string((long long)fontSize);
+			String fullName = fontName + ness_to_string((long long)font_size);
 
 			// if not loaded, load it
 			if (m_fonts.find(fullName) == m_fonts.end())
 			{
 				NESS_LOG(("rc_manager: load font: " + fullName).c_str());
 				__SFontInManager& NewEntry = m_fonts[fullName];
-				NewEntry.font = new ManagedFont(m_base_path + fontName, fontSize);
+				NewEntry.font = new ManagedFont(m_base_path + fontName, font_size);
 				NewEntry.font->rc_mng_manager = this;
 				NewEntry.font->rc_mng_name = fullName;
 				NewEntry.ref_count = 0;

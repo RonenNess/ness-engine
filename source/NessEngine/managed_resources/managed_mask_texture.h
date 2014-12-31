@@ -43,7 +43,7 @@ namespace Ness
 		{
 		public:
 			// ctor for loading texture from file
-			ManagedMaskTexture(const String& fileName, SDL_Renderer* renderer) : MaskTextureSheet(fileName, renderer) {}
+			ManagedMaskTexture(const String& file_name, SDL_Renderer* renderer) : MaskTextureSheet(file_name, renderer) {}
 		};
 
 		// a manager texture pointer

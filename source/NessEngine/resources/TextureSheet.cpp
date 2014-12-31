@@ -30,9 +30,9 @@ namespace Ness
 {
 	namespace Resources
 	{
-		TextureSheet::TextureSheet(const String& fileName, SDL_Renderer* renderer, const Colorb* ColorKey) : m_texture(nullptr)
+		TextureSheet::TextureSheet(const String& file_name, SDL_Renderer* renderer, const Colorb* ColorKey) : m_texture(nullptr)
 		{
-			load_file(fileName.c_str(), renderer, ColorKey);
+			load_file(file_name.c_str(), renderer, ColorKey);
 		}
 
 		TextureSheet::TextureSheet(SDL_Renderer* renderer, const Sizei& size) : m_texture(nullptr)
@@ -57,14 +57,14 @@ namespace Ness
 		}
 
 		// load texture from file
-		void TextureSheet::load_file(const char* fileName, SDL_Renderer* renderer, const Colorb* ColorKey)
+		void TextureSheet::load_file(const char* file_name, SDL_Renderer* renderer, const Colorb* ColorKey)
 		{
 
 			// load the image
-			SDL_Surface* loadedSurface = IMG_Load( fileName );
+			SDL_Surface* loadedSurface = IMG_Load( file_name );
 			if( loadedSurface == nullptr )
 			{
-				throw FailedToLoadTextureFile(fileName, IMG_GetError());
+				throw FailedToLoadTextureFile(file_name, IMG_GetError());
 			}
 
 			// set color key (if provided)
@@ -86,11 +86,11 @@ namespace Ness
 			// failed to create texture??
 			if( m_texture == nullptr )
 			{
-				throw FailedToLoadTextureFile(fileName, IMG_GetError());
+				throw FailedToLoadTextureFile(file_name, IMG_GetError());
 			}
 
-			// set filename
-			m_file_name = fileName;
+			// set file_name
+			m_file_name = file_name;
 		}
 	};
 };

@@ -42,17 +42,25 @@ namespace Ness
 		public:
 
 			// disable basic events
-			NESSENGINE_API virtual void invoke_event_get_focus() {throw IllegalAction("No event should be invoked for root container!");}
-			NESSENGINE_API virtual void invoke_event_lose_focus() {throw IllegalAction("No event should be invoked for root container!");}
-			NESSENGINE_API virtual bool is_point_on(const Ness::Pointi& pos) {throw IllegalAction("No event should be invoked for root container!");}
-			NESSENGINE_API virtual void invoke_event_click(EMouseButtons mouse_button, const Ness::Pointi& mouse_pos) {throw IllegalAction("No event should be invoked for root container!");}
-			NESSENGINE_API virtual void invoke_event_key_down(EMouseButtons key) {throw IllegalAction("No event should be invoked for root container!");}
-			NESSENGINE_API virtual void invoke_event_key_up(EMouseButtons key) {throw IllegalAction("No event should be invoked for root container!");}
-			NESSENGINE_API virtual void invoke_event_mouse_enter(const Pointi& mouse_pos) {throw IllegalAction("No event should be invoked for root container!");}
-			NESSENGINE_API virtual void invoke_event_mouse_leave(const Pointi& mouse_pos) {throw IllegalAction("No event should be invoked for root container!");}
-			NESSENGINE_API virtual void invoke_event_mouse_hover(const Pointi& mouse_pos) {throw IllegalAction("No event should be invoked for root container!");}
-			NESSENGINE_API virtual void invoke_event_visibility_changed(bool newState) {throw IllegalAction("No event should be invoked for root container!");}
-			NESSENGINE_API virtual void invoke_event_enabled_changed(bool newState) {throw IllegalAction("No event should be invoked for root container!");}
+			NESSENGINE_API virtual void __invoke_event_get_focus() {throw IllegalAction("No event should be invoked for root container!");}
+			NESSENGINE_API virtual void __invoke_event_lose_focus() {throw IllegalAction("No event should be invoked for root container!");}
+			NESSENGINE_API virtual void __invoke_event_click(EMouseButtons mouse_button, const Pointi& mouse_pos) {throw IllegalAction("No event should be invoked for root container!");}
+			NESSENGINE_API virtual void __invoke_event_key_down(EMouseButtons key) {throw IllegalAction("No event should be invoked for root container!");}
+			NESSENGINE_API virtual void __invoke_event_key_up(EMouseButtons key) {throw IllegalAction("No event should be invoked for root container!");}
+			NESSENGINE_API virtual void __invoke_event_mouse_enter(const Pointi& mouse_pos) {throw IllegalAction("No event should be invoked for root container!");}
+			NESSENGINE_API virtual void __invoke_event_mouse_leave(const Pointi& mouse_pos) {throw IllegalAction("No event should be invoked for root container!");}
+			NESSENGINE_API virtual void __invoke_event_mouse_hover(const Pointi& mouse_pos) {throw IllegalAction("No event should be invoked for root container!");}
+			NESSENGINE_API virtual void __invoke_event_visibility_changed(bool new_state, bool by_parent) {throw IllegalAction("No event should be invoked for root container!");}
+			NESSENGINE_API virtual void __invoke_event_enabled_changed(bool new_state, bool by_parent) {throw IllegalAction("No event should be invoked for root container!");}
+			NESSENGINE_API virtual void __invoke_event_parent_moved() {throw IllegalAction("No event should be invoked for root container!");}
+			NESSENGINE_API virtual void __invoke_event_update_position() {throw IllegalAction("No event should be invoked for root container!");}
+
+			NESSENGINE_API virtual bool is_point_on(const Pointi& pos) {throw IllegalAction("No event should be invoked for root container!");}
+
+			NESSENGINE_API virtual void set_position(const Point& new_pos, const Point& anchor = Point::ZERO) {throw IllegalAction("Cannot set root container position!");}
+			NESSENGINE_API virtual void set_position_aligned(const Pointi& new_pos_grid, const Point& anchor = Point::ZERO) {throw IllegalAction("Cannot set root container position!");}
+
+			NESSENGINE_API virtual void calculate_bounding_box();
 
 			// create the frame widget
 			NESSENGINE_API RootContainer(GuiManager* manager)
@@ -60,7 +68,7 @@ namespace Ness
 			{ }
 
 			// return the element's bounding box
-			NESSENGINE_API virtual const BoundingBox& get_bounding_box();
+			NESSENGINE_API virtual const BoundingBox& get_bounding_box() const;
 
 			// handle mouse movement
 			bool handle_mouse_move(const Pointi& mouse_pos);

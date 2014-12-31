@@ -147,7 +147,7 @@ namespace Ness
 		}
 
 		// get absolute position
-		Ness::Point pos = get_absolute_position();
+		Point pos = get_absolute_position();
 		if (camera)
 		{
 			pos -= camera->position;

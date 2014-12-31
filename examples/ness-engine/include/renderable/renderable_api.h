@@ -59,14 +59,20 @@ namespace Ness
 		bool					m_visible;						// should this renderable be displayed or not
 		int						m_flags;						// flags you can set on this renderable for any purpose
 		void*					m_user_data;					// optional user data you can attach to this object
+		bool					m_delete_user_data;				// if true, will delete user data once the renderable is deleted
 		String					m_name;							// optional name to assign to this renderable
 
 	public:
 		NESSENGINE_API RenderableAPI(Renderer* renderer) : 
 		  m_renderer(renderer), m_parent(nullptr), m_visible(true), m_flags(RNF_SELECTABLE), m_user_data(nullptr) {}
 
+		  NESSENGINE_API ~RenderableAPI();
+
 		// attached customized user data to this object
-		inline void set_user_data(void* user_data) {m_user_data = user_data;}
+		// if delete_on_destruction is true, it will also delete the user data on destructor call
+		inline void set_user_data(void* user_data, bool delete_on_destruction = false) {m_user_data = user_data; m_delete_user_data = delete_on_destruction;}
+
+		// return the user-attached custom data
 		const void* get_user_data() const {return m_user_data;}
 		void* get_user_data() {return m_user_data;}
 

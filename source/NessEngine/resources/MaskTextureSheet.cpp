@@ -30,9 +30,9 @@ namespace Ness
 {
 	namespace Resources
 	{
-		MaskTextureSheet::MaskTextureSheet(const String& fileName, SDL_Renderer* renderer) : m_texture(nullptr)
+		MaskTextureSheet::MaskTextureSheet(const String& file_name, SDL_Renderer* renderer) : m_texture(nullptr)
 		{
-			load_file(fileName.c_str(), renderer);
+			load_file(file_name.c_str(), renderer);
 		}
 
 		// destroy the texture
@@ -49,14 +49,14 @@ namespace Ness
 		}
 
 		// load texture from file
-		void MaskTextureSheet::load_file(const char* fileName, SDL_Renderer* renderer)
+		void MaskTextureSheet::load_file(const char* file_name, SDL_Renderer* renderer)
 		{
 
 			// load the image
-			SDL_Surface* loadedSurface = IMG_Load( fileName );
+			SDL_Surface* loadedSurface = IMG_Load( file_name );
 			if( loadedSurface == nullptr )
 			{
-				throw FailedToLoadTextureFile(fileName, IMG_GetError());
+				throw FailedToLoadTextureFile(file_name, IMG_GetError());
 			}
 
 			// store size
@@ -87,7 +87,7 @@ namespace Ness
 			// failed to create texture??
 			if( m_texture == nullptr )
 			{
-				throw FailedToLoadTextureFile(fileName, IMG_GetError());
+				throw FailedToLoadTextureFile(file_name, IMG_GetError());
 			}
 		}
 	};

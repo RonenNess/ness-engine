@@ -36,9 +36,9 @@ namespace Ness
 {
 	namespace Utils
 	{
-		NESSENGINE_API void make_logo_screen(const Ness::NodePtr& parentNode, 
+		NESSENGINE_API void make_logo_screen(const NodePtr& parentNode, 
 			const String& textureName = "ness-engine/resources/gfx/logo.png", 
-			const Ness::Color& backColor = Ness::Color::BLACK, 
+			const Color& backColor = Color::BLACK, 
 			float timeUntilFadeout = 1.5f, 
 			float fadeOutSpeed = 0.75f);
 	}

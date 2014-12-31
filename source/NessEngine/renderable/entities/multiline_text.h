@@ -49,7 +49,7 @@ namespace Ness
 
 	public:
 		// create the multiline text
-		NESSENGINE_API MultiText(Renderer* renderer, const String& FontFile, const String& text, int fontSize = 12);
+		NESSENGINE_API MultiText(Renderer* renderer, const String& FontFile, const String& text, unsigned int font_size = 12);
 
 		// set the text
 		NESSENGINE_API void set_text(const String& text);

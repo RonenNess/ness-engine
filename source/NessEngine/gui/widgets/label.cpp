@@ -20,39 +20,47 @@
 
 */
 
-
-#pragma once
-
-#include "gui_element_api.h"
-#include "containers/gui_container_api.h"
-#include "gui_manager.h"
+#include "../gui_manager.h"
+#include "../../renderer/renderer.h"
+#include "label.h"
 
 namespace Ness
 {
 	namespace Gui
 	{
-		void GuiElementAPI::remove_from_parent()
+		Label::Label(GuiManager* manager, GuiContainerAPI* parent, const String& text) 
+				: WidgetAPI(manager, parent)
 		{
-			if (m_parent)
-			{
-				m_parent->__remove_unsafe(this);
-			}
+			// create the text
+			m_text = m_parent->get_node()->create_text(manager->get_font(), text);
+
+			// to calculate text position
+			__invoke_event_update_position();
 		}
 
-		bool GuiElementAPI::is_point_on(const Pointi& pos)
+		// set container position, relative to parent, in pixels
+		void Label::set_position(const Point& new_pos, const Point& anchor)
 		{
-			const BoundingBox& box = get_bounding_box();
-			return (pos.x >= box.x && pos.x <= box.x + box.w && pos.y >= box.y && pos.y <= box.y + box.h);
+			m_position = new_pos;
+			m_text->set_anchor(anchor);
+			__invoke_event_update_position();
 		}
 
-		Pointi GuiElementAPI::get_absolute_position() const 
+		void Label::render()
 		{
-			return Pointi(get_bounding_box().x, get_bounding_box().y);
+			m_text->render();
 		}
 
-		void GuiElementAPI::set_position_aligned(const Pointi& new_pos_grid, const Point& anchor)
+		const BoundingBox& Label::get_bounding_box() const
 		{
-			set_position(new_pos_grid * m_manager->get_unit_size(), anchor);
+			static BoundingBox box;
+			box = BoundingBox(m_text->get_absolute_position(), m_text->get_absolute_size());
+			return box;
+		}
+
+		void Label::__invoke_event_update_position()
+		{
+			m_text->set_position(m_parent->get_absolute_position() + m_position);
 		}
 	}
 }
