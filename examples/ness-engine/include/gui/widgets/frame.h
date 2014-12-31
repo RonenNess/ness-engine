@@ -44,6 +44,7 @@ namespace Ness
 		class Frame : public WidgetAPI
 		{
 		private:
+			String				m_textures_prefix;		// the textures prefix for this frame: "frame", "button", etc..
 			Point				m_position;				// the frame position relative to its parent, in pixels
 			Pointi				m_size;					// frame size in gui grid units
 			TileMapPtr			m_graphics;				// the graphical part of the frame
@@ -55,11 +56,14 @@ namespace Ness
 
 			// create the frame widget
 			// size_in_units:	is the container size in gui grid units (defined in the gui manager)
-			NESSENGINE_API Frame(GuiManager* manager, GuiContainerAPI* parent, const Pointi& size_in_units);
+			NESSENGINE_API Frame(GuiManager* manager, GuiContainerAPI* parent, 
+				const Pointi& size_in_units, const String& texture_prefix = "frame");
 
 			// handle basic events
 			NESSENGINE_API virtual void __invoke_event_get_focus();
 			NESSENGINE_API virtual void __invoke_event_lose_focus();
+			NESSENGINE_API virtual void __invoke_event_mouse_pressed(EMouseButtons button, const Pointi& mouse_pos);
+			NESSENGINE_API virtual void __invoke_event_mouse_released(EMouseButtons button, const Pointi& mouse_pos);
 			NESSENGINE_API virtual void __invoke_event_mouse_enter(const Pointi& mouse_pos);
 			NESSENGINE_API virtual void __invoke_event_mouse_leave(const Pointi& mouse_pos);
 			NESSENGINE_API virtual void __invoke_event_mouse_hover(const Pointi& mouse_pos);
@@ -78,6 +82,13 @@ namespace Ness
 
 			// return the element's bounding box
 			NESSENGINE_API virtual const BoundingBox& get_bounding_box() const {return m_bounding_box;}			
+			
+
+		private:
+			// update frame texture based on state
+			// state should be like "focused", "unfocused", "mouse_down", etc..
+			// check out the gui graphics dir that comes with ness-engine for more info
+			NESSENGINE_API void update_texture(const String& state);
 		};
 
 		// a pointer to a gui widget

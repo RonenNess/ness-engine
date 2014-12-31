@@ -94,6 +94,8 @@ namespace Ness
 			NESSENGINE_API virtual void __invoke_event_visibility_changed(bool new_state, bool by_parent);
 			NESSENGINE_API virtual void __invoke_event_enabled_changed(bool new_state, bool by_parent);
 			NESSENGINE_API virtual void __invoke_event_update_position();
+			NESSENGINE_API virtual void __invoke_event_mouse_pressed(EMouseButtons button, const Pointi& mouse_pos);
+			NESSENGINE_API virtual void __invoke_event_mouse_released(EMouseButtons button, const Pointi& mouse_pos);
 
 			// return the node
 			NESSENGINE_API virtual NodePtr get_node() {return m_node;}
@@ -121,6 +123,9 @@ namespace Ness
 		private:
 			// fix container docking (use dock_to() to set docking mode)
 			NESSENGINE_API void fix_docking();
+
+			// update the widget under focus based on mouse position
+			NESSENGINE_API void set_focus_on(const Point& mouse_pos);
 			
 		};
 

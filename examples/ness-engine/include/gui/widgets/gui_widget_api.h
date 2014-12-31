@@ -62,6 +62,9 @@ namespace Ness
 			NESSENGINE_API virtual void __invoke_event_enabled_changed(bool new_state, bool by_parent) {}
 			NESSENGINE_API virtual void __invoke_event_get_focus() {}
 			NESSENGINE_API virtual void __invoke_event_lose_focus() {}
+			NESSENGINE_API virtual void __invoke_event_mouse_pressed(EMouseButtons button, const Pointi& mouse_pos) {}
+			NESSENGINE_API virtual void __invoke_event_mouse_released(EMouseButtons button, const Pointi& mouse_pos) {}
+
 		};
 
 		// a pointer to a gui widget

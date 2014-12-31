@@ -91,6 +91,12 @@ namespace Ness
 			// called when mouse hover (move) over this element
 			NESSENGINE_API virtual void __invoke_event_mouse_hover(const Pointi& mouse_pos) = 0;
 
+			// called when mouse is pressed over this element
+			NESSENGINE_API virtual void __invoke_event_mouse_pressed(EMouseButtons button, const Pointi& mouse_pos) = 0;
+
+			// called when mouse is released over this element
+			NESSENGINE_API virtual void __invoke_event_mouse_released(EMouseButtons button, const Pointi& mouse_pos) = 0;
+
 			// set container position, relative to parent, in pixels
 			// new_pos - is the new position to set
 			// anchor - range from 0.0f to 1.0f, and represent the origin point of the container. for example,
