@@ -50,6 +50,9 @@ namespace Ness
 			// set container position, relative to parent, in pixels
 			NESSENGINE_API virtual void set_position(const Point& new_pos, const Point& anchor = Point::ZERO);
 
+			// make the label half opaque when turned invalid
+			NESSENGINE_API virtual void __invoke_event_enabled_changed(bool new_state, bool by_parent);
+
 			// recalculate text position when moved
 			NESSENGINE_API virtual void __invoke_event_update_position();
 			
@@ -59,6 +62,11 @@ namespace Ness
 			// return label bounding box
 			NESSENGINE_API virtual const BoundingBox& get_bounding_box() const;
 
+			// set label params
+			NESSENGINE_API void change_text(const String& text) {m_text->change_text(text);}
+			NESSENGINE_API const String& get_text() {return m_text->get_text();}
+			NESSENGINE_API void set_color(const Color& color) {m_text->set_color(color);}
+			NESSENGINE_API const Color& get_color() {return m_text->get_color();}
 
 		};
 

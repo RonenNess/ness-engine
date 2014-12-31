@@ -33,15 +33,30 @@ namespace Ness
 		{
 			// create the text
 			m_text = m_parent->get_node()->create_text(manager->get_font(), text);
+			m_text->set_anchor(Point::ZERO);
+			m_text->set_blend_mode(BLEND_MODE_BLEND);
+			m_text->set_color(manager->get_default_text_color());
 
 			// to calculate text position
-			__invoke_event_update_position();
+			set_position(Point::ZERO);
+		}
+
+		void Label::__invoke_event_enabled_changed(bool new_state, bool by_parent)
+		{
+			if (new_state)
+			{
+				m_text->set_opacity(1.0f);
+			}
+			else
+			{
+				m_text->set_opacity(0.5f);
+			}
 		}
 
 		// set container position, relative to parent, in pixels
 		void Label::set_position(const Point& new_pos, const Point& anchor)
 		{
-			m_position = new_pos;
+			m_position = new_pos + Point(m_manager->get_unit_size()) * 0.5f;
 			m_text->set_anchor(anchor);
 			__invoke_event_update_position();
 		}
@@ -60,7 +75,7 @@ namespace Ness
 
 		void Label::__invoke_event_update_position()
 		{
-			m_text->set_position(m_parent->get_absolute_position() + m_position);
+			m_text->set_position(m_position);
 		}
 	}
 }

@@ -40,11 +40,13 @@ namespace Ness
 			if (parent == nullptr)
 			{
 				m_node = ness_make_ptr<Node>(manager->renderer());
+				m_node->set_name("gui_root_container");
 			}
 			// else create node normally
 			else
 			{
 				m_node = m_parent->get_node()->create_node();
+				m_node->set_name("gui_container");
 			}
 
 			// create the container graphics

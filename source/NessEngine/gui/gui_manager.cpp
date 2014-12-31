@@ -14,6 +14,9 @@ namespace Ness
 			// pre-load gui font
 			m_font = m_renderer->resources().get_font(m_resources_path + "font.ttf", font_size);
 
+			// set default text color
+			set_default_text_color(Color::BLACK);
+
 			// pre-load all gui textures
 			m_textures.push_back(m_renderer->resources().get_texture(m_resources_path + "frame_disabled.png"));
 			m_textures.push_back(m_renderer->resources().get_texture(m_resources_path + "frame_focused.png"));

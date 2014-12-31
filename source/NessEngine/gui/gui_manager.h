@@ -53,6 +53,7 @@ namespace Ness
 			Utils::Keyboard											m_keyboard;				// keyboard events handler
 			Containers::Vector<ManagedResources::ManagedTexturePtr>	m_textures;				// preload all gui-related texture
 			ManagedResources::ManagedFontPtr						m_font;					// preload gui font
+			Color													m_default_text_color;	// default text color to set to all future labels and textboxes
 
 		public:
 			// create the gui manager
@@ -85,6 +86,10 @@ namespace Ness
 
 			// get the resources path
 			NESSENGINE_API inline const String& get_resources_path() const {return m_resources_path;}
+
+			// set/get the default text color
+			NESSENGINE_API inline void set_default_text_color(const Color& color) {m_default_text_color = color;}
+			NESSENGINE_API inline const Color& get_default_text_color() const {return m_default_text_color;}
 
 			// render the gui!
 			NESSENGINE_API void render();

@@ -21,33 +21,42 @@ int _tmain(int argc, _TCHAR* argv[])
 	//Ness::Gui::ContainerPtr root_container = gui->create_container();
 
 	// create forms in all docking areas
-	Ness::Gui::ContainerPtr bottom_left = gui->create_container(Ness::Point(4, 4));
-	bottom_left->create_label("hello world!");
+	Ness::Gui::ContainerPtr bottom_left = gui->create_container(Ness::Point(7, 4));
+	bottom_left->create_label("bottom left dock");
 	bottom_left->dock_to(Ness::Gui::DOCK_BOTTOM_LEFT);
 
-	Ness::Gui::ContainerPtr bottom_right = gui->create_container(Ness::Point(4, 4));
+	Ness::Gui::ContainerPtr bottom_right = gui->create_container(Ness::Point(7, 4));
+	bottom_right->create_label("bottom right dock");
 	bottom_right->dock_to(Ness::Gui::DOCK_BOTTOM_RIGHT);
 
-	Ness::Gui::ContainerPtr bottom_center = gui->create_container(Ness::Point(4, 4));
+	Ness::Gui::ContainerPtr bottom_center = gui->create_container(Ness::Point(7, 4));
+	bottom_center->create_label("bottom center dock");
 	bottom_center->dock_to(Ness::Gui::DOCK_BOTTOM_CENTER);
 
-	Ness::Gui::ContainerPtr left_center = gui->create_container(Ness::Point(4, 4));
+	Ness::Gui::ContainerPtr left_center = gui->create_container(Ness::Point(7, 4));
+	left_center->create_label("left center dock");
 	left_center->dock_to(Ness::Gui::DOCK_LEFT_CENTER);
 
-	Ness::Gui::ContainerPtr right_center = gui->create_container(Ness::Point(4, 4));
+	Ness::Gui::ContainerPtr right_center = gui->create_container(Ness::Point(7, 4));
+	right_center->create_label("right center dock");
 	right_center->dock_to(Ness::Gui::DOCK_RIGHT_CENTER);
 
-	Ness::Gui::ContainerPtr top_left = gui->create_container(Ness::Point(4, 4));
+	Ness::Gui::ContainerPtr top_left = gui->create_container(Ness::Point(7, 4));
+	top_left->create_label("top left dock");
 	top_left->dock_to(Ness::Gui::DOCK_TOP_LEFT);
 
-	Ness::Gui::ContainerPtr top_right = gui->create_container(Ness::Point(4, 4));
+	Ness::Gui::ContainerPtr top_right = gui->create_container(Ness::Point(7, 4));
+	top_right->create_label("top right dock");
 	top_right->dock_to(Ness::Gui::DOCK_TOP_RIGHT);
 
-	Ness::Gui::ContainerPtr top_center = gui->create_container(Ness::Point(4, 4));
+	Ness::Gui::ContainerPtr top_center = gui->create_container(Ness::Point(7, 4));
+	top_center->create_label("top center dock");
 	top_center->dock_to(Ness::Gui::DOCK_TOP_CENTER);
 
-	Ness::Gui::ContainerPtr center = gui->create_container(Ness::Point(12, 7));
+	Ness::Gui::ContainerPtr center = gui->create_container(Ness::Point(10, 7));
+	center->create_label("center dock");
 	center->dock_to(Ness::Gui::DOCK_CENTER);
+	center->set_enabled(false);
 
 	// create the events handler
 	Ness::Utils::EventsPoller EventsPoller;
