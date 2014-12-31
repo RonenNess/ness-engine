@@ -22,6 +22,12 @@ namespace Ness
 			m_textures.push_back(m_renderer->resources().get_texture(m_resources_path + "frame_focused.png"));
 			m_textures.push_back(m_renderer->resources().get_texture(m_resources_path + "frame_unfocused.png"));
 			m_textures.push_back(m_renderer->resources().get_texture(m_resources_path + "frame_mouse_hover.png"));
+			m_textures.push_back(m_renderer->resources().get_texture(m_resources_path + "frame_mouse_down.png"));
+			m_textures.push_back(m_renderer->resources().get_texture(m_resources_path + "button_disabled.png"));
+			m_textures.push_back(m_renderer->resources().get_texture(m_resources_path + "button_focused.png"));
+			m_textures.push_back(m_renderer->resources().get_texture(m_resources_path + "button_unfocused.png"));
+			m_textures.push_back(m_renderer->resources().get_texture(m_resources_path + "button_mouse_hover.png"));
+			m_textures.push_back(m_renderer->resources().get_texture(m_resources_path + "button_mouse_down.png"));
 		}
 
 		ContainerPtr GuiManager::create_container(const Pointi& size_in_units)

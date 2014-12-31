@@ -36,7 +36,7 @@ namespace Ness
 	namespace Gui
 	{
 
-		// a label widget TBD!!!
+		// a label widget
 		class Label : public WidgetAPI
 		{
 		protected:
@@ -46,6 +46,7 @@ namespace Ness
 		public:
 
 			NESSENGINE_API Label(GuiManager* manager, GuiContainerAPI* parent, const String& text);
+			NESSENGINE_API ~Label();			
 
 			// set container position, relative to parent, in pixels
 			NESSENGINE_API virtual void set_position(const Point& new_pos, const Point& anchor = Point::ZERO);

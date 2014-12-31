@@ -22,3 +22,4 @@
 
 #pragma once
 #include "label.h"
+#include "frame.h"

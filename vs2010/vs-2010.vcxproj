@@ -19,6 +19,8 @@
     <ClCompile Include="..\source\NessEngine\gui\containers\root_container.cpp" />
     <ClCompile Include="..\source\NessEngine\gui\gui_element_api.cpp" />
     <ClCompile Include="..\source\NessEngine\gui\gui_manager.cpp" />
+    <ClCompile Include="..\source\NessEngine\gui\widgets\button.cpp" />
+    <ClCompile Include="..\source\NessEngine\gui\widgets\frame.cpp" />
     <ClCompile Include="..\source\NessEngine\gui\widgets\label.cpp" />
     <ClCompile Include="..\source\NessEngine\managed_resources\resources_manager.cpp" />
     <ClCompile Include="..\source\NessEngine\NessEngine.cpp" />
@@ -87,6 +89,8 @@
     <ClInclude Include="..\source\NessEngine\gui\gui_element_api.h" />
     <ClInclude Include="..\source\NessEngine\gui\gui_manager.h" />
     <ClInclude Include="..\source\NessEngine\gui\widgets\all_widgets.h" />
+    <ClInclude Include="..\source\NessEngine\gui\widgets\button.h" />
+    <ClInclude Include="..\source\NessEngine\gui\widgets\frame.h" />
     <ClInclude Include="..\source\NessEngine\gui\widgets\gui_widget_api.h" />
     <ClInclude Include="..\source\NessEngine\gui\widgets\label.h" />
     <ClInclude Include="..\source\NessEngine\managed_resources\managed_font.h" />

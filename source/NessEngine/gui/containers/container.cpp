@@ -23,6 +23,7 @@
 #include "../widgets/all_widgets.h"
 #include "../gui_manager.h"
 #include "../../renderer/renderer.h"
+#include "../widgets/frame.h"
 #include "container.h"
 
 namespace Ness
@@ -51,66 +52,8 @@ namespace Ness
 
 			// create the container graphics
 			if (visual)
-			{
-				// create the graphical part
-				m_graphics = m_node->create_tilemap(this->m_manager->get_resources_path() + "frame_unfocused.png", size_in_units, m_manager->get_unit_size());
-
-				// set parts
-				Sizei parts_count(3, 3);
-				Pointi index;
-				for (index.x = 0; index.x < m_size.x; ++index.x)
-				{
-					for (index.y = 0; index.y < m_size.y; ++index.y)
-					{
-						SpritePtr& tile = m_graphics->get_sprite(index);
-						tile->set_blend_mode(BLEND_MODE_BLEND);
-						if (index.x == 0)
-						{
-							if (index.y == 0)
-							{
-								tile->set_source_from_sprite_sheet(Pointi(0, 0), parts_count);
-							}
-							else if (index.y == m_size.y-1)
-							{
-								tile->set_source_from_sprite_sheet(Pointi(0, 2), parts_count);
-							}
-							else
-							{
-								tile->set_source_from_sprite_sheet(Pointi(0, 1), parts_count);
-							}
-						}
-						else if (index.y == 0)
-						{
-							if (index.x == m_size.x-1)
-							{
-								tile->set_source_from_sprite_sheet(Pointi(2, 0), parts_count);
-							}
-							else
-							{
-								tile->set_source_from_sprite_sheet(Pointi(1, 0), parts_count);
-							}
-						}
-						else if (index.x == m_size.x-1)
-						{
-							if (index.y == m_size.y-1)
-							{
-								tile->set_source_from_sprite_sheet(Pointi(2, 2), parts_count);
-							}
-							else
-							{
-								tile->set_source_from_sprite_sheet(Pointi(2, 1), parts_count);
-							}
-						}
-						else if (index.y == m_size.y-1)
-						{
-							tile->set_source_from_sprite_sheet(Pointi(1, 2), parts_count);
-						}
-						else
-						{
-							tile->set_source_from_sprite_sheet(Pointi(1, 1), parts_count);
-						}
-					}
-				}
+			{	
+				m_graphics = ness_make_ptr<Frame>(manager, this, size_in_units);
 			}
 		}
 
@@ -225,15 +168,7 @@ namespace Ness
 			m_is_focused = true;
 			if (m_graphics)
 			{
-				Pointi index;
-				for (index.x = 0; index.x < m_size.x; ++index.x)
-				{
-					for (index.y = 0; index.y < m_size.y; ++index.y)
-					{
-						SpritePtr& tile = m_graphics->get_sprite(index);
-						tile->change_texture(this->m_manager->get_resources_path() + "frame_focused.png", false);
-					}
-				}
+				m_graphics->__invoke_event_get_focus();
 			}
 		}
 
@@ -242,15 +177,7 @@ namespace Ness
 			m_is_focused = false;
 			if (m_graphics)
 			{
-				Pointi index;
-				for (index.x = 0; index.x < m_size.x; ++index.x)
-				{
-					for (index.y = 0; index.y < m_size.y; ++index.y)
-					{
-						SpritePtr& tile = m_graphics->get_sprite(index);
-						tile->change_texture(this->m_manager->get_resources_path() + "frame_unfocused.png", false);
-					}
-				}
+				m_graphics->__invoke_event_lose_focus();
 			}
 		}
 
@@ -259,15 +186,7 @@ namespace Ness
 			m_mouse_inside = true;
 			if (m_graphics)
 			{
-				Pointi index;
-				for (index.x = 0; index.x < m_size.x; ++index.x)
-				{
-					for (index.y = 0; index.y < m_size.y; ++index.y)
-					{
-						SpritePtr& tile = m_graphics->get_sprite(index);
-						tile->change_texture(this->m_manager->get_resources_path() + "frame_mouse_hover.png", false);
-					}
-				}
+				m_graphics->__invoke_event_mouse_enter(mouse_pos);
 			}
 		}
 
@@ -276,18 +195,7 @@ namespace Ness
 			m_mouse_inside = false;
 			if (m_graphics)
 			{
-				Pointi index;
-				for (index.x = 0; index.x < m_size.x; ++index.x)
-				{
-					for (index.y = 0; index.y < m_size.y; ++index.y)
-					{
-						SpritePtr& tile = m_graphics->get_sprite(index);
-						if (m_is_focused)
-							tile->change_texture(this->m_manager->get_resources_path() + "frame_focused.png", false);
-						else
-							tile->change_texture(this->m_manager->get_resources_path() + "frame_unfocused.png", false);
-					}
-				}
+				m_graphics->__invoke_event_mouse_leave(mouse_pos);
 			}
 		}
 
@@ -350,22 +258,7 @@ namespace Ness
 		{
 			if (m_graphics)
 			{
-				Pointi index;
-				for (index.x = 0; index.x < m_size.x; ++index.x)
-				{
-					for (index.y = 0; index.y < m_size.y; ++index.y)
-					{
-						SpritePtr& tile = m_graphics->get_sprite(index);
-						if (new_state)
-						{
-							tile->change_texture(this->m_manager->get_resources_path() + "frame_unfocused.png", false);
-						}
-						else
-						{
-							tile->change_texture(this->m_manager->get_resources_path() + "frame_disabled.png", false);
-						}
-					}
-				}
+				m_graphics->__invoke_event_enabled_changed(new_state, by_parent);
 			}
 			for (unsigned int i = 0; i < m_sons.size(); ++i)
 			{
@@ -374,8 +267,25 @@ namespace Ness
 		}
 
 		void Container::__invoke_event_click(EMouseButtons mouse_button, const Pointi& mouse_pos)
+		{	
+			// loop over son elements and check if we clicked on an element
+			for (unsigned int i = 0; i < m_sons.size(); ++i)
+			{
+				GuiElementPtr& widget = m_sons[i];
+				if (widget->is_point_on(mouse_pos))
+				{
+					widget->__invoke_event_click(mouse_button, mouse_pos);
+					break;
+				}
+			}
+
+			// update element focus
+			set_focus_on(mouse_pos);
+		}
+
+		void Container::set_focus_on(const Point& mouse_pos)
 		{
-			
+
 			// new focused widget
 			GuiElementPtr new_focused;
 
@@ -385,7 +295,6 @@ namespace Ness
 				GuiElementPtr& widget = m_sons[i];
 				if (widget->is_point_on(mouse_pos))
 				{
-					widget->__invoke_event_click(mouse_button, mouse_pos);
 					new_focused = widget;
 					break;
 				}
@@ -393,14 +302,63 @@ namespace Ness
 
 			// change focus
 			if (m_focused_widget)
+			{
 				m_focused_widget->__invoke_event_lose_focus();
+			}
 			if (new_focused)
+			{
 				new_focused->__invoke_event_get_focus();
+			}
 
 			// store the newly focused widget
 			m_focused_widget = new_focused;
 		}
 
+		void Container::__invoke_event_mouse_pressed(EMouseButtons button, const Pointi& mouse_pos)
+		{
+			// loop over son elements and check if we clicked on an element
+			for (unsigned int i = 0; i < m_sons.size(); ++i)
+			{
+				GuiElementPtr& widget = m_sons[i];
+				if (widget->is_point_on(mouse_pos))
+				{
+					widget->__invoke_event_mouse_pressed(button, mouse_pos);
+					break;
+				}
+			}
+
+			// update graphics
+			if (m_graphics)
+			{
+				m_graphics->__invoke_event_mouse_pressed(button, mouse_pos);
+			}
+
+			// update element focus
+			set_focus_on(mouse_pos);
+		}
+		
+		void Container::__invoke_event_mouse_released(EMouseButtons button, const Pointi& mouse_pos)
+		{
+			// loop over son elements and check if we clicked on an element
+			for (unsigned int i = 0; i < m_sons.size(); ++i)
+			{
+				GuiElementPtr& widget = m_sons[i];
+				if (widget->is_point_on(mouse_pos))
+				{
+					widget->__invoke_event_mouse_released(button, mouse_pos);
+					break;
+				}
+			}
+
+			// update graphics
+			if (m_graphics)
+			{
+				m_graphics->__invoke_event_mouse_released(button, mouse_pos);
+			}
+
+			// update element focus
+			set_focus_on(mouse_pos);
+		}
 
 		void Container::__invoke_event_key_down(EMouseButtons key)
 		{

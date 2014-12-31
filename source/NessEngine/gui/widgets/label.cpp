@@ -41,6 +41,11 @@ namespace Ness
 			set_position(Point::ZERO);
 		}
 
+		Label::~Label()
+		{
+			m_text->remove_from_parent();
+		}
+
 		void Label::__invoke_event_enabled_changed(bool new_state, bool by_parent)
 		{
 			if (new_state)

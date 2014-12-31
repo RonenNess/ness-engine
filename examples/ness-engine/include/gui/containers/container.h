@@ -21,9 +21,9 @@
 */
 
 /**
-* A gui frame is like a windows form - its a framed region you can
-* add widgets to. for most gui cases you would want to create a gui frame and 
-* add gui elements to it, rather then having gui elements "floating" around 
+* A gui container is like a windows form - its a framed region you can
+* add widgets to. for most gui cases you would want to create a container and 
+* add widgets to it, rather then having gui elements "floating" around 
 * the screen.
 * Author: Ronen Ness
 * Since: 12/1014
@@ -57,9 +57,10 @@ namespace Ness
 		// predeclare all the entities this container can create
 		class Label;
 		NESSENGINE_API typedef SharedPtr<Label> LabelPtr;
-
-
-		// a gui frame that contain other widgets
+		class Frame;
+		NESSENGINE_API typedef SharedPtr<Frame> FramePtr;
+		
+		// a gui container that wraps and contain other widgets
 		class Container : public GuiContainerAPI
 		{
 		private:
@@ -67,7 +68,7 @@ namespace Ness
 			Point				m_position;				// the container position relative to its parent, in pixels
 			GuiElementPtr		m_focused_widget;		// the son widget currently under focus (or null if have no widget focused)
 			Pointi				m_size;					// frame size in gui grid units
-			TileMapPtr			m_graphics;				// the graphical part of the frame
+			FramePtr			m_graphics;				// the graphical part of the frame
 			BoundingBox			m_bounding_box;			// the bounding box of this container
 			bool				m_mouse_inside;			// is mouse currently inside this container
 			bool				m_is_focused;			// does this container currently have focus?
@@ -108,7 +109,6 @@ namespace Ness
 
 			// create a son container inside this container
 			NESSENGINE_API SharedPtr<Container> create_container(const Pointi& size_in_units);
-
 			// create and return a label
 			NESSENGINE_API LabelPtr create_label(const String& text);
 
