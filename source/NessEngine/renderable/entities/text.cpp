@@ -36,10 +36,10 @@ namespace Ness
 		set_blend_mode(BLEND_MODE_BLEND);
 	}
 
-	Text::Text(Renderer* renderer, const String& FontFile, const String& text, int fontSize) : 
+	Text::Text(Renderer* renderer, const String& FontFile, const String& text, unsigned int font_size) : 
 		Entity(renderer), m_need_text_update(true), m_texture(nullptr), m_line_width(0)
 	{
-		change_font(m_renderer->resources().get_font(FontFile, fontSize));
+		change_font(m_renderer->resources().get_font(FontFile, font_size));
 		set_size(Size(100, 100));	// <-- must call this or 'update' will never be called
 		change_text(text);
 		set_static(true);

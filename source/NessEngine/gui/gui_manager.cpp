@@ -5,14 +5,14 @@ namespace Ness
 {
 	namespace Gui
 	{
-			GuiManager::GuiManager(Renderer* renderer, const String& resources_path,	const Pointi& grid_unit_size)
+			GuiManager::GuiManager(Renderer* renderer, const String& resources_path, const Pointi& grid_unit_size, const int font_size)
 		: m_renderer(renderer), m_unit_size(grid_unit_size), m_resources_path(resources_path + "/") 
 		{
 			// create the root container
 			m_root_container = ness_make_ptr<RootContainer>(this);
 
 			// pre-load gui font
-			m_font = m_renderer->resources().get_font(m_resources_path + "font.ttf");
+			m_font = m_renderer->resources().get_font(m_resources_path + "font.ttf", font_size);
 
 			// pre-load all gui textures
 			m_textures.push_back(m_renderer->resources().get_texture(m_resources_path + "frame_disabled.png"));
@@ -28,7 +28,7 @@ namespace Ness
 
 		void GuiManager::render()
 		{
-			m_root_container->render();
+			m_root_container->get_node()->render();
 		}
 
 		bool GuiManager::inject_event(const Event& event)

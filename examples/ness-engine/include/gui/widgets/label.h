@@ -29,6 +29,7 @@
 #pragma once
 
 #include "gui_widget_api.h"
+#include "../../renderable/entities/text.h"
 
 namespace Ness
 {
@@ -39,8 +40,25 @@ namespace Ness
 		class Label : public WidgetAPI
 		{
 		protected:
+			TextPtr		m_text;		// the text entity that is the label
+			Point		m_position;	// position in pixels relative to parent
 
 		public:
+
+			NESSENGINE_API Label(GuiManager* manager, GuiContainerAPI* parent, const String& text);
+
+			// set container position, relative to parent, in pixels
+			NESSENGINE_API virtual void set_position(const Point& new_pos, const Point& anchor = Point::ZERO);
+
+			// recalculate text position when moved
+			NESSENGINE_API virtual void __invoke_event_update_position();
+			
+			// render the label
+			NESSENGINE_API virtual void render();
+
+			// return label bounding box
+			NESSENGINE_API virtual const BoundingBox& get_bounding_box() const;
+
 
 		};
 

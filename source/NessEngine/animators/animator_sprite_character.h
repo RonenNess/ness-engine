@@ -97,7 +97,7 @@ namespace Ness
 			String										m_default_anim;		// default animation to return to when completing cycle
 			bool										m_loop;				// should we loop on the current animation
 			float										m_time_to_wait;		// time to wait on current step
-			Ness::Pointi								m_override_index;	// if set to different then (-1, -1), will override the animation index
+			Pointi								m_override_index;	// if set to different then (-1, -1), will override the animation index
 
 		public:
 			NESSENGINE_API static CharacterAnimationsPtr create_empty_animations() {return ness_make_ptr<CharacterAnimations>();}
@@ -130,8 +130,8 @@ namespace Ness
 			// this feature to define only 1 animation sequence, "walking", and play with the override y position to change character direction.
 			NESSENGINE_API inline void set_override_position_x(int alt_index) {m_override_index.x = alt_index;}
 			NESSENGINE_API inline void set_override_position_y(int alt_index) {m_override_index.y = alt_index;}
-			NESSENGINE_API inline void set_override_position(const Ness::Pointi& alt_index) {m_override_index = alt_index;}
-			NESSENGINE_API inline void clear_override_position() {m_override_index = Ness::Pointi(-1, -1);}
+			NESSENGINE_API inline void set_override_position(const Pointi& alt_index) {m_override_index = alt_index;}
+			NESSENGINE_API inline void clear_override_position() {m_override_index = Pointi(-1, -1);}
 
 			// set/get default animation
 			NESSENGINE_API inline void set_default_animation(const String& animName) {m_default_anim = animName;}
@@ -232,7 +232,7 @@ namespace Ness
 					m_time_to_wait += m_curr_step->duration;
 					if (m_time_to_wait > 0.0f)
 					{
-						Ness::Pointi pos = m_curr_step->position;
+						Pointi pos = m_curr_step->position;
 						if (m_override_index.x != -1) pos.x = m_override_index.x;
 						if (m_override_index.y != -1) pos.y = m_override_index.y;
 						(ness_ptr_cast<Sprite>(m_target))->set_source_from_sprite_sheet(pos, m_curr_animation->texture_steps_count);

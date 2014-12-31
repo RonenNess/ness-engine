@@ -92,8 +92,8 @@ namespace Ness
 		NESSENGINE_API inline float get_absolute_rotation_const() const {return m_absolute_transformations.rotation;}
 
 		// return absolute direction vector
-		NESSENGINE_API inline Ness::Point get_absolute_direction_vector() {return Ness::Point::from_angle(get_absolute_transformations().rotation);}
-		NESSENGINE_API inline Ness::Point get_absolute_direction_vector_const() const {return Ness::Point::from_angle(m_absolute_transformations.rotation);}
+		NESSENGINE_API inline Point get_absolute_direction_vector() {return Point::from_angle(get_absolute_transformations().rotation);}
+		NESSENGINE_API inline Point get_absolute_direction_vector_const() const {return Point::from_angle(m_absolute_transformations.rotation);}
 
 		// get absolute zindex
 		NESSENGINE_API inline float get_absolute_zindex() {return get_absolute_transformations().zorder;}

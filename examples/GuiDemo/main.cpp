@@ -13,12 +13,41 @@ int _tmain(int argc, _TCHAR* argv[])
 {
 	// init and create a renderer
 	Ness::init();
-	Ness::Renderer renderer("NOT READY YET DON'T LOOK AT THIS EXAMPLE!!!!", Ness::Sizei(512, 512));
-	renderer.set_background_color(Ness::Color::BLACK);
+	Ness::Renderer renderer("NOT READY YET DON'T LOOK AT THIS EXAMPLE!!!!", Ness::Sizei(800, 600)); //, Ness::DEFAULT_WINDOW_FLAGS_FULLSCREEN);
+	renderer.set_background_color(Ness::Color(0.1f, 0.2f, 0.2f));
 
 	// create a new gui manager
 	Ness::Gui::GuiManagerPtr gui = renderer.create_gui_manager("../ness-engine/resources/gui/");
-	gui->create_container(Ness::Point(10, 5));
+	//Ness::Gui::ContainerPtr root_container = gui->create_container();
+
+	// create forms in all docking areas
+	Ness::Gui::ContainerPtr bottom_left = gui->create_container(Ness::Point(4, 4));
+	bottom_left->create_label("hello world!");
+	bottom_left->dock_to(Ness::Gui::DOCK_BOTTOM_LEFT);
+
+	Ness::Gui::ContainerPtr bottom_right = gui->create_container(Ness::Point(4, 4));
+	bottom_right->dock_to(Ness::Gui::DOCK_BOTTOM_RIGHT);
+
+	Ness::Gui::ContainerPtr bottom_center = gui->create_container(Ness::Point(4, 4));
+	bottom_center->dock_to(Ness::Gui::DOCK_BOTTOM_CENTER);
+
+	Ness::Gui::ContainerPtr left_center = gui->create_container(Ness::Point(4, 4));
+	left_center->dock_to(Ness::Gui::DOCK_LEFT_CENTER);
+
+	Ness::Gui::ContainerPtr right_center = gui->create_container(Ness::Point(4, 4));
+	right_center->dock_to(Ness::Gui::DOCK_RIGHT_CENTER);
+
+	Ness::Gui::ContainerPtr top_left = gui->create_container(Ness::Point(4, 4));
+	top_left->dock_to(Ness::Gui::DOCK_TOP_LEFT);
+
+	Ness::Gui::ContainerPtr top_right = gui->create_container(Ness::Point(4, 4));
+	top_right->dock_to(Ness::Gui::DOCK_TOP_RIGHT);
+
+	Ness::Gui::ContainerPtr top_center = gui->create_container(Ness::Point(4, 4));
+	top_center->dock_to(Ness::Gui::DOCK_TOP_CENTER);
+
+	Ness::Gui::ContainerPtr center = gui->create_container(Ness::Point(12, 7));
+	center->dock_to(Ness::Gui::DOCK_CENTER);
 
 	// create the events handler
 	Ness::Utils::EventsPoller EventsPoller;

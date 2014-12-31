@@ -36,7 +36,7 @@
 namespace Ness
 {
 	// callback function to run on all nodes
-	NESSENGINE_API typedef void (*TExecuteOnNodes)(const Ness::Pointi& index, const Ness::NodeAPIPtr& node);
+	NESSENGINE_API typedef void (*TExecuteOnNodes)(const Pointi& index, const NodeAPIPtr& node);
 
 	// callback function to create custom sprite types for the tilemap
 	NESSENGINE_API typedef NodeAPIPtr (*TCreateNodes)(const Pointi& index);
@@ -95,7 +95,7 @@ namespace Ness
 		// set extra tiles to render in screen for x and y axis.
 		// what is it for? if your normal tiles size is 32x32 but sometimes you have tiles of 32x64, you can set it to (0, 1), meaning you
 		// will count additional tile from top and bottom when rendering the tiles in screen
-		NESSENGINE_API inline void set_extra_nodes_in_screen(const Ness::Sizei& extra) {m_extra_tiles_factor = extra;}
+		NESSENGINE_API inline void set_extra_nodes_in_screen(const Sizei& extra) {m_extra_tiles_factor = extra;}
 
 		// return if need transformations udpate (always false for tilemap)
 		NESSENGINE_API virtual bool need_transformations_update() {return false;}
@@ -171,9 +171,9 @@ namespace Ness
 
 	protected:
 		// function to return the first visible tile in screen on x axis
-		NESSENGINE_API virtual int get_first_tile_in_screen_x(const Ness::Point& cameraPos);
+		NESSENGINE_API virtual int get_first_tile_in_screen_x(const Point& cameraPos);
 		// function to return the first visible tile in screen on y axis
-		NESSENGINE_API virtual int get_first_tile_in_screen_y(const Ness::Point& cameraPos);
+		NESSENGINE_API virtual int get_first_tile_in_screen_y(const Point& cameraPos);
 		// function to get amount of tiles in screen on x axis
 		NESSENGINE_API virtual int get_tiles_in_screen_x();
 		// function to get amount of tiles in screen on y axis
@@ -184,7 +184,7 @@ namespace Ness
 
 	private:
 		// arrange a single tile sprite during creation
-		NESSENGINE_API void arrange_node(const NodeAPIPtr& node, const Ness::Pointi& index);
+		NESSENGINE_API void arrange_node(const NodeAPIPtr& node, const Pointi& index);
 	};
 
 	NESSENGINE_API typedef SharedPtr<NodesMap> NodesMapPtr;

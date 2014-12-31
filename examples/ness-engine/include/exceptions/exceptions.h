@@ -36,13 +36,13 @@ namespace Ness
 	// raised when a file is not found
 	class FileNotFound : public std::exception {
 	  private:
-		String m_filename;
+		String m_file_name;
 		String m_full_string;
 
 	  public:
-		FileNotFound(const char* fileName) : m_filename(fileName) 
+		FileNotFound(const char* file_name) : m_file_name(file_name) 
 		{
-			m_full_string = (String("File not found: ") + m_filename);
+			m_full_string = (String("File not found: ") + m_file_name);
 			NESS_ERROR(what());
 		}
 		~FileNotFound() throw() {};
@@ -52,14 +52,14 @@ namespace Ness
 	// raised when failed to load a texture file
 	class FailedToLoadTextureFile : public std::exception {
 	  private:
-		String m_filename;
+		String m_file_name;
 		String m_reason;
 		String m_full_string;
 
 	  public:
-		FailedToLoadTextureFile(const char* fileName, const char* reason = "unknown") : m_filename(fileName), m_reason(reason) 
+		FailedToLoadTextureFile(const char* file_name, const char* reason = "unknown") : m_file_name(file_name), m_reason(reason) 
 		{
-			m_full_string = (String("Failed to load texture file: '") + m_filename + "' reason: " + m_reason);
+			m_full_string = (String("Failed to load texture file: '") + m_file_name + "' reason: " + m_reason);
 			NESS_ERROR(what());
 		}
 		~FailedToLoadTextureFile() throw() {};
@@ -69,14 +69,14 @@ namespace Ness
 	// raised when failed to load a font file
 	class FailedToLoadFont : public std::exception {
 	  private:
-		String m_filename;
+		String m_file_name;
 		String m_reason;
 		String m_full_string;
 
 	  public:
-		FailedToLoadFont(const char* fileName, const char* reason = "unknown") : m_filename(fileName), m_reason(reason) 
+		FailedToLoadFont(const char* file_name, const char* reason = "unknown") : m_file_name(file_name), m_reason(reason) 
 		{
-			m_full_string = (String("Failed to load font file: '") + m_filename + "' reason: " + m_reason);
+			m_full_string = (String("Failed to load font file: '") + m_file_name + "' reason: " + m_reason);
 			NESS_ERROR(what());
 		}
 		~FailedToLoadFont() throw() {};

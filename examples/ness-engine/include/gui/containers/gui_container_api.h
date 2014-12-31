@@ -29,6 +29,7 @@
 
 #pragma once
 
+#include "../../renderable/nodes/node.h"
 #include "../gui_element_api.h"
 #include "../../basic_types/containers.h"
 
@@ -41,7 +42,7 @@ namespace Ness
 		class GuiContainerAPI : public GuiElementAPI
 		{
 		protected:
-			Containers::Vector<GuiElementPtr> m_sons;
+			Containers::Vector<GuiElementPtr>	m_sons;
 
 		public:
 
@@ -53,6 +54,9 @@ namespace Ness
 			NESSENGINE_API virtual void remove(const GuiElementPtr& element);
 			NESSENGINE_API virtual void __add(GuiElementAPI* element);
 			NESSENGINE_API virtual void __remove_unsafe(GuiElementAPI* element);
+
+			// return the node of this container
+			NESSENGINE_API virtual NodePtr get_node() = 0;
 
 		};
 

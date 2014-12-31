@@ -43,7 +43,7 @@ namespace Ness
 			m_last_render_frame_id(0), m_last_update_frame_id(0)
 	{
 		// set distance between sprites (either sprite size or provided distance)
-		m_sprites_distance = (tilesDistance == Ness::Size::ZERO ? singleTileSize : tilesDistance);
+		m_sprites_distance = (tilesDistance == Size::ZERO ? singleTileSize : tilesDistance);
 
 		// create the sprites grid
 		Pointi index;
@@ -95,7 +95,7 @@ namespace Ness
 	}
 
 	// arrange a single tile sprite during creation
-	void TileMap::arrange_sprite(const SpritePtr& sprite, const Ness::Pointi& index)
+	void TileMap::arrange_sprite(const SpritePtr& sprite, const Pointi& index)
 	{				
 		// set position
 		sprite->set_position(Point(
@@ -236,13 +236,13 @@ namespace Ness
 		if (j > m_size.y) j = m_size.y;
 	}
 
-	int TileMap::get_first_tile_in_screen_x(const Ness::Point& cameraPos)
+	int TileMap::get_first_tile_in_screen_x(const Point& cameraPos)
 	{
 		float scale = get_absolute_transformations().scale.x;
 		return cameraPos.x < 0 ? (int)(((-cameraPos.x - (m_tile_size.x * scale)) / (m_sprites_distance.x * scale))) - m_extra_tiles_factor.x : 0;
 	}
 
-	int TileMap::get_first_tile_in_screen_y(const Ness::Point& cameraPos)
+	int TileMap::get_first_tile_in_screen_y(const Point& cameraPos)
 	{
 		float scale = get_absolute_transformations().scale.y;
 		return cameraPos.y < 0 ? (int)(((-cameraPos.y - (m_tile_size.y * scale)) / (m_sprites_distance.y * scale))) - m_extra_tiles_factor.y : 0;

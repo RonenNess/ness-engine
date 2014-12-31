@@ -43,7 +43,7 @@ namespace Ness
 		{
 		public:
 			// ctor for loading texture from file
-			ManagedTexture(const String& fileName, SDL_Renderer* renderer, const Colorb* ColorKey = nullptr) : TextureSheet(fileName, renderer, ColorKey) {}
+			ManagedTexture(const String& file_name, SDL_Renderer* renderer, const Colorb* ColorKey = nullptr) : TextureSheet(file_name, renderer, ColorKey) {}
 
 			// ctor for creating empty texture from size
 			ManagedTexture(SDL_Renderer* renderer, const Sizei& size) : TextureSheet(renderer, size) {}

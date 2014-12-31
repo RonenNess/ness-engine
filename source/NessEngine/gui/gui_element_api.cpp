@@ -25,6 +25,7 @@
 
 #include "gui_element_api.h"
 #include "containers/gui_container_api.h"
+#include "gui_manager.h"
 
 namespace Ness
 {
@@ -38,13 +39,20 @@ namespace Ness
 			}
 		}
 
-		void GuiElementAPI::dock_to(EDockingOptions dock)
+		bool GuiElementAPI::is_point_on(const Pointi& pos)
 		{
-			BoundingBox box;
-			if (m_parent)
-			{
+			const BoundingBox& box = get_bounding_box();
+			return (pos.x >= box.x && pos.x <= box.x + box.w && pos.y >= box.y && pos.y <= box.y + box.h);
+		}
 
-			}
+		Pointi GuiElementAPI::get_absolute_position() const 
+		{
+			return Pointi(get_bounding_box().x, get_bounding_box().y);
+		}
+
+		void GuiElementAPI::set_position_aligned(const Pointi& new_pos_grid, const Point& anchor)
+		{
+			set_position(new_pos_grid * m_manager->get_unit_size(), anchor);
 		}
 	}
 }

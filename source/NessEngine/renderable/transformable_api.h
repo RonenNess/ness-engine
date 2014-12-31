@@ -44,9 +44,9 @@ namespace Ness
 		// setters/getters
 		NESSENGINE_API virtual void set_transformations(const SRenderTransformations& newTrans) {m_transformations = newTrans; transformations_update();}
 		NESSENGINE_API virtual const SRenderTransformations& get_transformation() const {return m_transformations;}
-		NESSENGINE_API virtual void set_position(const Ness::Point& NewPos) {if (NewPos == m_transformations.position) return; m_transformations.position = NewPos; transformations_update();}
-		NESSENGINE_API virtual void add_position(const Ness::Point& NewPos) {m_transformations.position += NewPos; transformations_update();}
-		NESSENGINE_API virtual void multiply_position(const Ness::Point& NewPos) {m_transformations.position *= NewPos; transformations_update();}
+		NESSENGINE_API virtual void set_position(const Point& NewPos) {if (NewPos == m_transformations.position) return; m_transformations.position = NewPos; transformations_update();}
+		NESSENGINE_API virtual void add_position(const Point& NewPos) {m_transformations.position += NewPos; transformations_update();}
+		NESSENGINE_API virtual void multiply_position(const Point& NewPos) {m_transformations.position *= NewPos; transformations_update();}
 		NESSENGINE_API virtual void set_scale(const Size& NewScale) {if (NewScale == m_transformations.scale) return; m_transformations.scale = NewScale; transformations_update();}
 		NESSENGINE_API virtual void add_scale(const Size& NewScale) {m_transformations.scale += NewScale; transformations_update();}
 		NESSENGINE_API virtual void multiply_scale(const Size& NewScale) {m_transformations.scale *= NewScale; transformations_update();}
@@ -73,7 +73,7 @@ namespace Ness
 		NESSENGINE_API virtual const float get_opacity() const {return get_color().a;}
 		NESSENGINE_API virtual const EBlendModes get_blend_mode() const {return m_transformations.blend;}
 		NESSENGINE_API virtual float get_zindex() const {return m_transformations.zorder;}
-		NESSENGINE_API virtual Ness::Point get_direction_vector() const {return Ness::Point::from_angle(get_rotation());}
+		NESSENGINE_API virtual Point get_direction_vector() const {return Point::from_angle(get_rotation());}
 
 		// return absolute position
 		NESSENGINE_API virtual Point get_absolute_position() {return get_absolute_transformations().position;}

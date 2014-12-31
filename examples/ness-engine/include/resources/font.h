@@ -42,17 +42,23 @@ namespace Ness
 		class LoadedFont
 		{
 		private:
-			TTF_Font* m_font;
+			TTF_Font*		m_font;
+			String			m_file_name; 
+			unsigned int	m_font_size;
 
 		public:
 			// create the font from file
-			NESSENGINE_API LoadedFont(const String& fileName, int fontSize = 12);
+			NESSENGINE_API LoadedFont(const String& file_name, unsigned int font_size = 12);
 
 			// destroy the font
 			NESSENGINE_API ~LoadedFont();
 
 			// return the font
 			inline NESSENGINE_API TTF_Font* font() const {return m_font;}
+
+			// return font properties
+			const String& get_file_name() const {return m_file_name;}
+  			unsigned int get_font_size() const {return m_font_size;}
 
 		};
 	};

@@ -51,7 +51,7 @@ namespace Ness
 
 		public:
 			// create the texture sheet from file
-			NESSENGINE_API MaskTextureSheet(const String& fileName, SDL_Renderer* renderer);
+			NESSENGINE_API MaskTextureSheet(const String& file_name, SDL_Renderer* renderer);
 
 			// destroy the texture
 			NESSENGINE_API ~MaskTextureSheet();
@@ -67,7 +67,7 @@ namespace Ness
 
 		private:
 			// load and init this texture from file. this should be called only once!
-			void load_file(const char* fileName, SDL_Renderer* renderer);
+			void load_file(const char* file_name, SDL_Renderer* renderer);
 
 		};
 	};

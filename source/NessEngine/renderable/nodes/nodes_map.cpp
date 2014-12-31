@@ -88,7 +88,7 @@ namespace Ness
 	}
 
 	// arrange a single tile sprite during creation
-	void NodesMap::arrange_node(const NodeAPIPtr& node, const Ness::Pointi& index)
+	void NodesMap::arrange_node(const NodeAPIPtr& node, const Pointi& index)
 	{				
 		// set position
 		node->set_position(Point(
@@ -132,13 +132,13 @@ namespace Ness
 		if (j > m_size.y) j = m_size.y;
 	}
 
-	int NodesMap::get_first_tile_in_screen_x(const Ness::Point& cameraPos)
+	int NodesMap::get_first_tile_in_screen_x(const Point& cameraPos)
 	{
 		float scale = get_absolute_transformations().scale.x;
 		return cameraPos.x < 0 ? (int)(((-cameraPos.x - (m_node_size.x * scale)) / (m_nodes_distance.x * scale))) - m_extra_tiles_factor.x : 0;
 	}
 
-	int NodesMap::get_first_tile_in_screen_y(const Ness::Point& cameraPos)
+	int NodesMap::get_first_tile_in_screen_y(const Point& cameraPos)
 	{
 		float scale = get_absolute_transformations().scale.y;
 		return cameraPos.y < 0 ? (int)(((-cameraPos.y - (m_node_size.y * scale)) / (m_nodes_distance.y * scale))) - m_extra_tiles_factor.y : 0;

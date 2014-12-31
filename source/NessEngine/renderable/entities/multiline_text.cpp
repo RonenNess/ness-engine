@@ -27,13 +27,13 @@
 
 namespace Ness
 {
-	MultiText::MultiText(Renderer* renderer, const String& FontFile, const String& text, int fontSize) : Entity(renderer)
+	MultiText::MultiText(Renderer* renderer, const String& FontFile, const String& text, unsigned int font_size) : Entity(renderer)
 	{
 		m_node = BaseNodePtr(new BaseNode(renderer));
 		m_need_text_positioning = true;
 		m_line_width = 0;
 		m_font = FontFile;
-		m_font_size = fontSize;
+		m_font_size =font_size;
 		m_alignement = TEXT_ALIGN_LEFT;
 		set_text(text);
 	}
@@ -79,7 +79,7 @@ namespace Ness
 		float LineHeight = m_font_size * get_absolute_transformations().scale.y;
 		for (unsigned int i = 0; i < m_lines.size(); ++i)
 		{
-			Ness::TextPtr& curr = m_lines[i];
+			TextPtr& curr = m_lines[i];
 			curr->set_position(Point(0.0f, LineHeight * i));
 			curr->set_alignment(m_alignement);
 			curr->set_static(m_static);

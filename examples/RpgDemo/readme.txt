@@ -1,0 +1,1 @@
+a demo rpg game. you can move around and shoot fireballs. notice the semi-3d lighting effect on the trees and rocks ;)

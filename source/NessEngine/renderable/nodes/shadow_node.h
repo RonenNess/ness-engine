@@ -106,7 +106,7 @@ namespace Ness
 		NESSENGINE_API virtual void transformations_update();
 
 		// create a shadow
-		NESSENGINE_API ShadowPtr create_shadow(const String& shadowTexture, const Color& color = Ness::Color::BLACK * Ness::Color::HALF_INVISIBLE);
+		NESSENGINE_API ShadowPtr create_shadow(const String& shadowTexture, const Color& color = Color::BLACK * Color::HALF_INVISIBLE);
 
 		// return all shadows currently in screen
 		NESSENGINE_API void get_shadows_in_screen(Containers::Vector<ShadowPtr>& out_list, const CameraPtr& camera = NullCamera) const;

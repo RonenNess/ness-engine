@@ -1,0 +1,1 @@
+this example extends the tilesmap example and shows how to use the tilesmap with a custom sprite type (instead of the default ness-engine sprites).

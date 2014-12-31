@@ -222,7 +222,7 @@ namespace Ness
 		if (m_highlight)
 		{
 			SRenderTransformations trans_with_add = trans;
-			trans_with_add.blend = Ness::BLEND_MODE_ADD;
+			trans_with_add.blend = BLEND_MODE_ADD;
 			for (int i = 0; i < m_highlight; ++i)
 				do_render(target, trans_with_add);
 		}
