@@ -58,6 +58,7 @@ namespace Ness
 			// size_in_units:	is the container size in gui grid units (defined in the gui manager)
 			NESSENGINE_API Frame(GuiManager* manager, GuiContainerAPI* parent, 
 				const Pointi& size_in_units, const String& texture_prefix = "frame");
+			NESSENGINE_API ~Frame();
 
 			// handle basic events
 			NESSENGINE_API virtual void __invoke_event_get_focus();

@@ -1,0 +1,17 @@
+# gui settings file.
+# every line in this file should be "property name: value"
+# for example: "default_font_color: #ff00ffff"
+# lines begin with # are comments and will be ignored.
+
+# font size determine the default text size of all the gui elements.
+font_size: 17
+
+# all sizes and elements placement in the gui system are based on the grid unit size.
+# for example, you can create a container in the size of (7, 7), which will be multiplies of the grid unit size
+grid_unit_size: 32,32
+
+# default text color for all gui elements.
+default_font_color: #ffffffff
+
+# default color for all frames in the gui. this include containers, buttons background, etc..
+default_frames_color: #e5c695ff

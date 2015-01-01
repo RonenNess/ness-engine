@@ -24,7 +24,7 @@ namespace Ness
 			load_settings();
 
 			// pre-load gui font
-			m_font = m_renderer->resources().get_font(m_resources_path + "font.ttf", m_font_size);
+			m_font = m_renderer->resources().get_font(m_resources_path + "font.ttf", m_font_size * 2);
 
 			// pre-load all gui textures
 			m_textures.push_back(m_renderer->resources().get_texture(m_resources_path + "frame_disabled.png"));

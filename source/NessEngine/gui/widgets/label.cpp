@@ -36,6 +36,7 @@ namespace Ness
 			m_text->set_anchor(Point::ZERO);
 			m_text->set_blend_mode(BLEND_MODE_BLEND);
 			m_text->set_color(manager->get_default_text_color());
+			m_text->set_scale(0.5f);
 
 			// to calculate text position
 			set_position(Point::ZERO);
