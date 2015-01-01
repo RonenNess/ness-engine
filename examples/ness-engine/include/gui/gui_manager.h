@@ -66,7 +66,7 @@ namespace Ness
 			//					gui text to be larger by scaling the gui text elements, the font will
 			//					turn out blurry.
 			NESSENGINE_API GuiManager(Renderer* renderer, const String& resources_path = "ness-engine/resources/gui/", 
-										const Pointi& grid_unit_size = Point(32, 32), const int font_size = 16);
+										const Pointi& grid_unit_size = Point(32, 32), const int font_size = 17);
 
 			// handle events
 			NESSENGINE_API virtual bool inject_event(const Event& event);
