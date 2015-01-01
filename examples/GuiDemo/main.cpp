@@ -29,7 +29,7 @@ int _tmain(int argc, _TCHAR* argv[])
 	Ness::Gui::LabelPtr header = main_menu->create_label("Main Menu");
 	main_menu->dock_to(Ness::Gui::DOCK_CENTER);
 	header->set_alignment(Ness::TEXT_ALIGN_CENTER);
-	main_menu->destroy();
+	//header->destroy();
 	//main_menu->set_enabled(false);
 
 	// create the events handler
@@ -45,6 +45,16 @@ int _tmain(int argc, _TCHAR* argv[])
 	{
 		// handle events
 		EventsPoller.poll_events();
+
+		// set cursor state
+		if (mouse.is_down(Ness::MOUSE_LEFT))
+		{
+			cursor->set_source_from_sprite_sheet(Ness::Pointi(1, 0), Ness::Pointi(2, 1), true);
+		}
+		else
+		{
+			cursor->set_source_from_sprite_sheet(Ness::Pointi(0, 0), Ness::Pointi(2, 1), true);
+		}
 
 		// render the scene
 		renderer.start_frame();
