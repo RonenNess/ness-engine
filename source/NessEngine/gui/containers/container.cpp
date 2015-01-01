@@ -68,6 +68,19 @@ namespace Ness
 			m_bounding_box.h = m_size.y * m_manager->get_unit_size().y;
 		}
 
+		void Container::set_color(const Color& color) 
+		{
+			if (m_graphics)
+				m_graphics->set_color(color);
+		}
+
+		const Color& Container::get_color() 
+		{
+			if (m_graphics)
+				return m_graphics->get_color();
+			return Color::WHITE;
+		}
+
 		SharedPtr<Container> Container::create_container(const Pointi& size_in_units)
 		{
 			ContainerPtr ret = ness_make_ptr<Container>(this->m_manager, this, size_in_units);
