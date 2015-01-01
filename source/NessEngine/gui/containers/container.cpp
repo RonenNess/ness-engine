@@ -314,7 +314,7 @@ namespace Ness
 			m_focused_widget = new_focused;
 		}
 
-		void Container::__invoke_event_mouse_pressed(EMouseButtons button, const Pointi& mouse_pos)
+		void Container::__invoke_event_mouse_down(EMouseButtons button, const Pointi& mouse_pos)
 		{
 			// loop over son elements and check if we clicked on an element
 			for (unsigned int i = 0; i < m_sons.size(); ++i)
@@ -322,7 +322,7 @@ namespace Ness
 				GuiElementPtr& widget = m_sons[i];
 				if (widget->is_point_on(mouse_pos))
 				{
-					widget->__invoke_event_mouse_pressed(button, mouse_pos);
+					widget->__invoke_event_mouse_down(button, mouse_pos);
 					break;
 				}
 			}
@@ -330,14 +330,14 @@ namespace Ness
 			// update graphics
 			if (m_graphics)
 			{
-				m_graphics->__invoke_event_mouse_pressed(button, mouse_pos);
+				m_graphics->__invoke_event_mouse_down(button, mouse_pos);
 			}
 
 			// update element focus
 			set_focus_on(mouse_pos);
 		}
 		
-		void Container::__invoke_event_mouse_released(EMouseButtons button, const Pointi& mouse_pos)
+		void Container::__invoke_event_mouse_up(EMouseButtons button, const Pointi& mouse_pos)
 		{
 			// loop over son elements and check if we clicked on an element
 			for (unsigned int i = 0; i < m_sons.size(); ++i)
@@ -345,7 +345,7 @@ namespace Ness
 				GuiElementPtr& widget = m_sons[i];
 				if (widget->is_point_on(mouse_pos))
 				{
-					widget->__invoke_event_mouse_released(button, mouse_pos);
+					widget->__invoke_event_mouse_up(button, mouse_pos);
 					break;
 				}
 			}
@@ -353,7 +353,7 @@ namespace Ness
 			// update graphics
 			if (m_graphics)
 			{
-				m_graphics->__invoke_event_mouse_released(button, mouse_pos);
+				m_graphics->__invoke_event_mouse_up(button, mouse_pos);
 			}
 
 			// update element focus

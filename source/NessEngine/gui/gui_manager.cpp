@@ -42,24 +42,32 @@ namespace Ness
 
 		bool GuiManager::inject_event(const Event& event)
 		{
-			// update mouse and keyboard
-			m_mouse.inject_event(event);
-			m_keyboard.inject_event(event);
+
+			bool ret = false;
 
 			// check the type of event called
 			switch (event.type)
 			{
 				// do mouse movement
 				case SDL_MOUSEMOTION:
-					return m_root_container->handle_mouse_move(m_mouse.position());
+					ret = m_root_container->handle_mouse_move(m_mouse.position());
+					break;
 
-					TBD WAS HERE
 				case SDL_MOUSEBUTTONDOWN:
-					//change_button_state(event.button.button, true);
+					ret = m_root_container->handle_mouse_state((EMouseButtons)event.button.button, true, m_mouse.position());
+					break;
+
+				case SDL_MOUSEBUTTONUP:
+					ret = m_root_container->handle_mouse_state((EMouseButtons)event.button.button, false, m_mouse.position());
 					break;
 			}
 
-			return false;
+			// update mouse and keyboard
+			// we use this to remember the last keyboard and mouse state
+			m_mouse.inject_event(event);
+			m_keyboard.inject_event(event);
+
+			return ret;
 		}
 	}
 }

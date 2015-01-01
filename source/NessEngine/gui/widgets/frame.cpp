@@ -151,12 +151,12 @@ namespace Ness
 			update_texture("focused");
 		}
 
-		void Frame::__invoke_event_mouse_pressed(EMouseButtons button, const Pointi& mouse_pos)
+		void Frame::__invoke_event_mouse_down(EMouseButtons button, const Pointi& mouse_pos)
 		{
 			update_texture("mouse_down");
 		}
 
-		void Frame::__invoke_event_mouse_released(EMouseButtons button, const Pointi& mouse_pos)
+		void Frame::__invoke_event_mouse_up(EMouseButtons button, const Pointi& mouse_pos)
 		{
 			update_texture("focused");
 		}

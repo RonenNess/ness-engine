@@ -40,6 +40,59 @@ namespace Ness
 		{
 		}
 
+		bool RootContainer::handle_mouse_state(EMouseButtons button, bool state, const Pointi& mouse_pos)
+		{
+			// return if reacted to this event
+			bool reacted = false;
+
+			// check if its mouse click event
+			static float last_mouse_down_time[_MOUSE_BUTTONS_COUNT] = {0.0f, 0.0f, 0.0f};
+			bool click = false;
+			if ((state == false) 
+				&& (m_manager->renderer()->get_total_time_elapse() - last_mouse_down_time[button] < 0.1f))
+			{
+				click = true;
+			}
+			if (state)
+			{
+				last_mouse_down_time[button] = m_manager->renderer()->get_total_time_elapse();
+			}
+
+			// loop over all the sub entities
+			for (unsigned int i = 0; i < m_sons.size(); ++i)
+			{
+				// get current element and check if mouse is inside bounderies
+				GuiElementPtr& curr = m_sons[i];
+
+				// skip if disabled or invisible
+				if (!curr->is_enabled() || !curr->is_visible())
+				{
+					continue;
+				}
+
+				if (curr->is_point_on(mouse_pos))
+				{
+					reacted = true;
+
+					// invoke mouse up/down event
+					if (state)
+					{
+						curr->__invoke_event_mouse_down(button, mouse_pos);
+					}
+					else
+					{
+						curr->__invoke_event_mouse_up(button, mouse_pos);
+						if (click)
+						{
+							curr->__invoke_event_click(button, mouse_pos);
+						}
+					}
+				}
+			}
+
+			return reacted;
+		}
+
 		bool RootContainer::handle_mouse_move(const Pointi& mouse_pos)
 		{
 			// return if reacted to this event

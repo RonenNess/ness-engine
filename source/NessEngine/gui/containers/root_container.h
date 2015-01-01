@@ -71,8 +71,10 @@ namespace Ness
 			NESSENGINE_API virtual const BoundingBox& get_bounding_box() const;
 
 			// handle mouse movement
-			bool handle_mouse_move(const Pointi& mouse_pos);
+			NESSENGINE_API bool handle_mouse_move(const Pointi& mouse_pos);
 
+			// handle mouse state (ture is mouse down false is mouse up)
+			NESSENGINE_API bool handle_mouse_state(EMouseButtons button, bool state, const Pointi& mouse_pos);
 		};
 
 		// a pointer to a gui widget

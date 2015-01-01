@@ -62,8 +62,8 @@ namespace Ness
 			// handle basic events
 			NESSENGINE_API virtual void __invoke_event_get_focus();
 			NESSENGINE_API virtual void __invoke_event_lose_focus();
-			NESSENGINE_API virtual void __invoke_event_mouse_pressed(EMouseButtons button, const Pointi& mouse_pos);
-			NESSENGINE_API virtual void __invoke_event_mouse_released(EMouseButtons button, const Pointi& mouse_pos);
+			NESSENGINE_API virtual void __invoke_event_mouse_down(EMouseButtons button, const Pointi& mouse_pos);
+			NESSENGINE_API virtual void __invoke_event_mouse_up(EMouseButtons button, const Pointi& mouse_pos);
 			NESSENGINE_API virtual void __invoke_event_mouse_enter(const Pointi& mouse_pos);
 			NESSENGINE_API virtual void __invoke_event_mouse_leave(const Pointi& mouse_pos);
 			NESSENGINE_API virtual void __invoke_event_mouse_hover(const Pointi& mouse_pos);
