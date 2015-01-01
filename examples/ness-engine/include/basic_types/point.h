@@ -28,6 +28,7 @@
 
 #pragma once
 #include "../exports.h"
+#include "string.h"
 #include "math.h"
 #include <cmath>
 
@@ -250,6 +251,23 @@ namespace Ness
 		NESSENGINE_API static __Point<type> ZERO;
 		NESSENGINE_API static __Point<type> ONE;
 		NESSENGINE_API static __Point<type> HALF;
+
+		// serialize the point into representable string
+		NESSENGINE_API String serialize() const
+		{
+			return ness_float_to_string(x) + "," + ness_float_to_string(y);
+		}
+
+		// deserialize the point from a representable string
+		NESSENGINE_API void deserialize(const String& src)
+		{
+			int sep = src.find(',');
+			if (sep == -1) throw WrongFormatError("Input string is not a valid point format! serialized point must contain a comma");
+			std::string sx = src.substr(0, sep);
+			std::string sy = src.substr(sep + 1);
+			x = (type)(atof(sx.c_str()));
+			y = (type)(atof(sy.c_str()));
+		}
 
 		// static function: create point from angle
 		NESSENGINE_API static __Point<type> from_angle(float angle, float velocity = 1.0f) 

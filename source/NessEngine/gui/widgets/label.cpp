@@ -38,6 +38,9 @@ namespace Ness
 			m_text->set_color(manager->get_default_text_color());
 			m_text->set_scale(0.5f);
 
+			// set shadow params
+			set_shadow(m_manager->get_default_text_shadow_color(), m_manager->get_default_text_shadow_offset());
+
 			// to calculate text position
 			set_position(Point::ZERO);
 		}
@@ -45,6 +48,16 @@ namespace Ness
 		Label::~Label()
 		{
 			m_text->remove_from_parent();
+		}
+
+		void Label::set_shadow(const Color& shadow_color, const Pointi& offset)
+		{
+			m_text->set_shadow(shadow_color, offset);
+		}
+
+		void Label::disable_shadow()
+		{
+			m_text->disable_shadow();
 		}
 
 		void Label::__invoke_event_enabled_changed(bool new_state, bool by_parent)
@@ -59,12 +72,31 @@ namespace Ness
 			}
 		}
 
-		// set container position, relative to parent, in pixels
 		void Label::set_position(const Point& new_pos, const Point& anchor)
 		{
-			m_position = new_pos + Point(m_manager->get_unit_size()) * 0.5f;
+			m_position = new_pos + m_manager->get_padding_size();
 			m_text->set_anchor(anchor);
 			__invoke_event_update_position();
+		}
+
+		void Label::set_alignment(ETextAlignment alignment)
+		{
+			switch (alignment)
+			{
+			case TEXT_ALIGN_LEFT:
+				set_position(Point(0.0f, m_text->get_position().y), Point(0.0f, 1.0f));
+				break;
+
+			case TEXT_ALIGN_RIGHT:
+				set_position(Point((float)(m_parent->get_bounding_box().w - m_manager->get_padding_size().x), 
+					(float)m_text->get_position().y), Point(1.0f, 1.0f));
+				break;
+
+			case TEXT_ALIGN_CENTER:
+				set_position(Point((float)(m_parent->get_bounding_box().w / 2 - m_manager->get_padding_size().x), 
+					(float)m_text->get_position().y), Point(0.5f, 1.0f));
+				break;
+			}
 		}
 
 		const BoundingBox& Label::get_bounding_box() const

@@ -34,6 +34,7 @@ namespace Ness
 		change_text(text);
 		set_static(true);
 		set_blend_mode(BLEND_MODE_BLEND);
+		disable_shadow();
 	}
 
 	Text::Text(Renderer* renderer, const String& FontFile, const String& text, unsigned int font_size) : 
@@ -44,6 +45,7 @@ namespace Ness
 		change_text(text);
 		set_static(true);
 		set_blend_mode(BLEND_MODE_BLEND);
+		disable_shadow();
 	}
 
 	Text::~Text()
@@ -52,6 +54,12 @@ namespace Ness
 		{
 			SDL_DestroyTexture(m_texture);
 		}
+	}
+
+	void Text::set_shadow(const Color& color, const Pointi& offset)
+	{
+		m_shadow = color;
+		m_shadow_offset = offset;
 	}
 
 	void Text::set_alignment(ETextAlignment align)
@@ -135,6 +143,16 @@ namespace Ness
 
 	void Text::do_render(const Rectangle& target, const SRenderTransformations& transformations)
 	{
+		// render shadow
+		if (m_shadow.a > 0.0f)
+		{
+			Rectangle shadow_target = target;
+			shadow_target.x += m_shadow_offset.x;
+			shadow_target.y += m_shadow_offset.y;
+			m_renderer->blit(m_texture, nullptr, shadow_target, transformations.blend, m_shadow * transformations.color, transformations.rotation, m_anchor);
+		}
+
+		// render the text itself
 		m_renderer->blit(m_texture, nullptr, target, transformations.blend, transformations.color, transformations.rotation, m_anchor);
 	}
 };

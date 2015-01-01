@@ -163,6 +163,9 @@ namespace Ness
 		NESSENGINE_API const Sizei& get_screen_size() const {return m_renderer_size;}
 		NESSENGINE_API const Sizei& get_target_size() const {return *m_target_size;}
 
+		// hide/show cursor
+		NESSENGINE_API inline void show_cursor(bool show) const {SDL_ShowCursor(show);}
+
 		// get the center of the target/screen you currently render to
 		NESSENGINE_API Sizei get_target_center() const;
 		NESSENGINE_API Sizei get_screen_center() const;

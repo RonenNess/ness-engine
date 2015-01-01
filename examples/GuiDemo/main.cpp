@@ -16,53 +16,28 @@ int _tmain(int argc, _TCHAR* argv[])
 	Ness::Renderer renderer("NOT READY YET DON'T LOOK AT THIS EXAMPLE!!!!", Ness::Sizei(800, 600)); //, Ness::DEFAULT_WINDOW_FLAGS_FULLSCREEN);
 	renderer.set_background_color(Ness::Color(0.1f, 0.2f, 0.2f));
 
+	// create a cursor sprite
+	renderer.show_cursor(false);
+	Ness::SpritePtr cursor = ness_make_ptr<Ness::Sprite>(&renderer, "cursor.png");
+	cursor->set_blend_mode(Ness::BLEND_MODE_BLEND);
+
 	// create a new gui manager
-	Ness::Gui::GuiManagerPtr gui = renderer.create_gui_manager("../ness-engine/resources/gui/");
-	//Ness::Gui::ContainerPtr root_container = gui->create_container();
-
-	// create forms in all docking areas
-	Ness::Gui::ContainerPtr bottom_left = gui->create_container(Ness::Point(7, 4));
-	bottom_left->create_label("bottom left dock");
-	bottom_left->dock_to(Ness::Gui::DOCK_BOTTOM_LEFT);
-
-	Ness::Gui::ContainerPtr bottom_right = gui->create_container(Ness::Point(7, 4));
-	bottom_right->create_label("bottom right dock");
-	bottom_right->dock_to(Ness::Gui::DOCK_BOTTOM_RIGHT);
-
-	Ness::Gui::ContainerPtr bottom_center = gui->create_container(Ness::Point(7, 4));
-	bottom_center->create_label("bottom center dock");
-	bottom_center->dock_to(Ness::Gui::DOCK_BOTTOM_CENTER);
-
-	Ness::Gui::ContainerPtr left_center = gui->create_container(Ness::Point(7, 4));
-	left_center->create_label("left center dock");
-	left_center->dock_to(Ness::Gui::DOCK_LEFT_CENTER);
-
-	Ness::Gui::ContainerPtr right_center = gui->create_container(Ness::Point(7, 4));
-	right_center->create_label("right center dock");
-	right_center->dock_to(Ness::Gui::DOCK_RIGHT_CENTER);
-
-	Ness::Gui::ContainerPtr top_left = gui->create_container(Ness::Point(7, 4));
-	top_left->create_label("top left dock");
-	top_left->dock_to(Ness::Gui::DOCK_TOP_LEFT);
-
-	Ness::Gui::ContainerPtr top_right = gui->create_container(Ness::Point(7, 4));
-	top_right->create_label("top right dock");
-	top_right->dock_to(Ness::Gui::DOCK_TOP_RIGHT);
-
-	Ness::Gui::ContainerPtr top_center = gui->create_container(Ness::Point(7, 4));
-	top_center->create_label("top center dock");
-	top_center->dock_to(Ness::Gui::DOCK_TOP_CENTER);
-
-	Ness::Gui::ContainerPtr center = gui->create_container(Ness::Point(10, 7));
-	center->create_label("center dock");
-	center->dock_to(Ness::Gui::DOCK_CENTER);
-	center->set_enabled(false);
+	Ness::Gui::GuiManagerPtr gui = renderer.create_gui_manager("gui");
+	
+	// create main menu container
+	Ness::Gui::ContainerPtr main_menu = gui->create_container(Ness::Point(7, 5));
+	Ness::Gui::LabelPtr header = main_menu->create_label("Main Menu");
+	main_menu->dock_to(Ness::Gui::DOCK_CENTER);
+	header->set_alignment(Ness::TEXT_ALIGN_CENTER);
+	//main_menu->set_enabled(false);
 
 	// create the events handler
 	Ness::Utils::EventsPoller EventsPoller;
 	Ness::Utils::ApplicationEvents app;
+	Ness::Utils::Mouse mouse;
 	EventsPoller.add_handler(*gui.get());
 	EventsPoller.add_handler(app);
+	EventsPoller.add_handler(mouse);
 
 	// loop until exit button is pressed
 	while( !app.got_quit() )
@@ -73,6 +48,8 @@ int _tmain(int argc, _TCHAR* argv[])
 		// render the scene
 		renderer.start_frame();
 		gui->render();
+		cursor->set_position(mouse.position());
+		cursor->render();
 		renderer.end_frame();
 	}
 

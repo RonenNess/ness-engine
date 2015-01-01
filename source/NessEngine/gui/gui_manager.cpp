@@ -19,6 +19,8 @@ namespace Ness
 			m_default_text_color = Color::BLACK;
 			m_default_frames_color = Color::WHITE;
 			m_font_size = 17;
+			m_default_text_shadow = Color(0.0f, 0.0f, 0.0f, 0.5f);
+			m_default_text_shadow_offset = Point(1, 1);
 
 			// load gui settings file
 			load_settings();
@@ -89,13 +91,29 @@ namespace Ness
 				}
 				else if (param == "grid_unit_size")
 				{
-					// TBD
+					m_unit_size.deserialize(value);
+				}
+				else if (param == "padding")
+				{
+					m_padding.deserialize(value);
+				}
+				if (param == "default_font_shadow_color")
+				{
+					m_default_text_shadow.deserialize(value);
+				}
+				else if (param == "default_font_shadow_offset")
+				{
+					m_default_text_shadow_offset.deserialize(value);
 				}
 				else
 				{
 					throw WrongFormatError(("Unknown parameter in gui settings.dat! line: " + line).c_str());
 				}
 			}
+
+			// fix some defaults
+			if (m_padding == Sizei::ZERO)
+				m_padding = m_unit_size / 2;
 		}
 
 		ContainerPtr GuiManager::create_container(const Pointi& size_in_units)

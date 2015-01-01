@@ -8,10 +8,20 @@ font_size: 17
 
 # all sizes and elements placement in the gui system are based on the grid unit size.
 # for example, you can create a container in the size of (7, 7), which will be multiplies of the grid unit size
-grid_unit_size: 32,32
+grid_unit_size: 64,64
+
+# entities padding (empy space around entities)
+# if not defined, will use half the grid unit size
+padding: 45,35
 
 # default text color for all gui elements.
 default_font_color: #ffffffff
 
+# default text shadow color for all gui elements.
+default_font_shadow_color: #0000000a
+
+# default text shadow offset.
+default_font_shadow_offset: 1,2
+
 # default color for all frames in the gui. this include containers, buttons background, etc..
-default_frames_color: #e5c695ff
+default_frames_color: #ffffffff

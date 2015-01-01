@@ -47,7 +47,7 @@ namespace Ness
 		protected:
 			RootContainerPtr										m_root_container;		// the gui root container that contains all sub containers and elements
 			Renderer*												m_renderer;				// pointer to the renderer object
-			Pointi													m_unit_size;			// all widgets size and position are based on unit size (like a grid)
+			Sizei													m_unit_size;			// all widgets size and position are based on unit size (like a grid)
 			String													m_resources_path;		// the path of the folder in which we have the gui textures
 			Utils::Mouse											m_mouse;				// mouse events handler
 			Utils::Keyboard											m_keyboard;				// keyboard events handler
@@ -56,6 +56,7 @@ namespace Ness
 			Color													m_default_text_color;	// default text color to set to all labels and textboxes
 			Color													m_default_frames_color;	// default text color to set to all frames background
 			unsigned int											m_font_size;			// font sizes
+			Sizei													m_padding;				// padding around gui widgets (empty space around them)
 
 		public:
 			// create the gui manager
@@ -78,7 +79,10 @@ namespace Ness
 			NESSENGINE_API inline ManagedResources::ManagedFontPtr get_font() {return m_font;}
 
 			// get the unit size
-			NESSENGINE_API inline const Pointi& get_unit_size() const {return m_unit_size;}
+			NESSENGINE_API inline const Sizei& get_unit_size() const {return m_unit_size;}
+
+			// get padding size
+			NESSENGINE_API inline const Sizei& get_padding_size() const {return m_padding;}
 
 			// get the resources path
 			NESSENGINE_API inline const String& get_resources_path() const {return m_resources_path;}
