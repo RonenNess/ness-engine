@@ -97,7 +97,7 @@ namespace Ness
 				{
 					m_padding.deserialize(value);
 				}
-				if (param == "default_font_shadow_color")
+				else if (param == "default_font_shadow_color")
 				{
 					m_default_text_shadow.deserialize(value);
 				}

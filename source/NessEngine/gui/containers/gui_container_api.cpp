@@ -34,24 +34,24 @@ namespace Ness
 		{
 		}
 
-		void GuiContainerAPI::add(const GuiElementPtr& element) 
+		void GuiContainerAPI::__add(const GuiElementPtr& element) 
 		{
 			m_sons.push_back(element);
 		}
 
-		void GuiContainerAPI::remove(const GuiElementPtr& element) 
+		void GuiContainerAPI::__remove(const GuiElementPtr& element) 
 		{
 			m_sons.erase(std::remove(m_sons.begin(), m_sons.end(), element), m_sons.end());
 		}
 
 		void GuiContainerAPI::__add(GuiElementAPI* element)
 		{
-			add(GuiElementPtr(element, EmptyElementDeleter));
+			__add(GuiElementPtr(element, EmptyElementDeleter));
 		}
 
 		void GuiContainerAPI::__remove_unsafe(GuiElementAPI* element)
 		{
-			remove(GuiElementPtr(element, EmptyElementDeleter));
+			__remove(GuiElementPtr(element, EmptyElementDeleter));
 		}
 	}
 }

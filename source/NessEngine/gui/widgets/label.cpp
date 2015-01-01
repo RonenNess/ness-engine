@@ -84,17 +84,17 @@ namespace Ness
 			switch (alignment)
 			{
 			case TEXT_ALIGN_LEFT:
-				set_position(Point(0.0f, m_text->get_position().y), Point(0.0f, 1.0f));
+				set_position(Point(0.0f, m_text->get_position().y - m_manager->get_padding_size().y), Point(0.0f, 0.0f));
 				break;
 
 			case TEXT_ALIGN_RIGHT:
 				set_position(Point((float)(m_parent->get_bounding_box().w - m_manager->get_padding_size().x), 
-					(float)m_text->get_position().y), Point(1.0f, 1.0f));
+					(float)m_text->get_position().y - m_manager->get_padding_size().y), Point(1.0f, 0.0f));
 				break;
 
 			case TEXT_ALIGN_CENTER:
 				set_position(Point((float)(m_parent->get_bounding_box().w / 2 - m_manager->get_padding_size().x), 
-					(float)m_text->get_position().y), Point(0.5f, 1.0f));
+					(float)m_text->get_position().y - m_manager->get_padding_size().y), Point(0.5f, 0.0f));
 				break;
 			}
 		}

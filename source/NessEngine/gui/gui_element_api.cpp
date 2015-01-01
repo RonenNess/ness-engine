@@ -31,12 +31,19 @@ namespace Ness
 {
 	namespace Gui
 	{
-		void GuiElementAPI::remove_from_parent()
+		void GuiElementAPI::destroy()
 		{
 			if (m_parent)
 			{
 				m_parent->__remove_unsafe(this);
 			}
+			m_node->remove_from_parent();
+		}
+
+		GuiElementAPI::GuiElementAPI(GuiManager* manager, GuiContainerAPI* parent) 
+				: m_manager(manager), m_parent(parent), m_visible(true), m_enabled(true) 
+		{
+			m_node = m_parent->get_node()->create_node();
 		}
 
 		bool GuiElementAPI::is_point_on(const Pointi& pos)

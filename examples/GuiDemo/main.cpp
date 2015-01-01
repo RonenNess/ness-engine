@@ -29,6 +29,7 @@ int _tmain(int argc, _TCHAR* argv[])
 	Ness::Gui::LabelPtr header = main_menu->create_label("Main Menu");
 	main_menu->dock_to(Ness::Gui::DOCK_CENTER);
 	header->set_alignment(Ness::TEXT_ALIGN_CENTER);
+	gui->remove_container(main_menu);
 	//main_menu->set_enabled(false);
 
 	// create the events handler

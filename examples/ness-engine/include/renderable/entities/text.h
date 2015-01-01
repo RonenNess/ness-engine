@@ -47,11 +47,14 @@ namespace Ness
 	class Text : public Entity
 	{
 	protected:
-		ManagedResources::ManagedFontPtr		m_font;
-		String									m_text;
-		bool									m_need_text_update;
-		SDL_Texture*							m_texture;
-		unsigned int							m_line_width;
+		ManagedResources::ManagedFontPtr		m_font;					// the font used for this text
+		String									m_text;					// the text itself
+		bool									m_need_text_update;		// does this text need an update (after it was changed)
+		SDL_Texture*							m_texture;				// the texture that renders this text
+		unsigned int							m_line_width;			// max line width for this text
+		Color									m_shadow;				// text shadow (set opacity 0.0f to disable)
+		Pointi									m_shadow_offset;		// shadow offset
+
 
 	public:
 
@@ -79,6 +82,10 @@ namespace Ness
 		// return the texture this sprite uses
 		NESSENGINE_API inline const ManagedResources::ManagedFontPtr& get_font() const {return m_font;}
 		NESSENGINE_API inline ManagedResources::ManagedFontPtr get_font() {return m_font;}
+
+		// add shadow effect to this text
+		NESSENGINE_API void set_shadow(const Color& color, const Pointi& offset);
+		NESSENGINE_API void disable_shadow() {m_shadow.a = 0.0f;}
 
 		// override render so we update text first if we need to
 		NESSENGINE_API void render(const CameraPtr& camera = NullCamera);

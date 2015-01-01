@@ -45,18 +45,20 @@ namespace Ness
 		class GuiManager : public Utils::EventsHandler
 		{
 		protected:
-			RootContainerPtr										m_root_container;		// the gui root container that contains all sub containers and elements
-			Renderer*												m_renderer;				// pointer to the renderer object
-			Sizei													m_unit_size;			// all widgets size and position are based on unit size (like a grid)
-			String													m_resources_path;		// the path of the folder in which we have the gui textures
-			Utils::Mouse											m_mouse;				// mouse events handler
-			Utils::Keyboard											m_keyboard;				// keyboard events handler
-			Containers::Vector<ManagedResources::ManagedTexturePtr>	m_textures;				// preload all gui-related texture
-			ManagedResources::ManagedFontPtr						m_font;					// preload gui font
-			Color													m_default_text_color;	// default text color to set to all labels and textboxes
-			Color													m_default_frames_color;	// default text color to set to all frames background
-			unsigned int											m_font_size;			// font sizes
-			Sizei													m_padding;				// padding around gui widgets (empty space around them)
+			RootContainerPtr										m_root_container;				// the gui root container that contains all sub containers and elements
+			Renderer*												m_renderer;						// pointer to the renderer object
+			Sizei													m_unit_size;					// all widgets size and position are based on unit size (like a grid)
+			String													m_resources_path;				// the path of the folder in which we have the gui textures
+			Utils::Mouse											m_mouse;						// mouse events handler
+			Utils::Keyboard											m_keyboard;						// keyboard events handler
+			Containers::Vector<ManagedResources::ManagedTexturePtr>	m_textures;						// preload all gui-related texture
+			ManagedResources::ManagedFontPtr						m_font;							// preload gui font
+			Color													m_default_text_color;			// default text color to set to all labels and textboxes
+			Color													m_default_frames_color;			// default text color to set to all frames background
+			unsigned int											m_font_size;					// font sizes
+			Sizei													m_padding;						// padding around gui widgets (empty space around them)
+			Color													m_default_text_shadow;			// default shadow color for text
+			Pointi													m_default_text_shadow_offset;	// default distance of text shadow
 
 		public:
 			// create the gui manager
@@ -71,6 +73,9 @@ namespace Ness
 			// create a gui container
 			// size_in_units is the size of the container in grid_unit_size (as defined when you created the gui manager)
 			NESSENGINE_API ContainerPtr create_container(const Pointi& size_in_units);
+
+			// remove a gui container
+			NESSENGINE_API void remove_container(const ContainerPtr& container);
 
 			// get the renderer
 			NESSENGINE_API inline Renderer* renderer() const {return m_renderer;}
@@ -90,6 +95,14 @@ namespace Ness
 			// set/get the default text color
 			NESSENGINE_API inline void set_default_text_color(const Color& color) {m_default_text_color = color;}
 			NESSENGINE_API inline const Color& get_default_text_color() const {return m_default_text_color;}
+
+			// set/get default text shadow color
+			NESSENGINE_API inline void set_default_text_shadow_color(const Color& color) {m_default_text_shadow = color;}
+			NESSENGINE_API inline const Color& get_default_text_shadow_color() const {return m_default_text_shadow;}
+
+			// set/get default text shadow distance
+			NESSENGINE_API inline void set_default_text_shadow_offset(const Pointi& offset) {m_default_text_shadow_offset = offset;}
+			NESSENGINE_API inline const Pointi& get_default_text_shadow_offset() const {return m_default_text_shadow_offset;}
 
 			// set/get the default frames color
 			NESSENGINE_API inline void set_default_frames_color(const Color& color) {m_default_frames_color = color;}

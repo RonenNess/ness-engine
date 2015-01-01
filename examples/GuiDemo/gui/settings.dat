@@ -18,10 +18,10 @@ padding: 45,35
 default_font_color: #ffffffff
 
 # default text shadow color for all gui elements.
-default_font_shadow_color: #0000000a
+default_font_shadow_color: #000000aa
 
 # default text shadow offset.
-default_font_shadow_offset: 1,2
+default_font_shadow_offset: 2,2
 
 # default color for all frames in the gui. this include containers, buttons background, etc..
 default_frames_color: #ffffffff

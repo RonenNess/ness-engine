@@ -49,15 +49,14 @@ namespace Ness
 			// create the container
 			NESSENGINE_API GuiContainerAPI(GuiManager* manager, GuiContainerAPI* parent) : GuiElementAPI(manager, parent) {}
 
-			// add/remove gui element from this container
-			NESSENGINE_API virtual void add(const GuiElementPtr& element);
-			NESSENGINE_API virtual void remove(const GuiElementPtr& element);
-			NESSENGINE_API virtual void __add(GuiElementAPI* element);
-			NESSENGINE_API virtual void __remove_unsafe(GuiElementAPI* element);
-
 			// return the node of this container
 			NESSENGINE_API virtual NodePtr get_node() = 0;
-
+			
+			// add/remove gui element from this container
+			NESSENGINE_API virtual void __add(const GuiElementPtr& element);
+			NESSENGINE_API virtual void __remove(const GuiElementPtr& element);
+			NESSENGINE_API virtual void __add(GuiElementAPI* element);
+			NESSENGINE_API virtual void __remove_unsafe(GuiElementAPI* element);
 		};
 
 		// a pointer to a gui widget

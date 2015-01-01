@@ -84,7 +84,7 @@ namespace Ness
 		SharedPtr<Container> Container::create_container(const Pointi& size_in_units)
 		{
 			ContainerPtr ret = ness_make_ptr<Container>(this->m_manager, this, size_in_units);
-			add(ret);
+			__add(ret);
 			return ret;
 		}
 
@@ -142,7 +142,7 @@ namespace Ness
 		LabelPtr Container::create_label(const String& text)
 		{
 			LabelPtr ret = ness_make_ptr<Label>(this->m_manager, this, text);
-			add(ret);
+			__add(ret);
 			return ret;
 		}
 
