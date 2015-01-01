@@ -43,7 +43,14 @@ namespace Ness
 		GuiElementAPI::GuiElementAPI(GuiManager* manager, GuiContainerAPI* parent) 
 				: m_manager(manager), m_parent(parent), m_visible(true), m_enabled(true) 
 		{
-			m_node = m_parent->get_node()->create_node();
+			if (m_parent)
+			{
+				m_node = m_parent->get_node()->create_node();
+			}
+			else
+			{
+				m_node = ness_make_ptr<Node>(manager->renderer());
+			}
 		}
 
 		bool GuiElementAPI::is_point_on(const Pointi& pos)

@@ -74,6 +74,9 @@ namespace Ness
 			// destroy this gui element
 			NESSENGINE_API virtual void destroy();
 
+			// return the node of this gui element
+			NESSENGINE_API inline NodePtr get_node() {return m_node;}
+
 			// IMPORTANT NOTICE!!!
 			// ALL OF THE __invoke_event_x FUNCTIONS SHOULD BE CALLED FROM THE OUTSIDE BY THE PARENT!
 			// try not call them internally.

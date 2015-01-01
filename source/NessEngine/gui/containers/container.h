@@ -64,7 +64,6 @@ namespace Ness
 		class Container : public GuiContainerAPI
 		{
 		private:
-			NodePtr				m_node;					// the node used by this container
 			Point				m_position;				// the container position relative to its parent, in pixels
 			GuiElementPtr		m_focused_widget;		// the son widget currently under focus (or null if have no widget focused)
 			Pointi				m_size;					// frame size in gui grid units
@@ -96,9 +95,6 @@ namespace Ness
 			NESSENGINE_API virtual void __invoke_event_update_position();
 			NESSENGINE_API virtual void __invoke_event_mouse_down(EMouseButtons button, const Pointi& mouse_pos);
 			NESSENGINE_API virtual void __invoke_event_mouse_up(EMouseButtons button, const Pointi& mouse_pos);
-
-			// return the node
-			NESSENGINE_API virtual NodePtr get_node() {return m_node;}
 
 			// set container position, relative to parent, in pixels
 			NESSENGINE_API virtual void set_position(const Point& new_pos, const Point& anchor = Point::ZERO);

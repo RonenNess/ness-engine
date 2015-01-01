@@ -33,6 +33,7 @@
 #include "../basic_types/point.h"
 #include "../basic_types/pointers.h"
 #include "../basic_types/rectangle.h"
+#include "../renderable/nodes/node.h"
 
 namespace Ness
 {
@@ -55,11 +56,12 @@ namespace Ness
 			bool				m_visible;		// is this element visible?
 			bool				m_enabled;		// is this element enabled?
 
+		protected:
+			NodePtr				m_node;			// the main node containing all the entities and nodes of this gui element
+
 		public:
 
-			NESSENGINE_API GuiElementAPI(GuiManager* manager, GuiContainerAPI* parent) 
-				: m_manager(manager), m_parent(parent), m_visible(true), m_enabled(true) 
-			{}
+			NESSENGINE_API GuiElementAPI(GuiManager* manager, GuiContainerAPI* parent);
 
 			// set/get enabled
 			NESSENGINE_API inline void set_enabled(bool enabled) {if (m_enabled == enabled) return; m_enabled = enabled; __invoke_event_enabled_changed(enabled, false);}
@@ -69,8 +71,11 @@ namespace Ness
 			NESSENGINE_API inline void set_visible(bool visible) {if (m_visible == visible) return; m_visible = visible; __invoke_event_visibility_changed(visible, false);}
 			NESSENGINE_API inline bool is_visible() const {return m_visible;}
 
-			// remove this gui element
-			NESSENGINE_API virtual void remove_from_parent();
+			// destroy this gui element
+			NESSENGINE_API virtual void destroy();
+
+			// return the node of this gui element
+			NESSENGINE_API inline NodePtr get_node() {return m_node;}
 
 			// IMPORTANT NOTICE!!!
 			// ALL OF THE __invoke_event_x FUNCTIONS SHOULD BE CALLED FROM THE OUTSIDE BY THE PARENT!

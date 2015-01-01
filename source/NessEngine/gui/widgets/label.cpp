@@ -32,7 +32,7 @@ namespace Ness
 				: WidgetAPI(manager, parent)
 		{
 			// create the text
-			m_text = m_parent->get_node()->create_text(manager->get_font(), text);
+			m_text = m_node->create_text(manager->get_font(), text);
 			m_text->set_anchor(Point::ZERO);
 			m_text->set_blend_mode(BLEND_MODE_BLEND);
 			m_text->set_color(manager->get_default_text_color());

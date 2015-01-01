@@ -74,9 +74,6 @@ namespace Ness
 			// size_in_units is the size of the container in grid_unit_size (as defined when you created the gui manager)
 			NESSENGINE_API ContainerPtr create_container(const Pointi& size_in_units);
 
-			// remove a gui container
-			NESSENGINE_API void remove_container(const ContainerPtr& container);
-
 			// get the renderer
 			NESSENGINE_API inline Renderer* renderer() const {return m_renderer;}
 

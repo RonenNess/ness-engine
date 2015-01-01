@@ -39,7 +39,7 @@ namespace Ness
 			// create the frame graphics
 			{
 				// create the graphical part
-				m_graphics = m_parent->get_node()->create_tilemap(this->m_manager->get_resources_path() + m_textures_prefix + "_unfocused.png", size_in_units, m_manager->get_unit_size());
+				m_graphics = m_node->create_tilemap(this->m_manager->get_resources_path() + m_textures_prefix + "_unfocused.png", size_in_units, m_manager->get_unit_size());
 				m_graphics->set_color(manager->get_default_frames_color());
 
 				// set parts
