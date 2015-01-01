@@ -29,6 +29,7 @@
 
 #pragma once
 #include "../exports.h"
+#include "../exceptions/exceptions.h"
 #include "string.h"
 #include <cstdlib>
 
@@ -165,14 +166,10 @@ namespace Ness
 				throw IllegalAction("Input string is not a valid color format! serialized color must be 9 digits (#rrggbbaa)");
 			}
 
-			std::string rs = value.substr(1, 2);
-			std::string gs = value.substr(3, 2);
-			std::string bs = value.substr(5, 2);
-			std::string as = value.substr(7, 2);
-			r = (float)std::stoul(rs.c_str(), nullptr, 16) / 255.0f;
-			g = (float)std::stoul(gs.c_str(), nullptr, 16) / 255.0f;
-			b = (float)std::stoul(bs.c_str(), nullptr, 16) / 255.0f;
-			a = (float)std::stoul(as.c_str(), nullptr, 16) / 255.0f;
+			r = (type)std::stoul(tmp.substr(1, 2).c_str(), nullptr, 16) / 255.0f;
+			g = (type)std::stoul(tmp.substr(3, 2).c_str(), nullptr, 16) / 255.0f;
+			b = (type)std::stoul(tmp.substr(5, 2).c_str(), nullptr, 16) / 255.0f;
+			a = (type)std::stoul(tmp.substr(7, 2).c_str(), nullptr, 16) / 255.0f;
 		}
 
 		// get random color from 0.0f to 1.0f
