@@ -66,11 +66,6 @@ namespace Ness
 			__invoke_event_update_position();
 		}
 
-		void Label::render()
-		{
-			m_text->render();
-		}
-
 		const BoundingBox& Label::get_bounding_box() const
 		{
 			static BoundingBox box;

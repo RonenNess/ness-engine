@@ -101,6 +101,11 @@ namespace Ness
 			}
 		}
 
+		Frame::~Frame()
+		{
+			m_graphics->remove_from_parent();
+		}
+
 		void Frame::calculate_bounding_box()
 		{
 			if (m_parent)

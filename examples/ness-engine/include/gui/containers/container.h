@@ -120,6 +120,10 @@ namespace Ness
 			// return the element's bounding box
 			NESSENGINE_API virtual const BoundingBox& get_bounding_box() const {return m_bounding_box;}
 
+			// set the color of this container
+			NESSENGINE_API void set_color(const Color& color);
+			NESSENGINE_API const Color& get_color();
+
 		private:
 			// fix container docking (use dock_to() to set docking mode)
 			NESSENGINE_API void fix_docking();

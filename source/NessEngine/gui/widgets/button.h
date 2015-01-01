@@ -29,6 +29,8 @@
 #pragma once
 
 #include "gui_widget_api.h"
+#include "label.h"
+#include "frame.h"
 #include "../../renderable/entities/text.h"
 
 namespace Ness
@@ -40,35 +42,39 @@ namespace Ness
 		class Button : public WidgetAPI
 		{
 		protected:
-			TextPtr		m_text;		// the text entity that is the label
+			LabelPtr	m_text;		// the label part of the button
+			FramePtr	m_frame;	// the frame part of the button
 			Point		m_position;	// position in pixels relative to parent
 
 		public:
 
-			NESSENGINE_API Label(GuiManager* manager, GuiContainerAPI* parent, const String& text);
-			NESSENGINE_API ~Label();			
+			// create the button
+			// text is the text to write on it
+			// size_in_grid_units is the size of the button frame, or ZERO to match frame size to the text (default)
+			NESSENGINE_API Button(GuiManager* manager, GuiContainerAPI* parent, const String& text, const Sizei& size_in_grid_units = Sizei::ZERO);
+			NESSENGINE_API ~Button();			
 
 			// set container position, relative to parent, in pixels
 			NESSENGINE_API virtual void set_position(const Point& new_pos, const Point& anchor = Point::ZERO);
 
-			// make the label half opaque when turned invalid
+			// make the button look invalid
 			NESSENGINE_API virtual void __invoke_event_enabled_changed(bool new_state, bool by_parent);
 
-			// recalculate text position when moved
+			// recalculate button position when moved
 			NESSENGINE_API virtual void __invoke_event_update_position();
 			
-			// render the label
-			NESSENGINE_API virtual void render();
-
 			// return label bounding box
 			NESSENGINE_API virtual const BoundingBox& get_bounding_box() const;
 
 			// set label params
 			NESSENGINE_API void change_text(const String& text) {m_text->change_text(text);}
 			NESSENGINE_API const String& get_text() {return m_text->get_text();}
-			NESSENGINE_API void set_color(const Color& color) {m_text->set_color(color);}
-			NESSENGINE_API const Color& get_color() {return m_text->get_color();}
+			NESSENGINE_API void set_text_color(const Color& color) {m_text->set_color(color);}
+			NESSENGINE_API const Color& get_text_color() {return m_text->get_color();}
 
+			// set frame params
+			NESSENGINE_API void set_frame_color(const Color& color) {m_frame->set_color(color);}
+			NESSENGINE_API const Color& get_frame_color() {return m_frame->get_color();}
 		};
 
 		// a pointer to a label widget

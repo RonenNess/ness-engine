@@ -53,7 +53,7 @@ namespace Ness
 			// create the container graphics
 			if (visual)
 			{	
-				m_graphics = ness_make_ptr<Frame>(manager, this, size_in_units, "button");
+				m_graphics = ness_make_ptr<Frame>(manager, this, size_in_units, "frame");
 			}
 		}
 

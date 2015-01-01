@@ -57,9 +57,6 @@ namespace Ness
 			// recalculate text position when moved
 			NESSENGINE_API virtual void __invoke_event_update_position();
 			
-			// render the label
-			NESSENGINE_API virtual void render();
-
 			// return label bounding box
 			NESSENGINE_API virtual const BoundingBox& get_bounding_box() const;
 

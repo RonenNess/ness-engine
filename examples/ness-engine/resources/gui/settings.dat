@@ -11,7 +11,7 @@ font_size: 17
 grid_unit_size: 32,32
 
 # default text color for all gui elements.
-default_font_color: #880000ff
+default_font_color: #ffffffff
 
 # default color for all frames in the gui. this include containers, buttons background, etc..
-default_frames_color: #fab446ff
+default_frames_color: #e5c695ff
