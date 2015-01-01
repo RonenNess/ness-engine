@@ -212,9 +212,9 @@ namespace Ness
 	}
 
 	// create a new gui manager
-	Gui::GuiManagerPtr Renderer::create_gui_manager(const String& resources_path, const Point& grid_unit_size)
+	Gui::GuiManagerPtr Renderer::create_gui_manager(const String& resources_path)
 	{
-		return ness_make_ptr<Gui::GuiManager>(this, resources_path, grid_unit_size);
+		return ness_make_ptr<Gui::GuiManager>(this, resources_path);
 	}
 
 	// remove a scene

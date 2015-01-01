@@ -158,12 +158,12 @@ namespace Ness
 			// make sure string starts with '#' and remove it
 			if (tmp.at(0) != '#')
 			{
-				throw IllegalAction("Input string is not a valid color format! serialized color must begin with #.");
+				throw WrongFormatError("Input string is not a valid color format! serialized color must begin with #");
 			}
 			// make sure have enough digits
 			if (tmp.length() != 9)
 			{
-				throw IllegalAction("Input string is not a valid color format! serialized color must be 9 digits (#rrggbbaa)");
+				throw WrongFormatError("Input string is not a valid color format! serialized color must be 9 digits (#rrggbbaa)");
 			}
 
 			r = (type)std::stoul(tmp.substr(1, 2).c_str(), nullptr, 16) / 255.0f;

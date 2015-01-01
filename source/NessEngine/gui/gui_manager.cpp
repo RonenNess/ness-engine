@@ -1,21 +1,30 @@
 #include "gui_manager.h"
 #include "../renderer/renderer.h"
+#include "../exceptions/exceptions.h"
+#include <iostream>
+#include <fstream>
 
 namespace Ness
 {
 	namespace Gui
 	{
-			GuiManager::GuiManager(Renderer* renderer, const String& resources_path, const Pointi& grid_unit_size, const int font_size)
-		: m_renderer(renderer), m_unit_size(grid_unit_size), m_resources_path(resources_path + "/") 
+		GuiManager::GuiManager(Renderer* renderer, const String& resources_path)
+			: m_renderer(renderer), m_resources_path(resources_path + "/") 
 		{
 			// create the root container
 			m_root_container = ness_make_ptr<RootContainer>(this);
 
-			// pre-load gui font
-			m_font = m_renderer->resources().get_font(m_resources_path + "font.ttf", font_size);
+			// set defaults
+			m_unit_size = Point(32, 32);
+			m_default_text_color = Color::BLACK;
+			m_default_frames_color = Color::WHITE;
+			m_font_size = 17;
 
-			// set default text color
-			set_default_text_color(Color::BLACK);
+			// load gui settings file
+			load_settings();
+
+			// pre-load gui font
+			m_font = m_renderer->resources().get_font(m_resources_path + "font.ttf", m_font_size);
 
 			// pre-load all gui textures
 			m_textures.push_back(m_renderer->resources().get_texture(m_resources_path + "frame_disabled.png"));
@@ -28,6 +37,65 @@ namespace Ness
 			m_textures.push_back(m_renderer->resources().get_texture(m_resources_path + "button_unfocused.png"));
 			m_textures.push_back(m_renderer->resources().get_texture(m_resources_path + "button_mouse_hover.png"));
 			m_textures.push_back(m_renderer->resources().get_texture(m_resources_path + "button_mouse_down.png"));
+		}
+
+		void GuiManager::load_settings()
+		{
+
+			// open data file
+			std::ifstream infile;
+			infile.open(m_resources_path + "settings.dat");
+			if (infile.bad() || infile.eof()) 
+			{
+				throw FileNotFound((m_resources_path + "settings.dat").c_str());
+			}
+
+			// load all gui settings
+			std::string line;
+			while (std::getline(infile, line))
+			{
+				// ignore comments and empty lines
+				if (line.length() == 0 || line[0] == '#')
+					continue;
+
+				// split into param name and value
+				std::string param = line.substr(0, line.find(':'));
+				std::string value = line.substr(line.find(':') + 1);
+
+				// if there is space after the ':', remove it
+				while ((value[0] == ' ' || value[0] == '\t') && value.length() > 0)
+				{
+					value = value.substr(1);
+				}
+
+				// make sure value and param are valid
+				if (value.length() == 0 || param.length() == 0)
+				{
+					throw WrongFormatError(("Invalid key or value loaded in gui settings.dat! line: " + line).c_str());
+				}
+
+				// now parse params
+				if (param == "default_font_color")
+				{
+					m_default_text_color.deserialize(value);
+				}
+				else if (param == "default_frames_color")
+				{
+					m_default_frames_color.deserialize(value);
+				}
+				else if (param == "font_size")
+				{
+					m_font_size = atoi(value.c_str());
+				}
+				else if (param == "grid_unit_size")
+				{
+					// TBD
+				}
+				else
+				{
+					throw WrongFormatError(("Unknown parameter in gui settings.dat! line: " + line).c_str());
+				}
+			}
 		}
 
 		ContainerPtr GuiManager::create_container(const Pointi& size_in_units)

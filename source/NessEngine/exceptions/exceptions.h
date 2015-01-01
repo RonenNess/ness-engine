@@ -132,6 +132,23 @@ namespace Ness
 		const char *what() const throw() { return m_full_string.c_str(); };
 	};
 
+	// raised when trying to parse something but the format is wrong
+	class WrongFormatError : public std::exception {
+	  private:
+		String m_reason;
+		String m_full_string;
+
+	  public:
+		WrongFormatError(const char* reason = "unknown") : m_reason(reason) 
+		{
+			m_full_string = (String("Invalid format: '") + m_reason);
+			NESS_ERROR(what());
+		}
+		~WrongFormatError() throw() {};
+		const char *what() const throw() { return m_full_string.c_str(); };
+	};
+	
+
 	// raised when something unexpected happens
 	class UnexpectedError : public std::exception {
 	  private:

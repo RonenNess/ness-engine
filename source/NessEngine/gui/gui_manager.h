@@ -53,20 +53,16 @@ namespace Ness
 			Utils::Keyboard											m_keyboard;				// keyboard events handler
 			Containers::Vector<ManagedResources::ManagedTexturePtr>	m_textures;				// preload all gui-related texture
 			ManagedResources::ManagedFontPtr						m_font;					// preload gui font
-			Color													m_default_text_color;	// default text color to set to all future labels and textboxes
+			Color													m_default_text_color;	// default text color to set to all labels and textboxes
+			Color													m_default_frames_color;	// default text color to set to all frames background
+			unsigned int											m_font_size;			// font sizes
 
 		public:
 			// create the gui manager
 			// renderer: pointer to the owner renderer
-			// resources_path:	the path to the folder that will contain all the gui textures. 
+			// resources_path:	the path to the folder that will contain all the gui textures, resources and settings.dat file. 
 			//					there is default gui skin provided within ness-engine resources.
-			// grid_unit_size:	all sizes and units in gui elements are based on the grid. this 
-			//					param determine the size of a single grid unit.
-			// font_size:		the size of the gui font. if you choose a font too small and force
-			//					gui text to be larger by scaling the gui text elements, the font will
-			//					turn out blurry.
-			NESSENGINE_API GuiManager(Renderer* renderer, const String& resources_path = "ness-engine/resources/gui/", 
-										const Pointi& grid_unit_size = Point(32, 32), const int font_size = 17);
+			NESSENGINE_API GuiManager(Renderer* renderer, const String& resources_path = "ness-engine/resources/gui/");
 
 			// handle events
 			NESSENGINE_API virtual bool inject_event(const Event& event);
@@ -91,8 +87,17 @@ namespace Ness
 			NESSENGINE_API inline void set_default_text_color(const Color& color) {m_default_text_color = color;}
 			NESSENGINE_API inline const Color& get_default_text_color() const {return m_default_text_color;}
 
+			// set/get the default frames color
+			NESSENGINE_API inline void set_default_frames_color(const Color& color) {m_default_frames_color = color;}
+			NESSENGINE_API inline const Color& get_default_frames_color() const {return m_default_frames_color;}
+
 			// render the gui!
 			NESSENGINE_API void render();
+
+		private:
+			// load gui settings from settings file
+			NESSENGINE_API void load_settings();
+
 		};
 
 		// a pointer to a gui node

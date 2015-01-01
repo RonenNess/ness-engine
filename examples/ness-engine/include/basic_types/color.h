@@ -29,7 +29,8 @@
 
 #pragma once
 #include "../exports.h"
-#include <string.h>
+#include "../exceptions/exceptions.h"
+#include "string.h"
 #include <cstdlib>
 
 namespace Ness
@@ -121,11 +122,61 @@ namespace Ness
 		NESSENGINE_API static __Color<type> INVISIBLE;
 		NESSENGINE_API static __Color<type> HALF_INVISIBLE;
 
-		// get random color from 0 to 255
-		static NESSENGINE_API __Color<type> get_random_255() {return __Color<type>((type)(rand() % 256), (type)(rand() % 256), (type)(rand() % 256));}
+		// serialize the color and return a string representation of it
+		// note: only works for float color
+		NESSENGINE_API String serialize() const
+		{
+			String ret = "#";
+			String temp;
+			char arr[3];
+			_itoa_s ((int)(r * 255.0f), arr, 16);
+			temp = arr;
+			if (temp.length() == 1) temp = '0' + temp;
+			ret.append(temp);
+			_itoa_s ((int)(g * 255.0f), arr, 16);
+			temp = arr;
+			if (temp.length() == 1) temp = '0' + temp;
+			ret.append(temp);
+			_itoa_s ((int)(b * 255.0f), arr, 16);
+			temp = arr;
+			if (temp.length() == 1) temp = '0' + temp;
+			ret.append(temp);
+			_itoa_s ((int)(a * 255.0f), arr, 16);
+			temp = arr;
+			if (temp.length() == 1) temp = '0' + temp;
+			ret.append(temp);
+			return ret;
+		}
+
+		// deserialize the color from a string representation
+		// note: only works for float color
+		NESSENGINE_API void deserialize(const String& src)
+		{
+			// take the first 9 chars out of the src string: '#rrggbbaa' = 9 chars
+			String tmp = src.substr(0, 9);
+
+			// make sure string starts with '#' and remove it
+			if (tmp.at(0) != '#')
+			{
+				throw WrongFormatError("Input string is not a valid color format! serialized color must begin with #");
+			}
+			// make sure have enough digits
+			if (tmp.length() != 9)
+			{
+				throw WrongFormatError("Input string is not a valid color format! serialized color must be 9 digits (#rrggbbaa)");
+			}
+
+			r = (type)std::stoul(tmp.substr(1, 2).c_str(), nullptr, 16) / 255.0f;
+			g = (type)std::stoul(tmp.substr(3, 2).c_str(), nullptr, 16) / 255.0f;
+			b = (type)std::stoul(tmp.substr(5, 2).c_str(), nullptr, 16) / 255.0f;
+			a = (type)std::stoul(tmp.substr(7, 2).c_str(), nullptr, 16) / 255.0f;
+		}
 
 		// get random color from 0.0f to 1.0f
-		static NESSENGINE_API __Color<type> get_random() {return __Color<type>((type)((rand() % 1000) / 1000.0f), (type)((rand() % 1000) / 1000.0f), (type)((rand() % 1000) / 1000.0f));}
+		static NESSENGINE_API __Color<float> get_random() {return __Color<float>(Math::rand_float(), Math::rand_float(), Math::rand_float());}
+
+		// get random color from 0 to 255
+		static NESSENGINE_API __Color<type> get_random_255() {return __Color<type>((type)(rand() % 256), (type)(rand() % 256), (type)(rand() % 256));}
 	};
 
 	// predefined color types we'll be using
