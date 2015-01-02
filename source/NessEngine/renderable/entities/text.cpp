@@ -35,6 +35,7 @@ namespace Ness
 		set_static(true);
 		set_blend_mode(BLEND_MODE_BLEND);
 		disable_shadow();
+		update_text();
 	}
 
 	Text::Text(Renderer* renderer, const String& FontFile, const String& text, unsigned int font_size) : 
@@ -46,6 +47,7 @@ namespace Ness
 		set_static(true);
 		set_blend_mode(BLEND_MODE_BLEND);
 		disable_shadow();
+		update_text();
 	}
 
 	Text::~Text()
@@ -81,8 +83,12 @@ namespace Ness
 		transformations_update();
 	}
 
-	void Text::update()
+	void Text::update_text()
 	{
+		// check if don't need update
+		if (!m_need_text_update)
+			return;
+
 		// free previous texture if exist
 		if (m_texture)
 		{
@@ -134,7 +140,7 @@ namespace Ness
 		// if need to update the text surface call update
 		if (m_need_text_update)
 		{
-			update();
+			update_text();
 		}
 
 		// call the base render function

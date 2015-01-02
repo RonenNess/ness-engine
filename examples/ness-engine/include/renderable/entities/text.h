@@ -90,10 +90,13 @@ namespace Ness
 		// override render so we update text first if we need to
 		NESSENGINE_API void render(const CameraPtr& camera = NullCamera);
 
-	protected:
-
 		// update after font/text change
-		NESSENGINE_API void update();
+		// note: you don't need to call this it will be called automatically after render
+		// call this manually only if you need to relay on some params that will be automatically calculated
+		// when updating text (like size ect..)
+		NESSENGINE_API void update_text();
+
+	protected:
 
 		// the actual rendering function
 		NESSENGINE_API virtual void do_render(const Rectangle& target, const SRenderTransformations& transformations);

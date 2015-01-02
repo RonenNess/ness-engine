@@ -24,13 +24,22 @@ int _tmain(int argc, _TCHAR* argv[])
 	// create a new gui manager
 	Ness::Gui::GuiManagerPtr gui = renderer.create_gui_manager("gui");
 	
-	// create main menu container
-	Ness::Gui::ContainerPtr main_menu = gui->create_container(Ness::Point(7, 5));
-	Ness::Gui::LabelPtr header = main_menu->create_label("Main Menu");
+	// create the main menu container and dock to the center of the screen
+	Ness::Gui::ContainerPtr main_menu = gui->create_container(Ness::Point(6, 5));
 	main_menu->dock_to(Ness::Gui::DOCK_CENTER);
+
+	// create a header with background on top of the menu
+	Ness::Gui::LabelPtr header = main_menu->create_label("Main Menu");
+	header->set_position(Ness::Point(0.0f, -65.0f), Ness::Point::HALF);
 	header->set_alignment(Ness::TEXT_ALIGN_CENTER);
-	//header->destroy();
-	//main_menu->set_enabled(false);
+	header->set_background_image("gui/header_background.png", true);
+	header->get_background_image()->add_scale(1.0f);
+	header->get_background_image()->add_position(Ness::Point(0.0f, -14.0f));
+
+	// create another label with text
+	Ness::Gui::LabelPtr welcome = main_menu->create_label("Welcome to GUI example!");
+	welcome->set_alignment(Ness::TEXT_ALIGN_CENTER);
+
 
 	// create the events handler
 	Ness::Utils::EventsPoller EventsPoller;

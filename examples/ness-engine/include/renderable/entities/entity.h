@@ -127,10 +127,10 @@ namespace Ness
 		// render this entity
 		NESSENGINE_API virtual void render(const CameraPtr& camera = NullCamera);
 
-	protected:
-
 		// calculate the target rect, which is the position and size of this entity when rendered on the screen
 		NESSENGINE_API virtual void calc_target_rect();
+
+	protected:
 
 		// check if target rectangle is inside screen
 		NESSENGINE_API bool is_in_screen(const Rectangle& target, float rotation) const;

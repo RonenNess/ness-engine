@@ -55,6 +55,32 @@ namespace Ness
 			m_text->set_shadow(shadow_color, offset);
 		}
 
+		void Label::set_background_image(const String& texture_file, bool fit_text_size)
+		{
+			m_back_img = m_node->create_sprite(texture_file);
+			m_back_img->set_blend_mode(BLEND_MODE_BLEND);
+			m_node->remove(m_back_img);
+			m_node->add_first(m_back_img);
+			if (fit_text_size)
+			{
+				m_back_img->set_position(m_text->get_position());
+				m_back_img->set_size(m_text->get_size());
+				m_back_img->set_scale(m_text->get_scale());
+				m_back_img->set_anchor(m_text->get_anchor());
+			}
+			else
+			{
+				m_back_img->set_anchor(Ness::Point::HALF);
+				m_back_img->set_position(m_text->get_position() + m_text->get_absolute_size() * m_text->get_anchor());
+			}
+		}
+		
+		void Label::clear_background_image()
+		{
+			m_back_img->remove_from_parent();
+			m_back_img.reset();
+		}
+
 		void Label::disable_shadow()
 		{
 			m_text->disable_shadow();

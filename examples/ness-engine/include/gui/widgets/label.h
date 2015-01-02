@@ -42,6 +42,7 @@ namespace Ness
 		protected:
 			TextPtr		m_text;		// the text entity that is the label
 			Point		m_position;	// position in pixels relative to parent
+			SpritePtr	m_back_img;	// optional background image to this label
 
 		public:
 
@@ -65,14 +66,23 @@ namespace Ness
 
 			// set label shadow
 			NESSENGINE_API void set_shadow(const Color& shadow_color, const Pointi& offset);
-			NESSENGINE_API void disable_shadow();	
+			NESSENGINE_API void disable_shadow();
+
+			// set/unset background image
+			// texture_file is the background image texture
+			// fit_text_size if true will stretch the image over the entire text size. if false,
+			// will place the picture behind the center of the text
+			NESSENGINE_API void set_background_image(const String& texture_file, bool fit_text_size);
+			NESSENGINE_API SpritePtr& get_background_image() {return m_back_img;}
+			NESSENGINE_API void clear_background_image();
 
 			// set label params
 			NESSENGINE_API void change_text(const String& text) {m_text->change_text(text);}
 			NESSENGINE_API const String& get_text() {return m_text->get_text();}
 			NESSENGINE_API void set_color(const Color& color) {m_text->set_color(color);}
 			NESSENGINE_API const Color& get_color() {return m_text->get_color();}
-
+			NESSENGINE_API void set_scale(const Point& scale) {m_text->set_scale(scale);}
+			NESSENGINE_API const Point get_scale() {return m_text->get_scale();}
 		};
 
 		// a pointer to a label widget
