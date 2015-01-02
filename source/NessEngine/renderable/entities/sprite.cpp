@@ -90,8 +90,8 @@ namespace Ness
 
 	void Sprite::set_source_from_sprite_sheet(const Pointi& step, const Sizei stepsCount, bool setSize)
 	{
-		int x_step = (int)((1.0f / stepsCount.x) * m_texture->get_size().x);
-		int y_step = (int)((1.0f / stepsCount.y) * m_texture->get_size().y);
+		int x_step = (int)((float)m_texture->get_size().x / (float)stepsCount.x);
+		int y_step = (int)((float)m_texture->get_size().y / (float)stepsCount.y);
 		m_source_rect.x = x_step * step.x;
 		m_source_rect.y = y_step * step.y;
 		m_source_rect.w = x_step;
