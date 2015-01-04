@@ -112,8 +112,8 @@ namespace Ness
 		Rectangle target = m_target_rect;
 		if (!m_static && camera)
 		{
-			target.x -= (int)camera->position.x;
-			target.y -= (int)camera->position.y;
+			target.x -= (int)floor(camera->position.x);
+			target.y -= (int)floor(camera->position.y);
 		} 
 
 		return is_in_screen(target, trans.rotation);
@@ -140,8 +140,8 @@ namespace Ness
 		Rectangle target = m_target_rect;
 		if (!m_static && camera)
 		{
-			target.x -= (int)camera->position.x;
-			target.y -= (int)camera->position.y;
+			target.x -= (int)floor(camera->position.x);
+			target.y -= (int)floor(camera->position.y);
 		} 
 
 		return is_in_screen(target, trans.rotation);
@@ -202,8 +202,8 @@ namespace Ness
 		Rectangle target = m_target_rect;
 		if (!m_static && camera)
 		{
-			target.x -= (int)camera->position.x;
-			target.y -= (int)camera->position.y;
+			target.x -= (int)floor(camera->position.x);
+			target.y -= (int)floor(camera->position.y);
 		}
 
 		// check if in screen

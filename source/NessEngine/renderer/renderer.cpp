@@ -137,13 +137,13 @@ namespace Ness
 	// get center of current render target
 	Sizei Renderer::get_target_center() const
 	{
-		return Sizei((int)(m_target_size->x * 0.5f), (int)(m_target_size->y * 0.5f));
+		return Sizei((int)floor(m_target_size->x * 0.5f), (int)floor(m_target_size->y * 0.5f));
 	}
 
 	// get center of screen
 	Sizei Renderer::get_screen_center() const
 	{
-		return Sizei((int)(m_renderer_size.x * 0.5f), (int)(m_renderer_size.y * 0.5f));
+		return Sizei((int)floor(m_renderer_size.x * 0.5f), (int)floor(m_renderer_size.y * 0.5f));
 	}
 
 	// create the camera object

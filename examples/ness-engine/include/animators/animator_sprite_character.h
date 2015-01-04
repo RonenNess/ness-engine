@@ -97,7 +97,7 @@ namespace Ness
 			String										m_default_anim;		// default animation to return to when completing cycle
 			bool										m_loop;				// should we loop on the current animation
 			float										m_time_to_wait;		// time to wait on current step
-			Pointi								m_override_index;	// if set to different then (-1, -1), will override the animation index
+			Pointi										m_override_index;	// if set to different then (-1, -1), will override the animation index
 
 		public:
 			NESSENGINE_API static CharacterAnimationsPtr create_empty_animations() {return ness_make_ptr<CharacterAnimations>();}
