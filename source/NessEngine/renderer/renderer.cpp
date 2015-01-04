@@ -340,7 +340,31 @@ namespace Ness
 		}
 	}
 
-	// render surface
+	NESSENGINE_API void Renderer::draw_circle(const Pointi& position, float radius, const Color& color, EBlendModes mode)
+	{
+		// set blend mode and color
+		SDL_SetRenderDrawBlendMode(m_renderer, (SDL_BlendMode)mode);
+		SDL_SetRenderDrawColor(m_renderer, (Uint8)(color.r * 255), (Uint8)(color.g * 255), (Uint8)(color.b * 255), (Uint8)(color.a * 255));
+
+		float two_pi = 6.283f;
+		float angle_inc = 1.0f / radius;
+		for(float angle=0.0f; angle<= two_pi;angle+=angle_inc){
+			int xpos = (int)(position.x + radius * cos(angle));
+			int ypos = (int)(position.y + radius * sin(angle));
+			SDL_RenderDrawPoint(m_renderer, xpos, ypos);
+		}
+	}
+
+	void Renderer::draw_line(const Ness::Pointi& a, const Ness::Pointi& b, const Color& color, EBlendModes mode)
+	{
+		// set blend mode and color
+		SDL_SetRenderDrawBlendMode(m_renderer, (SDL_BlendMode)mode);
+		SDL_SetRenderDrawColor(m_renderer, (Uint8)(color.r * 255), (Uint8)(color.g * 255), (Uint8)(color.b * 255), (Uint8)(color.a * 255));
+
+		// render the line
+		SDL_RenderDrawLine(m_renderer, a.x, a.y, b.x, b.y);
+	}
+
 	void Renderer::blit(SDL_Texture* texture, const Rectangle* SrcRect, const Rectangle& TargetRect, EBlendModes mode, const Color& color, float rotation, Point rotation_anchor)
 	{
 

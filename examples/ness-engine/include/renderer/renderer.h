@@ -233,6 +233,13 @@ namespace Ness
 		// draw rectagnle
 		NESSENGINE_API void draw_rect(const Rectangle& TargetRect, const Color& color, bool filled = true, EBlendModes mode = BLEND_MODE_NONE);
 
+		// draw circle
+		// WARNING: very not efficient (render by pixels) use for debug purposes only!
+		NESSENGINE_API void draw_circle(const Pointi& position, float radius, const Color& color, EBlendModes mode = BLEND_MODE_NONE);
+
+		// draw a line between point a and b
+		NESSENGINE_API void draw_line(const Ness::Pointi& a, const Ness::Pointi& b, const Color& color, EBlendModes mode = BLEND_MODE_NONE);
+
 		// return the sdl renderer
 		inline SDL_Renderer* __sdl_renderer() {return m_renderer;}
 
