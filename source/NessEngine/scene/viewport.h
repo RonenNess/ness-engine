@@ -29,16 +29,16 @@
 *		is 100x100 and the dest size is 200x200, it means every pixel on this viewport will be doubled.
 * 3. viewport dest position, i.e. where to render the viewport.
 * 4. viewport source position, i.e. extra offset for all renderings.
-* 5. a black and white mask texture that acts as the alpha channels of the viewport. you can use it to create a
+* 5. add a black and white mask texture that acts as the alpha channels of the viewport. you can use it to create a
 *		viewport in any shape and size.
 * 6. basic transformations: color, scale, rotation, flip etc..
 *
 * example of cases where you need a viewport:
-*	1. you want to render a scene inside a special shape based on a mask. for example a mini-map at the corner of the screen, etc..
-*	2. special rendering settings, like flipping or rotating the entire screen, zoom in and out, do color tilt on everything, etc..
-*	3. limit your render region or create split-screen effect. for example to create split-screen for two players: create two view ports, one for the
+*	1. you want to render a scene inside a special shape based on a mask. for example a mini-map at the corner of the screen with a circular shape.
+*	2. when you want to flip or rotate the entire screen, zoom in and out, do color tilt on everything, etc..
+*	3. limit your render region or create split-screen effect. for example to create split-screen for two players: create two viewports; one for the
 *		left side and one for the right side of the screen. each viewport will be rendered with a different camera based on the player position.
-*	4. create post-render effects that are based on texture manipulation (for example add blurry effect)
+*	4. create post-render effects that are based on texture manipulation (for example add blurry effect etc)
 *
 * its important to understand that a viewport is meant to be something static, i.e. a region on screen to render on. don't try to use a viewport like a sprite.
 * if you want to create effects like portals that show a different scene inside or windows you can look outside, don't use a viewport, use a Canvas instead. you can 
@@ -74,11 +74,11 @@ namespace Ness
 		// size is the source size of the viewport, i.e. the size of the region you can render on.
 		//		if ZERO, will take the whole renderer size (note that if renderer / window size changes it
 		//		will not update the size of the viewport automatically, you will need to update manually.
-		NESSENGINE_API Viewport(Renderer* renderer, const Sizei& size = Sizei::ZERO);
+		NESSENGINE_API Viewport(Renderer* renderer, const Sizei& source_size = Sizei::ZERO);
 
 		// reset the viewport with a new source size. note: this cancel all settings and transformations you've made.
 		// size ZERO will take the entire renderer size (at the time of calling reset).
-		NESSENGINE_API void reset(const Sizei& size = Sizei::ZERO);
+		NESSENGINE_API void reset(const Sizei& source_size = Sizei::ZERO);
 
 		// set viewport source position, i.e. offset to add to all rendering on this viewport
 		NESSENGINE_API inline void set_source_position(const Point& position) {m_source_offset = position;}
@@ -109,6 +109,9 @@ namespace Ness
 		// set a black and white mask to this viewport that will act as alpha channels
 		// black is opaque, white is invisible
 		NESSENGINE_API inline void set_mask(const String& textureFile) {m_canvas->set_mask(textureFile);}
+
+		// set anchor for rotation and position
+		NESSENGINE_API void set_anchor(const Point& anchor);
 
 		// remove a mask from this canvas
 		NESSENGINE_API inline void remove_mask() {m_canvas->remove_mask();}

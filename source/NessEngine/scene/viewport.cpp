@@ -26,12 +26,12 @@
 
 namespace Ness
 {
-	Viewport::Viewport(Renderer* renderer, const Sizei& size) : m_renderer(renderer)
+	Viewport::Viewport(Renderer* renderer, const Sizei& source_size) : m_renderer(renderer)
 	{
-		reset(size);
+		reset(source_size);
 	}
 
-	void Viewport::reset(const Sizei& size)
+	void Viewport::reset(const Sizei& source_size)
 	{
 		if (m_canvas) m_canvas.reset();
 		static unsigned int unique_id = 0;
@@ -55,13 +55,18 @@ namespace Ness
 
 	void Viewport::set_dest_region(const Rectangle& region)
 	{
-		set_dest_position(Pointi(region.x, region.y));
+		set_dest_position(Pointi(region.x, region.y) - (Size((float)region.w, (float)region.h) * m_canvas->get_anchor()));
 		set_dest_size(Sizei(region.w, region.h));
 	}
 
 	void Viewport::set_scale(const Point& scale)
 	{
 		m_canvas->set_scale(scale);
+	}
+
+	void Viewport::set_anchor(const Point& anchor)
+	{
+		m_canvas->set_anchor(anchor);
 	}
 
 	void Viewport::flip_x()
