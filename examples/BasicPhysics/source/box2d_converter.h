@@ -1,3 +1,10 @@
+/*
+* Adapter between ness-engine and box2d, to create objects with physics.
+* basically the adapter is a connector that gets both a ness-engine entity and a box2d body and update them accordingly.
+* Athor: Ronen Ness
+* Since: 10/14
+*/
+
 #pragma once
 
 #include <NessEngine.h>
@@ -17,7 +24,10 @@ public:
 	static float scalar(const float32 scalar) {return scalar * METERS_TO_PIXELS; }
 
 	// convert box2d to ness angle (radian to degree)
-	static int angle(const float32 radians) {return (int)RADIAN_TO_DEGREE(radians);}
+	static float angle(const float32 radians) {return (float)RADIAN_TO_DEGREE(radians);}
+
+	// convert box2d to ness color
+	static Ness::Color color(const b2Color& color) {return Ness::Color(color.r, color.g, color.b, 1.0f);}
 };
 
 // convert from ness-engine stuff to box2d stuff
@@ -31,11 +41,14 @@ public:
 	static float32 scalar(const float scalar) {return scalar / METERS_TO_PIXELS; }
 
 	// convert ness to box2d angle (degree to radian)
-	static float32 angle(const int angle) {return (float)DEGREE_TO_RADIAN(angle);}
+	static float32 angle(const float angle) {return (float)DEGREE_TO_RADIAN(angle);}
+
+	// convert box2d to ness color
+	static b2Color color(const Ness::Color& color) {return b2Color(color.r, color.g, color.b);}
 };
 
 // connect Box2D body to a ness-engine entity
-class NessBoxConnector
+class NessBoxConnector : public Ness::Animators::AnimatorAPI
 {
 private:
 	Ness::RenderablePtr m_ness_entity;
@@ -46,11 +59,20 @@ public:
 	NessBoxConnector(const Ness::RenderablePtr& nessEntity, b2Body* box2Dbody) : m_ness_entity(nessEntity), m_box_body(box2Dbody)
 	{ }
 
+	// get entity/body
+	inline Ness::RenderablePtr& get_entity() {return m_ness_entity;}
+	inline const Ness::RenderablePtr& get_entity() const {return m_ness_entity;}
+	inline b2Body* get_body() {return m_box_body;}
+	inline const b2Body* get_body() const {return m_box_body;}
+
 	// update position and rotation (must be called every frame)
-	inline void update()
+	inline void do_animation(Ness::Renderer* renderer)
 	{
+		// set position
 		m_ness_entity->set_position(Box2dToNess::point(m_box_body->GetPosition()));
-		m_ness_entity->set_rotation((float)RADIAN_TO_DEGREE(m_box_body->GetAngle()));
+
+		// set rotation
+		m_ness_entity->set_rotation(Box2dToNess::angle(m_box_body->GetAngle()));
 	}
 
 	// set position
@@ -60,8 +82,9 @@ public:
 	}
 
 	// set rotation
-	inline void set_rotation(int NewAngle)
+	inline void set_rotation(float NewAngle)
 	{
 		m_box_body->SetTransform(m_box_body->GetPosition(), NessToBox2d::angle(NewAngle));
 	}
 };
+

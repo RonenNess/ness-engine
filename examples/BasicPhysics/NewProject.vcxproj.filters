@@ -23,5 +23,8 @@
     <ClInclude Include="source\box2d_converter.h">
       <Filter>Source Files</Filter>
     </ClInclude>
+    <ClInclude Include="source\debug_draw.h">
+      <Filter>Source Files</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>

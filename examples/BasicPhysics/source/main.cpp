@@ -5,6 +5,18 @@
 #include <NessEngine.h>
 #include <Box2D/Box2D.h>
 #include "box2d_converter.h"
+#include "debug_draw.h"
+
+// advance the physical simulator steps (must be called every frame to do physics)
+void physics_step(b2World& world, float msdelta)
+{
+	static Uint32 time = Ness::get_ticks();
+	static Uint32 lasttime = time;
+
+    time = Ness::get_ticks();
+    world.Step((time - lasttime) / 1000.0f, 10, 10);
+    lasttime = time; // lasttime is a member variable that holds the ticks since the last loop
+}
 
 int _tmain(int argc, _TCHAR* argv[])
 {
@@ -24,7 +36,12 @@ int _tmain(int argc, _TCHAR* argv[])
 	b2Vec2 gravity(0.0f, 9.8f);
 	b2World world(gravity);
 
-	// first, we create the Box2D body (as a dynamic box):
+	// create debug draw for box2d
+	Box2dDebugDraw physics_debug(&renderer, Ness::CameraPtr());
+	world.SetDebugDraw(&physics_debug);
+	physics_debug.SetFlags( b2Draw::e_shapeBit );
+
+	// first, we create the Box2D body for the crab
 
 	// Define the dynamic body. We set its position and call the body factory.
 	b2BodyDef bodyDef;
@@ -34,18 +51,18 @@ int _tmain(int argc, _TCHAR* argv[])
 
 	// Define another box shape for our dynamic body.
 	b2CircleShape crabShape;
-	crabShape.m_radius = 1.0f;
+	crabShape.m_radius = 0.5f;
 
 	// Define the dynamic body fixture.
 	b2FixtureDef fixtureDef;
 	fixtureDef.shape = &crabShape;
-	fixtureDef.density = 1.0f;
-	fixtureDef.restitution = 0.8f;
+	fixtureDef.density = 2.5f;
+	fixtureDef.restitution = 0.5f;
 
 	// Add the shape to the body.
 	body->CreateFixture(&fixtureDef);
 
-	// now we'll create a ness-engine sprite
+	// now we'll create a ness-engine sprite and connect it with the physical body
 
 	Ness::SpritePtr player = node->create_sprite("../ness-engine/resources/gfx/crab.png");
 	player->set_anchor(Ness::Point::HALF);
@@ -55,18 +72,16 @@ int _tmain(int argc, _TCHAR* argv[])
 	// and we use our new connector class to connect the two:
 	NessBoxConnector playerBodyConnector(player, body);
 	playerBodyConnector.set_position(Ness::Pointi(renderer.get_screen_center().x, 0));
+	renderer.__register_animator_unsafe(&playerBodyConnector);
 
-	// create const floor
+	// now we create the physical body for the floor
+
 	b2BodyDef groundBodyDef;
-	groundBodyDef.position.Set(0.0f, 16.0f);
+	groundBodyDef.position.Set(0.0f, 15.5f);
 	b2Body* groundBody = world.CreateBody(&groundBodyDef);
 	b2PolygonShape groundBox;
 	groundBox.SetAsBox(350.0f, 10.0f);
 	groundBody->CreateFixture(&groundBox, 0.0f);
-
-	// two consts for the physical simulator
-	const int32 velocityIterations = 6;
-	const int32 positionIterations = 2;
 
     // event handlers
     Ness::Utils::EventsPoller EventsPoller;
@@ -91,10 +106,6 @@ int _tmain(int argc, _TCHAR* argv[])
 		// poll all events
         EventsPoller.poll_events();
 
-		// Instruct the world to perform a single step of simulation.
-		// It is generally best to keep the time step and iterations fixed.
-		world.Step(renderer.time_factor(), velocityIterations, positionIterations);
-
 		if (keyboard.key_state(SDLK_UP))
 		{
 			body->ApplyForce( b2Vec2(0,-50), body->GetWorldCenter(), true);
@@ -112,11 +123,42 @@ int _tmain(int argc, _TCHAR* argv[])
 			body->ApplyForce( b2Vec2(15,0), body->GetWorldCenter(), true);
 		}
 
-		playerBodyConnector.update();
+		// when mouse click we generate a small evil crab
+		static bool mouse_was_down = false;
+		if (mouse.is_down(Ness::MOUSE_LEFT))
+		{
+			if (!mouse_was_down)
+			{
+				b2BodyDef bodyDef;
+				bodyDef.type = b2_dynamicBody;
+				bodyDef.position = NessToBox2d::point(mouse.position());
+				b2Body* body = world.CreateBody(&bodyDef);
+				b2CircleShape Shape;
+				Shape.m_radius = 0.35f;
+				b2FixtureDef fixtureDef;
+				fixtureDef.shape = &Shape;
+				fixtureDef.density = 2.5f;
+				fixtureDef.restitution = 0.5f;
+				body->CreateFixture(&fixtureDef);
+				Ness::SpritePtr new_crab = node->create_sprite("../ness-engine/resources/gfx/crab.png");
+				new_crab->set_anchor(Ness::Point::HALF);
+				new_crab->set_blend_mode(Ness::BLEND_MODE_BLEND);
+				new_crab->set_scale(0.125f);
+				new_crab->set_color(Ness::Color::BLUE);
+				renderer.__register_animator_unsafe(new NessBoxConnector(new_crab, body));
+			}
+			mouse_was_down = true;
+		}
+		else
+		{
+			mouse_was_down = false;
+		}
 
         // render
         renderer.start_frame();
         scene->render();
+		physics_step(world, renderer.time_factor() * 1000.0f);
+		world.DrawDebugData();
         renderer.end_frame();
     }
 }
