@@ -410,4 +410,9 @@ namespace Ness
 			SDL_RenderCopy(m_renderer, texture, SrcRect, &target);
 		}
 	}
+
+	ViewportPtr Renderer::create_viewport(const Sizei& source_size) const
+	{
+		return ness_make_ptr<Viewport>((Renderer*)this, source_size);
+	}
 };
