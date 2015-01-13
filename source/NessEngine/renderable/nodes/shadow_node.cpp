@@ -134,9 +134,9 @@ namespace Ness
 		m_need_update = true;
 	}
 
-	ShadowPtr ShadowNode::create_shadow(const String& shadowTexture, const Color& color)
+	ShadowPtr ShadowNode::create_shadow(const String& shadow_texture, const Color& color)
 	{
-		ShadowPtr NewSprite = ness_make_ptr<Shadow>(this->m_renderer, shadowTexture, color);
+		ShadowPtr NewSprite = ness_make_ptr<Shadow>(this->m_renderer, shadow_texture, color);
 		add(NewSprite);
 		return NewSprite;
 	}

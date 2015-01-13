@@ -250,7 +250,7 @@ namespace Ness
 		// lastly rendered
 		m_last_render_frame_id = m_renderer->get_frameid();
 
-		// render all sprites
+		// render all son entities
 		for (unsigned int i = 0; i < m_entities.size(); i++)
 		{
 			m_entities[i]->render(camera);

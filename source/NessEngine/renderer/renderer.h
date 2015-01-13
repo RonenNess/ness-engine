@@ -186,7 +186,7 @@ namespace Ness
 		NESSENGINE_API Gui::GuiManagerPtr create_gui_manager(const String& resources_path = "ness-engine/resources/gui/");
 
 		// change the background color
-		NESSENGINE_API void set_background_color(const Color& NewColor);
+		NESSENGINE_API void set_background_color(const Color& new_color);
 
 		// render everything!
 		NESSENGINE_API void render_scenes(const CameraPtr& camera = NullCamera);

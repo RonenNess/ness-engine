@@ -98,13 +98,13 @@ namespace Ness
 		NESSENGINE_API inline const Color& get_ambient_color() const {return m_canvas->get_clean_color();}
 
 		// change the light node blending mode effect the way we render everything on the screen (the final marge)
-		NESSENGINE_API virtual void set_blend_mode(EBlendModes NewMode) {m_canvas->set_blend_mode(NewMode);}
+		NESSENGINE_API virtual void set_blend_mode(EBlendModes new_mode) {m_canvas->set_blend_mode(new_mode);}
 		NESSENGINE_API virtual const EBlendModes get_blend_mode() const {return m_canvas->get_blend_mode();}
 
 		// change the light node color affect the color of the canvas we render (will tilt the entire lighting color)
 		NESSENGINE_API virtual const Color& get_color() const {return m_canvas->get_color();}
 		NESSENGINE_API virtual void set_opacity(float opacity) {m_canvas->set_opacity(opacity);}
-		NESSENGINE_API virtual void set_color(const Color& NewColor) {m_canvas->set_color(NewColor);}
+		NESSENGINE_API virtual void set_color(const Color& new_color) {m_canvas->set_color(new_color);}
 
 		// when the lightnode updates, we need to re-render
 		NESSENGINE_API virtual void transformations_update();

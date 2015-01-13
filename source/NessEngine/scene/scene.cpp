@@ -22,7 +22,24 @@
 
 #include "scene.h"
 #include "camera.h"
+#include "../renderer/renderer.h"
 
 namespace Ness
 {
+	void Scene::render_on_viewport(const ViewportPtr& viewport, const CameraPtr& camera)
+	{
+		// create a temporary camera to set viewport source position
+		CameraPtr temp_cam = m_renderer->create_camera();
+		if (camera)
+		{
+			*temp_cam = *camera; 
+		}
+		temp_cam->position += viewport->get_source_position();
+
+		// render the scene on the 
+		m_renderer->push_render_target(viewport->get_canvas_texture());
+		render(temp_cam);
+		m_renderer->pop_render_target();
+
+	}
 };

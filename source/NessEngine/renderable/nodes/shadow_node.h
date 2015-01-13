@@ -99,14 +99,14 @@ namespace Ness
 		NESSENGINE_API inline const Color& get_ambient_shadow() const {return m_canvas->get_clean_color();}
 
 		// change the shadow node blending mode effect the way we render everything on the screen (the final marge)
-		NESSENGINE_API virtual void set_blend_mode(EBlendModes NewMode) {m_canvas->set_blend_mode(NewMode);}
+		NESSENGINE_API virtual void set_blend_mode(EBlendModes new_mode) {m_canvas->set_blend_mode(new_mode);}
 		NESSENGINE_API virtual const EBlendModes get_blend_mode() const {return m_canvas->get_blend_mode();}
 
 		// when the shadownode updates, we need to re-render
 		NESSENGINE_API virtual void transformations_update();
 
 		// create a shadow
-		NESSENGINE_API ShadowPtr create_shadow(const String& shadowTexture, const Color& color = Color::BLACK * Color::HALF_INVISIBLE);
+		NESSENGINE_API ShadowPtr create_shadow(const String& shadow_texture, const Color& color = Color::BLACK * Color::HALF_INVISIBLE);
 
 		// return all shadows currently in screen
 		NESSENGINE_API void get_shadows_in_screen(Containers::Vector<ShadowPtr>& out_list, const CameraPtr& camera = NullCamera) const;

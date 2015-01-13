@@ -64,12 +64,13 @@ namespace Ness
 		// render the canvas
 		NESSENGINE_API virtual void render(const CameraPtr& camera = NullCamera);
 
-		// set/remove mask texture
-		// mask is a texture file with black silhouette and white background. when setting a mask to a canvas
-		// no matter what you render on the canvas the parts that are white in the mask will remain invisible.
+		// set a mask texture on this canvas
+		// the mask will act as the alpha channels of the canvas, where black is visible and white is invisibile.
 		// this allows you to create a "shape" to the canvas.
 		// NOTE! when mask is applied canvas does not support blending modes - the mask replace the blending operations.
 		NESSENGINE_API void set_mask(const String& textureFile);
+
+		// remove a mask from this canvas
 		NESSENGINE_API inline void remove_mask() {m_mask.reset();}
 	};
 

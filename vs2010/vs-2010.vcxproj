@@ -51,6 +51,7 @@
     <ClCompile Include="..\source\NessEngine\resources\TextureSheet.cpp" />
     <ClCompile Include="..\source\NessEngine\scene\camera.cpp" />
     <ClCompile Include="..\source\NessEngine\scene\scene.cpp" />
+    <ClCompile Include="..\source\NessEngine\scene\viewport.cpp" />
     <ClCompile Include="..\source\NessEngine\utils\events\application_events.cpp" />
     <ClCompile Include="..\source\NessEngine\utils\events\events_poller.cpp" />
     <ClCompile Include="..\source\NessEngine\utils\events\keyboard.cpp" />
@@ -130,6 +131,7 @@
     <ClInclude Include="..\source\NessEngine\resources\TextureSheet.h" />
     <ClInclude Include="..\source\NessEngine\scene\camera.h" />
     <ClInclude Include="..\source\NessEngine\scene\scene.h" />
+    <ClInclude Include="..\source\NessEngine\scene\viewport.h" />
     <ClInclude Include="..\source\NessEngine\utils\events\application_events.h" />
     <ClInclude Include="..\source\NessEngine\utils\events\events_poller.h" />
     <ClInclude Include="..\source\NessEngine\utils\events\event_handler.h" />

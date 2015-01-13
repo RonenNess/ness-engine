@@ -242,12 +242,12 @@ namespace Ness
 	}
 
 	// set background color
-	void Renderer::set_background_color(const Color& NewColor)
+	void Renderer::set_background_color(const Color& new_color)
 	{
-		m_background_color.r = (unsigned char)(NewColor.r * 255);
-		m_background_color.g = (unsigned char)(NewColor.g * 255);
-		m_background_color.b = (unsigned char)(NewColor.b * 255);
-		m_background_color.a = (unsigned char)(NewColor.a * 255);
+		m_background_color.r = (unsigned char)(new_color.r * 255);
+		m_background_color.g = (unsigned char)(new_color.g * 255);
+		m_background_color.b = (unsigned char)(new_color.b * 255);
+		m_background_color.a = (unsigned char)(new_color.a * 255);
 	}
 
 	void Renderer::reset_render_target()
