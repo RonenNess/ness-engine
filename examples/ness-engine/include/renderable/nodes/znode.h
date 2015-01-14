@@ -44,7 +44,7 @@ namespace Ness
 
 	public:
 		// create the znode
-		NESSENGINE_API ZNode(Renderer* renderer) : Node(renderer), m_break_groups(false), m_update_list_intervals(0.1f), m_time_until_next_zorder(0.0f) {}
+		NESSENGINE_API ZNode(Renderer* renderer) : Node(renderer), m_break_groups(false), m_update_list_intervals(0.05f), m_time_until_next_zorder(0.0f) {}
 
 		// this determine how often, in miliseconds, should this z-node update its rendering list,
 		// i.e. recalculate all visible entities and reorder them.

@@ -34,6 +34,7 @@
 #include "../basic_types/all_basic_types.h"
 #include "../animators/animators_queue.h"
 #include "../scene/scene.h"
+#include "../scene/viewport.h"
 #include "../gui/gui_manager.h"
 
 namespace Ness
@@ -173,6 +174,10 @@ namespace Ness
 		// create a camera
 		NESSENGINE_API CameraPtr create_camera() const;
 
+		// create a viewport
+		// source_size is the initial source size of the viewport, i.e. the region bounderies. if not provided will take full screen size.
+		NESSENGINE_API ViewportPtr create_viewport(const Sizei& source_size = Sizei::ZERO) const;
+
 		// return the resources manager
 		NESSENGINE_API ManagedResources::ResourcesManager& resources() {return *m_resources;}
 
@@ -186,7 +191,7 @@ namespace Ness
 		NESSENGINE_API Gui::GuiManagerPtr create_gui_manager(const String& resources_path = "ness-engine/resources/gui/");
 
 		// change the background color
-		NESSENGINE_API void set_background_color(const Color& NewColor);
+		NESSENGINE_API void set_background_color(const Color& new_color);
 
 		// render everything!
 		NESSENGINE_API void render_scenes(const CameraPtr& camera = NullCamera);

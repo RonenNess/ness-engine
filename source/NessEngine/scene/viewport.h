@@ -80,9 +80,6 @@ namespace Ness
 		// size ZERO will take the entire renderer size (at the time of calling reset).
 		NESSENGINE_API void reset(const Sizei& source_size = Sizei::ZERO);
 
-		// set viewport source position, i.e. offset to add to all rendering on this viewport
-		NESSENGINE_API inline void set_source_position(const Point& position) {m_source_offset = position;}
-
 		// set viewport destination size and position
 		NESSENGINE_API void set_dest_position(const Point& position);
 		NESSENGINE_API void set_dest_size(const Size& size);
@@ -102,19 +99,22 @@ namespace Ness
 		NESSENGINE_API void flip_x();
 		NESSENGINE_API void flip_y();
 
+		// set viewport source position, i.e. offset to add to all rendering on this viewport
+		NESSENGINE_API inline void set_source_position(const Point& position) {m_source_offset = position;}
+
 		// get the viewport source position
 		NESSENGINE_API inline const Point& get_source_position() const {return m_source_offset;}
 		NESSENGINE_API inline Point get_source_position() {return m_source_offset;}
 
 		// set a black and white mask to this viewport that will act as alpha channels
 		// black is opaque, white is invisible
-		NESSENGINE_API inline void set_mask(const String& textureFile) {m_canvas->set_mask(textureFile);}
+		NESSENGINE_API void set_mask(const String& textureFile);
+
+		// remove a mask from this canvas
+		NESSENGINE_API void remove_mask();
 
 		// set anchor for rotation and position
 		NESSENGINE_API void set_anchor(const Point& anchor);
-
-		// remove a mask from this canvas
-		NESSENGINE_API inline void remove_mask() {m_canvas->remove_mask();}
 
 		// get the canvas texture of this viewport, i.e. the viewport "screen"
 		NESSENGINE_API inline ManagedResources::ManagedTexturePtr get_canvas_texture() const {return m_canvas->get_texture();}

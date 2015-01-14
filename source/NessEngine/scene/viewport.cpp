@@ -53,6 +53,16 @@ namespace Ness
 		m_canvas->set_size(size);
 	}
 
+	void Viewport::set_mask(const String& textureFile) 
+	{
+		m_canvas->set_mask(textureFile);
+	}
+
+	void Viewport::remove_mask()
+	{
+		m_canvas->remove_mask();
+	}
+
 	void Viewport::set_dest_region(const Rectangle& region)
 	{
 		set_dest_position(Pointi(region.x, region.y) - (Size((float)region.w, (float)region.h) * m_canvas->get_anchor()));

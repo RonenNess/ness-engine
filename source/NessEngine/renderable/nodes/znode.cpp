@@ -97,6 +97,7 @@ namespace Ness
 		}
 
 		// render everything!
+		// note: the render list is a vector so this iteration is most efficient
 		for (unsigned int i = 0; i < render_list.size(); i++)
 		{
 			render_list[i]->render(camera);

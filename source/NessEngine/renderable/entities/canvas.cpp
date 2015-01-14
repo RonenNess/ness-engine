@@ -67,6 +67,7 @@ namespace Ness
 
 			// force blend mode to be modulate before rendering the canvas itself
 			m_absolute_transformations.blend = BLEND_MODE_MOD;
+			set_blend_mode(BLEND_MODE_MOD);
 		}
 
 		// call the basic sprite render function

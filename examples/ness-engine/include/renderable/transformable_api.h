@@ -44,26 +44,26 @@ namespace Ness
 		// setters/getters
 		NESSENGINE_API virtual void set_transformations(const SRenderTransformations& newTrans) {m_transformations = newTrans; transformations_update();}
 		NESSENGINE_API virtual const SRenderTransformations& get_transformation() const {return m_transformations;}
-		NESSENGINE_API virtual void set_position(const Point& NewPos) {if (NewPos == m_transformations.position) return; m_transformations.position = NewPos; transformations_update();}
-		NESSENGINE_API virtual void add_position(const Point& NewPos) {m_transformations.position += NewPos; transformations_update();}
-		NESSENGINE_API virtual void multiply_position(const Point& NewPos) {m_transformations.position *= NewPos; transformations_update();}
-		NESSENGINE_API virtual void set_scale(const Size& NewScale) {if (NewScale == m_transformations.scale) return; m_transformations.scale = NewScale; transformations_update();}
-		NESSENGINE_API virtual void add_scale(const Size& NewScale) {m_transformations.scale += NewScale; transformations_update();}
-		NESSENGINE_API virtual void multiply_scale(const Size& NewScale) {m_transformations.scale *= NewScale; transformations_update();}
-		NESSENGINE_API virtual void set_scale(float NewScale) {set_scale(Point(NewScale, NewScale));}
-		NESSENGINE_API virtual void add_scale(float NewScale) {m_transformations.scale += NewScale; transformations_update();}
-		NESSENGINE_API virtual void multiply_scale(float NewScale) {m_transformations.scale *= NewScale; transformations_update();}
-		NESSENGINE_API virtual void set_rotation(float NewRotation) {if (NewRotation == m_transformations.rotation) return; m_transformations.rotation = NewRotation; transformations_update();}
-		NESSENGINE_API virtual void add_rotation(float NewRotation) {m_transformations.rotation += NewRotation; transformations_update();}
-		NESSENGINE_API virtual void multiply_rotation(float NewRotation) {m_transformations.rotation *= NewRotation; transformations_update();}
-		NESSENGINE_API virtual void set_color(const Color& NewColor) {if (NewColor == m_transformations.color) return; m_transformations.color = NewColor; transformations_update();}
-		NESSENGINE_API virtual void add_color(const Color& NewColor) {set_color(get_color() + NewColor);}
-		NESSENGINE_API virtual void multiply_color(const Color& NewColor) {set_color(get_color() * NewColor);}
+		NESSENGINE_API virtual void set_position(const Point& new_pos) {if (new_pos == m_transformations.position) return; m_transformations.position = new_pos; transformations_update();}
+		NESSENGINE_API virtual void add_position(const Point& new_pos) {m_transformations.position += new_pos; transformations_update();}
+		NESSENGINE_API virtual void multiply_position(const Point& new_pos) {m_transformations.position *= new_pos; transformations_update();}
+		NESSENGINE_API virtual void set_scale(const Size& new_scale) {if (new_scale == m_transformations.scale) return; m_transformations.scale = new_scale; transformations_update();}
+		NESSENGINE_API virtual void add_scale(const Size& new_scale) {m_transformations.scale += new_scale; transformations_update();}
+		NESSENGINE_API virtual void multiply_scale(const Size& new_scale) {m_transformations.scale *= new_scale; transformations_update();}
+		NESSENGINE_API virtual void set_scale(float new_scale) {set_scale(Point(new_scale, new_scale));}
+		NESSENGINE_API virtual void add_scale(float new_scale) {m_transformations.scale += new_scale; transformations_update();}
+		NESSENGINE_API virtual void multiply_scale(float new_scale) {m_transformations.scale *= new_scale; transformations_update();}
+		NESSENGINE_API virtual void set_rotation(float new_rotation) {if (new_rotation == m_transformations.rotation) return; m_transformations.rotation = new_rotation; transformations_update();}
+		NESSENGINE_API virtual void add_rotation(float new_rotation) {m_transformations.rotation += new_rotation; transformations_update();}
+		NESSENGINE_API virtual void multiply_rotation(float new_rotation) {m_transformations.rotation *= new_rotation; transformations_update();}
+		NESSENGINE_API virtual void set_color(const Color& new_color) {if (new_color == m_transformations.color) return; m_transformations.color = new_color; transformations_update();}
+		NESSENGINE_API virtual void add_color(const Color& new_color) {set_color(get_color() + new_color);}
+		NESSENGINE_API virtual void multiply_color(const Color& new_color) {set_color(get_color() * new_color);}
 		NESSENGINE_API virtual void set_opacity(float opacity) {if (opacity == m_transformations.color.a) return; m_transformations.color.a = opacity; transformations_update();}
 		NESSENGINE_API virtual void add_opacity(float opacity) {set_opacity(get_opacity() + opacity);}
 		NESSENGINE_API virtual void multiply_opacity(float opacity) {set_opacity(get_opacity() * opacity);}
-		NESSENGINE_API virtual void set_blend_mode(EBlendModes NewMode) {if (m_transformations.blend == NewMode) return; m_transformations.blend = NewMode; transformations_update();}
-		NESSENGINE_API virtual void set_zindex(float newZ) {if (m_transformations.zorder == newZ) return; m_transformations.zorder = newZ; transformations_update();}
+		NESSENGINE_API virtual void set_blend_mode(EBlendModes new_mode) {if (m_transformations.blend == new_mode) return; m_transformations.blend = new_mode; transformations_update();}
+		NESSENGINE_API virtual void set_zindex(float new_z) {if (m_transformations.zorder == new_z) return; m_transformations.zorder = new_z; transformations_update();}
 		NESSENGINE_API virtual void flip_x() {m_transformations.scale.x *= -1; transformations_update();}
 		NESSENGINE_API virtual void flip_y() {m_transformations.scale.y *= -1; transformations_update();}
 		NESSENGINE_API virtual const Point& get_position() const {return m_transformations.position;}

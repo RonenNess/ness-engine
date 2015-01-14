@@ -279,10 +279,14 @@ namespace Ness
 
 		// if empty, reset render target
 		if (m_render_targets_queue.empty())
+		{
 			reset_render_target();
+		}
 		// if not empty, set render target to be next in queue
 		else
+		{
 			set_render_target(m_render_targets_queue.back());
+		}
 	}
 
 	void Renderer::set_render_target(const ManagedResources::ManagedTexturePtr& texture)
@@ -368,20 +372,6 @@ namespace Ness
 	void Renderer::blit(SDL_Texture* texture, const Rectangle* SrcRect, const Rectangle& TargetRect, EBlendModes mode, const Color& color, float rotation, Point rotation_anchor)
 	{
 
-		// set flipping for negative scale and fix target size
-		Rectangle target = TargetRect;
-		int flip = SDL_FLIP_NONE;
-		if (target.w < 0)
-		{
-			target.w *= -1;
-			flip |= SDL_FLIP_HORIZONTAL;
-		}
-		if (target.h < 0)
-		{
-			target.h *= -1;
-			flip |= SDL_FLIP_VERTICAL;
-		}
-
 		// set alpha
 		float alpha = color.a;
 		SDL_SetTextureAlphaMod(texture, (int)(alpha * 255));
@@ -393,8 +383,22 @@ namespace Ness
 		SDL_SetTextureBlendMode(texture, (SDL_BlendMode)mode);
 
 		// requires advance rendering?
-		if (flip || (rotation != 0.0f) || (alpha < 1.0f))
+		if ((rotation != 0.0f) || (alpha < 1.0f) || TargetRect.w < 0 || TargetRect.h < 0)
 		{
+			// set flipping for negative scale and fix target size
+			Rectangle target = TargetRect;
+			int flip = SDL_FLIP_NONE;
+			if (target.w < 0)
+			{
+				target.w *= -1;
+				flip |= SDL_FLIP_HORIZONTAL;
+			}
+			if (target.h < 0)
+			{
+				target.h *= -1;
+				flip |= SDL_FLIP_VERTICAL;
+			}
+
 
 			// set rotation anchor
 			SDL_Point center;
@@ -407,7 +411,7 @@ namespace Ness
 		// simple rendering - no flip, no rotation
 		else
 		{
-			SDL_RenderCopy(m_renderer, texture, SrcRect, &target);
+			SDL_RenderCopy(m_renderer, texture, SrcRect, &TargetRect);
 		}
 	}
 
