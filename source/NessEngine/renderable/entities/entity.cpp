@@ -211,11 +211,7 @@ namespace Ness
 
 		// set camera position
 		Rectangle target = m_target_rect;
-		if (!m_static && camera)
-		{
-			target.x -= (int)floor(camera->position.x);
-			target.y -= (int)floor(camera->position.y);
-		}
+		apply_camera_on_target_rect(target, camera);
 
 		// check if in screen
 		if (!is_in_screen(target, trans.rotation))

@@ -58,7 +58,8 @@ namespace Ness
 		bool				m_bounderies_enabled;			// are bounderies enabled?
 
 	public:
-		Point position;
+		Point position;					// position is the position of this camera
+		Point __statics_position;		// statics_position is a special position that affect static entities
 
 		NESSENGINE_API Camera(Renderer* renderer, const Point& Position = Point(0, 0));
 		NESSENGINE_API ~Camera();

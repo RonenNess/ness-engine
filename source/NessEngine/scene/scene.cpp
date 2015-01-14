@@ -34,7 +34,8 @@ namespace Ness
 		{
 			*temp_cam = *camera; 
 		}
-		temp_cam->position += viewport->get_source_position();
+		temp_cam->position -= viewport->get_source_position();
+		temp_cam->__statics_position -= viewport->get_source_position();
 
 		// render the scene on the 
 		m_renderer->push_render_target(viewport->get_canvas_texture());

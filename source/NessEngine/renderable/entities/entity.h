@@ -132,6 +132,8 @@ namespace Ness
 
 	protected:
 
+		NESSENGINE_API void apply_camera_on_target_rect(Rectangle& target, const CameraPtr& camera) const;
+
 		// check if target rectangle is inside screen
 		NESSENGINE_API bool is_in_screen(const Rectangle& target, float rotation) const;
 
