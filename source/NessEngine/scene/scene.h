@@ -49,7 +49,7 @@ namespace Ness
 		NESSENGINE_API virtual const SRenderTransformations& get_absolute_transformations() {return m_absolute_trans;}
 
 		// called whenever transformations are updated
-		NESSENGINE_API virtual void transformations_update() {m_absolute_trans = m_transformations;}
+		NESSENGINE_API virtual void transformations_update() {m_absolute_trans = m_transformations; Node::transformations_update();}
 
 		// render on a viewport
 		NESSENGINE_API virtual void render_on_viewport(const ViewportPtr& viewport, const CameraPtr& camera = NullCamera);
