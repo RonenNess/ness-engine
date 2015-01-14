@@ -38,13 +38,14 @@ namespace Ness
 	class ZNode : public Node
 	{
 	private:
-		bool	m_break_groups;				// should we break son nodes when z-ordering or treat them as a single entity?
-		float	m_update_list_intervals;	// time in miliseconds between z-ordering refresh
-		float	m_time_until_next_zorder;	// time left until next time we need to z-order
+		RenderablesList m_render_list;				// currently sorted rendering list
+		bool			m_break_groups;				// should we break son nodes when z-ordering or treat them as a single entity?
+		float			m_update_list_intervals;	// time in miliseconds between z-ordering refresh
+		float			m_time_until_next_zorder;	// time left until next time we need to z-order
 
 	public:
 		// create the znode
-		NESSENGINE_API ZNode(Renderer* renderer) : Node(renderer), m_break_groups(false), m_update_list_intervals(0.05f), m_time_until_next_zorder(0.0f) {}
+		NESSENGINE_API ZNode(Renderer* renderer) : Node(renderer), m_break_groups(false), m_update_list_intervals(0.075f), m_time_until_next_zorder(0.0f) {}
 
 		// this determine how often, in miliseconds, should this z-node update its rendering list,
 		// i.e. recalculate all visible entities and reorder them.

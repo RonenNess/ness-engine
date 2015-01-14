@@ -81,6 +81,9 @@ int _tmain(int argc, _TCHAR* argv[])
 	// create instructions text
 	Ness::TextPtr instructions = scene->create_text("../ness-engine/resources/fonts/courier.ttf", "use arrows to move around and see z-ordering in action.", 20);
 	instructions->set_position(Ness::Point(0, 24));
+	Ness::TextPtr dead_instructions = dead_scene->create_text("../ness-engine/resources/fonts/courier.ttf", "Welcome to the dark world.... use arrows to move around.", 20);
+	dead_instructions->set_position(Ness::Point(0, 24));
+	dead_instructions->set_color(Ness::Color::RED);
 
 	// create the corner logo
 	Ness::SpritePtr corner_logo = scene->create_sprite("../ness-engine/resources/gfx/Ness-Engine-Small.png");
@@ -100,7 +103,7 @@ int _tmain(int argc, _TCHAR* argv[])
 	EventsPoller.add_handler(app);
 
 	// show logo screen
-	//Ness::Utils::make_logo_screen(scene, "../ness-engine/resources/gfx/logo.png");
+	Ness::Utils::make_logo_screen(scene, "../ness-engine/resources/gfx/logo.png");
 
 	// loop until exit button is pressed
 	while( !app.got_quit() )
