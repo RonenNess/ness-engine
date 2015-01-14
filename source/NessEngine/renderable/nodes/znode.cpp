@@ -40,14 +40,11 @@ namespace Ness
 	// render everything, with z order!
 	void ZNode::render(const CameraPtr& camera)
 	{
-		// create the ordered render list
-		static RenderablesList render_list;
-
 		// if its time to reorder, reset the render list and repopulate it
 		if (m_time_until_next_zorder <= 0.0f)
 		{
 			m_time_until_next_zorder = m_update_list_intervals;
-			render_list.clear();
+			m_render_list.clear();
 
 			// add all the visible sprites
 			for (unsigned int i = 0; i < m_entities.size(); i++)
@@ -59,7 +56,7 @@ namespace Ness
 					SharedPtr<NodeAPI> currentNode = ness_ptr_cast<NodeAPI>(m_entities[i]);
 					if (!currentNode->get_flag(RNF_NEVER_BREAK))
 					{
-						currentNode->__get_visible_entities(render_list, camera, true);
+						currentNode->__get_visible_entities(m_render_list, camera, true);
 						continue;
 					}
 				}
@@ -68,7 +65,7 @@ namespace Ness
 				SharedPtr<RenderableAPI>& current = m_entities[i];
 				if (!current->is_really_visible(camera))
 					continue;
-				render_list.push_back(current);
+				m_render_list.push_back(current);
 			
 			}
 
@@ -76,12 +73,12 @@ namespace Ness
 			// if break groups, we need to sort by absolute z ordering
 			if (m_break_groups)
 			{
-				std::sort(render_list.begin(), render_list.end(), sort_by_z_absolute);
+				std::sort(m_render_list.begin(), m_render_list.end(), sort_by_z_absolute);
 			}
 			// if keep groups, ordering by relative z index is enough
 			else
 			{
-				std::sort(render_list.begin(), render_list.end(), sort_by_z);
+				std::sort(m_render_list.begin(), m_render_list.end(), sort_by_z);
 			}
 		}
 		// if not time to update render ist yet decrease the time
@@ -98,9 +95,9 @@ namespace Ness
 
 		// render everything!
 		// note: the render list is a vector so this iteration is most efficient
-		for (unsigned int i = 0; i < render_list.size(); i++)
+		for (unsigned int i = 0; i < m_render_list.size(); i++)
 		{
-			render_list[i]->render(camera);
+			m_render_list[i]->render(camera);
 		}
 
 		// reset rendering target if such target was used

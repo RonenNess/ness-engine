@@ -207,6 +207,10 @@ namespace Ness
 		NESSENGINE_API void push_render_target(const ManagedResources::ManagedTexturePtr& texture);
 		NESSENGINE_API void pop_render_target();
 
+		// get current render target
+		NESSENGINE_API inline ManagedResources::ManagedTexturePtr get_render_target() {return m_render_target;}
+		NESSENGINE_API inline const ManagedResources::ManagedTexturePtr& get_render_target() const {return m_render_target;}
+
 		// remove all render targets from queue
 		NESSENGINE_API void clear_render_targets();
 
