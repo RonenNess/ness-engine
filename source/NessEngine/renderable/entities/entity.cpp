@@ -110,13 +110,26 @@ namespace Ness
 
 		// set camera position
 		Rectangle target = m_target_rect;
-		if (!m_static && camera)
-		{
-			target.x -= (int)floor(camera->position.x);
-			target.y -= (int)floor(camera->position.y);
-		} 
+		apply_camera_on_target_rect(target, camera);
 
 		return is_in_screen(target, trans.rotation);
+	}
+
+	void Entity::apply_camera_on_target_rect(Rectangle& target, const CameraPtr& camera) const
+	{
+		if (camera)
+		{
+			if (m_static)
+			{
+				target.x -= (int)floor(camera->__statics_position.x);
+				target.y -= (int)floor(camera->__statics_position.y);
+			} 
+			else
+			{
+				target.x -= (int)floor(camera->position.x);
+				target.y -= (int)floor(camera->position.y);
+			}
+		}
 	}
 
 	bool Entity::is_really_visible_const(const CameraPtr& camera) const
@@ -138,11 +151,7 @@ namespace Ness
 
 		// set camera position
 		Rectangle target = m_target_rect;
-		if (!m_static && camera)
-		{
-			target.x -= (int)floor(camera->position.x);
-			target.y -= (int)floor(camera->position.y);
-		} 
+		apply_camera_on_target_rect(target, camera);
 
 		return is_in_screen(target, trans.rotation);
 	}
@@ -152,7 +161,8 @@ namespace Ness
 		// if no rotation make simple rect-in-screen check
 		if (rotation == 0.0f)
 		{
-			if (target.x >= m_renderer->get_target_size().x || target.y >= m_renderer->get_target_size().y || target.x + abs(target.w) <= 0 || target.y + abs(target.h) <= 0 )
+			if (target.x >= m_renderer->get_target_size().x || target.y >= m_renderer->get_target_size().y || 
+				target.x + abs(target.w) <= 0 || target.y + abs(target.h) <= 0 )
 			{
 				return false;
 			}
@@ -162,7 +172,8 @@ namespace Ness
 		{
 			float size = (abs(target.h) > abs(target.w)) ? (float)abs(target.h) : (float)abs(target.w);
 			size *= 1.5f;
-			if (target.x - size >= m_renderer->get_target_size().x || target.y - size >= m_renderer->get_target_size().y || target.x + size <= 0 || target.y + size <= 0 )
+			if (target.x - size >= m_renderer->get_target_size().x || target.y - size >= m_renderer->get_target_size().y || 
+				target.x + size <= 0 || target.y + size <= 0 )
 			{
 				return false;
 			}

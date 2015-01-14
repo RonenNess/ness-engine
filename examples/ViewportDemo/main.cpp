@@ -95,6 +95,14 @@ int _tmain(int argc, _TCHAR* argv[])
 	corner_logo->set_static(true);
 	corner_logo->set_position(renderer.get_screen_size());
 
+	Ness::SpritePtr dead_corner_logo = dead_scene->create_sprite("../ness-engine/resources/gfx/Ness-Engine-Small.png");
+	dead_corner_logo->set_blend_mode(Ness::BLEND_MODE_BLEND);
+	dead_corner_logo->set_anchor(Ness::Point::ONE);
+	dead_corner_logo->set_color(Ness::Color::GREEN);
+	dead_corner_logo->set_opacity(0.75f);
+	dead_corner_logo->set_static(true);
+	dead_corner_logo->set_position(renderer.get_screen_size());
+
 	// create the events handler
 	Ness::Utils::EventsPoller EventsPoller;
 	Ness::Utils::Mouse mouse;
@@ -146,7 +154,7 @@ int _tmain(int argc, _TCHAR* argv[])
 		dead_player->set_position(playerPos);
 
 		// set the viewport position based on mouse
-		viewport->set_source_position(-(renderer.get_screen_center() - mouse.position()));
+		viewport->set_source_position((renderer.get_screen_center() - mouse.position()));
 		viewport->set_dest_position(mouse.position());
 
 		// fix player zorder based on his y position
