@@ -26,6 +26,11 @@ namespace Ness
 					}
 				}
 			}
+
+			for (unsigned int i = 0; i < m_handlers.size(); i++)
+			{
+				m_handlers[i]->end_frame();
+			}
 		}
 	};
 };

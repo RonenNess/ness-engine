@@ -104,6 +104,7 @@ int _tmain(int argc, _TCHAR* argv[])
 
 	// show logo screen
 	Ness::Utils::make_logo_screen(scene, "../ness-engine/resources/gfx/logo.png");
+	Ness::Utils::make_logo_screen(dead_scene, "logo_dead.png");
 
 	// loop until exit button is pressed
 	while( !app.got_quit() )
@@ -132,6 +133,11 @@ int _tmain(int argc, _TCHAR* argv[])
 		{
 			playerPos.x += renderer.time_factor() * PlayerSpeed;
 		}
+		static bool is_flipped = false;
+		if (mouse.was_pressed(Ness::MOUSE_LEFT))
+		{
+			is_flipped = !is_flipped;
+		}
 		player->set_position(playerPos);
 		dead_player->set_position(playerPos);
 
@@ -147,10 +153,20 @@ int _tmain(int argc, _TCHAR* argv[])
 		camera->position.x = player->get_position().x - (renderer.get_screen_size().x * 0.5f);
 		camera->position.y = player->get_position().y - (renderer.get_screen_size().y * 0.5f);
 
-		// render and end the scene
-		scene->render(camera);
-		dead_scene->render_on_viewport(viewport, camera);
-		viewport->render();
+		// render everything
+		if (is_flipped)
+		{
+			dead_scene->render(camera);
+			scene->render_on_viewport(viewport, camera);
+			viewport->render();
+		}
+		else
+		{
+			scene->render(camera);
+			dead_scene->render_on_viewport(viewport, camera);
+			viewport->render();
+		}
+
 		renderer.end_frame();
 
 		// update fps show

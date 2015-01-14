@@ -41,6 +41,9 @@ namespace Ness
 			// the function that gives the event handler an event to examine.
 			// should return true if handled the event, false if irrelevant to it.
 			NESSENGINE_API virtual bool inject_event(const Event& event) = 0;
+
+			// this function must be called at the end of every frame of the event handler
+			NESSENGINE_API virtual void end_frame() = 0;
 		};
 	};
 };

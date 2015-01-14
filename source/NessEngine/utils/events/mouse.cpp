@@ -8,6 +8,9 @@ namespace Ness
 		NESSENGINE_API Mouse::Mouse()
 		{
 			memset(m_down, false, sizeof(m_down));
+			memset(m_frame_of_down, -1, sizeof(m_frame_of_down));
+			memset(m_frame_of_released, -1, sizeof(m_frame_of_released));
+			m_frame_id = 0;
 			m_in_screen = false;
 		}
 
@@ -15,15 +18,17 @@ namespace Ness
 		{
 			switch (event.type)
 			{
+				// mouse button pressed
 				case SDL_MOUSEBUTTONDOWN:
 					change_button_state(event.button.button, true);
 					return true;
 
+				// mouse button released
 				case SDL_MOUSEBUTTONUP:
 					change_button_state(event.button.button, false);
 					return true;
 
-					
+				// mouse leave / enter window
 				case SDL_WINDOWEVENT:
 					switch (event.window.event)
 					{
@@ -45,21 +50,28 @@ namespace Ness
 			return m_last_mouse_pos;
 		}
 
+		bool Mouse::was_clicked(EMouseButtons button) const 
+		{
+			return (m_frame_of_released[button] == m_frame_id && m_frame_of_down[button] + 30 <= m_frame_id);
+		}
+
 		void Mouse::change_button_state(int button, bool isDown)
 		{
-			switch (button)
+			// if no change, skip
+			if (m_down[button] == isDown)
+				return;
+
+			// set state
+			m_down[button] = isDown;
+
+			// set the frame in which the state changed
+			if (isDown) 
 			{
-			case SDL_BUTTON_LEFT:
-				m_down[MOUSE_LEFT] = isDown;
-				break;
-
-			case SDL_BUTTON_MIDDLE:
-				m_down[MOUSE_MIDDLE] = isDown;
-				break;
-
-			case SDL_BUTTON_RIGHT:
-				m_down[MOUSE_RIGHT] = isDown;
-				break;
+				m_frame_of_down[button] = m_frame_id; 
+			}
+			else 
+			{
+				m_frame_of_released[button] = m_frame_id;
 			}
 		}
 

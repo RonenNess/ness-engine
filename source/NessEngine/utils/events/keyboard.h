@@ -50,6 +50,9 @@ namespace Ness
 
 			// get key state
 			NESSENGINE_API inline bool key_state(Keycode key) {return m_key_codes[key];}
+
+			// end frame
+			NESSENGINE_API virtual void end_frame() {}
 		};
 
 	};

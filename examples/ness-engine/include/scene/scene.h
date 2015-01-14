@@ -42,8 +42,15 @@ namespace Ness
 	*/
 	class Scene : public Node
 	{
+	private:
+		Point	m_render_offset;
+
 	public:
 		NESSENGINE_API Scene(Renderer* renderer) : Node(renderer) {}
+
+		// set/get rendering offset for this scene
+		NESSENGINE_API inline void set_rendering_offset(const Point& offset) {m_render_offset = offset;}
+		NESSENGINE_API inline const Point& get_rendering_offset() const {return m_render_offset;}
 
 		// scene should never have parent, so it's easy - absolute transformation is self transformation
 		NESSENGINE_API virtual const SRenderTransformations& get_absolute_transformations() {return m_absolute_trans;}

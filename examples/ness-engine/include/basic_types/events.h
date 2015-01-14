@@ -41,9 +41,11 @@ namespace Ness
 	// different mouse buttons
 	enum EMouseButtons
 	{
-		MOUSE_LEFT = 0,
-		MOUSE_RIGHT = 1,
-		MOUSE_MIDDLE = 2,
+		MOUSE_LEFT		= SDL_BUTTON_LEFT,
+		MOUSE_RIGHT		= SDL_BUTTON_RIGHT,
+		MOUSE_MIDDLE	= SDL_BUTTON_MIDDLE,
+		MOUSE_X1		= SDL_BUTTON_X1,
+		MOUSE_X2		= SDL_BUTTON_X2,
 		_MOUSE_BUTTONS_COUNT,
 	};
 
