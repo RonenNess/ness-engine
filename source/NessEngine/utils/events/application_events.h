@@ -55,8 +55,8 @@ namespace Ness
 			NESSENGINE_API inline bool got_quit() const {return m_quit;}
 			NESSENGINE_API inline bool is_focused() const {return m_focused;}
 
-			// end frame
-			NESSENGINE_API virtual void end_frame() {}
+			// called at the begining of a new frame
+			NESSENGINE_API virtual void start_frame() {}
 		};
 
 	};

@@ -54,6 +54,9 @@ namespace Ness
 			// get if we got certain events
 			NESSENGINE_API inline bool got_quit() const {return m_quit;}
 			NESSENGINE_API inline bool is_focused() const {return m_focused;}
+
+			// called at the begining of a new frame
+			NESSENGINE_API virtual void start_frame() {}
 		};
 
 	};

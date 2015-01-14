@@ -50,9 +50,14 @@ namespace Ness
 			return m_last_mouse_pos;
 		}
 
-		bool Mouse::was_clicked(EMouseButtons button) const 
+		bool Mouse::was_clicked(EMouseButtons button, float threshold_in_seconds) const 
 		{
-			return (m_frame_of_released[button] == m_frame_id && m_frame_of_down[button] + 30 <= m_frame_id);
+			return ((m_frame_of_released[button] == m_frame_id) && m_frame_of_down[button] + (threshold_in_seconds * 1000.0f) >= m_frame_id);
+		}
+
+		void Mouse::start_frame()
+		{
+			m_frame_id = SDL_GetTicks();
 		}
 
 		void Mouse::change_button_state(int button, bool isDown)

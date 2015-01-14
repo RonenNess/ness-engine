@@ -20,7 +20,7 @@ int _tmain(int argc, _TCHAR* argv[])
 {
 	// init and create a renderer
 	Ness::init();
-	Ness::Renderer renderer("Viewport demo!", Ness::Sizei(SCREEN_WIDTH, SCREEN_HEIGHT), Ness::DEFAULT_WINDOW_FLAGS, Ness::DEFAULT_RENDERER_FLAGS | Ness::RENDERER_FLAG_VSYNC);
+	Ness::Renderer renderer("Viewport demo!", Ness::Sizei(SCREEN_WIDTH, SCREEN_HEIGHT));
 
 	// create a new scene and another alternative scene for the undead
 	Ness::ScenePtr scene = renderer.create_scene();
@@ -77,11 +77,13 @@ int _tmain(int argc, _TCHAR* argv[])
 
 	// create the fps show
 	Ness::TextPtr fpsShow = scene->create_text("../ness-engine/resources/fonts/courier.ttf", "fps", 20);
+	Ness::TextPtr dead_fpsShow = dead_scene->create_text("../ness-engine/resources/fonts/courier.ttf", "fps", 20);
+	dead_fpsShow->set_color(Ness::Color::RED);
 
 	// create instructions text
-	Ness::TextPtr instructions = scene->create_text("../ness-engine/resources/fonts/courier.ttf", "use arrows to move around and see z-ordering in action.", 20);
+	Ness::TextPtr instructions = scene->create_text("../ness-engine/resources/fonts/courier.ttf", "use arrows to move around, mouse click to switch world.", 20);
 	instructions->set_position(Ness::Point(0, 24));
-	Ness::TextPtr dead_instructions = dead_scene->create_text("../ness-engine/resources/fonts/courier.ttf", "Welcome to the dark world.... use arrows to move around.", 20);
+	Ness::TextPtr dead_instructions = dead_scene->create_text("../ness-engine/resources/fonts/courier.ttf", "Welcome to the dark side....", 20);
 	dead_instructions->set_position(Ness::Point(0, 24));
 	dead_instructions->set_color(Ness::Color::RED);
 
@@ -101,6 +103,8 @@ int _tmain(int argc, _TCHAR* argv[])
 	EventsPoller.add_handler(mouse);
 	EventsPoller.add_handler(keyboard);
 	EventsPoller.add_handler(app);
+
+	Ness::String FpsText = Ness::String("fps ") + (renderer.get_flags() & Ness::RENDERER_FLAG_VSYNC ? "(vsync): " : ": ");
 
 	// show logo screen
 	Ness::Utils::make_logo_screen(scene, "../ness-engine/resources/gfx/logo.png");
@@ -134,7 +138,7 @@ int _tmain(int argc, _TCHAR* argv[])
 			playerPos.x += renderer.time_factor() * PlayerSpeed;
 		}
 		static bool is_flipped = false;
-		if (mouse.was_pressed(Ness::MOUSE_LEFT))
+		if (mouse.was_clicked(Ness::MOUSE_LEFT))
 		{
 			is_flipped = !is_flipped;
 		}
@@ -170,8 +174,8 @@ int _tmain(int argc, _TCHAR* argv[])
 		renderer.end_frame();
 
 		// update fps show
-		Ness::String FpsShow = Ness::String("fps ") + (renderer.get_flags() & Ness::RENDERER_FLAG_VSYNC ? "(vsync): " : ": ");
-		fpsShow->change_text(FpsShow + ness_int_to_string(renderer.fps()));
+		dead_fpsShow->change_text(FpsText + ness_int_to_string(renderer.fps()));
+		fpsShow->change_text(FpsText + ness_int_to_string(renderer.fps()));
 	}
 
 	// cleanup. 

@@ -70,8 +70,12 @@ namespace Ness
 			// get if mouse was released in this very frame
 			NESSENGINE_API inline bool was_released(EMouseButtons button = MOUSE_LEFT) const {return m_frame_of_released[button] == m_frame_id;}
 
-			// get if mouse was clicked in this very frame (meaning a fast pressed and released
-			NESSENGINE_API bool was_clicked(EMouseButtons button = MOUSE_LEFT) const;
+			// called at the begining of a new frame
+			NESSENGINE_API virtual void start_frame();
+
+			// get if mouse was clicked in this very frame (meaning a fast pressed and a release)
+			// threshold_in_seconds is maximum time that can pass since the mouse button was pressed for it to be counted as a click.
+			NESSENGINE_API bool was_clicked(EMouseButtons button = MOUSE_LEFT, float threshold_in_seconds = 0.5f) const;
 
 		private:
 

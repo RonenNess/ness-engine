@@ -105,8 +105,8 @@ namespace Ness
 			NESSENGINE_API inline void set_default_frames_color(const Color& color) {m_default_frames_color = color;}
 			NESSENGINE_API inline const Color& get_default_frames_color() const {return m_default_frames_color;}
 
-			// called when frame ends
-			NESSENGINE_API virtual void end_frame() {}
+			// called when frame starts
+			NESSENGINE_API virtual void start_frame() {}
 
 			// render the gui!
 			NESSENGINE_API void render();

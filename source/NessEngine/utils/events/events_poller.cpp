@@ -6,6 +6,12 @@ namespace Ness
 	{
 		void EventsPoller::poll_events(eventCallback callback, bool callIfHandled)
 		{
+			// call the start_frame functions
+			for (unsigned int i = 0; i < m_handlers.size(); i++)
+			{
+				m_handlers[i]->start_frame();
+			}
+
 			// fetch all events we got to fetch
 			Event event;
 			while( (SDL_PollEvent( &event ) != 0 ))
@@ -25,11 +31,6 @@ namespace Ness
 						callback(event);
 					}
 				}
-			}
-
-			for (unsigned int i = 0; i < m_handlers.size(); i++)
-			{
-				m_handlers[i]->end_frame();
 			}
 		}
 	};
