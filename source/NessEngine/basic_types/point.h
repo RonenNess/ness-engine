@@ -261,7 +261,7 @@ namespace Ness
 		// deserialize the point from a representable string
 		NESSENGINE_API void deserialize(const String& src)
 		{
-			int sep = src.find(',');
+			size_t sep = src.find(',');
 			if (sep == -1) throw WrongFormatError("Input string is not a valid point format! serialized point must contain a comma");
 			std::string sx = src.substr(0, sep);
 			std::string sy = src.substr(sep + 1);
