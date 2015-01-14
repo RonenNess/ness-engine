@@ -48,6 +48,8 @@ namespace Ness
 
 		public:
 
+			NESSENGINE_API Keyboard() : m_frame_id(0) {}
+
 			// update the keyboard with incoming event
 			NESSENGINE_API virtual bool inject_event(const Event& event);
 

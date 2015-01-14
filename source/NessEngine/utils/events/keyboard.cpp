@@ -10,13 +10,15 @@ namespace Ness
 			switch (event.type)
 			{
 				case SDL_KEYDOWN:
+					if (!m_key_codes[event.key.keysym.sym])
+						m_frame_of_down[event.key.keysym.sym] = m_frame_id;
 					m_key_codes[event.key.keysym.sym] = true;
-					m_frame_of_down[event.key.keysym.sym] = m_frame_id;
 					return true;
 
 				case SDL_KEYUP:
+					if (m_key_codes[event.key.keysym.sym])
+						m_frame_of_released[event.key.keysym.sym] = m_frame_id;
 					m_key_codes[event.key.keysym.sym] = false;
-					m_frame_of_released[event.key.keysym.sym] = m_frame_id;
 					return true;
 			}
 			return false;
