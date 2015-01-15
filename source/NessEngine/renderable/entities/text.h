@@ -88,7 +88,7 @@ namespace Ness
 		NESSENGINE_API void disable_shadow() {m_shadow.a = 0.0f;}
 
 		// override render so we update text first if we need to
-		NESSENGINE_API void render(const CameraPtr& camera = NullCamera);
+		NESSENGINE_API void render(const CameraApiPtr& camera);
 
 		// update after font/text change
 		// note: you don't need to call this it will be called automatically after render

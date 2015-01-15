@@ -64,13 +64,13 @@ namespace Ness
 		NESSENGINE_API virtual void transformations_update();
 
 		// check if at least one of the lines are really visible
-		NESSENGINE_API virtual bool is_really_visible(const CameraPtr& camera = NullCamera);
+		NESSENGINE_API virtual bool is_really_visible(const CameraApiPtr& camera);
 
 		// check if at least one of the lines are really visible, without effecting their internal states
-		NESSENGINE_API virtual bool is_really_visible_const(const CameraPtr& camera) const;
+		NESSENGINE_API virtual bool is_really_visible_const(const CameraApiPtr& camera) const;
 
 		// render this text
-		NESSENGINE_API virtual void render(const CameraPtr& camera = NullCamera);
+		NESSENGINE_API virtual void render(const CameraApiPtr& camera);
 
 		// change the parent of this object
 		NESSENGINE_API virtual void __change_parent(NodeAPI* parent)

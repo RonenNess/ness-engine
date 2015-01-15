@@ -51,7 +51,7 @@ namespace Ness
 		m_mask = m_renderer->resources().get_mask_texture(textureFile);
 	}
 
-	void Canvas::render(const CameraPtr& camera)
+	void Canvas::render(const CameraApiPtr& camera)
 	{
 		// if have mask:
 		if (m_mask)

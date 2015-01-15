@@ -61,13 +61,13 @@
     <Filter Include="Source Files\utils\rendering">
       <UniqueIdentifier>{ad844354-998a-47d1-a7b7-c1e99f7fc499}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Source Files\scene\camera">
+      <UniqueIdentifier>{e2a692ec-2da3-4c76-8eef-0bc0b4f97514}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\source\NessEngine\NessEngine.cpp">
       <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="..\source\NessEngine\scene\camera.cpp">
-      <Filter>Source Files\scene</Filter>
     </ClCompile>
     <ClCompile Include="..\source\NessEngine\scene\scene.cpp">
       <Filter>Source Files\scene</Filter>
@@ -204,13 +204,19 @@
     <ClCompile Include="..\source\NessEngine\scene\viewport.cpp">
       <Filter>Source Files\scene</Filter>
     </ClCompile>
+    <ClCompile Include="..\source\NessEngine\scene\camera\null_camera.cpp">
+      <Filter>Source Files\scene\camera</Filter>
+    </ClCompile>
+    <ClCompile Include="..\source\NessEngine\scene\camera\basic_camera.cpp">
+      <Filter>Source Files\scene\camera</Filter>
+    </ClCompile>
+    <ClCompile Include="..\source\NessEngine\scene\camera\follow_camera.cpp">
+      <Filter>Source Files\scene\camera</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\source\NessEngine\NessEngine.h">
       <Filter>Source Files</Filter>
-    </ClInclude>
-    <ClInclude Include="..\source\NessEngine\scene\camera.h">
-      <Filter>Source Files\scene</Filter>
     </ClInclude>
     <ClInclude Include="..\source\NessEngine\scene\scene.h">
       <Filter>Source Files\scene</Filter>
@@ -439,6 +445,21 @@
     </ClInclude>
     <ClInclude Include="..\source\NessEngine\scene\viewport.h">
       <Filter>Source Files\scene</Filter>
+    </ClInclude>
+    <ClInclude Include="..\source\NessEngine\scene\camera\camera_api.h">
+      <Filter>Source Files\scene\camera</Filter>
+    </ClInclude>
+    <ClInclude Include="..\source\NessEngine\scene\camera\null_camera.h">
+      <Filter>Source Files\scene\camera</Filter>
+    </ClInclude>
+    <ClInclude Include="..\source\NessEngine\scene\camera\all_cameras.h">
+      <Filter>Source Files\scene\camera</Filter>
+    </ClInclude>
+    <ClInclude Include="..\source\NessEngine\scene\camera\basic_camera.h">
+      <Filter>Source Files\scene\camera</Filter>
+    </ClInclude>
+    <ClInclude Include="..\source\NessEngine\scene\camera\follow_camera.h">
+      <Filter>Source Files\scene\camera</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

@@ -36,10 +36,13 @@ namespace Ness
 	// the API of a renderable entity (entities are contained in a node)
 	class EntityAPI : public RenderableAPI
 	{
+	protected:
+		bool		m_static;			// if true, this entity will not be affected by camera position
+
 	public:
 		// create the entity
 		NESSENGINE_API EntityAPI(Renderer* renderer) : 
-			RenderableAPI(renderer) {}
+			RenderableAPI(renderer), m_static(false) {}
 
 		// return the last target rectanble (region this entity was rendered upon) without
 		// changing the internal state of the entity
@@ -47,6 +50,10 @@ namespace Ness
 
 		// return if this entity touches the given point (based on last target rect)
 		NESSENGINE_API virtual bool touch_point(const Pointf& pos) const;
+
+		// set/get if this entity is static (static entities ignore camera when rendered)
+		NESSENGINE_API inline void set_static(bool IsStatic) {m_static = IsStatic;}
+		NESSENGINE_API virtual bool is_static() const {return m_static;}
 
 		// is it node or entity?
 		NESSENGINE_API virtual bool is_node() const {return false;}

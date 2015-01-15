@@ -40,7 +40,7 @@ namespace Ness
 
 	void Viewport::render()
 	{
-		m_canvas->render();
+		m_canvas->render(m_renderer->get_null_camera());
 	}
 
 	void Viewport::set_dest_position(const Point& position)

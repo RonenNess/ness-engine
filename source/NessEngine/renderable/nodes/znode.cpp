@@ -38,7 +38,7 @@ namespace Ness
 	}
 
 	// render everything, with z order!
-	void ZNode::render(const CameraPtr& camera)
+	void ZNode::render(const CameraApiPtr& camera)
 	{
 		// if its time to reorder, reset the render list and repopulate it
 		if (m_time_until_next_zorder <= 0.0f)

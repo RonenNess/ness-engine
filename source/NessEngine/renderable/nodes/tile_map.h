@@ -84,6 +84,7 @@ namespace Ness
 
 		// return the absolute transformations of this tilemap
 		NESSENGINE_API virtual const SRenderTransformations& get_absolute_transformations();
+		NESSENGINE_API virtual const SRenderTransformations& get_absolute_transformations_const() const {return m_absolute_transformations;}
 
 		// set extra tiles to render in screen for x and y axis.
 		// what is it for? if your normal tiles size is 32x32 but sometimes you have tiles of 32x64, you can set it to (0, 1), meaning you
@@ -135,7 +136,7 @@ namespace Ness
 
 		// get all visible son entities
 		NESSENGINE_API virtual void __get_visible_entities(RenderablesList& out_list,
-			const CameraPtr& camera = NullCamera, bool break_son_nodes = true);
+			const CameraApiPtr& camera, bool break_son_nodes = true);
 
 		// get all son entities (all the tiles)
 		NESSENGINE_API virtual void __get_all_entities(RenderablesList& out_list, bool breakGroups);
@@ -144,14 +145,14 @@ namespace Ness
 		NESSENGINE_API virtual void transformations_update();
 
 		// check if this tilemap is really visible
-		NESSENGINE_API virtual bool is_really_visible(const CameraPtr& camera = NullCamera);
+		NESSENGINE_API virtual bool is_really_visible(const CameraApiPtr& camera);
 
 		// get range of tiles that are within the map
 		// returns a rectangle. x is first tile i index, w is last tile i index. y is the same for j indexes
 		// for example:
 		// Rectangle range = map->get_tiles_in_screen();
 		// for (int i = range.x; i < range.w; i++) ....
-		NESSENGINE_API Rectangle get_tiles_in_screen(const CameraPtr& camera);
+		NESSENGINE_API Rectangle get_tiles_in_screen(const CameraApiPtr& camera);
 
 		// set source rect from sprite sheet for all tiles, based on position in tilesheet and how many tiles there are
 		// for example, if your sprite sheet contains 4x8 animation steps, and you want to set sprite to step (3,2), use it like so:
@@ -173,7 +174,7 @@ namespace Ness
 		NESSENGINE_API void apply_to_all(TExecuteOnTiles func);
 
 		// render this tilemap
-		NESSENGINE_API virtual void render(const CameraPtr& camera = NullCamera);
+		NESSENGINE_API virtual void render(const CameraApiPtr& camera);
 
 	protected:
 		// function to return the first visible tile in screen on x axis

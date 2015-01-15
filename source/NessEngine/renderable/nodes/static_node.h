@@ -54,15 +54,15 @@ namespace Ness
 		NESSENGINE_API void build(bool removeEntities = true);
 
 		// render the static batches
-		NESSENGINE_API virtual void render(const CameraPtr& camera = NullCamera);
+		NESSENGINE_API virtual void render(const CameraApiPtr& camera);
 
 		// get a list with ALL the son entities that are currently visible in screen
 		NESSENGINE_API virtual void __get_visible_entities(RenderablesList& out_list,
-			const CameraPtr& camera = NullCamera, bool break_son_nodes = true);
+			const CameraApiPtr& camera, bool break_son_nodes = true);
 
 	protected:
 		// return the range of visible batches
-		NESSENGINE_API Rectangle get_batches_range(const CameraPtr& camera);
+		NESSENGINE_API Rectangle get_batches_range(const CameraApiPtr& camera);
 	};
 
 	// scene pointer

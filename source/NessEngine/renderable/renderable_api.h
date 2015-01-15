@@ -28,7 +28,7 @@
 
 #pragma once
 #include "../exports.h"
-#include "../scene/camera.h"
+#include "../scene/camera/camera_api.h"
 #include "transformable_api.h"
 #include "../exceptions/exceptions.h"
 
@@ -84,6 +84,9 @@ namespace Ness
 		NESSENGINE_API inline void set_name(const String& name) {m_name = name;}
 		NESSENGINE_API inline const String& get_name() const {return m_name;}
 
+		// return if this renderable is static, i.e. should not be affected by camera
+		NESSENGINE_API virtual bool is_static() const = 0;
+
 		// return the last frame this entity was really rendered
 		// this is a quick way to check if this object was visible in the last frame, and by visible it means:
 		// 1. inside screen bounderies with camera
@@ -98,6 +101,9 @@ namespace Ness
 		NESSENGINE_API virtual inline unsigned int get_last_update_frame_id() const = 0;
 		NESSENGINE_API virtual bool was_updated_this_frame() const = 0;
 
+		// return the absolute position of this renderable entity with a given camera
+		NESSENGINE_API virtual Point get_absolute_position_with_camera(const CameraApiPtr& camera);
+
 		// set/get flags
 		NESSENGINE_API inline int	get_all_flags() const {return m_flags;}
 		NESSENGINE_API inline void	set_all_flags(int flags) {m_flags = flags;}
@@ -110,10 +116,10 @@ namespace Ness
 		NESSENGINE_API virtual bool is_entity() const = 0;
 
 		// is this renderable object actually visible and inside screen?
-		NESSENGINE_API virtual bool is_really_visible(const CameraPtr& camera = NullCamera) = 0;
+		NESSENGINE_API virtual bool is_really_visible(const CameraApiPtr& camera) = 0;
 
 		// render this object
-		NESSENGINE_API virtual void render(const CameraPtr& camera = NullCamera) = 0;
+		NESSENGINE_API virtual void render(const CameraApiPtr& camera) = 0;
 
 		// remove this entity from parent
 		NESSENGINE_API virtual void remove_from_parent();

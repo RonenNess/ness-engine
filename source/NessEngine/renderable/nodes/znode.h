@@ -60,7 +60,7 @@ namespace Ness
 		NESSENGINE_API inline void set_break_groups(bool BreakGroups) {m_break_groups = BreakGroups;}
 
 		// render everything, with z order!
-		NESSENGINE_API virtual void render(const CameraPtr& camera = NullCamera);
+		NESSENGINE_API virtual void render(const CameraApiPtr& camera);
 	};
 
 	// scene pointer

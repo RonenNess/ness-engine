@@ -138,7 +138,7 @@ namespace Ness
 	}
 
 	// check if this particles system is visible using the particles system boundery size (set_bounderies_size())
-	bool ParticlesNode::is_really_visible(const CameraPtr& camera)
+	bool ParticlesNode::is_really_visible(const CameraApiPtr& camera)
 	{
 		// first check if even enabled
 		if (!m_visible || m_absolute_trans.color.a <= 0.0f)
@@ -146,13 +146,10 @@ namespace Ness
 			return false;
 		}
 
-		// get absolute position
-		Point pos = get_absolute_position();
-		if (camera)
-		{
-			pos -= camera->position;
-		}
+		// get absolute position with the camera
+		Pointi pos = get_absolute_position_with_camera(camera);
 
+		// check if in screen
 		if (pos.x - m_bounderies_size.x >= m_renderer->get_target_size().x || pos.y - m_bounderies_size.y >= m_renderer->get_target_size().y 
 			|| pos.x + m_bounderies_size.x <= 0 || pos.y + m_bounderies_size.y <= 0 )
 		{
@@ -162,7 +159,7 @@ namespace Ness
 		return true;
 	}
 
-	void ParticlesNode::render(const CameraPtr& camera)
+	void ParticlesNode::render(const CameraApiPtr& camera)
 	{
 		BaseNode::render(camera);
 		if (m_emit_while_not_visible == false)

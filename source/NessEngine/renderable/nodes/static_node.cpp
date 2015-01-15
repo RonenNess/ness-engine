@@ -34,7 +34,7 @@ namespace Ness
 	}
 
 	// render all the batches
-	void StaticNode::render(const CameraPtr& camera)
+	void StaticNode::render(const CameraApiPtr& camera)
 	{
 		// get visible batches range and render them
 		Rectangle batches = get_batches_range(camera);
@@ -51,7 +51,7 @@ namespace Ness
 	}
 
 	// get all visible batches (canvases)
-	void StaticNode::__get_visible_entities(RenderablesList& out_list, const CameraPtr& camera, bool break_son_nodes)
+	void StaticNode::__get_visible_entities(RenderablesList& out_list, const CameraApiPtr& camera, bool break_son_nodes)
 	{
 		// get visible batches range and add to out list
 		Rectangle batches = get_batches_range(camera);
@@ -114,7 +114,7 @@ namespace Ness
 				{
 
 					// prepare a relative camera
-					CameraPtr tempCam = ness_make_ptr<Camera>(renderer());
+					CameraPtr tempCam = ness_make_ptr<BasicCamera>(renderer());
 					tempCam->position.x = (float)(cx * m_batch_size.x);
 					tempCam->position.y = (float)(cy * m_batch_size.y);
 
@@ -150,21 +150,14 @@ namespace Ness
 	}
 
 	// get the range of visible batches (canvases)
-	Rectangle StaticNode::get_batches_range(const CameraPtr& camera)
+	Rectangle StaticNode::get_batches_range(const CameraApiPtr& camera)
 	{
-		// get absolute position with camera
-		SRenderTransformations trans = get_absolute_transformations(); 
-		Point pos = trans.position;
-		if (camera)
-		{
-			pos.x -= camera->position.x;
-			pos.y -= camera->position.y;
-		}
+		Rectangle ret;
+		Pointi pos = get_absolute_position_with_camera(camera);
 
 		// get range of batches to return
-		Rectangle ret;
-		ret.x = (int)(-pos.x / m_batch_size.x);
-		ret.y = (int)(-pos.y / m_batch_size.y);
+		ret.x = (int)(pos.x / m_batch_size.x);
+		ret.y = (int)(pos.y / m_batch_size.y);
 		ret.w = ret.x + (int)((m_renderer->get_target_size().x + m_batch_size.x) / m_batch_size.x) + 1;
 		ret.h = ret.y + (int)((m_renderer->get_target_size().y + m_batch_size.y) / m_batch_size.y) + 1;
 		return ret;

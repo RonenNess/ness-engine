@@ -52,7 +52,7 @@ namespace Ness
 		  RenderableAPI(renderer) {}
 
 		// is this node actually visible and inside screen?
-		NESSENGINE_API virtual bool is_really_visible(const CameraPtr& camera = NullCamera) = 0;
+		NESSENGINE_API virtual bool is_really_visible(const CameraApiPtr& camera) = 0;
 
 		// clear should remove all the sons of this node and clean it up nicely.
 		NESSENGINE_API virtual void destroy() = 0;
@@ -80,7 +80,7 @@ namespace Ness
 		NESSENGINE_API virtual bool is_entity() const {return false;}
 
 		// render this scene node (all nodes must also be renderable)
-		NESSENGINE_API virtual void render(const CameraPtr& camera = NullCamera) = 0;
+		NESSENGINE_API virtual void render(const CameraApiPtr& camera) = 0;
 
 		// select son entities from position (note: entities only!)
 		// out_list is the list to fill with the selected entities
@@ -97,7 +97,10 @@ namespace Ness
 		// it should ALWAYS break son-nodes (except for the son-nodes that have never-break flag which we need to 
 		// check here as the callers)
 		NESSENGINE_API virtual void __get_visible_entities(RenderablesList& out_list,
-			const CameraPtr& camera = NullCamera, bool break_son_nodes = true) = 0;
+			const CameraApiPtr& camera, bool break_son_nodes = true) = 0;
+
+		// nodes cannot be static.
+		NESSENGINE_API virtual bool is_static() const {return false;}
 
 		// get a list with ALL entities in node
 		// if breakGroups is true, will break down son nodes as well. else, will add son nodes to the list as whole

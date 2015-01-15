@@ -21,35 +21,23 @@
 */
 
 /**
-* A camera you can use to "navigate" in scenes
+* The most basic type of a camera, only set position you can use to navigate in scenes
 * Author: Ronen Ness
 * Since: 07/1014
 */
 
 #pragma once
-#include "../exports.h"
-#include "../basic_types/point.h"
-#include "../basic_types/rectangle.h"
-#include "../basic_types/containers.h"
-#include "../animators/animator_api.h"
+#include "basic_camera.h"
 
 namespace Ness
 {
-	// predeclare renderable ptr
-	class RenderableAPI;
-	NESSENGINE_API typedef SharedPtr<RenderableAPI> RenderablePtr;
-
-	// predeclare Renderer
-	class Renderer;
 
 	/**
-	* Cameras are objects you can create and render scenes with, and they will move all entities in the scene to fit camera position.
-	* this is your method to "navigate" in a larger node without actually moving entities but rather move the camera instead.
+	* A basic camera that can follow entities
 	*/
-	class Camera : public Animators::AnimatorAPI
+	class FollowCamera : BasicCamera
 	{
 	private:
-		Renderer*			m_renderer;						// parent renderer pointer
 		RenderablePtr		m_target;						// target this camera may focus on
 		Point				m_follow_target_speed;			// speed to foolow target on x and y axis. if 0, will follow immediatly
 		Point				m_follow_target_offset;			// offset on x and y axis to follow target
@@ -58,11 +46,8 @@ namespace Ness
 		bool				m_bounderies_enabled;			// are bounderies enabled?
 
 	public:
-		Point position;					// position is the position of this camera
-		Point __statics_position;		// statics_position is a special position that affect static entities
 
-		NESSENGINE_API Camera(Renderer* renderer, const Point& Position = Point(0, 0));
-		NESSENGINE_API ~Camera();
+		NESSENGINE_API FollowCamera(Renderer* renderer, const Point& Position = Point(0, 0));
 
 		// set / unset target the camera will automatically focus on (center screen on target position)
 		NESSENGINE_API inline void set_target(const RenderablePtr& target) {m_target = target;}
@@ -84,25 +69,8 @@ namespace Ness
 
 		// animate the camera
 		NESSENGINE_API virtual void do_animation(Renderer* renderer);
-
-		// some useful operators
-		NESSENGINE_API void operator*=(float scalar) {position *= scalar;}
-		NESSENGINE_API void operator/=(float scalar) {position /= scalar;}
-		NESSENGINE_API void operator-=(float scalar) {position -= scalar;}
-		NESSENGINE_API void operator+=(float scalar) {position += scalar;}
-		NESSENGINE_API void operator*=(const Point& pos) {position *= pos;}
-		NESSENGINE_API void operator/=(const Point& pos) {position /= pos;}
-		NESSENGINE_API void operator-=(const Point& pos) {position -= pos;}
-		NESSENGINE_API void operator+=(const Point& pos) {position += pos;}
-		NESSENGINE_API void operator*=(const Camera& other) {position *= other.position;}
-		NESSENGINE_API void operator/=(const Camera& other) {position /= other.position;}
-		NESSENGINE_API void operator-=(const Camera& other) {position -= other.position;}
-		NESSENGINE_API void operator+=(const Camera& other) {position += other.position;}
 	};
 
 	// camera pointer
-	NESSENGINE_API typedef SharedPtr<Camera> CameraPtr;
-
-	// null camera
-	#define NullCamera CameraPtr()
+	NESSENGINE_API typedef SharedPtr<FollowCamera> FollowCameraPtr;
 };

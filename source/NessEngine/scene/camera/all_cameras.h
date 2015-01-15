@@ -20,27 +20,8 @@
 
 */
 
-#include "scene.h"
-#include "camera/all_cameras.h"
-#include "../renderer/renderer.h"
-
-namespace Ness
-{
-	void Scene::render_on_viewport(const ViewportPtr& viewport, const CameraApiPtr& camera)
-	{
-		// create a temporary camera to set viewport source position
-		CameraPtr temp_cam = m_renderer->create_camera();
-		if (camera)
-		{
-			temp_cam->position = camera->get_position(); 
-		}
-		temp_cam->position -= viewport->get_source_position();
-		temp_cam->__statics_position -= viewport->get_source_position();
-
-		// render the scene on the 
-		m_renderer->push_render_target(viewport->get_canvas_texture());
-		render(temp_cam);
-		m_renderer->pop_render_target();
-
-	}
-};
+#pragma once
+#include "camera_api.h"
+#include "basic_camera.h"
+#include "follow_camera.h"
+#include "null_camera.h"

@@ -123,7 +123,7 @@ namespace Ness
 
 		void GuiManager::render()
 		{
-			m_root_container->get_node()->render();
+			m_root_container->get_node()->render(m_renderer->get_null_camera());
 		}
 
 		bool GuiManager::inject_event(const Event& event)

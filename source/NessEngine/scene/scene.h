@@ -32,7 +32,7 @@
 #include "../renderable/nodes/node.h"
 #include "../basic_types/containers.h"
 #include "viewport.h"
-#include "camera.h"
+#include "camera/all_cameras.h"
 
 namespace Ness
 {
@@ -52,7 +52,7 @@ namespace Ness
 		NESSENGINE_API virtual void transformations_update() {m_absolute_trans = m_transformations; Node::transformations_update();}
 
 		// render on a viewport
-		NESSENGINE_API virtual void render_on_viewport(const ViewportPtr& viewport, const CameraPtr& camera = NullCamera);
+		NESSENGINE_API virtual void render_on_viewport(const ViewportPtr& viewport, const CameraApiPtr& camera);
 
 		// disable the possibility to add a scene as a son
 		NESSENGINE_API virtual void __change_parent(NodeAPI* parent) {throw IllegalAction("cannot assign scene under another scene or node!");}

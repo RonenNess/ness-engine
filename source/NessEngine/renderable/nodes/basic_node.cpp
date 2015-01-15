@@ -29,7 +29,7 @@
 namespace Ness
 {
 
-	void BaseNode::__get_visible_entities(RenderablesList& out_list, const CameraPtr& camera, bool break_son_nodes)
+	void BaseNode::__get_visible_entities(RenderablesList& out_list, const CameraApiPtr& camera, bool break_son_nodes)
 	{
 		for (unsigned int i = 0; i < m_entities.size(); i++)
 		{
@@ -157,7 +157,7 @@ namespace Ness
 		m_entities.erase(std::remove(m_entities.begin(), m_entities.end(), object), m_entities.end());
 	}
 
-	bool BaseNode::is_really_visible(const CameraPtr& camera)
+	bool BaseNode::is_really_visible(const CameraApiPtr& camera)
 	{
 		// is this node even visible?
 		if (!m_visible || m_absolute_trans.color.a <= 0)
@@ -235,7 +235,7 @@ namespace Ness
 		return RenderablePtr();
 	}
 
-	void BaseNode::render(const CameraPtr& camera)
+	void BaseNode::render(const CameraApiPtr& camera)
 	{
 		// if invisible skip
 		if (!m_visible)

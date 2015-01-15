@@ -69,18 +69,11 @@ namespace Ness
 		m_anchor = Point(0, 0);
 	}
 
-	void TextureScroller::render(const CameraPtr& camera)
+	void TextureScroller::render(const CameraApiPtr& camera)
 	{
+
 		// first set offset based on camera
-		if (camera)
-		{
-			m_camera_offset = camera->position * m_camera_speed_factor;
-		}
-		else
-		{
-			m_camera_offset.x = 0;
-			m_camera_offset.y = 0;
-		}
+		m_camera_offset = camera->get_position() * m_camera_speed_factor;
 
 		// calc uv from base offset and camera offset
 		m_uv = m_base_offset + m_camera_offset;

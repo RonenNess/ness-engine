@@ -27,7 +27,7 @@
 namespace Ness
 {
 
-	Entity::Entity(Renderer* renderer) : EntityAPI(renderer), m_static(false), 
+	Entity::Entity(Renderer* renderer) : EntityAPI(renderer),
 		m_need_transformations_update(true), m_last_render_frame_id(0), m_last_update_frame_id(0), m_highlight(false)
 	{
 	}
@@ -40,8 +40,6 @@ namespace Ness
 
 	const SRenderTransformations& Entity::get_absolute_transformations_const() const
 	{
-		if (!m_parent || m_static)
-			return m_transformations;
 		return m_absolute_transformations;
 	}
 
@@ -87,7 +85,7 @@ namespace Ness
 	}
 
 
-	bool Entity::is_really_visible(const CameraPtr& camera)
+	bool Entity::is_really_visible(const CameraApiPtr& camera)
 	{
 		// first check if even enabled
 		if (!m_visible)
@@ -96,43 +94,25 @@ namespace Ness
 		}
 
 		// if was rendered during this frame, it's safe enough to assume it is visible
-		if ((m_need_transformations_update == false) && was_rendered_this_frame())
+		if ((!m_need_transformations_update) && was_rendered_this_frame())
 			return true;
 
-		// get absolute transformations
-		const SRenderTransformations& trans = get_absolute_transformations();
-
-		// invisible?
-		if (trans.color.a <= 0)
+		// check if should cull before transformations
+		if (camera->should_cull_pre_transform(this, m_target_rect, m_absolute_transformations))
 		{
 			return false;
 		}
 
 		// set camera position
+		SRenderTransformations trans = get_absolute_transformations();
 		Rectangle target = m_target_rect;
-		apply_camera_on_target_rect(target, camera);
+		camera->apply_transformations(this, target, trans);
 
-		return is_in_screen(target, trans.rotation);
+		// check if should cull after transformations
+		return (camera->should_cull_post_transform(this, target, trans));
 	}
 
-	void Entity::apply_camera_on_target_rect(Rectangle& target, const CameraPtr& camera) const
-	{
-		if (camera)
-		{
-			if (m_static)
-			{
-				target.x -= (int)floor(camera->__statics_position.x);
-				target.y -= (int)floor(camera->__statics_position.y);
-			} 
-			else
-			{
-				target.x -= (int)floor(camera->position.x);
-				target.y -= (int)floor(camera->position.y);
-			}
-		}
-	}
-
-	bool Entity::is_really_visible_const(const CameraPtr& camera) const
+	bool Entity::is_really_visible_const(const CameraApiPtr& camera) const
 	{
 		// first check if even enabled
 		if (!m_visible)
@@ -142,43 +122,15 @@ namespace Ness
 		if (was_rendered_this_frame())
 			return true;
 
-		// get absolute transformations
-		const SRenderTransformations& trans = get_absolute_transformations_const();
-
-		// invisible?
-		if (trans.color.a <= 0)
+		// check culling before applying camera
+		if (camera->should_cull_pre_transform(this, m_target_rect, m_absolute_transformations))
 			return false;
 
-		// set camera position
-		Rectangle target = m_target_rect;
-		apply_camera_on_target_rect(target, camera);
+		// check culling after applying camera
+		if (camera->should_cull_post_transform(this, m_target_rect, m_absolute_transformations))
+			return false;
 
-		return is_in_screen(target, trans.rotation);
-	}
-
-	bool Entity::is_in_screen(const Rectangle& target, float rotation) const
-	{
-		// if no rotation make simple rect-in-screen check
-		if (rotation == 0.0f)
-		{
-			if (target.x >= m_renderer->get_target_size().x || target.y >= m_renderer->get_target_size().y || 
-				target.x + abs(target.w) <= 0 || target.y + abs(target.h) <= 0 )
-			{
-				return false;
-			}
-		}
-		// if got rotation fix target rect
-		else
-		{
-			float size = (abs(target.h) > abs(target.w)) ? (float)abs(target.h) : (float)abs(target.w);
-			size *= 1.5f;
-			if (target.x - size >= m_renderer->get_target_size().x || target.y - size >= m_renderer->get_target_size().y || 
-				target.x + size <= 0 || target.y + size <= 0 )
-			{
-				return false;
-			}
-		}
-
+		// visible!
 		return true;
 	}
 
@@ -192,7 +144,7 @@ namespace Ness
 		return m_renderer->get_frameid() == m_last_update_frame_id;
 	}
 
-	void Entity::render(const CameraPtr& camera)
+	void Entity::render(const CameraApiPtr& camera)
 	{
 		// if invisible skip
 		if (!m_visible)
@@ -200,26 +152,22 @@ namespace Ness
 			return;
 		}
 
-		// get absolute transformations
-		const SRenderTransformations& trans = get_absolute_transformations();
-
-		// invisible?
-		if (trans.color.a <= 0)
-		{
+		// check culling before applying camera
+		if (camera->should_cull_pre_transform(this, m_target_rect, m_absolute_transformations))
 			return;
-		}
 
-		// set camera position
+		// get absolute transformations and target rect
+		SRenderTransformations trans = get_absolute_transformations();
 		Rectangle target = m_target_rect;
-		apply_camera_on_target_rect(target, camera);
 
-		// check if in screen
-		if (!is_in_screen(target, trans.rotation))
-		{
+		// apply camera
+		camera->apply_transformations(this, target, trans);
+
+		// check culling after applying camera
+		if (camera->should_cull_post_transform(this, target, trans))
 			return;
-		}
 
-		// lastly rendered
+		// set lastly rendered frame
 		m_last_render_frame_id = m_renderer->get_frameid();
 
 		// render!

@@ -97,7 +97,7 @@ namespace Ness
 		}
 	}
 
-	bool MultiText::is_really_visible(const CameraPtr& camera)
+	bool MultiText::is_really_visible(const CameraApiPtr& camera)
 	{
 		for (unsigned int i = 0; i < m_lines.size(); ++i)
 		{
@@ -107,7 +107,7 @@ namespace Ness
 		return false;
 	}
 
-	bool MultiText::is_really_visible_const(const CameraPtr& camera) const
+	bool MultiText::is_really_visible_const(const CameraApiPtr& camera) const
 	{
 		for (unsigned int i = 0; i < m_lines.size(); ++i)
 		{
@@ -117,7 +117,7 @@ namespace Ness
 		return false;
 	}
 
-	void MultiText::render(const CameraPtr& camera)
+	void MultiText::render(const CameraApiPtr& camera)
 	{
 		if (m_need_text_positioning)
 			update_lines_positions();

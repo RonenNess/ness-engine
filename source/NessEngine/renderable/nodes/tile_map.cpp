@@ -170,7 +170,7 @@ namespace Ness
 		m_sprites.clear();
 	}
 
-	void TileMap::__get_visible_entities(RenderablesList& out_list, const CameraPtr& camera, bool break_son_nodes)
+	void TileMap::__get_visible_entities(RenderablesList& out_list, const CameraApiPtr& camera, bool break_son_nodes)
 	{
 		Rectangle range = get_tiles_in_screen(camera);
 		for (int i = range.x; i < range.w; i++)
@@ -205,18 +205,10 @@ namespace Ness
 		}
 	}
 
-	Rectangle TileMap::get_tiles_in_screen(const CameraPtr& camera) 
+	Rectangle TileMap::get_tiles_in_screen(const CameraApiPtr& camera) 
 	{
 		Rectangle ret;
-		SRenderTransformations trans = get_absolute_transformations(); 
-
-		Point pos = trans.position;
-		if (camera)
-		{
-			pos.x -= camera->position.x;
-			pos.y -= camera->position.y;
-		}
-
+		Pointi pos = get_absolute_position_with_camera(camera);
 		ret.x = get_first_tile_in_screen_x(pos);
 		ret.y = get_first_tile_in_screen_y(pos);
 		ret.w = ret.x + get_tiles_in_screen_x() + 1;
@@ -294,7 +286,7 @@ namespace Ness
 		return ret;
 	}
 
-	bool TileMap::is_really_visible(const CameraPtr& camera)
+	bool TileMap::is_really_visible(const CameraApiPtr& camera)
 	{
 		if (!m_visible)
 			return false;
@@ -310,7 +302,7 @@ namespace Ness
 		return true;
 	}
 
-	void TileMap::render(const CameraPtr& camera)
+	void TileMap::render(const CameraApiPtr& camera)
 	{
 		// if invisible skip
 		if (!m_visible)

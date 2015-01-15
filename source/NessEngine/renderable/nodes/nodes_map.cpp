@@ -156,7 +156,7 @@ namespace Ness
 		return (int)((m_renderer->get_target_size().y + (m_node_size.y * scale)) / (m_nodes_distance.y * scale)) + 2 + m_extra_tiles_factor.y * 2;
 	}
 
-	void NodesMap::__get_visible_entities(RenderablesList& out_list, const CameraPtr& camera, bool break_son_nodes)
+	void NodesMap::__get_visible_entities(RenderablesList& out_list, const CameraApiPtr& camera, bool break_son_nodes)
 	{
 		Rectangle range = get_nodes_in_screen(camera);
 		for (int i = range.x; i < range.w; i++)
@@ -212,18 +212,10 @@ namespace Ness
 		m_nodes.clear();
 	}
 
-	Rectangle NodesMap::get_nodes_in_screen(const CameraPtr& camera) 
+	Rectangle NodesMap::get_nodes_in_screen(const CameraApiPtr& camera) 
 	{
 		Rectangle ret;
-		SRenderTransformations trans = get_absolute_transformations(); 
-
-		Point pos = trans.position;
-		if (camera)
-		{
-			pos.x -= camera->position.x;
-			pos.y -= camera->position.y;
-		}
-
+		Pointi pos = get_absolute_position_with_camera(camera);
 		ret.x = get_first_tile_in_screen_x(pos);
 		ret.y = get_first_tile_in_screen_y(pos);
 		ret.w = ret.x + get_tiles_in_screen_x();
@@ -290,7 +282,7 @@ namespace Ness
 		return get_node_any(index);
 	}
 
-	bool NodesMap::is_really_visible(const CameraPtr& camera)
+	bool NodesMap::is_really_visible(const CameraApiPtr& camera)
 	{
 		if (!m_visible)
 			return false;
@@ -306,7 +298,7 @@ namespace Ness
 		return true;
 	}
 
-	void NodesMap::render(const CameraPtr& camera)
+	void NodesMap::render(const CameraApiPtr& camera)
 	{
 		// if invisible skip
 		if (!m_visible)

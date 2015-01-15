@@ -34,7 +34,7 @@
 
 // include scene and camera
 #include "scene/scene.h"
-#include "scene/camera.h"
+#include "scene/camera/all_cameras.h"
 
 // include renderer and basic stuff
 #include "renderer/renderer.h"

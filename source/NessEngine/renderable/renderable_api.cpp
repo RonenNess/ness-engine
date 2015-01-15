@@ -51,4 +51,13 @@ namespace Ness
 		m_parent = parent;
 		transformations_update();
 	}
+
+	Point RenderableAPI::get_absolute_position_with_camera(const CameraApiPtr& camera)
+	{
+		Rectangle ret;
+		const SRenderTransformations& trans = get_absolute_transformations();
+		ret.x = (int)trans.position.x;
+		ret.y = (int)trans.position.y;
+		return camera->get_abs_position(this, ret, trans);
+	}
 };

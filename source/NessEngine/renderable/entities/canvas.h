@@ -62,7 +62,7 @@ namespace Ness
 		NESSENGINE_API inline const Color& get_clean_color() {return m_clean_color;}
 
 		// render the canvas
-		NESSENGINE_API virtual void render(const CameraPtr& camera = NullCamera);
+		NESSENGINE_API virtual void render(const CameraApiPtr& camera);
 
 		// set a mask texture on this canvas
 		// the mask will act as the alpha channels of the canvas, where black is visible and white is invisibile.

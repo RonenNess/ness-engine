@@ -55,6 +55,9 @@ namespace Ness
 		// get the actual window size (if maximized or fullscreen its different then windowSize
 		refresh_window_size();
 
+		// create the default null camera
+		m_null_camera = ness_make_ptr<NullCamera>(this);
+
 		// to set target size etc..
 		reset_render_target();
 	}
@@ -149,7 +152,12 @@ namespace Ness
 	// create the camera object
 	CameraPtr Renderer::create_camera() const 
 	{
-		return ness_make_ptr<Camera>((Renderer*)this);
+		return ness_make_ptr<BasicCamera>((Renderer*)this);
+	}
+
+	FollowCameraPtr Renderer::create_follow_camera() const
+	{
+		return ness_make_ptr<FollowCamera>((Renderer*)this);
 	}
 
 	// destroy the renderer
@@ -232,7 +240,7 @@ namespace Ness
 	}
 
 	// render everything!
-	void Renderer::render_scenes(const CameraPtr& camera)
+	void Renderer::render_scenes(const CameraApiPtr& camera)
 	{
 		// render everything
 		for (auto scene = m_scenes.begin(); scene != m_scenes.end(); ++scene)

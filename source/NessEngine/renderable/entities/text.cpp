@@ -135,7 +135,7 @@ namespace Ness
 		m_need_text_update = false;
 	}
 
-	void Text::render(const CameraPtr& camera)
+	void Text::render(const CameraApiPtr& camera)
 	{
 		// if need to update the text surface call update
 		if (m_need_text_update)

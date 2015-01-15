@@ -55,7 +55,7 @@ namespace Ness
 		m_need_redraw = true;
 	}
 
-	void Light::render(const CameraPtr& camera)
+	void Light::render(const CameraApiPtr& camera)
 	{
 		// if attached to target...
 		if (m_target)
@@ -103,7 +103,7 @@ namespace Ness
 		set_flag(RNF_NEVER_BREAK);
 	}
 
-	void LightNode::get_lights_in_screen(Containers::Vector<LightPtr>& out_list, const CameraPtr& camera) const
+	void LightNode::get_lights_in_screen(Containers::Vector<LightPtr>& out_list, const CameraApiPtr& camera) const
 	{
 		for (unsigned int i = 0; i < m_entities.size(); i++)
 		{
@@ -144,7 +144,7 @@ namespace Ness
 		return NewSprite;
 	}
 
-	void LightNode::render(const CameraPtr& camera)
+	void LightNode::render(const CameraApiPtr& camera)
 	{
 		// if invisible skip
 		if (!m_visible)
@@ -152,13 +152,16 @@ namespace Ness
 
 		// if always-update is set to true:
 		if (m_always_update)
+		{
 			m_need_update = true;
+		}
 		else
 		{
-			if (camera && camera->position != m_last_camera_pos)
+			TCameraHash cam_hash = camera->get_hash();
+			if (cam_hash != m_last_camera_hash)
 			{
 				m_need_update = true;
-				m_last_camera_pos = camera->position;
+				cam_hash = cam_hash;
 			}
 		}
 
@@ -173,7 +176,7 @@ namespace Ness
 		// if got here and don't need update, only render the canvas and return
 		if (!m_need_update)
 		{
-			m_canvas->render();
+			m_canvas->render(m_renderer->get_null_camera());
 			return;
 		}
 
@@ -195,6 +198,6 @@ namespace Ness
 		m_renderer->pop_render_target();
 
 		// render the canvas layer
-		m_canvas->render();
+		m_canvas->render(m_renderer->get_null_camera());
 	}
 };

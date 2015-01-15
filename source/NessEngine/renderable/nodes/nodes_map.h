@@ -82,6 +82,7 @@ namespace Ness
 
 		// return the absolute transformations of this tilemap
 		NESSENGINE_API virtual const SRenderTransformations& get_absolute_transformations();
+		NESSENGINE_API virtual const SRenderTransformations& get_absolute_transformations_const() const {return m_absolute_transformations;}
 
 		// return tilemap params
 		NESSENGINE_API inline const Sizei& get_map_size() const {return m_size;}
@@ -139,7 +140,7 @@ namespace Ness
 
 		// get all visible son nodes and entities
 		NESSENGINE_API virtual void __get_visible_entities(RenderablesList& out_list,
-			const CameraPtr& camera = NullCamera, bool break_son_nodes = true);
+			const CameraApiPtr& camera, bool break_son_nodes = true);
 
 		// get all son entities (all the tiles)
 		NESSENGINE_API virtual void __get_all_entities(RenderablesList& out_list, bool breakGroups);
@@ -148,14 +149,14 @@ namespace Ness
 		NESSENGINE_API virtual void transformations_update();
 
 		// check if this tilemap is really visible
-		NESSENGINE_API virtual bool is_really_visible(const CameraPtr& camera = NullCamera);
+		NESSENGINE_API virtual bool is_really_visible(const CameraApiPtr& camera);
 
 		// get range of tiles that are within the map
 		// returns a rectangle. x is first node i index, w is last node i index. y is the same for j indexes
 		// for example:
 		// Rectangle range = map->get_nodes_in_screen();
 		// for (int i = range.x; i < range.w; i++) ....
-		NESSENGINE_API Rectangle get_nodes_in_screen(const CameraPtr& camera);
+		NESSENGINE_API Rectangle get_nodes_in_screen(const CameraApiPtr& camera);
 
 		// add/remove entities from this node - illegal in tilesmap node!
 		NESSENGINE_API virtual void add(const RenderablePtr& object) {throw IllegalAction("Cannot add new entities to tilemap!");}
@@ -167,7 +168,7 @@ namespace Ness
 		NESSENGINE_API void apply_to_all(TExecuteOnNodes func);
 
 		// render this tilemap
-		NESSENGINE_API virtual void render(const CameraPtr& camera = NullCamera);
+		NESSENGINE_API virtual void render(const CameraApiPtr& camera);
 
 	protected:
 		// function to return the first visible tile in screen on x axis

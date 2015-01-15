@@ -20,23 +20,20 @@
 
 */
 
-#include "camera.h"
-#include "../renderable/renderable_api.h"
-#include "../renderer/renderer.h"
+#include "follow_camera.h"
+#include "../../renderable/renderable_api.h"
+#include "../../renderer/renderer.h"
 
 namespace Ness
 {
 
-	Camera::Camera(Renderer* renderer, const Point& Position) 
-		: m_renderer(renderer), position(Position), m_follow_target_speed(0, 0), m_follow_target_offset(0, 0), m_follow_target_max_distance(0, 0), m_bounderies_enabled(false)
+	FollowCamera::FollowCamera(Renderer* renderer, const Point& Position) 
+		: BasicCamera(renderer, Position), m_follow_target_speed(0, 0), m_follow_target_offset(0, 0), 
+		m_follow_target_max_distance(0, 0), m_bounderies_enabled(false)
 	{
 	}
 
-	Camera::~Camera()
-	{
-	}
-
-	void Camera::do_animation(Renderer* renderer)
+	void FollowCamera::do_animation(Renderer* renderer)
 	{
 		// focus on target
 		if (m_target)
@@ -136,5 +133,4 @@ namespace Ness
 				position.y = (float)m_bounderies.h - renderer->get_target_size().y;
 		}
 	}
-
 };
