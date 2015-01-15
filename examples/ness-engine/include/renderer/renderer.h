@@ -36,6 +36,7 @@
 #include "../scene/scene.h"
 #include "../scene/viewport.h"
 #include "../gui/gui_manager.h"
+#include "../scene/camera/null_camera.h"
 
 namespace Ness
 {
@@ -106,6 +107,7 @@ namespace Ness
 		const int													m_flags;					// init flags (passed in constructor)
 		bool														m_auto_animate;				// do animations automatically (default to true)
 		bool														m_diff_renderer_size;		// are we using different renderer size? (set_renderer_size)
+		NullCameraPtr												m_null_camera;				// default null camera (when no camera is used)
 
 	public:
 		// create the renderer instance!
@@ -132,6 +134,10 @@ namespace Ness
 		// if you didn't use set_renderer_size() this should always be (1,1)
 		// if you set alternative renderer size this function will return 
 		NESSENGINE_API Size get_renderer_to_window_ratio() const {return (Size(m_renderer_size) / Size(m_window_size));}
+
+		// return an empty default null camera
+		NESSENGINE_API NullCameraPtr& get_null_camera() {return m_null_camera;}
+		NESSENGINE_API const NullCameraPtr& get_null_camera() const {return m_null_camera;}
 
 		// set the logical size of the renderer
 		// for example if you have full resolution of 1600x1200 and renderer size of 640x480, it will automatically scale the
@@ -171,8 +177,11 @@ namespace Ness
 		NESSENGINE_API Sizei get_target_center() const;
 		NESSENGINE_API Sizei get_screen_center() const;
 
-		// create a camera
+		// create a basic camera
 		NESSENGINE_API CameraPtr create_camera() const;
+		
+		// create a camera that can follow 
+		NESSENGINE_API FollowCameraPtr create_follow_camera() const;
 
 		// create a viewport
 		// source_size is the initial source size of the viewport, i.e. the region bounderies. if not provided will take full screen size.
@@ -194,7 +203,7 @@ namespace Ness
 		NESSENGINE_API void set_background_color(const Color& new_color);
 
 		// render everything!
-		NESSENGINE_API void render_scenes(const CameraPtr& camera = NullCamera);
+		NESSENGINE_API void render_scenes(const CameraApiPtr& camera);
 
 		// begin a rendering frame
 		NESSENGINE_API void start_frame(bool clearScene = true);

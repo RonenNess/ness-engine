@@ -115,7 +115,7 @@ namespace Ness
 		NESSENGINE_API inline void set_bounderies_size(const Size& size) {m_bounderies_size = size * 0.5f;}
 
 		// check if this particles system is visible using the particles system boundery size (set_bounderies_size())
-		NESSENGINE_API virtual bool is_really_visible(const CameraPtr& camera = NullCamera);
+		NESSENGINE_API virtual bool is_really_visible(const CameraApiPtr& camera);
 
 		// get the particles emitter
 		NESSENGINE_API inline SharedPtr<ParticlesEmitter>& get_emitter() {return m_settings.particles_emitter;}
@@ -134,7 +134,7 @@ namespace Ness
 		NESSENGINE_API void reset(bool RemoveExistingParticles = false);
 
 		// render the particles
-		NESSENGINE_API virtual void render(const CameraPtr& camera = NullCamera);
+		NESSENGINE_API virtual void render(const CameraApiPtr& camera);
 
 		// animate the particles in this node & emit new particles when needed
 		NESSENGINE_API virtual void do_animation(Renderer* renderer);

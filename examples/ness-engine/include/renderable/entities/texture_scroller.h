@@ -64,7 +64,7 @@ namespace Ness
 		NESSENGINE_API const Pointf& get_camera_move_factor() const {return m_camera_speed_factor;}
 
 		// render this texture scroller
-		NESSENGINE_API virtual void render(const CameraPtr& camera = NullCamera);
+		NESSENGINE_API virtual void render(const CameraApiPtr& camera);
 
 	protected:
 

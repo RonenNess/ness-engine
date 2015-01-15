@@ -65,7 +65,7 @@ namespace Ness
 		NESSENGINE_API inline void set_need_redraw(bool need) {m_need_redraw = need;}
 
 		// override the render function to follow target
-		NESSENGINE_API virtual void render(const CameraPtr& camera);
+		NESSENGINE_API virtual void render(const CameraApiPtr& camera);
 
 		// need to update transformations when changing visible so that the light node will re-render
 		NESSENGINE_API void set_visible(bool Visible);
@@ -84,10 +84,10 @@ namespace Ness
 	class LightNode : public BaseNode
 	{
 	private:
-		CanvasPtr m_canvas;			// the light canvas
-		bool m_need_update;			// true when need to re-render the light canvas
-		bool m_always_update;		// if true, will always re-render the entire light canvas
-		Point m_last_camera_pos;	// last camera position
+		CanvasPtr	m_canvas;				// the light canvas
+		bool		m_need_update;			// true when need to re-render the light canvas
+		bool		m_always_update;		// if true, will always re-render the entire light canvas
+		TCameraHash m_last_camera_hash;		// last camera state
 
 	public:
 		// create the znode
@@ -113,10 +113,10 @@ namespace Ness
 		NESSENGINE_API LightPtr create_light(const String& lightTexture, const Color& color = Color::WHITE);
 
 		// return all lights currently in screen
-		NESSENGINE_API void get_lights_in_screen(Containers::Vector<LightPtr>& out_list, const CameraPtr& camera = NullCamera) const;
+		NESSENGINE_API void get_lights_in_screen(Containers::Vector<LightPtr>& out_list, const CameraApiPtr& camera) const;
 
 		// render the light node
-		NESSENGINE_API virtual void render(const CameraPtr& camera = NullCamera);
+		NESSENGINE_API virtual void render(const CameraApiPtr& camera);
 
 		// by default, the light node only refreash when one of the lights changes.
 		// if you want from any reason to disable this optimization and always recalculate the lights, 

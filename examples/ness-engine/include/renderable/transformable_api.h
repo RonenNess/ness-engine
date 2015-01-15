@@ -76,7 +76,8 @@ namespace Ness
 		NESSENGINE_API virtual Point get_direction_vector() const {return Point::from_angle(get_rotation());}
 
 		// return absolute position
-		NESSENGINE_API virtual Point get_absolute_position() {return get_absolute_transformations().position;}
+		NESSENGINE_API virtual const Point& get_absolute_position() {return get_absolute_transformations().position;}
+		NESSENGINE_API virtual const Point& get_absolute_position() const {return get_absolute_transformations_const().position;}
 
 		// return absolute z index
 		NESSENGINE_API virtual float get_absolute_zindex() {return get_absolute_transformations().zorder;}
@@ -87,6 +88,7 @@ namespace Ness
 
 		// return the absolute transformations of this object, with its parents taken into consideration
 		NESSENGINE_API virtual const SRenderTransformations& get_absolute_transformations() = 0;
+		NESSENGINE_API virtual const SRenderTransformations& get_absolute_transformations_const() const = 0;
 	};
 
 };

@@ -69,7 +69,7 @@ namespace Ness
 		NESSENGINE_API inline void set_visible(bool Visible);
 
 		// override the render function to follow target
-		NESSENGINE_API virtual void render(const CameraPtr& camera);
+		NESSENGINE_API virtual void render(const CameraApiPtr& camera);
 	};
 
 	NESSENGINE_API typedef SharedPtr<Shadow> ShadowPtr;
@@ -85,10 +85,10 @@ namespace Ness
 	class ShadowNode : public BaseNode
 	{
 	private:
-		CanvasPtr m_canvas;			// the shadows canvas
-		bool m_need_update;			// true when need to re-render the shadow canvas
-		bool m_always_update;		// if true, will always re-render the entire shadow canvas
-		Point m_last_camera_pos;	// last camera position
+		CanvasPtr	m_canvas;			// the shadows canvas
+		bool		m_need_update;		// true when need to re-render the shadow canvas
+		bool		m_always_update;	// if true, will always re-render the entire shadow canvas
+		TCameraHash m_last_camera_hash;	// last camera state
 
 	public:
 		// create the znode
@@ -109,10 +109,10 @@ namespace Ness
 		NESSENGINE_API ShadowPtr create_shadow(const String& shadow_texture, const Color& color = Color::BLACK * Color::HALF_INVISIBLE);
 
 		// return all shadows currently in screen
-		NESSENGINE_API void get_shadows_in_screen(Containers::Vector<ShadowPtr>& out_list, const CameraPtr& camera = NullCamera) const;
+		NESSENGINE_API void get_shadows_in_screen(Containers::Vector<ShadowPtr>& out_list, const CameraApiPtr& camera) const;
 
 		// render the shadow node
-		NESSENGINE_API virtual void render(const CameraPtr& camera = NullCamera);
+		NESSENGINE_API virtual void render(const CameraApiPtr& camera);
 
 		// by default, the shadow node only refreash when one of the shadows changes.
 		// if you want from any reason to disable this optimization and always recalculate the shadows, 

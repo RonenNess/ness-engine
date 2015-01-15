@@ -109,7 +109,7 @@ namespace Ness
 		camera->apply_transformations(this, target, trans);
 
 		// check if should cull after transformations
-		return (camera->should_cull_post_transform(this, target, trans));
+		return (!camera->should_cull_post_transform(this, target, trans));
 	}
 
 	bool Entity::is_really_visible_const(const CameraApiPtr& camera) const
@@ -126,12 +126,13 @@ namespace Ness
 		if (camera->should_cull_pre_transform(this, m_target_rect, m_absolute_transformations))
 			return false;
 
-		// check culling after applying camera
-		if (camera->should_cull_post_transform(this, m_target_rect, m_absolute_transformations))
-			return false;
+		// set camera position
+		SRenderTransformations trans = get_absolute_transformations_const();
+		Rectangle target = m_target_rect;
+		camera->apply_transformations(this, target, trans);
 
-		// visible!
-		return true;
+		// check if should cull after transformations
+		return (!camera->should_cull_post_transform(this, target, trans));
 	}
 
 	bool Entity::was_rendered_this_frame() const

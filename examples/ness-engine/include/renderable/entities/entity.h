@@ -42,7 +42,6 @@ namespace Ness
 	protected:
 		Size									m_size;								// size of this entity
 		Point									m_anchor;							// anchor point relative to entity size
-		bool									m_static;							// if true, this entity will not be affected by camera
 		Rectangle								m_target_rect;						// target rectagnle we render this entity on screen
 		bool									m_need_transformations_update;		// do we need to update the transforlmations cache?
 		SRenderTransformations					m_absolute_transformations;			// transformations cache, calculated with parents
@@ -84,8 +83,8 @@ namespace Ness
 		NESSENGINE_API inline Size get_absolute_size_const() const {return m_absolute_transformations.scale * m_size;}
 
 		// return absolute position
-		NESSENGINE_API inline Point get_absolute_position() {return get_absolute_transformations().position;}
-		NESSENGINE_API inline Point get_absolute_position_const() const {return m_absolute_transformations.position;}
+		NESSENGINE_API inline const Point& get_absolute_position() {return get_absolute_transformations().position;}
+		NESSENGINE_API inline const Point& get_absolute_position_const() const {return m_absolute_transformations.position;}
 
 		// return absolute rotation
 		NESSENGINE_API inline float get_absolute_rotation() {return get_absolute_transformations().rotation;}
@@ -100,14 +99,10 @@ namespace Ness
 		NESSENGINE_API inline float get_absolute_zindex_const() const {return m_absolute_transformations.zorder;}
 
 		// check if this sprite really is visible: if it's currently visible, opacity > 0, and inside screen bounderies
-		NESSENGINE_API virtual bool is_really_visible(const CameraPtr& camera = NullCamera);
+		NESSENGINE_API virtual bool is_really_visible(const CameraApiPtr& camera);
 
 		// check if this sprite really is visible, but without changing its internal state
-		NESSENGINE_API virtual bool is_really_visible_const(const CameraPtr& camera) const;
-
-		// set/get if this entity is static (static entities ignore camera when rendered)
-		NESSENGINE_API inline void set_static(bool IsStatic) {m_static = IsStatic;}
-		NESSENGINE_API inline bool is_static() const {return m_static;}
+		NESSENGINE_API virtual bool is_really_visible_const(const CameraApiPtr& camera) const;
 
 		// set the anchor point
 		// anchor is a point with values from 0.0 to 1.0, that represent the rotation center of this sprite (multiplied by his size)
@@ -125,17 +120,12 @@ namespace Ness
 		NESSENGINE_API virtual const SRenderTransformations& get_absolute_transformations_const() const;
 
 		// render this entity
-		NESSENGINE_API virtual void render(const CameraPtr& camera = NullCamera);
+		NESSENGINE_API virtual void render(const CameraApiPtr& camera);
 
 		// calculate the target rect, which is the position and size of this entity when rendered on the screen
 		NESSENGINE_API virtual void calc_target_rect();
 
 	protected:
-
-		NESSENGINE_API void apply_camera_on_target_rect(Rectangle& target, const CameraPtr& camera) const;
-
-		// check if target rectangle is inside screen
-		NESSENGINE_API bool is_in_screen(const Rectangle& target, float rotation) const;
 
 		// the actual rendering function to override
 		// target: target rectangle to render to (final, with camera and everything calculated)

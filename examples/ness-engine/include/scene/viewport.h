@@ -55,7 +55,7 @@
 #include "../exports.h"
 #include "../exceptions/exceptions.h"
 #include "../renderable/entities/canvas.h"
-#include "camera.h"
+#include "camera/all_cameras.h"
 
 namespace Ness
 {
