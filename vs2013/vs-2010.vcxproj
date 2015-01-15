@@ -57,7 +57,9 @@
     <ClCompile Include="..\source\NessEngine\resources\font.cpp" />
     <ClCompile Include="..\source\NessEngine\resources\MaskTextureSheet.cpp" />
     <ClCompile Include="..\source\NessEngine\resources\TextureSheet.cpp" />
-    <ClCompile Include="..\source\NessEngine\scene\camera.cpp" />
+    <ClCompile Include="..\source\NessEngine\scene\camera\basic_camera.cpp" />
+    <ClCompile Include="..\source\NessEngine\scene\camera\follow_camera.cpp" />
+    <ClCompile Include="..\source\NessEngine\scene\camera\null_camera.cpp" />
     <ClCompile Include="..\source\NessEngine\scene\scene.cpp" />
     <ClCompile Include="..\source\NessEngine\scene\viewport.cpp" />
     <ClCompile Include="..\source\NessEngine\utils\events\application_events.cpp" />
@@ -134,7 +136,11 @@
     <ClInclude Include="..\source\NessEngine\resources\font.h" />
     <ClInclude Include="..\source\NessEngine\resources\MaskTextureSheet.h" />
     <ClInclude Include="..\source\NessEngine\resources\TextureSheet.h" />
-    <ClInclude Include="..\source\NessEngine\scene\camera.h" />
+    <ClInclude Include="..\source\NessEngine\scene\camera\all_cameras.h" />
+    <ClInclude Include="..\source\NessEngine\scene\camera\basic_camera.h" />
+    <ClInclude Include="..\source\NessEngine\scene\camera\camera_api.h" />
+    <ClInclude Include="..\source\NessEngine\scene\camera\follow_camera.h" />
+    <ClInclude Include="..\source\NessEngine\scene\camera\null_camera.h" />
     <ClInclude Include="..\source\NessEngine\scene\scene.h" />
     <ClInclude Include="..\source\NessEngine\scene\viewport.h" />
     <ClInclude Include="..\source\NessEngine\utils\events\application_events.h" />
@@ -236,6 +242,7 @@
       <Optimization>Disabled</Optimization>
       <PreprocessorDefinitions>NESSENGINE_EXPORTS;WIN32;_DEBUG;_WINDOWS;_USRDLL;VS2010_EXPORTS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <AdditionalIncludeDirectories>$(ProjectDir)\..\sdl\include\;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <TreatWarningAsError>true</TreatWarningAsError>
     </ClCompile>
     <Link>
       <SubSystem>Windows</SubSystem>
