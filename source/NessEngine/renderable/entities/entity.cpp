@@ -153,12 +153,15 @@ namespace Ness
 			return;
 		}
 
+		// to update absolute transformation and recalculate things if needed
+		get_absolute_transformations();
+
 		// check culling before applying camera
 		if (camera->should_cull_pre_transform(this, m_target_rect, m_absolute_transformations))
 			return;
 
-		// get absolute transformations and target rect
-		SRenderTransformations trans = get_absolute_transformations();
+		// copy absolute transformations and target rect
+		SRenderTransformations trans = m_absolute_transformations;
 		Rectangle target = m_target_rect;
 
 		// apply camera

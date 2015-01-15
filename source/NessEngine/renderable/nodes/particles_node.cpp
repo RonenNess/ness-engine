@@ -208,8 +208,12 @@ namespace Ness
 		{
 			particlesToEmit = m_settings.min_particles_emit;
 		}
+
+		// check if out of quota
 		if (particlesToEmit > (unsigned int)QuotaLimit)
+		{
 			particlesToEmit = QuotaLimit;
+		}
 
 		// check total particles limit (if exists)
 		if (m_settings.stop_after_count > 0)
