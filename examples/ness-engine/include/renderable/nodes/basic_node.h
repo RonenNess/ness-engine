@@ -123,6 +123,9 @@ namespace Ness
 		// render this node with camera
 		NESSENGINE_API virtual void render(const CameraApiPtr& camera);
 
+		// render this node without camera
+		NESSENGINE_API virtual void render();
+
 	};
 
 	NESSENGINE_API typedef SharedPtr<BaseNode> BaseNodePtr;

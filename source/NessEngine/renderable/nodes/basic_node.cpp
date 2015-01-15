@@ -235,6 +235,11 @@ namespace Ness
 		return RenderablePtr();
 	}
 
+	void BaseNode::render()
+	{
+		render(m_renderer->get_null_camera());
+	}
+
 	void BaseNode::render(const CameraApiPtr& camera)
 	{
 		// if invisible skip

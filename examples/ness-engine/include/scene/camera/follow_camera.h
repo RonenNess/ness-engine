@@ -35,9 +35,9 @@ namespace Ness
 	/**
 	* A basic camera that can follow entities
 	*/
-	class FollowCamera : BasicCamera
+	class FollowCamera : public BasicCamera
 	{
-	private:
+	protected:
 		RenderablePtr		m_target;						// target this camera may focus on
 		Point				m_follow_target_speed;			// speed to foolow target on x and y axis. if 0, will follow immediatly
 		Point				m_follow_target_offset;			// offset on x and y axis to follow target

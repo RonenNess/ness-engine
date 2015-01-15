@@ -35,7 +35,8 @@ int _tmain(int argc, _TCHAR* argv[])
 	Ness::NodePtr znode = scene->create_znode();
 
 	// create a camera
-	Ness::CameraPtr camera = renderer.create_camera();
+	Ness::FollowCameraPtr camera = renderer.create_follow_camera();
+	renderer.register_animator(camera);
 	float PlayerSpeed = 250.0f;
 
 	// create random trees and rocks
@@ -54,6 +55,7 @@ int _tmain(int argc, _TCHAR* argv[])
 	player->set_anchor(Ness::Point(0.5f, 1.0f));
 	player->set_position(Ness::Pointi(TotalMapSize / 2, TotalMapSize / 2));
 	player->set_blend_mode(Ness::BLEND_MODE_BLEND);
+	camera->set_target(player);
 
 	// create the fps show
 	Ness::TextPtr fpsShow = scene->create_text("../ness-engine/resources/fonts/courier.ttf", "fps", 20);
@@ -113,10 +115,6 @@ int _tmain(int argc, _TCHAR* argv[])
 
 		// fix player zorder based on his y position
 		player->set_zindex(playerPos.y);
-
-		// set camera to focus on player
-		camera->position.x = player->get_position().x - (renderer.get_screen_size().x * 0.5f);
-		camera->position.y = player->get_position().y - (renderer.get_screen_size().y * 0.5f);
 
 		// render and end the scene
 		scene->render(camera);

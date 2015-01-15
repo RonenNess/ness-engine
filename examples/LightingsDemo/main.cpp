@@ -45,7 +45,7 @@ int _tmain(int argc, _TCHAR* argv[])
 
 	// create the light node
 	Ness::LightNodePtr light = scene->create_light_node();
-	light->set_ambient_color(Ness::Color(0.0f, 0.2f, 0.4f, 1.0f));
+	light->set_ambient_color(Ness::Color(0.0f, 0.1f, 0.3f, 1.0f));
 
 	// create light over the alien
 	Ness::LightPtr alienLight = light->create_light("../ness-engine/resources/gfx/light_round.jpg", Ness::Color::GREEN);

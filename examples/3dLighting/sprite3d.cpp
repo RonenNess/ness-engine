@@ -13,7 +13,7 @@ Sprite3d::Sprite3d(Ness::LightNodePtr lightNode, const std::string& TextureFile,
 	m_render_diffuse = true;
 }
 
-void Sprite3d::render(const Ness::CameraPtr& camera)
+void Sprite3d::render(const Ness::CameraApiPtr& camera)
 {
 	m_last_camera = camera;
 	Ness::Sprite::render(camera);

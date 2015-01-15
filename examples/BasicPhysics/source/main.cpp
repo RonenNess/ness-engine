@@ -92,6 +92,9 @@ int _tmain(int argc, _TCHAR* argv[])
 	Ness::Utils::Keyboard keyboard;
     EventsPoller.add_handler(keyboard);
 
+	// add instructions
+	Ness::TextPtr instructions = scene->create_text("../ness-engine/resources/fonts/courier.ttf", "arrows to move, mouse click to create bodies", 20);
+
 	// create the corner logo
 	Ness::SpritePtr corner_logo = scene->create_sprite("../ness-engine/resources/gfx/Ness-Engine-Small.png");
 	corner_logo->set_blend_mode(Ness::BLEND_MODE_BLEND);
@@ -124,35 +127,27 @@ int _tmain(int argc, _TCHAR* argv[])
 		}
 
 		// when mouse click we generate a small evil crab
-		static bool mouse_was_down = false;
-		if (mouse.is_down(Ness::MOUSE_LEFT))
+		if (mouse.was_clicked(Ness::MOUSE_LEFT))
 		{
-			if (!mouse_was_down)
-			{
-				b2BodyDef bodyDef;
-				bodyDef.type = b2_dynamicBody;
-				bodyDef.position = NessToBox2d::point(mouse.position());
-				b2Body* body = world.CreateBody(&bodyDef);
-				b2CircleShape Shape;
-				Shape.m_radius = 0.35f;
-				b2FixtureDef fixtureDef;
-				fixtureDef.shape = &Shape;
-				fixtureDef.density = 2.5f;
-				fixtureDef.restitution = 0.5f;
-				body->CreateFixture(&fixtureDef);
-				Ness::SpritePtr new_crab = node->create_sprite("../ness-engine/resources/gfx/crab.png");
-				new_crab->set_anchor(Ness::Point::HALF);
-				new_crab->set_blend_mode(Ness::BLEND_MODE_BLEND);
-				new_crab->set_scale(0.125f);
-				new_crab->set_color(Ness::Color::BLUE);
-				renderer.__register_animator_unsafe(new NessBoxConnector(new_crab, body));
-			}
-			mouse_was_down = true;
+			b2BodyDef bodyDef;
+			bodyDef.type = b2_dynamicBody;
+			bodyDef.position = NessToBox2d::point(mouse.position());
+			b2Body* body = world.CreateBody(&bodyDef);
+			b2CircleShape Shape;
+			Shape.m_radius = 0.35f;
+			b2FixtureDef fixtureDef;
+			fixtureDef.shape = &Shape;
+			fixtureDef.density = 2.5f;
+			fixtureDef.restitution = 0.5f;
+			body->CreateFixture(&fixtureDef);
+			Ness::SpritePtr new_crab = node->create_sprite("../ness-engine/resources/gfx/crab.png");
+			new_crab->set_anchor(Ness::Point::HALF);
+			new_crab->set_blend_mode(Ness::BLEND_MODE_BLEND);
+			new_crab->set_scale(0.125f);
+			new_crab->set_color(Ness::Color::BLUE);
+			renderer.__register_animator_unsafe(new NessBoxConnector(new_crab, body));
 		}
-		else
-		{
-			mouse_was_down = false;
-		}
+
 
         // render
         renderer.start_frame();
