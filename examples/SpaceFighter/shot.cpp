@@ -9,7 +9,7 @@ LaserShot::LaserShot(Ness::NodePtr& parentNode, const Ness::Point& position, flo
 	m_shot->set_blend_mode(Ness::BLEND_MODE_BLEND);
 	m_shot->set_position(position);
 	m_shot->set_rotation(Direction);
-	m_direction_vector = Ness::Point::from_angle((int)Direction);
+	m_direction_vector = Ness::Point::from_angle(Direction);
 	m_time_to_live = 0.75f;
 }
 

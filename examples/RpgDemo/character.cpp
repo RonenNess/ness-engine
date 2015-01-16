@@ -70,8 +70,8 @@ void Character::shoot()
 	if (m_sprite->renderer()->get_total_time_elapse() - m_fire_cooldown < 0.5f)
 		return;
 	m_fire_cooldown = m_sprite->renderer()->get_total_time_elapse();
-	Ness::Animators::AnimatorPtr fb = ness_make_ptr<Fireball>(m_light_node, m_parent, get_position(), m_last_direction);
-	m_parent->renderer()->register_animator(fb);
+	Ness::Animators::AnimatorPtr new_fireball = ness_make_ptr<Fireball>(m_light_node, m_parent, get_position(), m_last_direction);
+	m_parent->renderer()->register_animator(new_fireball);
 }
 
 void Character::walk(EDirection direction)

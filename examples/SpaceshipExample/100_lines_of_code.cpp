@@ -13,7 +13,7 @@ bool remove_meteors_off_screen(const Ness::SpritePtr& meteor)
 int _tmain(int argc, _TCHAR* argv[])
 {
     Ness::init();
-    Ness::Renderer renderer("Spaceship", Ness::Sizei(800,600));
+	Ness::Renderer renderer("Spaceship", Ness::Sizei(800,600), Ness::DEFAULT_WINDOW_FLAGS, Ness::DEFAULT_RENDERER_FLAGS | Ness::RENDERER_FLAG_VSYNC);
     Ness::ScenePtr scene = renderer.create_scene();
 	Ness::NodePtr backNode = scene->create_node();
 	for (int i = 0; i < 2; i++) {
@@ -28,7 +28,7 @@ int _tmain(int argc, _TCHAR* argv[])
     Ness::SpritePtr player = scene->create_sprite("../ness-engine/resources/gfx/spaceship.png");
 	player->set_scale(0.75f);
 	player->set_position((Ness::Point)(renderer.get_screen_size()) * Ness::Point(0.5f, 0.9f));
-	Ness::List<Ness::SpritePtr> meteors;
+	Ness::Containers::List<Ness::SpritePtr> meteors;
 	Ness::Animators::AnimatorSpritePtr playerAnim = ness_make_ptr<Ness::Animators::AnimatorSprite>(player, Ness::Sizei(3, 3), Ness::Sizei(0, 0), 3, ANIMATION_SPEED, Ness::Animators::SPRITE_ANIM_END_REPEAT);
 	renderer.register_animator(playerAnim);
     Ness::Utils::EventsPoller EventsPoller;
@@ -40,7 +40,7 @@ int _tmain(int argc, _TCHAR* argv[])
 	Ness::TextPtr scoreShow = scene->create_text("../ness-engine/resources/fonts/courier.ttf", "score", 24);
     while( !app.got_quit() ) {
         EventsPoller.poll_events();
-		if (rand() % 10000 < 5) {
+		if (rand() % 700 < 5 + std::min(g_score * 0.05f, 22.5f)) {
 			Ness::SpritePtr meteor = meteorsNode->create_sprite("../ness-engine/resources/gfx/meteor.png");
 			meteor->set_position(Ness::Point((float)(rand() % renderer.get_screen_size().x), -100.0f));
 			meteor->set_scale(0.75f + ((rand() % 30) / 10.0f));

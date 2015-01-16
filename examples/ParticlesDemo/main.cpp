@@ -45,7 +45,7 @@ int _tmain(int argc, _TCHAR* argv[])
 {
 	// init and create a renderer
 	Ness::init();
-	Ness::Renderer renderer("Hello World!", Ness::Sizei(512, 512));
+	Ness::Renderer renderer("Particles Demo!", Ness::Sizei(512, 512));
 
 	// create a new scene
 	Ness::ScenePtr scene = renderer.create_scene();

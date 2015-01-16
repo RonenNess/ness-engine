@@ -1,18 +1,22 @@
 #include "fireball.h"
 #include "character.h"
 
+#define FIREBALL_ANIM_STEPS 3
+#define FIREBALL_DIRECTIONS_COUNT 4
+
 Fireball::Fireball(Ness::LightNodePtr& lightNode, Ness::NodePtr& parent, const Ness::Point& position, const int direction)
 {
 	// create sprite and animator
 	m_direction = direction;
 	m_parent = parent;
-	m_sprite = parent->create_sprite("gfx/fireball.png");
+	m_sprite = parent->create_animated_sprite("gfx/fireball.png");
 	m_sprite->set_anchor(Ness::Point(0.5f, 0.5f));
 	m_sprite->set_blend_mode(Ness::BLEND_MODE_BLEND);
 	m_sprite->set_position(position - Ness::Point(0, 50));
 	m_sprite->set_source_from_sprite_sheet(Ness::Pointi(0, 0), Ness::Pointi(3, 4), true);
-	m_animator = ness_make_ptr<Ness::Animators::AnimatorSprite>(m_sprite, Ness::Sizei(3, 4), 3 * direction, 3, 10.0f, Ness::Animators::SPRITE_ANIM_END_REPEAT);
-	parent->renderer()->register_animator(m_animator);
+	m_sprite->register_animator(ness_make_ptr<Ness::Animators::AnimatorSprite>(m_sprite, Ness::Sizei(FIREBALL_ANIM_STEPS, FIREBALL_DIRECTIONS_COUNT), 
+		Ness::Pointi(0, direction), FIREBALL_ANIM_STEPS, 10.0f, Ness::Animators::SPRITE_ANIM_END_REPEAT));
+
 
 	// distance left before self-terminate
 	m_distance_left = 1000.0f;
@@ -24,7 +28,6 @@ Fireball::Fireball(Ness::LightNodePtr& lightNode, Ness::NodePtr& parent, const N
 
 Fireball::~Fireball()
 {
-	m_animator->remove_from_animation_queue();
 	m_sprite->parent()->remove(m_sprite);
 	m_light_node->remove(m_light);
 }

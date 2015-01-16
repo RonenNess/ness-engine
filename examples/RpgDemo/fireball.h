@@ -7,8 +7,7 @@ private:
 	Ness::LightNodePtr				m_light_node;
 	Ness::LightPtr					m_light;
 	Ness::NodePtr					m_parent;
-	Ness::SpritePtr					m_sprite;
-	Ness::Animators::AnimatorPtr	m_animator;
+	Ness::AnimatedSpritePtr			m_sprite;
 	bool							m_is_walking;
 	int								m_direction;
 	float							m_distance_left;

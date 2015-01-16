@@ -130,7 +130,7 @@ void Player::apply_force(const Ness::Point& force)
 void Player::fly_forward()
 {
 	// get movement vector and add to speed
-	Ness::Point moveVector = Ness::Point::from_angle((int)m_node->get_rotation(), (m_node->renderer()->time_factor() * m_acceleration));
+	Ness::Point moveVector = Ness::Point::from_angle(m_node->get_rotation(), (m_node->renderer()->time_factor() * m_acceleration));
 	apply_force(moveVector);
 
 	// do backfire effect
@@ -140,7 +140,7 @@ void Player::fly_forward()
 void Player::fly_backwards()
 {
 	// get movement vector and add to speed
-	Ness::Point moveVector = Ness::Point::from_angle((int)m_node->get_rotation(), (m_node->renderer()->time_factor() * m_acceleration));
+	Ness::Point moveVector = Ness::Point::from_angle(m_node->get_rotation(), (m_node->renderer()->time_factor() * m_acceleration));
 	apply_force(-moveVector);
 
 	// do frontfire effect
