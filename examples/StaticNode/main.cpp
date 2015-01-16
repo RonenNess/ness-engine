@@ -28,12 +28,12 @@ int _tmain(int argc, _TCHAR* argv[])
 
 	// create the tilemap
 	const int TilemapSize = 256;
-	const int TileSize = 32;
+	const int TileSize = 46;
 	Ness::TileMapPtr map = staticNode->create_tilemap("tilemap.jpg", Ness::Sizei(TilemapSize, TilemapSize), Ness::Sizei(TileSize, TileSize));
 	map->apply_to_all(make_random_colors);
 
 	// create random trees
-	const int NumberOfTrees = 5000;
+	const int NumberOfTrees = 25000;
 	for (int i = 0; i < NumberOfTrees; i++)
 	{
 		Ness::SpritePtr tree = staticNode->create_sprite("tree.png");
@@ -47,7 +47,7 @@ int _tmain(int argc, _TCHAR* argv[])
 
 	// create instructions text
 	Ness::TextPtr instructions = scene->create_text("../ness-engine/resources/fonts/courier.ttf", 
-		"use arrows to move. there are currently " + ness_int_to_string((TilemapSize * TilemapSize) + NumberOfTrees) + " static objects!", 16);
+		"use arrows to move. there are total of " + ness_int_to_string((TilemapSize * TilemapSize) + NumberOfTrees) + " static sprites!", 16);
 	instructions->set_position(Ness::Point(0.0f, (float)render.get_screen_size().y));
 	instructions->set_anchor(Ness::Point(0.0f, 1.0f));
 

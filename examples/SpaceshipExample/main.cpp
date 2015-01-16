@@ -102,7 +102,7 @@ int _tmain(int argc, _TCHAR* argv[])
 			meteor->set_scale(0.75f + ((rand() % 30) / 10.0f));
 			meteor->set_blend_mode(Ness::BLEND_MODE_BLEND);
 			meteors.push_back(meteor);
-			TimeUntilNextSpawn = 0.2f + (rand() % 10) / 5.5f - std::min(g_score / 1000.0f, 0.5f);
+			TimeUntilNextSpawn = 0.5f + (rand() % 10) / 5.5f - std::min(g_score / 1000.0f, 0.6f);
 		}
 		TimeUntilNextSpawn -= renderer.time_factor();
 
