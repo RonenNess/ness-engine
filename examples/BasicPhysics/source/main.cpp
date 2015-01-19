@@ -8,7 +8,7 @@
 #include "debug_draw.h"
 
 // advance the physical simulator steps (must be called every frame to do physics)
-void physics_step(b2World& world, float msdelta)
+void physics_step(b2World& world)
 {
 	static Uint32 time = Ness::get_ticks();
 	static Uint32 lasttime = time;
@@ -152,7 +152,7 @@ int _tmain(int argc, _TCHAR* argv[])
         // render
         renderer.start_frame();
         scene->render();
-		physics_step(world, renderer.time_factor() * 1000.0f);
+		physics_step(world);
 		world.DrawDebugData();
         renderer.end_frame();
     }
