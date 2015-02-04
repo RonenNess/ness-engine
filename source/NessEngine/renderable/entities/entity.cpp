@@ -78,10 +78,11 @@ namespace Ness
 
 	void Entity::calc_target_rect()
 	{
-		m_target_rect.w = (int)ceil(m_size.x * m_absolute_transformations.scale.x);
-		m_target_rect.h = (int)ceil(m_size.y * m_absolute_transformations.scale.y);
-		m_target_rect.x = (int)floor((m_absolute_transformations.position.x) - (abs(m_target_rect.w) * m_anchor.x));
-		m_target_rect.y = (int)floor((m_absolute_transformations.position.y) - (abs(m_target_rect.h) * m_anchor.y));
+		const SRenderTransformations& trans = get_absolute_transformations_const();
+		m_target_rect.w = (int)ceil(m_size.x * trans.scale.x);
+		m_target_rect.h = (int)ceil(m_size.y * trans.scale.y);
+		m_target_rect.x = (int)floor((trans.position.x) - (abs(m_target_rect.w) * m_anchor.x));
+		m_target_rect.y = (int)floor((trans.position.y) - (abs(m_target_rect.h) * m_anchor.y));
 	}
 
 
@@ -98,7 +99,7 @@ namespace Ness
 			return true;
 
 		// check if should cull before transformations
-		if (camera->should_cull_pre_transform(this, m_target_rect, m_absolute_transformations))
+		if (camera->should_cull_pre_transform(this, m_target_rect, get_absolute_transformations_const()))
 		{
 			return false;
 		}
@@ -123,7 +124,7 @@ namespace Ness
 			return true;
 
 		// check culling before applying camera
-		if (camera->should_cull_pre_transform(this, m_target_rect, m_absolute_transformations))
+		if (camera->should_cull_pre_transform(this, m_target_rect, get_absolute_transformations_const()))
 			return false;
 
 		// set camera position
@@ -157,11 +158,11 @@ namespace Ness
 		get_absolute_transformations();
 
 		// check culling before applying camera
-		if (camera->should_cull_pre_transform(this, m_target_rect, m_absolute_transformations))
+		if (camera->should_cull_pre_transform(this, m_target_rect, get_absolute_transformations_const()))
 			return;
 
 		// copy absolute transformations and target rect
-		SRenderTransformations trans = m_absolute_transformations;
+		SRenderTransformations trans = get_absolute_transformations_const();
 		Rectangle target = m_target_rect;
 
 		// apply camera

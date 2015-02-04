@@ -141,7 +141,7 @@ namespace Ness
 	bool ParticlesNode::is_really_visible(const CameraApiPtr& camera)
 	{
 		// first check if even enabled
-		if (!m_visible || m_absolute_trans.color.a <= 0.0f)
+		if (!m_visible || get_absolute_transformations_const().color.a <= 0.0f)
 		{
 			return false;
 		}

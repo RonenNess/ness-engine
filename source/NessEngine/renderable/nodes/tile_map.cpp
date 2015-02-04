@@ -47,10 +47,10 @@ namespace Ness
 
 		// create the sprites grid
 		Pointi index;
-		m_sprites.resize(m_size.x);
+		m_sprites = new SpritePtr*[m_size.x];
 		for (index.x = 0; index.x < m_size.x; index.x++)
 		{
-			m_sprites[index.x].resize(m_size.y);
+			m_sprites[index.x] = new SpritePtr[m_size.y];
 			for (index.y = 0; index.y < m_size.y; index.y++)
 			{
 				// create the sprite
@@ -159,15 +159,26 @@ namespace Ness
 
 	void TileMap::destroy()
 	{
+		// if already destroyed, skip
+		if (m_sprites == nullptr)
+			return;
+
+		// destroy all tiles in tilesmap
 		Sizei index;
 		for (index.x = 0; index.x < m_size.x; index.x++)
 		{
 			for (index.y = 0; index.y < m_size.y; index.y++)
 			{
 				m_sprites[index.x][index.y]->__change_parent(nullptr);
+				m_sprites[index.x][index.y].reset();
 			}
 		}
-		m_sprites.clear();
+		for (index.x = 0; index.x < m_size.x; index.x++)
+		{
+			delete[] m_sprites[index.x];
+		}
+		delete[] m_sprites;
+		m_sprites = nullptr;
 	}
 
 	void TileMap::__get_visible_entities(RenderablesList& out_list, const CameraApiPtr& camera, bool break_son_nodes)
@@ -255,7 +266,7 @@ namespace Ness
 	Pointi TileMap::get_index_from_position(const Point& position) const
 	{
 		Pointi index;
-		Point scale = m_absolute_transformations.scale;
+		Point scale = get_absolute_transformations_const().scale;
 		index.x = (int)((position.x + (m_tile_size.x * scale.x * m_tiles_anchor.x)) / (m_sprites_distance.x * scale.x));
 		index.y = (int)((position.y + (m_tile_size.y * scale.y * m_tiles_anchor.y)) / (m_sprites_distance.y * scale.y));
 		return index;
@@ -279,8 +290,8 @@ namespace Ness
 	Rectangle TileMap::get_occupied_region() const
 	{
 		Rectangle ret;
-		ret.x = (int)m_absolute_transformations.position.x;
-		ret.y = (int)m_absolute_transformations.position.y;
+		ret.x = (int)get_absolute_transformations_const().position.x;
+		ret.y = (int)get_absolute_transformations_const().position.y;
 		ret.w = (int)(((m_size.x - 1) * m_sprites_distance.x) + m_tile_size.x);
 		ret.h = (int)(((m_size.y - 1) * m_sprites_distance.y) + m_tile_size.y);
 		return ret;

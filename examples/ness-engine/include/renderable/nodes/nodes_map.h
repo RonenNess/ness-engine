@@ -50,7 +50,7 @@ namespace Ness
 		Sizei													m_size;						// size of the tilemap
 		Size													m_nodes_distance;			// distance between nodes
 		Size													m_node_size;				// size of a single node in pixels
-		Containers::Vector< Containers::Vector<NodeAPIPtr> >	m_nodes;					// the nodes matrix
+		NodeAPIPtr**											m_nodes;					// the nodes matrix
 		SRenderTransformations									m_absolute_transformations;	// absolute transformations of this nodes tilemap
 		Sizei													m_extra_tiles_factor;		// extra tiles to render (count in screen) on eatch side of x and y axis
 		unsigned int											m_last_render_frame_id;		// return the frame id of the last time this entity was really rendered

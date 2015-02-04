@@ -47,10 +47,10 @@ namespace Ness
 
 		// create the sprites grid
 		Pointi index;
-		m_nodes.resize(m_size.x);
+		m_nodes = new NodeAPIPtr*[m_size.x];
 		for (index.x = 0; index.x < m_size.x; index.x++)
 		{
-			m_nodes[index.x].resize(m_size.y);
+			m_nodes[index.x] = new NodeAPIPtr[m_size.y];
 			for (index.y = 0; index.y < m_size.y; index.y++)
 			{
 				// create the sprite
@@ -201,15 +201,26 @@ namespace Ness
 
 	void NodesMap::destroy()
 	{
+		// if already destroyed, skip
+		if (m_nodes == nullptr)
+			return;
+
+		// destroy all nodes in nodessmap
 		Sizei index;
 		for (index.x = 0; index.x < m_size.x; index.x++)
 		{
 			for (index.y = 0; index.y < m_size.y; index.y++)
 			{
 				m_nodes[index.x][index.y]->__change_parent(nullptr);
+				m_nodes[index.x][index.y].reset();
 			}
 		}
-		m_nodes.clear();
+		for (index.x = 0; index.x < m_size.x; index.x++)
+		{
+			delete[] m_nodes[index.x];
+		}
+		delete[] m_nodes;
+		m_nodes = nullptr;
 	}
 
 	Rectangle NodesMap::get_nodes_in_screen(const CameraApiPtr& camera) 
@@ -253,8 +264,8 @@ namespace Ness
 	Rectangle NodesMap::get_occupied_region() const
 	{
 		Rectangle ret;
-		ret.x = (int)m_absolute_transformations.position.x;
-		ret.y = (int)m_absolute_transformations.position.y;
+		ret.x = (int)get_absolute_transformations_const().position.x;
+		ret.y = (int)get_absolute_transformations_const().position.y;
 		ret.w = (int)(((m_size.x - 1) * m_nodes_distance.x) + m_node_size.x);
 		ret.h = (int)(((m_size.y - 1) * m_nodes_distance.y) + m_node_size.y);
 		return ret;

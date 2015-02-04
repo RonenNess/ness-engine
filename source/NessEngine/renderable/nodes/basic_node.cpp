@@ -160,7 +160,7 @@ namespace Ness
 	bool BaseNode::is_really_visible(const CameraApiPtr& camera)
 	{
 		// is this node even visible?
-		if (!m_visible || m_absolute_trans.color.a <= 0)
+		if (!m_visible || get_absolute_transformations_const().color.a <= 0)
 			return false;
 
 		// check all sprites

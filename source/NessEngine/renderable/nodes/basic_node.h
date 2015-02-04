@@ -92,7 +92,7 @@ namespace Ness
 
 		// return absolute position
 		NESSENGINE_API inline const Point& get_absolute_position() {return get_absolute_transformations().position;}
-		NESSENGINE_API inline const Point& get_absolute_position_const() const {return m_absolute_trans.position;}
+		NESSENGINE_API inline const Point& get_absolute_position_const() const {return get_absolute_transformations_const().position;}
 
 		// get all visible son entities
 		// camera is the camera object to check visibility

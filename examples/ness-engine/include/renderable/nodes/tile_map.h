@@ -51,7 +51,7 @@ namespace Ness
 		Sizei													m_size;						// size of the tilemap
 		Size													m_sprites_distance;			// distance between sprites
 		Size													m_tile_size;				// size of a single tile
-		Containers::Vector< Containers::Vector<SpritePtr> >		m_sprites;					// the sprites matrix
+		SpritePtr**												m_sprites;					// the sprites matrix
 		SRenderTransformations									m_absolute_transformations;	// absolute transformations of this tilemap
 		Sizei													m_extra_tiles_factor;		// extra tiles to render (count in screen) on eatch side of x and y axis
 		Point													m_tiles_anchor;				// the tiles default anchor

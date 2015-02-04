@@ -57,7 +57,7 @@ namespace Ness
 		if (m_mask)
 		{
 			// first render the white silhouette of the mask on the target
-			m_renderer->blit(m_mask->invert_texture(), &m_source_rect, m_target_rect, BLEND_MODE_ADD, m_absolute_transformations.color, m_absolute_transformations.rotation, m_anchor);
+			m_renderer->blit(m_mask->invert_texture(), &m_source_rect, m_target_rect, BLEND_MODE_ADD, get_absolute_transformations_const().color, get_absolute_transformations_const().rotation, m_anchor);
 
 			// now render the white background from the mask original texture on the canvas
 			m_renderer->push_render_target(m_texture);
