@@ -48,9 +48,11 @@ namespace Ness
 		// create the sprites grid
 		Pointi index;
 		m_nodes = new NodeAPIPtr*[m_size.x];
+		m_node_last_updated = new unsigned int*[m_size.x];
 		for (index.x = 0; index.x < m_size.x; index.x++)
 		{
 			m_nodes[index.x] = new NodeAPIPtr[m_size.y];
+			m_node_last_updated[index.x] = new unsigned int[m_size.y];
 			for (index.y = 0; index.y < m_size.y; index.y++)
 			{
 				// create the sprite
@@ -73,6 +75,7 @@ namespace Ness
 
 				// add to matrix of tiles
 				m_nodes[index.x][index.y] = NewNode;
+				m_node_last_updated[index.x][index.y] = 0;
 			}
 		}
 	}
@@ -114,14 +117,6 @@ namespace Ness
 	void NodesMap::transformations_update()
 	{
 		m_last_update_frame_id = m_renderer->get_frameid();
-		Sizei index;
-		for (index.x = 0; index.x < m_size.x; index.x++)
-		{
-			for (index.y = 0; index.y < m_size.y; index.y++)
-			{
-				m_nodes[index.x][index.y]->transformations_update();
-			}
-		}
 	}
 
 	void NodesMap::put_in_range(int& i, int& j)
@@ -218,8 +213,10 @@ namespace Ness
 		for (index.x = 0; index.x < m_size.x; index.x++)
 		{
 			delete[] m_nodes[index.x];
+			delete[] m_node_last_updated[index.x];
 		}
 		delete[] m_nodes;
+		delete[] m_node_last_updated;
 		m_nodes = nullptr;
 	}
 
@@ -327,6 +324,14 @@ namespace Ness
 		{
 			for (int j = range.y; j < range.h; j++)
 			{
+				// check if need update
+				if (m_node_last_updated[i][j] < m_last_update_frame_id)
+				{
+					m_nodes[i][j]->transformations_update();
+					m_node_last_updated[i][j] = m_last_update_frame_id;
+				}
+
+				// render the nodes
 				m_nodes[i][j]->render(camera);
 			}
 		}

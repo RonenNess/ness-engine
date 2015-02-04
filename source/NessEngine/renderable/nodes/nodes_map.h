@@ -51,6 +51,7 @@ namespace Ness
 		Size													m_nodes_distance;			// distance between nodes
 		Size													m_node_size;				// size of a single node in pixels
 		NodeAPIPtr**											m_nodes;					// the nodes matrix
+		unsigned int**											m_node_last_updated;		// the last frame id in which every node was updated
 		SRenderTransformations									m_absolute_transformations;	// absolute transformations of this nodes tilemap
 		Sizei													m_extra_tiles_factor;		// extra tiles to render (count in screen) on eatch side of x and y axis
 		unsigned int											m_last_render_frame_id;		// return the frame id of the last time this entity was really rendered

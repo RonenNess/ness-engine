@@ -52,11 +52,12 @@ namespace Ness
 		Size													m_sprites_distance;			// distance between sprites
 		Size													m_tile_size;				// size of a single tile
 		SpritePtr**												m_sprites;					// the sprites matrix
+		unsigned int**											m_tile_last_updated;		// the frame id of the last time every tile was updated
 		SRenderTransformations									m_absolute_transformations;	// absolute transformations of this tilemap
 		Sizei													m_extra_tiles_factor;		// extra tiles to render (count in screen) on eatch side of x and y axis
 		Point													m_tiles_anchor;				// the tiles default anchor
-		unsigned int											m_last_render_frame_id;		// return the frame id of the last time this entity was really rendered
-		unsigned int											m_last_update_frame_id;		// return the frame id of the last time this entity was updated
+		unsigned int											m_last_render_frame_id;		// return the frame id of the last time this nodesmap was really rendered
+		unsigned int											m_last_update_frame_id;		// return the frame id of the last time this nodesmap was updated
 
 	public:
 

@@ -22,7 +22,7 @@ int _tmain(int argc, _TCHAR* argv[])
 	// create the tilemap
 	const int TileSize = 32;							// <-- 32 is the size of a single tile in the spritesheet
 	const Ness::Pointi TilesInSpritesheet(6, 16);		// <-- 6 is how many tile types we got in the spritesheet on X axis, 16 is how many we got on Y axis
-	Ness::TileMapPtr map = scene->create_tilemap("tilemap.jpg", Ness::Sizei(1000, 1000), Ness::Sizei(TileSize, TileSize));
+	Ness::TileMapPtr map = scene->create_tilemap("tilemap.jpg", Ness::Sizei(100, 100), Ness::Sizei(TileSize, TileSize));
 	map->set_all_tiles_type(Ness::Pointi(0, 0), TilesInSpritesheet);
 
 	// create the highlight of the currently selected tile
@@ -116,12 +116,12 @@ int _tmain(int argc, _TCHAR* argv[])
 		}
 		if (keyboard.key_state(SDLK_z))
 		{
-			zoom += 0.005f;
+			zoom += 0.5f * render.time_factor();
 			map->set_scale(zoom);
 		}
 		if (keyboard.key_state(SDLK_x))
 		{
-			zoom -= 0.005f;
+			zoom -= 0.5f * render.time_factor();
 			map->set_scale(zoom);
 		}
 		if (keyboard.key_state(SDLK_c))
