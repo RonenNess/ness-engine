@@ -1,4 +1,4 @@
-/* 
+/*
   This software is provided 'as-is', without any express or implied
   warranty.  In no event will the authors be held liable for any damages
   arising from the use of this software.
@@ -28,11 +28,11 @@ namespace Ness
 {
 	// function to sort by z index
 	// algoritm: go by z index. if same z index, go by position.y. if same position.y, go by position.x.
-	bool sort_by_z(SharedPtr<RenderableAPI>& a, SharedPtr<RenderableAPI>& b)
+	bool sort_by_z(const SharedPtr<RenderableAPI>& a, const SharedPtr<RenderableAPI>& b)
 	{
 		return a->get_zindex() < b->get_zindex();
 	}
-	bool sort_by_z_absolute(SharedPtr<RenderableAPI>& a, SharedPtr<RenderableAPI>& b)
+	bool sort_by_z_absolute(const SharedPtr<RenderableAPI>& a, const SharedPtr<RenderableAPI>& b)
 	{
 		return  a->get_absolute_zindex() < b->get_absolute_zindex();
 	}
@@ -62,11 +62,11 @@ namespace Ness
 				}
 
 				// if got here it's either a sprite entity or a node but we want to keep groups. add it to rendering list if visible
-				SharedPtr<RenderableAPI>& current = m_entities[i];
+				const SharedPtr<RenderableAPI>& current = m_entities[i];
 				if (!current->is_really_visible(camera))
 					continue;
 				m_render_list.push_back(current);
-			
+
 			}
 
 			// sort based on z!

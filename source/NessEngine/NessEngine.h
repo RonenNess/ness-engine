@@ -20,6 +20,11 @@
 
 */
 
+/*
+* note:
+* special thanks to dazed & silderan from the ness-engine community, for their feedback and contribution in the early stages of NessEngine. :)
+*/
+
 /**
 * Main include file for the entire engine! also contain the general init and finish functions
 * Author: Ronen Ness

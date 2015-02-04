@@ -1,4 +1,4 @@
-/* 
+/*
   This software is provided 'as-is', without any express or implied
   warranty.  In no event will the authors be held liable for any damages
   arising from the use of this software.
@@ -30,8 +30,14 @@
 #pragma once
 #include "../exports.h"
 #include "../exceptions/exceptions.h"
-#include "string.h"
+#include <string.h>
 #include <cstdlib>
+#include <stdio.h>
+#include <typeinfo>
+
+// to disable the warning on the sprintf instead of sprintf_s (which is not standard)
+#pragma warning( push )
+#pragma warning( disable : 4996)
 
 namespace Ness
 {
@@ -83,7 +89,7 @@ namespace Ness
 		{}
 
 		// get base type
-		NESSENGINE_API const type_info& get_component_type() const {return typeid(type);}
+		NESSENGINE_API const std::type_info& get_component_type() const {return typeid(type);}
 
 		// set all color components
 		NESSENGINE_API inline void set(type R, type G, type B, type A = 1.0) {r = R; g = G; b = B; a = A;}
@@ -129,22 +135,31 @@ namespace Ness
 			String ret = "#";
 			String temp;
 			char arr[3];
-			_itoa_s ((int)(r * 255.0f), arr, 16);
+
+			//_itoa_s ((int)(r * 255.0f), arr, 16);
+			sprintf(arr, "%x", (int)(r*255.0f));
 			temp = arr;
 			if (temp.length() == 1) temp = '0' + temp;
 			ret.append(temp);
-			_itoa_s ((int)(g * 255.0f), arr, 16);
+
+			//_itoa_s ((int)(g * 255.0f), arr, 16);
+			sprintf(arr, "%x", (int)(r*255.0f));
 			temp = arr;
 			if (temp.length() == 1) temp = '0' + temp;
 			ret.append(temp);
-			_itoa_s ((int)(b * 255.0f), arr, 16);
+
+			//_itoa_s ((int)(b * 255.0f), arr, 16);
+			sprintf(arr, "%x", (int)(r*255.0f));
 			temp = arr;
 			if (temp.length() == 1) temp = '0' + temp;
 			ret.append(temp);
-			_itoa_s ((int)(a * 255.0f), arr, 16);
+
+			//_itoa_s ((int)(a * 255.0f), arr, 16);
+			sprintf(arr, "%x", (int)(r*255.0f));
 			temp = arr;
 			if (temp.length() == 1) temp = '0' + temp;
 			ret.append(temp);
+
 			return ret;
 		}
 
@@ -185,3 +200,5 @@ namespace Ness
 	NESSENGINE_API typedef __Color<float> Colorf;
 	NESSENGINE_API typedef __Color<float> Color;
 };
+
+#pragma warning( pop )

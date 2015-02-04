@@ -1,4 +1,4 @@
-/* 
+/*
   This software is provided 'as-is', without any express or implied
   warranty.  In no event will the authors be held liable for any damages
   arising from the use of this software.
@@ -28,6 +28,7 @@
 
 #pragma once
 #include "../exports.h"
+#include "../exceptions/exceptions.h"
 #include "string.h"
 #include "math.h"
 #include <cmath>
@@ -146,13 +147,13 @@ namespace Ness
 		}
 
 		// return distance from other point
-		NESSENGINE_API inline float distance(const __Point<type>& other) const 
+		NESSENGINE_API inline float distance(const __Point<type>& other) const
 		{
 			return sqrt((float)(POW2(x - other.x) + POW2(y - other.y)));
 		}
 
 		// return normalized point
-		NESSENGINE_API inline __Point<type> get_normalized() const 
+		NESSENGINE_API inline __Point<type> get_normalized() const
 		{
 			type div = std::abs(x) + std::abs(y);
 			if (div == 0) return __Point<type>::ZERO;
@@ -160,13 +161,13 @@ namespace Ness
 		}
 
 		// return absolute values
-		NESSENGINE_API inline __Point<type> get_abs() const 
+		NESSENGINE_API inline __Point<type> get_abs() const
 		{
 			return __Point<type>(std::abs(x), std::abs(y));
 		}
 
 		// turn to absolute value
-		NESSENGINE_API inline __Point<type>& abs() 
+		NESSENGINE_API inline __Point<type>& abs()
 		{
 			x = std::abs(x);
 			y = std::abs(y);
@@ -178,7 +179,7 @@ namespace Ness
 		{
 			type div = std::abs(x) + std::abs(y);
 			if (div == 0) return (*this);
-			x /= div; 
+			x /= div;
 			y /= div;
 			return (*this);
 		}
@@ -261,6 +262,7 @@ namespace Ness
 		// deserialize the point from a representable string
 		NESSENGINE_API void deserialize(const String& src)
 		{
+
 			size_t sep = src.find(',');
 			if (sep == -1) throw WrongFormatError("Input string is not a valid point format! serialized point must contain a comma");
 			std::string sx = src.substr(0, sep);
@@ -270,7 +272,7 @@ namespace Ness
 		}
 
 		// static function: create point from angle
-		NESSENGINE_API static __Point<type> from_angle(float angle, float velocity = 1.0f) 
+		NESSENGINE_API static __Point<type> from_angle(float angle, float velocity = 1.0f)
 		{
 			__Point<type> ret;
 			ret.x = (type)(cos(DEGREE_TO_RADIAN(angle)) * velocity);

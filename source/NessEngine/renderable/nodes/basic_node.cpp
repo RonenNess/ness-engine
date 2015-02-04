@@ -1,4 +1,4 @@
-/* 
+/*
   This software is provided 'as-is', without any express or implied
   warranty.  In no event will the authors be held liable for any damages
   arising from the use of this software.
@@ -40,7 +40,7 @@ namespace Ness
 			{
 				if (break_son_nodes && !curr->get_flag(RNF_NEVER_BREAK))
 				{
-					SharedPtr<NodeAPI>& currentNode = ness_ptr_cast<NodeAPI>(curr);
+					const SharedPtr<NodeAPI>& currentNode = ness_ptr_cast<NodeAPI>(curr);
 					currentNode->__get_visible_entities(out_list, camera, break_son_nodes);
 				}
 				else
@@ -100,7 +100,7 @@ namespace Ness
 			{
 				if (recursive)
 				{
-					SharedPtr<NodeAPI>& currentNode = ness_ptr_cast<NodeAPI>(curr);
+					const SharedPtr<NodeAPI>& currentNode = ness_ptr_cast<NodeAPI>(curr);
 					currentNode->select_entities_from_position(out_list, pos, recursive);
 				}
 			}
@@ -192,12 +192,12 @@ namespace Ness
 		return m_absolute_trans;
 	}
 
-	void BaseNode::set_render_target(const ManagedResources::ManagedTexturePtr& NewTarget) 
+	void BaseNode::set_render_target(const ManagedResources::ManagedTexturePtr& NewTarget)
 	{
 		m_render_target = NewTarget;
 	}
 
-	void BaseNode::set_render_target(const CanvasPtr& NewTarget) 
+	void BaseNode::set_render_target(const CanvasPtr& NewTarget)
 	{
 		if (NewTarget->parent() == this)
 		{
@@ -206,7 +206,7 @@ namespace Ness
 		m_render_target = NewTarget->get_texture();
 	}
 
-	void BaseNode::remove_render_target() 
+	void BaseNode::remove_render_target()
 	{
 		m_render_target.reset();
 	}
