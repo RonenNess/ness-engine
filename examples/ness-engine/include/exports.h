@@ -24,6 +24,9 @@
 #define EXPORT_DEF_H_
 
 
+// WINDOWS EXPORTS (DLL)
+#ifdef _WINDOWS
+
 #ifdef NESSENGINE_EXPORTS
 #define NESSENGINE_API __declspec(dllexport)
 #elif defined(INFRALIB_EXPORTS_STATIC)
@@ -31,5 +34,16 @@
 #else
 #define NESSENGINE_API __declspec(dllimport)
 #endif 
+
+// LINUX EXPORTS (SO)
+#else
+
+#if defined(__GNUC__) && __GNUC__ >= 4
+#  define NESSENGINE_API __attribute__ ((visibility("default")))
+#else
+#  define NESSENGINE_API
+#endif
+#endif		
+
 
 #endif

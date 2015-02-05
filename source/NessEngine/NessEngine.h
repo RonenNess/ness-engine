@@ -33,9 +33,9 @@
 
 #pragma once
 #include "exports.h"
+
 #include <SDL.h>
 #include <SDL_ttf.h>
-#include <tchar.h>
 
 // include scene and camera
 #include "scene/scene.h"

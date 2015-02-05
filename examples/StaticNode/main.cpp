@@ -14,7 +14,7 @@ void make_random_colors(const Ness::Pointi& index, const Ness::SpritePtr& tile)
 	tile->set_color(Ness::Color::get_random().get_limit(0.5f, 1.0f));
 }
 
-int _tmain(int argc, _TCHAR* argv[])
+int _tmain(int argc, char* argv[])
 {
 	// init and create a renderer
 	Ness::init();

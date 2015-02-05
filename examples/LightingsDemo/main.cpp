@@ -12,7 +12,7 @@
 #include <NessEngine.h>
 #include "player.h"
 
-int _tmain(int argc, _TCHAR* argv[])
+int _tmain(int argc, char* argv[])
 {
 	// init and create a renderer
 	Ness::init();

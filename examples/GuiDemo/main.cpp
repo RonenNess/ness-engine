@@ -9,7 +9,7 @@
 
 #include <NessEngine.h>
 
-int _tmain(int argc, _TCHAR* argv[])
+int _tmain(int argc, char* argv[])
 {
 	// init and create a renderer
 	Ness::init();
@@ -40,6 +40,7 @@ int _tmain(int argc, _TCHAR* argv[])
 	Ness::Gui::LabelPtr welcome = main_menu->create_label("Welcome to GUI example!");
 	welcome->set_alignment(Ness::TEXT_ALIGN_CENTER);
 
+	Ness::CameraPtr camera = renderer.create_camera();
 
 	// create the events handler
 	Ness::Utils::EventsPoller EventsPoller;
@@ -69,7 +70,7 @@ int _tmain(int argc, _TCHAR* argv[])
 		renderer.start_frame();
 		gui->render();
 		cursor->set_position(mouse.position());
-		cursor->render();
+		cursor->render(camera);
 		renderer.end_frame();
 	}
 

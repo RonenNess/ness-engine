@@ -27,7 +27,7 @@ bool remove_meteors_off_screen(const std::auto_ptr<Meteor>& meteor)
 	return false;
 }
 
-int _tmain(int argc, _TCHAR* argv[])
+int _tmain(int argc, char* argv[])
 {
 	srand ((unsigned int)time(NULL));
 

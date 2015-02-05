@@ -95,16 +95,6 @@ namespace Ness
 		// pointer to animator classes
 		NESSENGINE_API typedef SharedPtr<AnimatorAPI> AnimatorPtr;
 		NESSENGINE_API typedef SharedPtr<TargetAnimatorAPI> TargetAnimatorPtr;
-
-		// template function to create an animator pointer (requires C++11 features)
-		#if __cplusplus <= 199711L
-		#else
-				template <class T, typename... _Args>
-				NESSENGINE_API AnimatorPtr make_animator(_Args && ... args)
-				{
-					return AnimatorPtr(new T(args));
-				}
-		#endif
 		
 	};
 };

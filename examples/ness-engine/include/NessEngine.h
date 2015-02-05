@@ -33,9 +33,9 @@
 
 #pragma once
 #include "exports.h"
+
 #include <SDL.h>
 #include <SDL_ttf.h>
-#include <tchar.h>
 
 // include scene and camera
 #include "scene/scene.h"
@@ -64,9 +64,9 @@
 namespace Ness
 {
 	// current ness-engine version
-	#define NESS_VERSION 1.4
-	#define NESS_SUB_VERSION 9
-	#define NESS_VERSION_STR "1.4.9"
+	#define NESS_VERSION 1.5
+	#define NESS_SUB_VERSION 0
+	#define NESS_VERSION_STR "1.5.0"
 
 	// MUST BE CALLED BEFORE USING THE ENGINE.
 	// imgFlags - image formats to support in addition to BMP.

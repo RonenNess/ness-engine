@@ -14,7 +14,7 @@
 #define SCREEN_WIDTH 800
 #define SCREEN_HEIGHT 600
 
-int _tmain(int argc, _TCHAR* argv[])
+int _tmain(int argc, char* argv[])
 {
 	srand ((unsigned int)time(NULL));
 

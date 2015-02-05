@@ -21,7 +21,6 @@
 */
 
 #pragma once
-#include <SDL.h>
 #include "point.h"
 #include "containers.h"
 #include "rectangle.h"

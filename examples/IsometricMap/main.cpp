@@ -10,7 +10,7 @@
 #include <NessEngine.h>
 #include "isoTilemap.h"
 
-int _tmain(int argc, _TCHAR* argv[])
+int _tmain(int argc, char* argv[])
 {
 	// init and create a renderer
 	Ness::init();
