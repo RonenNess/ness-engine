@@ -29,7 +29,7 @@
 
 #ifdef NESSENGINE_EXPORTS
 #define NESSENGINE_API __declspec(dllexport)
-#elif defined(INFRALIB_EXPORTS_STATIC)
+#elif defined(NESSENGINE_STATIC_LIB)
 #define NESSENGINE_API 
 #else
 #define NESSENGINE_API __declspec(dllimport)
