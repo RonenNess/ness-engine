@@ -25,17 +25,23 @@
 #include "rectangle.h"
 #include "color.h"
 
+#if defined(_WINDOWS) || defined(_WIN32)
+#define TEMPLATE 
+#else
+#define TEMPLATE template<>
+#endif
+
 #pragma warning(disable: 4244)
 namespace Ness
 {
 
 	// Point consts
 	#define VECTOR2_CONSTS(__VType)      \
-        template<> \
+        TEMPLATE \
         __VType __VType::ONE(1, 1);	\
-        template<> \
+        TEMPLATE \
         __VType __VType::ZERO(0, 0); \
-        template<> \
+        TEMPLATE \
         __VType __VType::HALF(0.5f, 0.5f);
 
 	VECTOR2_CONSTS(Pointf);
@@ -49,28 +55,28 @@ namespace Ness
 
 	// all the static consts for all color types
 #define COLOR_CONSTS(__CType, __Factor)	\
-        template<> \
+        TEMPLATE \
 	__CType __CType::WHITE((1.0f * __Factor), (1.0f * __Factor), (1.0f * __Factor), (1.0f * __Factor));	\
-        template<> \
+        TEMPLATE \
 	__CType __CType::GREY((0.5f * __Factor), (0.5f * __Factor), (0.5f * __Factor), (1.0f * __Factor));	\
-        template<> \
+        TEMPLATE \
 	__CType __CType::BLACK(0, 0, 0, (1.0f * __Factor));	\
-        template<> \
+        TEMPLATE \
 	__CType __CType::RED((1.0f * __Factor), 0, 0, (1.0f * __Factor));	\
-        template<> \
+        TEMPLATE \
 	__CType __CType::GREEN(0, (1.0f * __Factor), 0, (1.0f * __Factor));	\
-        template<> \
+        TEMPLATE \
 	__CType __CType::BLUE(0, 0, (1.0f * __Factor), (1.0f * __Factor));	\
-        template<> \
+        TEMPLATE \
 	__CType __CType::INVISIBLE(0, 0, 0, 0);	\
-        template<> \
-	__CType __CType::HALF_INVISIBLE(0, 0, 0, 0.5f); \
-        template<> \
-	__CType __CType::YELLOW(1.0f, 1.0f, 0, 1.0f); \
-        template<> \
-	__CType __CType::CYAN(0.0f, 1.0f, 1.0f, 1.0f); \
-        template<> \
-	__CType __CType::MAGENTA(1.0f, 0.0f, 1.0f, 1.0f);
+        TEMPLATE \
+	__CType __CType::HALF_INVISIBLE(0, 0, 0, (0.5f * __Factor)); \
+        TEMPLATE \
+	__CType __CType::YELLOW((1.0f * __Factor), (1.0f * __Factor), 0, (1.0f * __Factor)); \
+        TEMPLATE \
+	__CType __CType::CYAN(0.0f, (1.0f * __Factor), (1.0f * __Factor), (1.0f * __Factor)); \
+        TEMPLATE \
+	__CType __CType::MAGENTA((1.0f * __Factor), 0.0f, (1.0f * __Factor), (1.0f * __Factor));
 
 
 	COLOR_CONSTS(Colorf, 1.0f);
