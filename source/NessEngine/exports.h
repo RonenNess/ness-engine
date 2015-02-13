@@ -23,7 +23,6 @@
 #ifndef EXPORT_DEF_H_
 #define EXPORT_DEF_H_
 
-
 // WINDOWS EXPORTS (DLL)
 #if defined(_WINDOWS) || defined(_WIN32)
 
