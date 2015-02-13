@@ -15,8 +15,9 @@ const int NumOfObjects = 500;
 // resolution
 #define SCREEN_WIDTH 800
 #define SCREEN_HEIGHT 600
+#include <tchar.h>
 
-int _tmain(int argc, char* argv[])
+int _tmain(int argc, _TCHAR* argv[])
 {
 	// init and create a renderer
 	Ness::init();

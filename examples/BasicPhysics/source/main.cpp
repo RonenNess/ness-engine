@@ -18,7 +18,9 @@ void physics_step(b2World& world)
     lasttime = time; // lasttime is a member variable that holds the ticks since the last loop
 }
 
-int _tmain(int argc, char* argv[])
+#include <tchar.h>
+
+int _tmain(int argc, _TCHAR* argv[])
 {
 	// create the renderer
 	Ness::init();

@@ -41,7 +41,9 @@ class ParticlesEmitter : public Ness::ParticlesEmitter
 	}
 };
 
-int _tmain(int argc, char* argv[])
+#include <tchar.h>
+
+int _tmain(int argc, _TCHAR* argv[])
 {
 	// init and create a renderer
 	Ness::init();

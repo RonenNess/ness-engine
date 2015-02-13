@@ -23,14 +23,18 @@
 #ifndef EXPORT_DEF_H_
 #define EXPORT_DEF_H_
 
-
 // WINDOWS EXPORTS (DLL)
-#ifdef _WINDOWS
+#if defined(_WINDOWS) || defined(_WIN32)
 
+// dll exports
 #ifdef NESSENGINE_EXPORTS
-#define NESSENGINE_API __declspec(dllexport)
-#elif defined(INFRALIB_EXPORTS_STATIC)
-#define NESSENGINE_API 
+#define	NESSENGINE_API __declspec(dllexport)
+
+// static linkage (export / import)
+#elif defined(NESSENGINE_STATIC)
+#define NESSENGINE_API
+
+// default: dll import
 #else
 #define NESSENGINE_API __declspec(dllimport)
 #endif 

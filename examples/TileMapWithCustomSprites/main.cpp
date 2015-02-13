@@ -30,7 +30,9 @@ Ness::SpritePtr CreateCustomSprites(const Ness::Pointi& index)
 	return ness_make_ptr<MySprite>(g_renderer, "tilemap.jpg");
 }
 
-int _tmain(int argc, char* argv[])
+#include <tchar.h>
+
+int _tmain(int argc, _TCHAR* argv[])
 {
 	// init and create a renderer
 	Ness::init();

@@ -8,9 +8,9 @@
 */
 
 #include <NessEngine.h>
+#include <tchar.h>
 
-
-int _tmain(int argc, char* argv[])
+int _tmain(int argc, _TCHAR* argv[])
 {
 	// init and create a renderer
 	Ness::init();

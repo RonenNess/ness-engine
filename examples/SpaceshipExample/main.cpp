@@ -25,7 +25,9 @@ bool remove_meteors_off_screen(const Ness::SpritePtr& meteor)
 	return false;
 }
 
-int _tmain(int argc, char* argv[])
+#include <tchar.h>
+
+int _tmain(int argc, _TCHAR* argv[])
 {
 	// init and create renderer
     Ness::init();
