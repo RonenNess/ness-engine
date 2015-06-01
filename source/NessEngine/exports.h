@@ -22,7 +22,7 @@
 
 #ifndef EXPORT_DEF_H_
 #define EXPORT_DEF_H_
-#define NESSENGINE_EXPORTS
+
 // WINDOWS EXPORTS (DLL)
 #if defined(_WINDOWS) || defined(_WIN32)
 
