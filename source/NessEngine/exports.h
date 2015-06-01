@@ -1,4 +1,4 @@
-/* 
+/*
   This software is provided 'as-is', without any express or implied
   warranty.  In no event will the authors be held liable for any damages
   arising from the use of this software.
@@ -22,7 +22,7 @@
 
 #ifndef EXPORT_DEF_H_
 #define EXPORT_DEF_H_
-
+#define NESSENGINE_EXPORTS
 // WINDOWS EXPORTS (DLL)
 #if defined(_WINDOWS) || defined(_WIN32)
 
@@ -37,17 +37,20 @@
 // default: dll import
 #else
 #define NESSENGINE_API __declspec(dllimport)
-#endif 
+#endif
 
 // LINUX EXPORTS (SO)
 #else
 
 #if defined(__GNUC__) && __GNUC__ >= 4
-#  define NESSENGINE_API __attribute__ ((visibility("default")))
+#ifdef NESSENGINE_EXPORTS
+#define NESSENGINE_API __attribute__ ((visibility("default")))
+#elif defined(NESSENGINE_STATIC)
+#define NESSENGINE_API
 #else
-#  define NESSENGINE_API
+#define NESSENGINE_API
 #endif
-#endif		
-
+#endif
+#endif
 
 #endif
