@@ -17,7 +17,6 @@ misrepresented as being the original software.
 
 Ronen Ness
 ronenness@gmail.com
-
 */
 
 #ifndef EXPORT_DEF_H_
