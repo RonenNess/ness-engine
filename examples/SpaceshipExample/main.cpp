@@ -2,6 +2,7 @@
 // NOTE!!! THIS IS THE LONG, PRETTIER VERSION OF THIS EXAMPLE.
 // TO SEE THE 100 LINES ONLY CODE, COMPILE '100_lines_of_code.cpp' INSTEAD!
 
+#include <algorithm>
 #include <NessEngine.h>
 
 // spaceship animation speed

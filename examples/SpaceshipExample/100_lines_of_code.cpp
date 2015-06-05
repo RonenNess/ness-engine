@@ -1,4 +1,5 @@
 #include <NessEngine.h>
+#include <algorithm>
 #define ANIMATION_SPEED 10.0f
 #define MOVEMENT_SPEED 500.0f
 float g_score = 0;
@@ -10,7 +11,7 @@ bool remove_meteors_off_screen(const Ness::SpritePtr& meteor)
 	meteor->parent()->remove(meteor);
 	return true;
 }
-int _tmain(int argc, _TCHAR* argv[])
+int _tmain(int argc, char* argv[])
 {
     Ness::init();
 	Ness::Renderer renderer("Spaceship", Ness::Sizei(800,600), Ness::DEFAULT_WINDOW_FLAGS, Ness::DEFAULT_RENDERER_FLAGS | Ness::RENDERER_FLAG_VSYNC);
@@ -97,4 +98,5 @@ int _tmain(int argc, _TCHAR* argv[])
         renderer.end_frame();
 		g_score += renderer.time_factor();
     }
+	return 0;
 }
