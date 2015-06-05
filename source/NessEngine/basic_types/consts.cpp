@@ -1,22 +1,22 @@
 /*
-  This software is provided 'as-is', without any express or implied
-  warranty.  In no event will the authors be held liable for any damages
-  arising from the use of this software.
+This software is provided 'as-is', without any express or implied
+warranty.  In no event will the authors be held liable for any damages
+arising from the use of this software.
 
-  Permission is granted to anyone to use this software for any purpose,
-  including commercial applications, and to alter it and redistribute it
-  freely, subject to the following restrictions:
+Permission is granted to anyone to use this software for any purpose,
+including commercial applications, and to alter it and redistribute it
+freely, subject to the following restrictions:
 
-  1. The origin of this software must not be misrepresented; you must not
-     claim that you wrote the original software. If you use this software
-     in a product, an acknowledgment in the product documentation would be
-     appreciated but is not required.
-  2. Altered source versions must be plainly marked as such, and must not be
-     misrepresented as being the original software.
-  3. This notice may not be removed or altered from any source distribution.
+1. The origin of this software must not be misrepresented; you must not
+claim that you wrote the original software. If you use this software
+in a product, an acknowledgment in the product documentation would be
+appreciated but is not required.
+2. Altered source versions must be plainly marked as such, and must not be
+misrepresented as being the original software.
+3. This notice may not be removed or altered from any source distribution.
 
-  Ronen Ness
-  ronenness@gmail.com
+Ronen Ness
+ronenness@gmail.com
 
 */
 
@@ -25,8 +25,8 @@
 #include "rectangle.h"
 #include "color.h"
 
-#if defined(_WINDOWS) || defined(_WIN32)
-#define TEMPLATE 
+#ifdef _MSC_VER
+#define TEMPLATE
 #else
 #define TEMPLATE template<>
 #endif
@@ -36,13 +36,13 @@ namespace Ness
 {
 
 	// Point consts
-	#define VECTOR2_CONSTS(__VType)      \
+#define VECTOR2_CONSTS(__VType)      \
         TEMPLATE \
-        __VType __VType::ONE(1, 1);	\
+         __VType __VType::ONE(1, 1);	\
         TEMPLATE \
-        __VType __VType::ZERO(0, 0); \
+         __VType __VType::ZERO(0, 0); \
         TEMPLATE \
-        __VType __VType::HALF(0.5f, 0.5f);
+         __VType __VType::HALF(0.5f, 0.5f);
 
 	VECTOR2_CONSTS(Pointf);
 	VECTOR2_CONSTS(Pointi);
@@ -56,27 +56,27 @@ namespace Ness
 	// all the static consts for all color types
 #define COLOR_CONSTS(__CType, __Factor)	\
         TEMPLATE \
-	__CType __CType::WHITE((1.0f * __Factor), (1.0f * __Factor), (1.0f * __Factor), (1.0f * __Factor));	\
+	 __CType __CType::WHITE((1.0f * __Factor), (1.0f * __Factor), (1.0f * __Factor), (1.0f * __Factor));	\
         TEMPLATE \
-	__CType __CType::GREY((0.5f * __Factor), (0.5f * __Factor), (0.5f * __Factor), (1.0f * __Factor));	\
+	 __CType __CType::GREY((0.5f * __Factor), (0.5f * __Factor), (0.5f * __Factor), (1.0f * __Factor));	\
         TEMPLATE \
-	__CType __CType::BLACK(0, 0, 0, (1.0f * __Factor));	\
+	 __CType __CType::BLACK(0, 0, 0, (1.0f * __Factor));	\
         TEMPLATE \
-	__CType __CType::RED((1.0f * __Factor), 0, 0, (1.0f * __Factor));	\
+	 __CType __CType::RED((1.0f * __Factor), 0, 0, (1.0f * __Factor));	\
         TEMPLATE \
-	__CType __CType::GREEN(0, (1.0f * __Factor), 0, (1.0f * __Factor));	\
+	 __CType __CType::GREEN(0, (1.0f * __Factor), 0, (1.0f * __Factor));	\
         TEMPLATE \
-	__CType __CType::BLUE(0, 0, (1.0f * __Factor), (1.0f * __Factor));	\
+	 __CType __CType::BLUE(0, 0, (1.0f * __Factor), (1.0f * __Factor));	\
         TEMPLATE \
-	__CType __CType::INVISIBLE(0, 0, 0, 0);	\
+	 __CType __CType::INVISIBLE(0, 0, 0, 0);	\
         TEMPLATE \
-	__CType __CType::HALF_INVISIBLE(0, 0, 0, (0.5f * __Factor)); \
+	 __CType __CType::HALF_INVISIBLE(0, 0, 0, (0.5f * __Factor)); \
         TEMPLATE \
-	__CType __CType::YELLOW((1.0f * __Factor), (1.0f * __Factor), 0, (1.0f * __Factor)); \
+	 __CType __CType::YELLOW((1.0f * __Factor), (1.0f * __Factor), 0, (1.0f * __Factor)); \
         TEMPLATE \
-	__CType __CType::CYAN(0.0f, (1.0f * __Factor), (1.0f * __Factor), (1.0f * __Factor)); \
+	 __CType __CType::CYAN(0.0f, (1.0f * __Factor), (1.0f * __Factor), (1.0f * __Factor)); \
         TEMPLATE \
-	__CType __CType::MAGENTA((1.0f * __Factor), 0.0f, (1.0f * __Factor), (1.0f * __Factor));
+	 __CType __CType::MAGENTA((1.0f * __Factor), 0.0f, (1.0f * __Factor), (1.0f * __Factor));
 
 
 	COLOR_CONSTS(Colorf, 1.0f);
